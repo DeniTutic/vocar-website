@@ -1,0 +1,80 @@
+@import "tailwindcss";
+
+/*
+  Voćar is a single deliberately warm, light brand world — the packaging
+  photography and per-category accent colors are tuned for a paper-like
+  ground, so this site intentionally ships one theme rather than a dark
+  mode (most food-brand marketing sites make the same call).
+*/
+:root {
+  --paper: #fbf3e4;
+  --paper-deep: #f2e4cc;
+  --surface: #fffdf8;
+  --ink: #2a1c14;
+  --ink-soft: #6b5847;
+  --line: #e6d7bc;
+  --brand-red: #c8202c;
+  --brand-red-deep: #7a1319;
+  --font-display: var(--font-fraunces);
+  --font-body: var(--font-archivo);
+}
+
+@theme inline {
+  --color-paper: var(--paper);
+  --color-paper-deep: var(--paper-deep);
+  --color-surface: var(--surface);
+  --color-ink: var(--ink);
+  --color-ink-soft: var(--ink-soft);
+  --color-line: var(--line);
+  --color-brand-red: var(--brand-red);
+  --color-brand-red-deep: var(--brand-red-deep);
+  --font-display: var(--font-display);
+  --font-body: var(--font-body);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-body), ui-sans-serif, system-ui, sans-serif;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--font-display), Georgia, serif;
+  text-wrap: balance;
+}
+
+::selection {
+  background: var(--brand-red);
+  color: var(--surface);
+}
+
+a:focus-visible,
+button:focus-visible {
+  outline: 2px solid var(--brand-red);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
