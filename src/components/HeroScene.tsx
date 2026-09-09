@@ -3,10 +3,10 @@
 import { useEffect, useMemo, useRef } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
 import * as THREE from "three";
-import { createFloatingForms, createOrganicGeometry, type FloatingForm } from "@/lib/organicForm";
+import { createFloatingForms, createSnackGeometry, type FloatingForm } from "@/lib/snackForms";
 import { useReducedMotion } from "@/lib/useReducedMotion";
 
-const COUNT = 11;
+const COUNT = 13;
 
 function FloatingField({ reducedMotion }: { reducedMotion: boolean }) {
   const forms = useMemo<FloatingForm[]>(() => createFloatingForms(COUNT), []);
@@ -34,6 +34,7 @@ function FloatingField({ reducedMotion }: { reducedMotion: boolean }) {
         mesh.position.y = f.baseY + Math.sin(t * f.floatSpeed + f.floatOffset) * 0.22;
         mesh.rotation.x = t * f.rotSpeed[0];
         mesh.rotation.y = t * f.rotSpeed[1];
+        mesh.rotation.z = t * f.rotSpeed[2];
       }
     }
 
@@ -56,8 +57,8 @@ function FloatingField({ reducedMotion }: { reducedMotion: boolean }) {
             meshRefs.current[i] = el;
           }}
         >
-          <primitive object={createOrganicGeometry(1, f.seed)} attach="geometry" />
-          <meshStandardMaterial color={f.color} roughness={0.55} metalness={0.05} transparent opacity={0.72} />
+          <primitive object={createSnackGeometry(f.kind, f.seed)} attach="geometry" />
+          <meshStandardMaterial color={f.color} roughness={0.6} metalness={0.02} transparent opacity={0.88} />
         </mesh>
       ))}
     </group>
