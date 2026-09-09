@@ -1,4 +1,4 @@
-import type { Localized } from "./dictionary";
+import type { Localized } from "./content";
 
 export interface Sku {
   name: Localized;
@@ -22,8 +22,8 @@ export const categories: Category[] = [
     slug: "prunes",
     name: { bs: "Suhe šljive", en: "Dried Prunes" },
     description: {
-      bs: "Sušene šljive bez koštice, na tradicionalan način — prirodne ili umočene u čokoladu.",
-      en: "Sun-dried plums, pitted the traditional way — plain, or dipped in chocolate.",
+      bs: "Sušene šljive bez koštice — prirodne ili u čokoladi.",
+      en: "Pitted, sun-dried plums — plain, or dipped in chocolate.",
     },
     image: "/images/categories/prunes.jpg",
     imageAlt: { bs: "Suhe šljive na zobenoj kaši sa bademima", en: "Dried prunes over oatmeal with almonds" },
@@ -40,8 +40,8 @@ export const categories: Category[] = [
     slug: "quinoa-flips",
     name: { bs: "Kinoa Flips", en: "Quinoa Flips" },
     description: {
-      bs: "Kukuruzno-kinoa grickalice u pet ukusa, od slatkog kukuruza do kečapa i kikirikija — lagane, hrskave, nezaustavljive.",
-      en: "Corn-and-quinoa puffs in five flavors, from sweet corn to ketchup and peanuts — light, crunchy, and endlessly snackable.",
+      bs: "Kukuruz i kinoa, napuhani u pet ukusa: slatki kukuruz, kikiriki, kečap i kikiriki, so, bez soli.",
+      en: "Puffed corn and quinoa, five ways: sweet corn, peanut, ketchup and peanut, salted, unsalted.",
     },
     image: "/images/categories/quinoa-flips.jpg",
     imageAlt: { bs: "Zdjela Q Flips kukuruzno-kinoa grickalica", en: "Bowl of Q Flips quinoa and corn puffs" },
@@ -59,8 +59,8 @@ export const categories: Category[] = [
     slug: "flips-time",
     name: { bs: "Flips Time", en: "Flips Time" },
     description: {
-      bs: "Krugovi od kukuruza punog ukusa — pizza, kikiriki i pikant — za filmske večeri i nedjeljni fudbal.",
-      en: "Bold corn-ring snacks in pizza, peanut and piquant — made for movie nights and Sunday football.",
+      bs: "Kukuruzni krugovi punog ukusa — pizza, kikiriki, pikant.",
+      en: "Full-flavor corn rings — pizza, peanut, piquant.",
     },
     image: "/images/categories/flips-time.jpg",
     imageAlt: { bs: "Vrećice Flips Time sa paradajzom i bosiljkom", en: "Flips Time bags with tomato and basil" },
@@ -76,8 +76,8 @@ export const categories: Category[] = [
     slug: "timi-flips",
     name: { bs: "Timi Flips", en: "Timi Flips" },
     description: {
-      bs: "Naši originalni kukuruzni krugovi i kikiriki flipsevi, u veličinama za užinu i za cijelu porodicu.",
-      en: "Our original corn rings and peanut puffs, sized for lunchboxes and family bowls alike.",
+      bs: "Originalni kukuruzni krugovi i kikiriki flipsevi, u pakovanjima za užinu i za cijelu porodicu.",
+      en: "The original corn rings and peanut puffs, in lunchbox and family sizes.",
     },
     image: "/images/categories/timi-flips.jpg",
     imageAlt: { bs: "Timi Pikant i Timi Flips kikiriki pakovanja", en: "Timi Pikant and Timi Flips peanut packs" },
@@ -95,8 +95,8 @@ export const categories: Category[] = [
     slug: "peanuts",
     name: { bs: "Kikiriki", en: "Peanuts" },
     description: {
-      bs: "Prženi, slani, u čili i paprika oblogama, ili vakumirani radi svježine — kikiriki na sve načine koje volimo.",
-      en: "Roasted, salted, chili- and paprika-coated, or vacuum-packed for freshness — peanuts done every way we love them.",
+      bs: "Prženi i slani, u čili ili paprika oblozi, ili vakumirani radi svježine.",
+      en: "Roasted and salted, chili- or paprika-coated, or vacuum-sealed for freshness.",
     },
     image: "/images/categories/peanuts.jpg",
     imageAlt: { bs: "Sneki kikiriki u drvenoj zdjeli", en: "Sneki peanuts in a wooden bowl" },
@@ -115,8 +115,8 @@ export const categories: Category[] = [
     slug: "peanut-butter",
     name: { bs: "Puter od kikirikija", en: "Peanut Butter" },
     description: {
-      bs: "100% kikiriki pretvoren u kremasti ili hrskavi namaz — za tost, zobene pahuljice ili direktno sa kašike.",
-      en: "100% peanuts pressed into a creamy or crunchy spread, for toast, oats, or straight off the spoon.",
+      bs: "100% kikiriki, pretvoren u kremasti ili ostavljen hrskav.",
+      en: "100% peanuts, pressed creamy or left crunchy.",
     },
     image: "/images/categories/peanut-butter.jpg",
     imageAlt: { bs: "Tost sa puterom od kikirikija i džemom", en: "Toast with peanut butter and jam" },
@@ -134,8 +134,8 @@ export const categories: Category[] = [
     slug: "popcorn",
     name: { bs: "Kokice", en: "Popcorn" },
     description: {
-      bs: "Slane, karamel ili čokoladne kokice — spremne za pucanje kod kuće, plus zrno za purističke ljubitelje.",
-      en: "Salted, caramel or chocolate — ready to pop at home, plus loose kernels for purists.",
+      bs: "Slane, karamel ili čokoladne — plus zrno za kuhanje kod kuće.",
+      en: "Salted, caramel, or chocolate — plus loose kernels for popping at home.",
     },
     image: "/images/categories/popcorn.jpg",
     imageAlt: { bs: "Kokice koje se prosipaju iz kutije", en: "Popcorn spilling out of a striped tub" },
@@ -154,8 +154,8 @@ export const categories: Category[] = [
     slug: "wafers",
     name: { bs: "Oblatne", en: "Wafers" },
     description: {
-      bs: "Hrskavi slojevi oblatni sa glatkim kremastim filom — klasika uz kafu.",
-      en: "Crisp wafer layers with a smooth cream filling — a coffee-break classic.",
+      bs: "Hrskavi slojevi oblatni, kremasti fil, dvije ambalaže.",
+      en: "Crisp wafer layers, a smooth cream fill, two pack styles.",
     },
     image: "/images/categories/wafers.jpg",
     imageAlt: { bs: "Naslagane Tima oblatne u ružičastoj zdjeli", en: "Stacked Tima wafers in a pink bowl" },
@@ -170,8 +170,8 @@ export const categories: Category[] = [
     slug: "groceries",
     name: { bs: "Namirnice", en: "Groceries" },
     description: {
-      bs: "Pšenični griz, instant polenta i kukuruzno brašno, mljeveno od najfinijih zrna za svakodnevnu kuhinju.",
-      en: "Wheat grits, instant polenta and corn flour, milled from the finest grains for everyday cooking.",
+      bs: "Griz, instant polenta i kukuruzno brašno — najfinije mljevenje za svakodnevni lonac.",
+      en: "Grits, instant polenta and corn flour — milled fine for the everyday pot.",
     },
     image: "/images/categories/groceries.jpg",
     imageAlt: { bs: "Zdjela sa voćem preko griza i vrećica polente", en: "Bowl of fruit over grits beside polenta packs" },
@@ -188,8 +188,8 @@ export const categories: Category[] = [
     slug: "chips",
     name: { bs: "Čips", en: "Chips" },
     description: {
-      bs: "Super hrskavi kukuruzni čips u ukusima piletine, pavlake i čilija — uvijek odličan ukus, uvijek brzo nestane.",
-      en: "Super-crunchy corn chips in chicken, sour cream and chili — always great taste, always gone fast.",
+      bs: "Super hrskavi kukuruzni čips — piletina, pavlaka, čili.",
+      en: "Super-crunchy corn chips — chicken, sour cream, chili.",
     },
     image: "/images/categories/chips.jpg",
     imageAlt: { bs: "Zdjela Crispy Fun čips kornetića", en: "Bowl of Crispy Fun chip cones" },
@@ -205,8 +205,8 @@ export const categories: Category[] = [
     slug: "cereals",
     name: { bs: "Žitarice i krem bar", en: "Cereals & Cream Bar" },
     description: {
-      bs: "Čokoladne kuglice sa vitaminima za doručak, i krem bar sa lješnjacima za ostatak dana.",
-      en: "Vitamin-packed chocolate cereal balls for breakfast, and a hazelnut cream bar for the rest of the day.",
+      bs: "Čokoladne kuglice sa vitaminima, i krem bar sa lješnjacima.",
+      en: "Vitamin-fortified chocolate cereal, and a hazelnut cream bar.",
     },
     image: "/images/categories/cereals.jpg",
     imageAlt: { bs: "Zdjela čokoladnih žitarica i Happy Cerios pakovanje", en: "Bowl of chocolate cereal balls beside a Happy Cerios pack" },

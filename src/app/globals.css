@@ -1,33 +1,39 @@
 @import "tailwindcss";
 
 /*
-  Voćar is a single deliberately warm, light brand world — the packaging
-  photography and per-category accent colors are tuned for a paper-like
-  ground, so this site intentionally ships one theme rather than a dark
-  mode (most food-brand marketing sites make the same call).
+  A single considered light theme — warm cream paper, deep forest green,
+  charcoal for high-contrast sections, natural fruit tones used sparingly
+  as accents. Premium European food-brand ground, not a SaaS dark/light
+  toggle.
 */
 :root {
-  --paper: #fbf3e4;
-  --paper-deep: #f2e4cc;
-  --surface: #fffdf8;
-  --ink: #2a1c14;
-  --ink-soft: #6b5847;
-  --line: #e6d7bc;
-  --brand-red: #c8202c;
-  --brand-red-deep: #7a1319;
-  --font-display: var(--font-fraunces);
-  --font-body: var(--font-archivo);
+  --cream: #f7f3ea;
+  --beige: #ede3d0;
+  --charcoal: #211f1a;
+  --forest: #1f3d2e;
+  --forest-deep: #142820;
+  --ink: #262420;
+  --ink-soft: #625a4d;
+  --line: #ddd2b8;
+  --plum: #6b3a50;
+  --amber: #c98a3b;
+  --berry: #8c2f39;
+  --font-display: var(--font-bodoni);
+  --font-body: var(--font-manrope);
 }
 
 @theme inline {
-  --color-paper: var(--paper);
-  --color-paper-deep: var(--paper-deep);
-  --color-surface: var(--surface);
+  --color-cream: var(--cream);
+  --color-beige: var(--beige);
+  --color-charcoal: var(--charcoal);
+  --color-forest: var(--forest);
+  --color-forest-deep: var(--forest-deep);
   --color-ink: var(--ink);
   --color-ink-soft: var(--ink-soft);
   --color-line: var(--line);
-  --color-brand-red: var(--brand-red);
-  --color-brand-red-deep: var(--brand-red-deep);
+  --color-plum: var(--plum);
+  --color-amber: var(--amber);
+  --color-berry: var(--berry);
   --font-display: var(--font-display);
   --font-body: var(--font-body);
 }
@@ -38,10 +44,11 @@
 
 html {
   scroll-behavior: smooth;
+  color-scheme: light;
 }
 
 body {
-  background: var(--paper);
+  background: var(--cream);
   color: var(--ink);
   font-family: var(--font-body), ui-sans-serif, system-ui, sans-serif;
 }
@@ -52,16 +59,19 @@ h3,
 h4 {
   font-family: var(--font-display), Georgia, serif;
   text-wrap: balance;
+  font-weight: 500;
 }
 
 ::selection {
-  background: var(--brand-red);
-  color: var(--surface);
+  background: var(--forest);
+  color: var(--cream);
 }
 
 a:focus-visible,
-button:focus-visible {
-  outline: 2px solid var(--brand-red);
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible {
+  outline: 2px solid var(--forest);
   outline-offset: 3px;
   border-radius: 2px;
 }
@@ -76,5 +86,6 @@ button:focus-visible {
     animation-duration: 0.001ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
   }
 }

@@ -1,43 +1,89 @@
 import type { Metadata } from "next";
-import { Fraunces, Archivo } from "next/font/google";
+import { Bodoni_Moda, Manrope } from "next/font/google";
 import "./globals.css";
-import { LanguageProvider } from "@/context/LanguageContext";
-import { Nav } from "@/components/Nav";
+import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
+import { SITE_URL } from "@/data/content";
 
-const fraunces = Fraunces({
-  variable: "--font-fraunces",
+const bodoni = Bodoni_Moda({
+  variable: "--font-bodoni",
   subsets: ["latin", "latin-ext"],
-  weight: ["500", "600", "700", "900"],
+  weight: ["500", "600", "700"],
   style: ["normal", "italic"],
   display: "swap",
 });
 
-const archivo = Archivo({
-  variable: "--font-archivo",
+const manrope = Manrope({
+  variable: "--font-manrope",
   subsets: ["latin", "latin-ext"],
   weight: ["400", "500", "600", "700"],
   display: "swap",
 });
 
 export const metadata: Metadata = {
-  title: "Voćar — Za bolji okus života",
+  metadataBase: new URL(SITE_URL),
+  title: {
+    default: "Voćar — Za bolji okus života",
+    template: "%s — Voćar",
+  },
   description:
-    "Voćar d.o.o. Brčko: snacks, nuts, spreads and pantry staples from Gornji Rahić, Bosnia and Herzegovina.",
+    "Voćar d.o.o. Brčko proizvodi grickalice, suho voće, čips, flips i kikiriki iz Gornjeg Rahića, Bosna i Hercegovina — generacije tradicije, prirodni sastojci, okus koji traje.",
+  keywords: [
+    "Voćar",
+    "Voćar d.o.o.",
+    "grickalice Bosna",
+    "suho voće BiH",
+    "čips proizvođač",
+    "Gornji Rahić",
+    "Brčko",
+  ],
+  authors: [{ name: "Voćar d.o.o. Brčko" }],
+  openGraph: {
+    type: "website",
+    locale: "bs_BA",
+    siteName: "Voćar",
+    title: "Voćar — Za bolji okus života",
+    description: "Generacije tradicije. Prirodni sastojci. Okus koji traje.",
+    url: SITE_URL,
+    images: [{ url: "/images/cover.jpg", width: 1426, height: 2000, alt: "Voćar proizvodi" }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Voćar — Za bolji okus života",
+    description: "Generacije tradicije. Prirodni sastojci. Okus koji traje.",
+    images: ["/images/cover.jpg"],
+  },
+  robots: { index: true, follow: true },
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html
-      lang="bs"
-      className={`${fraunces.variable} ${archivo.variable} h-full antialiased`}
-    >
-      <body className="min-h-full flex flex-col bg-paper text-ink">
-        <LanguageProvider>
-          <Nav />
-          <main className="flex-1">{children}</main>
-          <Footer />
-        </LanguageProvider>
+    <html lang="bs" className={`${bodoni.variable} ${manrope.variable} h-full antialiased`}>
+      <body className="min-h-full flex flex-col bg-cream text-ink">
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "Organization",
+              name: "Voćar d.o.o. Brčko",
+              url: SITE_URL,
+              logo: `${SITE_URL}/images/cover.jpg`,
+              address: {
+                "@type": "PostalAddress",
+                streetAddress: "Gornji Rahić 112",
+                postalCode: "76207",
+                addressLocality: "Gornji Rahić",
+                addressCountry: "BA",
+              },
+              telephone: "+387 49 512 415",
+              email: "sales@vocar.ba",
+            }),
+          }}
+        />
+        <Navbar />
+        <main className="flex-1">{children}</main>
+        <Footer />
       </body>
     </html>
   );
