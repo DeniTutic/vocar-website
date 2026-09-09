@@ -23,7 +23,7 @@ export default function KvalitetPage() {
         </div>
       </section>
 
-      <QualitySection />
+      <QualitySection showHeading={false} />
       <Timeline />
     </>
   );

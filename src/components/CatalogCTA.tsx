@@ -2,7 +2,7 @@ import { Download } from "lucide-react";
 import { home } from "@/data/content";
 import { ScrollReveal } from "./ScrollReveal";
 
-export function CatalogCTA() {
+export function CatalogCTA({ showHeading = true }: { showHeading?: boolean }) {
   return (
     <section className="px-5 py-20 sm:px-8 sm:py-28">
       <ScrollReveal className="mx-auto max-w-3xl">
@@ -10,11 +10,15 @@ export function CatalogCTA() {
           className="flex flex-col items-center gap-6 rounded-3xl px-8 py-16 text-center"
           style={{ background: "var(--forest)", color: "var(--cream)" }}
         >
-          <span className="text-xs font-semibold uppercase tracking-[0.14em]" style={{ color: "var(--amber)" }}>
-            {home.catalogEyebrow.bs}
-          </span>
-          <h2 className="text-4xl sm:text-5xl">{home.catalogTitle.bs}</h2>
-          <p className="max-w-md text-base opacity-85 sm:text-lg">{home.catalogBody.bs}</p>
+          {showHeading && (
+            <>
+              <span className="text-xs font-semibold uppercase tracking-[0.14em]" style={{ color: "var(--amber)" }}>
+                {home.catalogEyebrow.bs}
+              </span>
+              <h2 className="text-4xl sm:text-5xl">{home.catalogTitle.bs}</h2>
+              <p className="max-w-md text-base opacity-85 sm:text-lg">{home.catalogBody.bs}</p>
+            </>
+          )}
           <a
             href="/files/vocar-katalog.pdf"
             download

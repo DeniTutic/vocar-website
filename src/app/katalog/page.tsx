@@ -49,7 +49,7 @@ export default function KatalogPage() {
         </ScrollReveal>
       </section>
 
-      <CatalogCTA />
+      <CatalogCTA showHeading={false} />
     </>
   );
 }
