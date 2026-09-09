@@ -3,15 +3,23 @@
 import { useEffect, useMemo, useRef } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
 import * as THREE from "three";
-import { createFloatingForms, createSnackGeometry, type FloatingForm } from "@/lib/snackForms";
+import {
+  createFloatingForms,
+  createSnackGeometry,
+  popcornLobeOffsets,
+  type FloatingForm,
+} from "@/lib/snackForms";
 import { useReducedMotion } from "@/lib/useReducedMotion";
 
-const COUNT = 13;
+const COUNT = 24;
 
 function FloatingField({ reducedMotion }: { reducedMotion: boolean }) {
   const forms = useMemo<FloatingForm[]>(() => createFloatingForms(COUNT), []);
   const groupRef = useRef<THREE.Group>(null);
-  const meshRefs = useRef<Array<THREE.Mesh | null>>([]);
+  // Popcorn kinds render as a <group> of 3 lobes (real popcorn is knobby, not
+  // one blob); everything else is a single mesh. Both are Object3D, so one
+  // ref array and one animation loop drive position/rotation for either.
+  const itemRefs = useRef<Array<THREE.Object3D | null>>([]);
   const pointer = useRef({ x: 0, y: 0 });
 
   useEffect(() => {
@@ -28,39 +36,66 @@ function FloatingField({ reducedMotion }: { reducedMotion: boolean }) {
 
     if (!reducedMotion) {
       for (let i = 0; i < forms.length; i++) {
-        const mesh = meshRefs.current[i];
-        if (!mesh) continue;
+        const item = itemRefs.current[i];
+        if (!item) continue;
         const f = forms[i];
-        mesh.position.y = f.baseY + Math.sin(t * f.floatSpeed + f.floatOffset) * 0.22;
-        mesh.rotation.x = t * f.rotSpeed[0];
-        mesh.rotation.y = t * f.rotSpeed[1];
-        mesh.rotation.z = t * f.rotSpeed[2];
+        item.position.y = f.baseY + Math.sin(t * f.floatSpeed + f.floatOffset) * 0.22;
+        item.rotation.x = t * f.rotSpeed[0];
+        item.rotation.y = t * f.rotSpeed[1];
+        item.rotation.z = t * f.rotSpeed[2];
       }
     }
 
     if (groupRef.current) {
-      const targetY = reducedMotion ? 0 : pointer.current.x * 0.18;
-      const targetX = reducedMotion ? 0 : pointer.current.y * -0.09;
-      groupRef.current.rotation.y += (targetY - groupRef.current.rotation.y) * 0.03;
-      groupRef.current.rotation.x += (targetX - groupRef.current.rotation.x) * 0.03;
+      // A slow, continuous auto-rotation keeps the whole field turning on
+      // its own; the pointer only adds an offset on top of that baseline,
+      // so it never depends on the cursor moving to feel alive.
+      const autoSpin = reducedMotion ? 0 : t * 0.045;
+      const targetY = autoSpin + (reducedMotion ? 0 : pointer.current.x * 0.12);
+      const targetX = reducedMotion ? 0 : pointer.current.y * -0.06;
+      groupRef.current.rotation.y += (targetY - groupRef.current.rotation.y) * 0.05;
+      groupRef.current.rotation.x += (targetX - groupRef.current.rotation.x) * 0.05;
     }
   });
 
   return (
     <group ref={groupRef}>
-      {forms.map((f, i) => (
-        <mesh
-          key={i}
-          position={f.position}
-          scale={f.scale}
-          ref={(el) => {
-            meshRefs.current[i] = el;
-          }}
-        >
-          <primitive object={createSnackGeometry(f.kind, f.seed)} attach="geometry" />
-          <meshStandardMaterial color={f.color} roughness={0.6} metalness={0.02} transparent opacity={0.88} />
-        </mesh>
-      ))}
+      {forms.map((f, i) => {
+        if (f.kind === "popcorn") {
+          const lobes = popcornLobeOffsets(f.seed);
+          return (
+            <group
+              key={i}
+              position={f.position}
+              scale={f.scale}
+              ref={(el) => {
+                itemRefs.current[i] = el;
+              }}
+            >
+              {lobes.map((offset, li) => (
+                <mesh key={li} position={offset} scale={0.72}>
+                  <primitive object={createSnackGeometry("popcorn", f.seed + li * 31)} attach="geometry" />
+                  <meshStandardMaterial color={f.color} roughness={0.6} metalness={0.02} transparent opacity={0.88} />
+                </mesh>
+              ))}
+            </group>
+          );
+        }
+
+        return (
+          <mesh
+            key={i}
+            position={f.position}
+            scale={f.scale}
+            ref={(el) => {
+              itemRefs.current[i] = el;
+            }}
+          >
+            <primitive object={createSnackGeometry(f.kind, f.seed)} attach="geometry" />
+            <meshStandardMaterial color={f.color} roughness={0.6} metalness={0.02} transparent opacity={0.88} />
+          </mesh>
+        );
+      })}
     </group>
   );
 }

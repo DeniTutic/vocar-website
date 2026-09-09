@@ -1,6 +1,6 @@
 import * as THREE from "three";
 
-export type SnackKind = "popcorn" | "flip" | "keks" | "stick";
+export type SnackKind = "popcorn" | "flip" | "keks" | "stick" | "peanut";
 
 function seededRand(seed: number) {
   let s = seed;
@@ -25,10 +25,10 @@ function jitter(geometry: THREE.BufferGeometry, amount: number, seed: number): T
   return geometry;
 }
 
-/** A knobby, irregular puff — reads as a popped popcorn kernel. */
+/** One knobby lobe — three of these clustered together (see popcornLobeOffsets) read as a popped kernel. */
 function popcornGeometry(seed: number): THREE.BufferGeometry {
   const geo = new THREE.IcosahedronGeometry(1, 1);
-  return jitter(geo, 0.42, seed);
+  return jitter(geo, 0.4, seed);
 }
 
 /** A puffed ring — reads as a corn "flips" loop. */
@@ -49,6 +49,33 @@ function stickGeometry(seed: number): THREE.BufferGeometry {
   return jitter(geo, 0.06, seed);
 }
 
+/** A pinched, elongated double-lobe — reads as an unshelled peanut. */
+function peanutGeometry(seed: number): THREE.BufferGeometry {
+  const geo = new THREE.IcosahedronGeometry(1, 2);
+  const position = geo.attributes.position;
+  for (let i = 0; i < position.count; i++) {
+    const x = position.getX(i);
+    const waist = 0.5 + 0.5 * Math.abs(Math.tanh(x * 1.7));
+    position.setY(i, position.getY(i) * waist);
+    position.setZ(i, position.getZ(i) * waist);
+    position.setX(i, x * 1.5);
+  }
+  geo.computeVertexNormals();
+  return jitter(geo, 0.05, seed);
+}
+
+/** Three overlapping lobes, relative to a popcorn form's own origin — the cluster that makes one kernel. */
+export function popcornLobeOffsets(seed: number): Array<[number, number, number]> {
+  const rand = seededRand(seed + 500);
+  const offsets: Array<[number, number, number]> = [];
+  for (let i = 0; i < 3; i++) {
+    const a = (i / 3) * Math.PI * 2 + rand() * 0.7;
+    const r = 0.4 + rand() * 0.14;
+    offsets.push([Math.cos(a) * r, (rand() - 0.5) * 0.34, Math.sin(a) * r]);
+  }
+  return offsets;
+}
+
 export function createSnackGeometry(kind: SnackKind, seed: number): THREE.BufferGeometry {
   switch (kind) {
     case "popcorn":
@@ -59,6 +86,8 @@ export function createSnackGeometry(kind: SnackKind, seed: number): THREE.Buffer
       return keksGeometry(seed);
     case "stick":
       return stickGeometry(seed);
+    case "peanut":
+      return peanutGeometry(seed);
   }
 }
 
@@ -80,28 +109,35 @@ const SNACK_PALETTE: Record<SnackKind, string[]> = {
   flip: ["#e0a544", "#d9822e"],
   keks: ["#c9954a", "#a9723a"],
   stick: ["#d9b98a", "#c49a5f"],
+  peanut: ["#cdae7a", "#b8945a"],
 };
 
-const KIND_CYCLE: SnackKind[] = ["popcorn", "flip", "keks", "stick"];
+const KIND_CYCLE: SnackKind[] = ["popcorn", "flip", "keks", "stick", "peanut", "popcorn", "flip"];
+
+function spinSpeed(rand: () => number): number {
+  const magnitude = 0.55 + rand() * 1.1;
+  return rand() < 0.5 ? -magnitude : magnitude;
+}
 
 export function createFloatingForms(count: number): FloatingForm[] {
   const forms: FloatingForm[] = [];
   for (let i = 0; i < count; i++) {
+    const rand = seededRand(i * 91 + 7);
     const angle = (i / count) * Math.PI * 2;
-    const radiusX = 3.6 + Math.random() * 1.8;
-    const radiusY = 1.6 + Math.random() * 1.6;
-    const y = (Math.random() - 0.5) * 3.2;
+    const radiusX = 3.4 + rand() * 2.6;
+    const radiusY = 1.5 + rand() * 2.1;
+    const y = (rand() - 0.5) * 3.8;
     const kind = KIND_CYCLE[i % KIND_CYCLE.length];
     const tones = SNACK_PALETTE[kind];
     forms.push({
       kind,
-      position: [Math.cos(angle) * radiusX, y, Math.sin(angle) * radiusY - 1],
+      position: [Math.cos(angle) * radiusX, y, Math.sin(angle) * radiusY - 1.2],
       baseY: y,
-      scale: kind === "popcorn" ? 0.22 + Math.random() * 0.24 : 0.16 + Math.random() * 0.18,
+      scale: kind === "popcorn" ? 0.2 + rand() * 0.22 : 0.15 + rand() * 0.17,
       color: tones[i % tones.length],
-      floatSpeed: 0.25 + Math.random() * 0.35,
-      floatOffset: Math.random() * Math.PI * 2,
-      rotSpeed: [(Math.random() - 0.5) * 0.3, (Math.random() - 0.5) * 0.3, (Math.random() - 0.5) * 0.3],
+      floatSpeed: 0.25 + rand() * 0.35,
+      floatOffset: rand() * Math.PI * 2,
+      rotSpeed: [spinSpeed(rand), spinSpeed(rand), spinSpeed(rand)],
       seed: i * 17 + 3,
     });
   }
