@@ -1,7 +1,6 @@
 "use client";
 
 import dynamic from "next/dynamic";
-import Link from "next/link";
 import { motion, type Variants } from "framer-motion";
 import { ChevronDown } from "lucide-react";
 import { home } from "@/data/content";
@@ -60,20 +59,23 @@ export function Hero() {
           {home.heroSub.bs}
         </motion.p>
         <motion.div variants={item} className="mt-10 flex flex-wrap items-center justify-center gap-4">
-          <Link
-            href="/proizvodi"
+          {/* Plain <a>, not <Link>: reliably scrolls to the same-page anchor. */}
+          {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
+          <a
+            href="/#proizvodi"
             className="rounded-full px-7 py-3.5 text-sm font-semibold uppercase tracking-wide shadow-sm transition-transform hover:-translate-y-0.5"
             style={{ background: "var(--forest)", color: "var(--cream)" }}
           >
             {home.ctaPrimary.bs}
-          </Link>
-          <Link
-            href="/o-nama"
+          </a>
+          {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
+          <a
+            href="/#o-nama"
             className="rounded-full border px-7 py-3.5 text-sm font-semibold uppercase tracking-wide transition-colors hover:bg-white/60"
             style={{ borderColor: "var(--forest-deep)", color: "var(--forest-deep)" }}
           >
             {home.ctaSecondary.bs}
-          </Link>
+          </a>
         </motion.div>
       </motion.div>
 

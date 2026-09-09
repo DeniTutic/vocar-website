@@ -8,17 +8,23 @@ import { Menu, X } from "lucide-react";
 import { Logo } from "./Logo";
 import { nav } from "@/data/content";
 
+// Plain <a> tags, not next/link: these are same-page hash anchors, and a
+// client-routed Link to "/#id" updates the URL but does not reliably
+// trigger the browser's native scroll-to-anchor when already on "/".
+// A real <a href="/#id"> scrolls natively both from "/" itself and, via a
+// full navigation, from any other route (e.g. a product detail page).
 const links = [
   { href: "/", key: "home" as const },
-  { href: "/proizvodi", key: "products" as const },
-  { href: "/o-nama", key: "about" as const },
-  { href: "/kvalitet", key: "quality" as const },
-  { href: "/katalog", key: "catalog" as const },
-  { href: "/kontakt", key: "contact" as const },
+  { href: "/#proizvodi", key: "products" as const },
+  { href: "/#o-nama", key: "about" as const },
+  { href: "/#kvalitet", key: "quality" as const },
+  { href: "/#katalog", key: "catalog" as const },
+  { href: "/#kontakt", key: "contact" as const },
 ];
 
 export function Navbar() {
   const pathname = usePathname();
+  const isHome = pathname === "/";
   const [open, setOpen] = useState(false);
   const { scrollY } = useScroll();
   const [scrolled, setScrolled] = useState(false);
@@ -50,9 +56,9 @@ export function Navbar() {
 
         <nav className="hidden items-center gap-1 lg:flex">
           {links.map((link) => {
-            const active = pathname === link.href;
+            const active = link.href === "/" && isHome;
             return (
-              <Link
+              <a
                 key={link.href}
                 href={link.href}
                 className="rounded-full px-4 py-2 text-sm font-medium transition-colors"
@@ -62,19 +68,20 @@ export function Navbar() {
                 }}
               >
                 {nav[link.key].bs}
-              </Link>
+              </a>
             );
           })}
         </nav>
 
         <div className="flex items-center gap-3">
-          <Link
-            href="/proizvodi"
+          {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
+          <a
+            href="/#proizvodi"
             className="hidden rounded-full px-5 py-2.5 text-sm font-semibold uppercase tracking-wide sm:inline-flex"
             style={{ background: "var(--forest)", color: "var(--cream)" }}
           >
             Naši proizvodi
-          </Link>
+          </a>
           <button
             type="button"
             onClick={() => setOpen((v) => !v)}
@@ -95,24 +102,25 @@ export function Navbar() {
         >
           <nav className="mx-auto flex max-w-7xl flex-col gap-1 px-5 py-4">
             {links.map((link) => (
-              <Link
+              <a
                 key={link.href}
                 href={link.href}
                 onClick={() => setOpen(false)}
                 className="rounded-lg px-3 py-2.5 text-base font-medium"
-                style={{ color: pathname === link.href ? "var(--forest)" : "var(--ink)" }}
+                style={{ color: "var(--ink)" }}
               >
                 {nav[link.key].bs}
-              </Link>
+              </a>
             ))}
-            <Link
-              href="/proizvodi"
+            {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
+            <a
+              href="/#proizvodi"
               onClick={() => setOpen(false)}
               className="mt-2 rounded-full px-5 py-2.5 text-center text-sm font-semibold uppercase tracking-wide"
               style={{ background: "var(--forest)", color: "var(--cream)" }}
             >
               Naši proizvodi
-            </Link>
+            </a>
           </nav>
         </div>
       )}

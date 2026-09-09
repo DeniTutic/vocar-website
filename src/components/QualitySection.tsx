@@ -9,21 +9,15 @@ import { CertificateCard } from "./CertificateCard";
 
 const POINTS = [home.qualityPoint1.bs, home.qualityPoint2.bs, home.qualityPoint3.bs, home.qualityPoint4.bs];
 
-export function QualitySection({ showHeading = true }: { showHeading?: boolean }) {
+export function QualitySection() {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
 
   return (
-    <section className="py-20 sm:py-28" style={{ background: "var(--charcoal)" }}>
+    <section id="kvalitet" className="scroll-mt-20 py-20 sm:py-28" style={{ background: "var(--charcoal)" }}>
       <div className="mx-auto max-w-7xl px-5 sm:px-8">
         <div className="grid gap-12 lg:grid-cols-2 lg:gap-16">
           <div>
-            {showHeading ? (
-              <SectionHeading eyebrow={home.qualityEyebrow.bs} title={home.qualityTitle.bs} body={home.qualityBody.bs} dark />
-            ) : (
-              <p className="max-w-2xl text-base leading-relaxed sm:text-lg" style={{ color: "rgba(247,243,234,0.75)" }}>
-                {home.qualityBody.bs}
-              </p>
-            )}
+            <SectionHeading eyebrow={home.qualityEyebrow.bs} title={home.qualityTitle.bs} body={home.qualityBody.bs} dark />
             <ul className="mt-8 flex flex-col gap-3">
               {POINTS.map((point) => (
                 <li key={point} className="flex items-center gap-3 text-sm sm:text-base" style={{ color: "var(--beige)" }}>

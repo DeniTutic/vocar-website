@@ -14,7 +14,7 @@ export function ProductShowcase() {
   const visible = useMemo(() => products.filter((p) => p.category.slug === active), [active]);
 
   return (
-    <section className="py-20 sm:py-28" style={{ background: "var(--beige)" }}>
+    <section id="proizvodi" className="scroll-mt-20 py-20 sm:py-28" style={{ background: "var(--beige)" }}>
       <div className="mx-auto max-w-7xl px-5 sm:px-8">
         <SectionHeading eyebrow={home.showcaseEyebrow.bs} title={home.showcaseTitle.bs} body={home.showcaseBody.bs} />
 

@@ -1,11 +1,19 @@
 import Image from "next/image";
-import { home } from "@/data/content";
+import { Leaf, Hammer, Gauge, HeartHandshake } from "lucide-react";
+import { home, about } from "@/data/content";
 import { ScrollReveal } from "./ScrollReveal";
 import { Stats } from "./Stats";
 
+const VALUES = [
+  { icon: Leaf, text: about.value1.bs },
+  { icon: Hammer, text: about.value2.bs },
+  { icon: Gauge, text: about.value3.bs },
+  { icon: HeartHandshake, text: about.value4.bs },
+];
+
 export function BrandStory() {
   return (
-    <section className="mx-auto max-w-7xl px-5 py-20 sm:px-8 sm:py-28">
+    <section id="o-nama" className="scroll-mt-20 mx-auto max-w-7xl px-5 py-20 sm:px-8 sm:py-28">
       <div className="grid gap-12 lg:grid-cols-2 lg:gap-20">
         <ScrollReveal>
           <span className="text-xs font-semibold uppercase tracking-[0.14em]" style={{ color: "var(--forest)" }}>
@@ -15,8 +23,8 @@ export function BrandStory() {
             {home.storyTitle.bs}
           </h2>
           <div className="mt-6 flex flex-col gap-4 text-base leading-relaxed sm:text-lg" style={{ color: "var(--ink-soft)" }}>
-            <p>{home.storyBody1.bs}</p>
-            <p>{home.storyBody2.bs}</p>
+            <p>{about.historyBody.bs}</p>
+            <p>{about.missionBody.bs}</p>
           </div>
 
           <div className="mt-12">
@@ -40,6 +48,22 @@ export function BrandStory() {
           />
         </ScrollReveal>
       </div>
+
+      <ScrollReveal className="mt-16 border-t pt-12" style={{ borderColor: "var(--line)" }}>
+        <h3 className="text-2xl" style={{ color: "var(--forest-deep)" }}>
+          {about.valuesTitle.bs}
+        </h3>
+        <div className="mt-8 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
+          {VALUES.map((v) => (
+            <div key={v.text} className="flex flex-col items-start gap-3 rounded-2xl border p-6" style={{ borderColor: "var(--line)" }}>
+              <v.icon size={26} style={{ color: "var(--forest)" }} strokeWidth={1.5} />
+              <span className="text-base font-medium" style={{ color: "var(--ink)" }}>
+                {v.text}
+              </span>
+            </div>
+          ))}
+        </div>
+      </ScrollReveal>
     </section>
   );
 }

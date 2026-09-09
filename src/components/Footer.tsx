@@ -1,14 +1,13 @@
-import Link from "next/link";
 import { Logo } from "./Logo";
 import { nav, footerContent } from "@/data/content";
 
 const links = [
   { href: "/", key: "home" as const },
-  { href: "/proizvodi", key: "products" as const },
-  { href: "/o-nama", key: "about" as const },
-  { href: "/kvalitet", key: "quality" as const },
-  { href: "/katalog", key: "catalog" as const },
-  { href: "/kontakt", key: "contact" as const },
+  { href: "/#proizvodi", key: "products" as const },
+  { href: "/#o-nama", key: "about" as const },
+  { href: "/#kvalitet", key: "quality" as const },
+  { href: "/#katalog", key: "catalog" as const },
+  { href: "/#kontakt", key: "contact" as const },
 ];
 
 export function Footer() {
@@ -30,9 +29,9 @@ export function Footer() {
             {nav.products.bs}
           </span>
           {links.map((link) => (
-            <Link key={link.href} href={link.href} className="w-fit opacity-80 hover:opacity-100">
+            <a key={link.href} href={link.href} className="w-fit opacity-80 hover:opacity-100">
               {nav[link.key].bs}
-            </Link>
+            </a>
           ))}
         </div>
 

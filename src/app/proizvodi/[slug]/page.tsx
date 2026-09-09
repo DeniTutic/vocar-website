@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import Image from "next/image";
-import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowLeft } from "lucide-react";
 import { products, getProductBySlug, getRelatedProducts } from "@/data/products";
@@ -46,14 +45,17 @@ export default async function ProductPage({
   return (
     <>
       <section className="mx-auto max-w-6xl px-5 py-12 sm:px-8 sm:py-16">
-        <Link
-          href={`/proizvodi#${product.category.slug}`}
+        {/* Plain <a>, not <Link>: a same-hash section lives on "/" and a
+            real navigation is what reliably scrolls to it on load. */}
+        {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
+        <a
+          href="/#proizvodi"
           className="inline-flex items-center gap-2 text-sm font-medium"
           style={{ color: "var(--forest)" }}
         >
           <ArrowLeft size={16} />
           {productPage.backToCategory.bs}
-        </Link>
+        </a>
 
         <div className="mt-8 grid gap-10 lg:grid-cols-2 lg:gap-16">
           <ScrollReveal className="relative aspect-square overflow-hidden rounded-3xl" style={{ background: "var(--beige)" }}>

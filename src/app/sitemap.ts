@@ -3,12 +3,12 @@ import { products } from "@/data/products";
 import { SITE_URL } from "@/data/content";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const staticRoutes = ["", "/proizvodi", "/o-nama", "/kvalitet", "/katalog", "/kontakt"].map((path) => ({
-    url: `${SITE_URL}${path}`,
+  const home = {
+    url: SITE_URL,
     lastModified: new Date(),
     changeFrequency: "monthly" as const,
-    priority: path === "" ? 1 : 0.8,
-  }));
+    priority: 1,
+  };
 
   const productRoutes = products.map((p) => ({
     url: `${SITE_URL}/proizvodi/${p.slug}`,
@@ -17,5 +17,5 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.6,
   }));
 
-  return [...staticRoutes, ...productRoutes];
+  return [home, ...productRoutes];
 }
