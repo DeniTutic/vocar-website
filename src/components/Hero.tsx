@@ -1,13 +1,9 @@
 "use client";
 
-import dynamic from "next/dynamic";
 import { motion, type Variants } from "framer-motion";
 import { ChevronDown } from "lucide-react";
 import { home } from "@/data/content";
-
-const HeroScene = dynamic(() => import("./HeroScene").then((m) => m.HeroScene), {
-  ssr: false,
-});
+import { HeroProductField } from "./HeroProductField";
 
 const EASE_OUT: [number, number, number, number] = [0.22, 1, 0.36, 1];
 
@@ -27,7 +23,7 @@ export function Hero() {
       className="relative isolate flex min-h-[100svh] flex-col justify-center overflow-hidden border-b"
       style={{ borderColor: "var(--line)", background: "linear-gradient(180deg, #faf7f0 0%, #f7f3ea 55%, #ede3d0 100%)" }}
     >
-      <HeroScene />
+      <HeroProductField />
 
       <div
         className="pointer-events-none absolute inset-0 z-[5]"
