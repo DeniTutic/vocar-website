@@ -7,13 +7,15 @@ import { SectionHeading } from "./SectionHeading";
 
 // Hand-placed to roughly echo real bearing/distance from Gornji Rahić rather
 // than an even hub-and-spoke wheel — nearby ex-Yugoslav markets cluster close,
-// Germany and Turkey sit further out, and the US sits far across the map.
+// Germany and Turkey sit further out, and the US/Mexico/Russia/Australia sit
+// far across the map. The first seven markets were requested directly; the
+// UAE/Australia/Russia/Mexico additions match Voćar's real export markets.
 const NODES: {
   x: number;
   y: number;
   label: Localized;
   origin?: true;
-  anchor: "start" | "middle";
+  anchor: "start" | "middle" | "end";
   dx: number;
   dy: number;
 }[] = [
@@ -25,6 +27,10 @@ const NODES: {
   { x: 570, y: 235, label: { bs: "Turska", en: "Turkey" }, anchor: "start", dx: 10, dy: 5 },
   { x: 615, y: 285, label: { bs: "Saudijska Arabija", en: "Saudi Arabia" }, anchor: "middle", dx: 0, dy: 24 },
   { x: 55, y: 135, label: { bs: "Sjedinjene Američke Države", en: "United States" }, anchor: "start", dx: 10, dy: -12 },
+  { x: 640, y: 260, label: { bs: "Ujedinjeni Arapski Emirati", en: "United Arab Emirates" }, anchor: "start", dx: 10, dy: 5 },
+  { x: 760, y: 30, label: { bs: "Rusija", en: "Russia" }, anchor: "end", dx: -10, dy: 20 },
+  { x: 25, y: 235, label: { bs: "Meksiko", en: "Mexico" }, anchor: "start", dx: 8, dy: -10 },
+  { x: 790, y: 380, label: { bs: "Australija", en: "Australia" }, anchor: "end", dx: -10, dy: -12 },
 ];
 
 export function DistributionMap() {
@@ -38,7 +44,7 @@ export function DistributionMap() {
 
         <div className="mx-auto mt-14 max-w-3xl">
           <svg
-            viewBox="0 0 720 340"
+            viewBox="0 0 820 400"
             className="w-full"
             role="img"
             aria-label={NODES.map((n) => t(n.label)).join(", ")}
