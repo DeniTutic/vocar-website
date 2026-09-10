@@ -110,14 +110,16 @@ export function Navbar() {
 
         <div className="flex items-center gap-3">
           <LanguageSwitcher />
-          {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
-          <a
+          <motion.a
             href="/#proizvodi"
             className="hidden rounded-full px-5 py-2.5 text-sm font-semibold uppercase tracking-wide sm:inline-flex"
             style={{ background: "var(--forest)", color: "var(--cream)" }}
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.92 }}
+            transition={{ type: "spring", stiffness: 400, damping: 15 }}
           >
             {t(nav.ctaProducts)}
-          </a>
+          </motion.a>
           <button
             type="button"
             onClick={() => setOpen((v) => !v)}

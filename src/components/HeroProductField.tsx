@@ -130,11 +130,14 @@ export function HeroProductField() {
         >
           <motion.div
             className={`relative ${p.sizeClass} overflow-hidden rounded-3xl shadow-xl ring-4 ring-white/70`}
-            animate={reducedMotion ? undefined : { y: [-10, 10, -10] }}
+            animate={reducedMotion ? undefined : { y: [-10, 10, -10], rotate: [-2.5, 2.5, -2.5] }}
             transition={
               reducedMotion
                 ? undefined
-                : { duration: p.duration, delay: p.delay, repeat: Infinity, ease: "easeInOut" }
+                : {
+                    y: { duration: p.duration, delay: p.delay, repeat: Infinity, ease: "easeInOut" },
+                    rotate: { duration: p.duration * 1.35, delay: p.delay, repeat: Infinity, ease: "easeInOut" },
+                  }
             }
           >
             <Image

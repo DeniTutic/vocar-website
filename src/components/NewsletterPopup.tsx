@@ -2,7 +2,7 @@
 
 import { useEffect, useState, type FormEvent } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { Mail, X, CheckCircle2 } from "lucide-react";
+import { Mail, X, Check } from "lucide-react";
 import { newsletter } from "@/data/content";
 import { useT } from "@/lib/locale";
 
@@ -10,12 +10,43 @@ const STORAGE_KEY = "vocar_newsletter_seen";
 const SHOW_DELAY_MS = 8000;
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
+const CONFETTI_COLORS = ["var(--pop)", "var(--amber)", "var(--plum)", "var(--forest)"];
+
+interface ConfettiPiece {
+  id: number;
+  x: number;
+  y: number;
+  rotate: number;
+  color: string;
+  delay: number;
+  size: number;
+}
+
+// Called from the submit handler (an event, not render), where Math.random()
+// is fine — generating this during render would violate component purity.
+function generateConfetti(count: number): ConfettiPiece[] {
+  return Array.from({ length: count }, (_, i) => {
+    const angle = (i / count) * Math.PI * 2 + (Math.random() - 0.5) * 0.7;
+    const distance = 55 + Math.random() * 65;
+    return {
+      id: i,
+      x: Math.cos(angle) * distance,
+      y: Math.sin(angle) * distance - 15,
+      rotate: (Math.random() - 0.5) * 360,
+      color: CONFETTI_COLORS[i % CONFETTI_COLORS.length],
+      delay: Math.random() * 0.12,
+      size: 5 + Math.random() * 5,
+    };
+  });
+}
+
 export function NewsletterPopup() {
   const t = useT();
   const [open, setOpen] = useState(false);
   const [email, setEmail] = useState("");
   const [error, setError] = useState("");
   const [sent, setSent] = useState(false);
+  const [confetti, setConfetti] = useState<ConfettiPiece[]>([]);
 
   useEffect(() => {
     let alreadySeen = false;
@@ -49,6 +80,7 @@ export function NewsletterPopup() {
     const subject = encodeURIComponent("Prijava na newsletter");
     const body = encodeURIComponent(`Email za prijavu: ${email}`);
     window.location.href = `mailto:sales@vocar.ba?subject=${subject}&body=${body}`;
+    setConfetti(generateConfetti(16));
     setSent(true);
   }
 
@@ -111,9 +143,32 @@ export function NewsletterPopup() {
             </p>
 
             {sent ? (
-              <div className="mt-6 flex items-start gap-2 text-sm" style={{ color: "var(--forest)" }} role="status">
-                <CheckCircle2 size={18} className="mt-0.5 shrink-0" />
-                <span>{t(newsletter.success)}</span>
+              <div className="mt-6 flex flex-col items-center gap-3 py-2 text-center" role="status">
+                <div className="relative flex h-16 w-16 items-center justify-center">
+                  {confetti.map((p) => (
+                    <motion.span
+                      key={p.id}
+                      className="absolute left-1/2 top-1/2 rounded-full"
+                      style={{ background: p.color, width: p.size, height: p.size }}
+                      initial={{ x: 0, y: 0, opacity: 1, scale: 0 }}
+                      animate={{ x: p.x, y: p.y, opacity: 0, scale: 1, rotate: p.rotate }}
+                      transition={{ duration: 0.9, delay: p.delay, ease: "easeOut" }}
+                      aria-hidden
+                    />
+                  ))}
+                  <motion.div
+                    initial={{ scale: 0 }}
+                    animate={{ scale: 1 }}
+                    transition={{ type: "spring", stiffness: 300, damping: 12, delay: 0.1 }}
+                    className="flex h-14 w-14 items-center justify-center rounded-full"
+                    style={{ background: "var(--forest)" }}
+                  >
+                    <Check size={28} style={{ color: "var(--cream)" }} strokeWidth={3} />
+                  </motion.div>
+                </div>
+                <p className="text-sm leading-relaxed" style={{ color: "var(--ink-soft)" }}>
+                  {t(newsletter.success)}
+                </p>
               </div>
             ) : (
               <form onSubmit={handleSubmit} noValidate className="mt-6 flex flex-col gap-3">
@@ -132,13 +187,16 @@ export function NewsletterPopup() {
                     {error}
                   </p>
                 )}
-                <button
+                <motion.button
                   type="submit"
                   className="inline-flex items-center justify-center rounded-full px-7 py-3.5 text-sm font-semibold uppercase tracking-wide"
                   style={{ background: "var(--forest)", color: "var(--cream)" }}
+                  whileHover={{ scale: 1.03 }}
+                  whileTap={{ scale: 0.94 }}
+                  transition={{ type: "spring", stiffness: 400, damping: 15 }}
                 >
                   {t(newsletter.submit)}
-                </button>
+                </motion.button>
                 <p className="text-center text-xs" style={{ color: "var(--ink-soft)" }}>
                   {t(newsletter.disclaimer)}
                 </p>

@@ -59,22 +59,26 @@ export function Hero() {
         </motion.p>
         <motion.div variants={item} className="mt-10 flex flex-wrap items-center justify-center gap-4">
           {/* Plain <a>, not <Link>: reliably scrolls to the same-page anchor. */}
-          {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
-          <a
+          <motion.a
             href="/#proizvodi"
-            className="rounded-full px-7 py-3.5 text-sm font-semibold uppercase tracking-wide shadow-sm transition-transform hover:-translate-y-0.5"
+            className="rounded-full px-7 py-3.5 text-sm font-semibold uppercase tracking-wide shadow-sm"
             style={{ background: "var(--forest)", color: "var(--cream)" }}
+            whileHover={{ y: -3, scale: 1.03 }}
+            whileTap={{ scale: 0.94 }}
+            transition={{ type: "spring", stiffness: 400, damping: 15 }}
           >
             {t(home.ctaPrimary)}
-          </a>
-          {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
-          <a
+          </motion.a>
+          <motion.a
             href="/#o-nama"
             className="rounded-full border px-7 py-3.5 text-sm font-semibold uppercase tracking-wide transition-colors hover:bg-white/60"
             style={{ borderColor: "var(--forest-deep)", color: "var(--forest-deep)" }}
+            whileHover={{ y: -3, scale: 1.03 }}
+            whileTap={{ scale: 0.94 }}
+            transition={{ type: "spring", stiffness: 400, damping: 15 }}
           >
             {t(home.ctaSecondary)}
-          </a>
+          </motion.a>
         </motion.div>
       </motion.div>
 
