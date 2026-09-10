@@ -5,7 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { products, type Product } from "@/data/products";
-import { home } from "@/data/content";
+import { home, type Localized } from "@/data/content";
 import { SectionHeading } from "./SectionHeading";
 
 function findFlagship(categorySlug: string, nameIncludes: string): Product | undefined {
@@ -14,14 +14,18 @@ function findFlagship(categorySlug: string, nameIncludes: string): Product | und
   );
 }
 
-const FLAGSHIPS = [
-  findFlagship("peanut-butter", "kremasti 100"),
-  findFlagship("popcorn", "karamel"),
-  findFlagship("prunes", "čoko"),
-  findFlagship("chips", "piletina"),
-].filter((p): p is Product => Boolean(p));
+const FLAGSHIP_CANDIDATES: { product: Product | undefined; badge: Localized }[] = [
+  { product: findFlagship("peanut-butter", "kremasti 100"), badge: home.qualityBadge },
+  { product: findFlagship("popcorn", "karamel"), badge: home.bestsellerBadge },
+  { product: findFlagship("prunes", "čoko"), badge: home.favoriteBadge },
+  { product: findFlagship("chips", "piletina"), badge: home.seasonalBadge },
+];
 
-function FeaturedRow({ product, index }: { product: Product; index: number }) {
+const FLAGSHIPS = FLAGSHIP_CANDIDATES.filter(
+  (f): f is { product: Product; badge: Localized } => Boolean(f.product)
+);
+
+function FeaturedRow({ product, badge, index }: { product: Product; badge: Localized; index: number }) {
   const ref = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "end start"] });
   const y = useTransform(scrollYProgress, [0, 1], [40, -40]);
@@ -43,7 +47,7 @@ function FeaturedRow({ product, index }: { product: Product; index: number }) {
           className="inline-block rounded-full px-3 py-1 text-xs font-semibold uppercase tracking-wide"
           style={{ background: "var(--forest)", color: "var(--cream)" }}
         >
-          {home.qualityBadge.bs}
+          {badge.bs}
         </span>
         <h3 className="mt-4 text-4xl leading-tight sm:text-5xl" style={{ color: "var(--forest-deep)" }}>
           {product.name}
@@ -69,8 +73,8 @@ export function FeaturedProducts() {
     <section className="mx-auto max-w-6xl px-5 py-20 sm:px-8 sm:py-28">
       <SectionHeading eyebrow={home.featuredEyebrow.bs} title={home.featuredTitle.bs} align="center" />
       <div className="mt-8 divide-y" style={{ borderColor: "var(--line)" }}>
-        {FLAGSHIPS.map((product, i) => (
-          <FeaturedRow key={product.slug} product={product} index={i} />
+        {FLAGSHIPS.map(({ product, badge }, i) => (
+          <FeaturedRow key={product.slug} product={product} badge={badge} index={i} />
         ))}
       </div>
     </section>

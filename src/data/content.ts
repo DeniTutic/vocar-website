@@ -55,6 +55,9 @@ export const home = {
   featuredTitle: { bs: "Naši favoriti", en: "Our favorites" },
   learnMore: { bs: "Saznaj više", en: "Learn more" },
   qualityBadge: { bs: "100% kvalitet", en: "100% quality" },
+  bestsellerBadge: { bs: "Najprodavaniji", en: "Best seller" },
+  favoriteBadge: { bs: "Omiljeno kupaca", en: "Customer favorite" },
+  seasonalBadge: { bs: "Hit sezone", en: "Seasonal hit" },
 
   qualityEyebrow: { bs: "Kvalitet", en: "Quality" },
   qualityTitle: { bs: "Kvalitet koji se osjeti.", en: "Quality you can taste." },
