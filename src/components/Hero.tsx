@@ -5,6 +5,7 @@ import { ChevronDown } from "lucide-react";
 import { home } from "@/data/content";
 import { useT } from "@/lib/locale";
 import { HeroProductField } from "./HeroProductField";
+import { Logo } from "./Logo";
 
 const EASE_OUT: [number, number, number, number] = [0.22, 1, 0.36, 1];
 
@@ -43,13 +44,24 @@ export function Hero() {
         animate="show"
         className="relative z-10 mx-auto w-full max-w-5xl px-5 py-24 text-center sm:px-8"
       >
-        <motion.h1
-          variants={item}
-          className="text-5xl leading-[1.05] sm:text-7xl lg:text-8xl"
-          style={{ color: "var(--forest-deep)" }}
-        >
-          {t(home.heroHeadline)}
-        </motion.h1>
+        <div className="relative">
+          <motion.div
+            className="pointer-events-none absolute inset-0 z-0 flex items-center justify-center"
+            initial={{ opacity: 0, scale: 0.94 }}
+            animate={{ opacity: 0.08, scale: 1 }}
+            transition={{ duration: 1.4, delay: 0.2, ease: EASE_OUT }}
+            aria-hidden
+          >
+            <Logo decorative priority={false} className="h-[130%] w-auto sm:h-[150%]" />
+          </motion.div>
+          <motion.h1
+            variants={item}
+            className="relative z-10 text-5xl leading-[1.05] sm:text-7xl lg:text-8xl"
+            style={{ color: "var(--forest-deep)" }}
+          >
+            {t(home.heroHeadline)}
+          </motion.h1>
+        </div>
         <motion.p
           variants={item}
           className="mx-auto mt-6 max-w-xl text-lg leading-relaxed sm:text-xl"
