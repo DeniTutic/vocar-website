@@ -73,6 +73,26 @@ export const home = {
 
   processEyebrow: { bs: "Proces", en: "Process" },
   processTitle: { bs: "Od sastojka do vaše police.", en: "From ingredient to your shelf." },
+  processStep1Comment: {
+    bs: "Sve što koristimo treba da bude svježe i testirano prije nego uđe u proizvodnju.",
+    en: "Everything we use has to be fresh and tested before it enters production.",
+  },
+  processStep2Comment: {
+    bs: "Rade edukovani profesionalci, uz opremu koja se redovno održava.",
+    en: "Run by trained professionals, on equipment that's regularly maintained.",
+  },
+  processStep3Comment: {
+    bs: "Svaka serija se provjerava prije nego napusti pogon.",
+    en: "Every batch is checked before it leaves the plant.",
+  },
+  processStep4Comment: {
+    bs: "Pakujemo brzo, ali nikad na račun higijene.",
+    en: "We package quickly, but never at the expense of hygiene.",
+  },
+  processStep5Comment: {
+    bs: "Stiže svježe na policu, bez obzira koliko je put dug.",
+    en: "It arrives fresh on the shelf, no matter how long the trip.",
+  },
 
   worldEyebrow: { bs: "Prisutnost", en: "Presence" },
   worldTitle: { bs: "Od Balkana do svijeta.", en: "From the Balkans to the world." },
