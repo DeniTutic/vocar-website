@@ -74,7 +74,7 @@ export function ContactSection() {
                   {contact.officeSloveniaLabel.bs}
                 </div>
                 <p className="mt-1 text-base" style={{ color: "var(--ink-soft)" }}>
-                  Vočar Ljubljana d.o.o.
+                  Voćar Ljubljana d.o.o.
                   <br />
                   Šmartinska cesta 130, 1000 Ljubljana, Slovenija
                 </p>
