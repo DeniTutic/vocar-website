@@ -22,7 +22,7 @@ export function Footer() {
       <ScrollReveal className="mx-auto grid max-w-7xl gap-10 px-5 py-16 sm:px-8 md:grid-cols-[1.3fr_1fr_1fr]">
         <div className="flex flex-col gap-3">
           <div className="flex items-center">
-            <Logo className="h-14 w-auto shrink-0" />
+            <Logo className="h-20 w-auto shrink-0" />
           </div>
           <p className="max-w-xs text-sm italic opacity-70">{t(footerContent.tagline)}</p>
         </div>

@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Bodoni_Moda, Manrope } from "next/font/google";
+import { Baloo_2, Manrope } from "next/font/google";
 import "./globals.css";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
@@ -7,11 +7,10 @@ import { NewsletterPopup } from "@/components/NewsletterPopup";
 import { LocaleProvider } from "@/lib/locale";
 import { SITE_URL } from "@/data/content";
 
-const bodoni = Bodoni_Moda({
-  variable: "--font-bodoni",
+const baloo = Baloo_2({
+  variable: "--font-baloo",
   subsets: ["latin", "latin-ext"],
-  weight: ["500", "600", "700"],
-  style: ["normal", "italic"],
+  weight: ["500", "600", "700", "800"],
   display: "swap",
 });
 
@@ -60,7 +59,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="bs" className={`${bodoni.variable} ${manrope.variable} h-full antialiased`}>
+    <html lang="bs" className={`${baloo.variable} ${manrope.variable} h-full antialiased`}>
       <body className="min-h-full flex flex-col bg-cream text-ink">
         <script
           type="application/ld+json"

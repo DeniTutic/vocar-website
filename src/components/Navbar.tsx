@@ -71,7 +71,7 @@ export function Navbar() {
     return scrollY.on("change", (v) => setScrolled(v > 24));
   }, [scrollY]);
 
-  const height = useTransform(scrollY, [0, 120], [88, 64]);
+  const height = useTransform(scrollY, [0, 120], [104, 76]);
 
   return (
     <motion.header
@@ -86,7 +86,7 @@ export function Navbar() {
     >
       <div className="mx-auto flex w-full max-w-7xl items-center justify-between px-5 sm:px-8">
         <Link href="/" className="flex items-center" onClick={() => setOpen(false)}>
-          <Logo className="h-11 w-auto shrink-0" />
+          <Logo className="h-16 w-auto shrink-0" />
         </Link>
 
         <nav className="hidden items-center gap-1 lg:flex">

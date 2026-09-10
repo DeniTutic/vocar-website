@@ -1,10 +1,11 @@
 @import "tailwindcss";
 
 /*
-  A single considered light theme — warm cream paper, deep forest green,
-  charcoal for high-contrast sections, natural fruit tones used sparingly
-  as accents. Premium European food-brand ground, not a SaaS dark/light
-  toggle.
+  Warm cream paper, deep forest green and charcoal as the steady ground,
+  with a bright apple-red "pop" accent (lifted from the real logo) used
+  where the brand should feel playful and snack-y rather than austere —
+  badges, hover states, the odd bit of confetti. Fun food brand, not a
+  SaaS dark/light toggle.
 */
 :root {
   --cream: #f7f3ea;
@@ -18,7 +19,9 @@
   --plum: #6b3a50;
   --amber: #c98a3b;
   --berry: #8c2f39;
-  --font-display: var(--font-bodoni);
+  --pop: #e0293b;
+  --pop-deep: #b81f2f;
+  --font-display: var(--font-baloo);
   --font-body: var(--font-manrope);
 }
 
@@ -34,6 +37,8 @@
   --color-plum: var(--plum);
   --color-amber: var(--amber);
   --color-berry: var(--berry);
+  --color-pop: var(--pop);
+  --color-pop-deep: var(--pop-deep);
   --font-display: var(--font-display);
   --font-body: var(--font-body);
 }
@@ -57,9 +62,9 @@ h1,
 h2,
 h3,
 h4 {
-  font-family: var(--font-display), Georgia, serif;
+  font-family: var(--font-display), ui-rounded, system-ui, sans-serif;
   text-wrap: balance;
-  font-weight: 500;
+  font-weight: 600;
 }
 
 ::selection {
