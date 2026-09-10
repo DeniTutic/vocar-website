@@ -1,6 +1,7 @@
 "use client";
 
-import { Wheat, Factory, ClipboardCheck, PackageCheck, Truck } from "lucide-react";
+import { Wheat, Factory, ClipboardCheck, PackageCheck, Truck, ChevronRight } from "lucide-react";
+import { motion } from "framer-motion";
 import { home } from "@/data/content";
 import { SectionHeading } from "./SectionHeading";
 import { ScrollReveal } from "./ScrollReveal";
@@ -28,11 +29,20 @@ export function Timeline() {
               <step.icon size={26} style={{ color: "var(--forest)" }} strokeWidth={1.5} />
             </div>
             {i < STEPS.length - 1 && (
-              <span
+              <div
                 className="absolute left-[calc(50%+2rem)] top-8 hidden h-px w-[calc(100%-4rem)] sm:block"
-                style={{ background: "var(--line)" }}
                 aria-hidden
-              />
+              >
+                <span className="absolute inset-0" style={{ background: "var(--line)" }} />
+                <motion.div
+                  className="absolute top-1/2"
+                  style={{ transform: "translate(-50%, -50%)" }}
+                  animate={{ left: ["0%", "100%"], opacity: [0, 1, 1, 0] }}
+                  transition={{ duration: 1.6, repeat: Infinity, ease: "linear", delay: i * 0.25 }}
+                >
+                  <ChevronRight size={14} style={{ color: "var(--forest)" }} strokeWidth={2} />
+                </motion.div>
+              </div>
             )}
             <span className="mt-4 text-sm font-semibold uppercase tracking-wide" style={{ color: "var(--forest-deep)" }}>
               {step.label}
