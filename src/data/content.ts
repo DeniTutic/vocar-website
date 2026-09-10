@@ -105,9 +105,13 @@ export const about = {
   },
   valuesTitle: { bs: "Vrijednosti", en: "Values" },
   value1: { bs: "Prirodni sastojci", en: "Natural ingredients" },
+  value1Desc: { bs: "Birani sastojci, bez nepotrebnih aditiva.", en: "Selected ingredients, no unnecessary additives." },
   value2: { bs: "Zanatska pažnja u proizvodnji", en: "Craftsmanship in production" },
+  value2Desc: { bs: "Svaka serija prolazi kroz pažljivu ručnu kontrolu.", en: "Every batch gets careful, hands-on attention." },
   value3: { bs: "Dosljedan kvalitet", en: "Consistent quality" },
+  value3Desc: { bs: "Isti ukus u svakoj vrećici, iz godine u godinu.", en: "The same taste in every bag, year after year." },
   value4: { bs: "Poštenje prema kupcu", en: "Honesty with the customer" },
+  value4Desc: { bs: "Jasna deklaracija i transparentan sastav.", en: "Clear labeling and transparent composition." },
 } as const;
 
 export const contact = {
