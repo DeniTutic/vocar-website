@@ -22,31 +22,28 @@ export function ProductShowcase() {
         <SectionHeading eyebrow={t(home.showcaseEyebrow)} title={t(home.showcaseTitle)} body={t(home.showcaseBody)} />
 
         <div className="mt-10 flex gap-2 overflow-x-auto pb-2">
-          {categories.map((c) => (
-            <button
-              key={c.slug}
-              type="button"
-              onClick={() => {
-                setActive(c.slug);
-                trackRef.current?.scrollTo({ left: 0, behavior: "smooth" });
-              }}
-              className="relative shrink-0 rounded-full border px-4 py-2 text-sm font-medium transition-colors duration-500"
-              style={{
-                borderColor: active === c.slug ? "var(--forest)" : "var(--line)",
-                color: active === c.slug ? "var(--cream)" : "var(--ink)",
-              }}
-            >
-              {active === c.slug && (
-                <motion.span
-                  layoutId="category-pill"
-                  className="absolute inset-0 -z-10 rounded-full"
-                  style={{ background: "var(--forest)" }}
-                  transition={{ type: "spring", stiffness: 600, damping: 40 }}
-                />
-              )}
-              {t(c.name)}
-            </button>
-          ))}
+          {categories.map((c) => {
+            const isActive = active === c.slug;
+            return (
+              <motion.button
+                key={c.slug}
+                type="button"
+                onClick={() => {
+                  setActive(c.slug);
+                  trackRef.current?.scrollTo({ left: 0, behavior: "smooth" });
+                }}
+                animate={{
+                  backgroundColor: isActive ? "#1f3d2e" : "rgba(31,61,46,0)",
+                  borderColor: isActive ? "#1f3d2e" : "#ddd2b8",
+                  color: isActive ? "#f7f3ea" : "#262420",
+                }}
+                transition={{ duration: 0.25, ease: "easeInOut" }}
+                className="shrink-0 rounded-full border px-4 py-2 text-sm font-medium"
+              >
+                {t(c.name)}
+              </motion.button>
+            );
+          })}
         </div>
 
         <motion.div

@@ -36,26 +36,25 @@ function LanguageSwitcher() {
       role="group"
       aria-label={t(common.languageLabel)}
     >
-      {LOCALES.map((l) => (
-        <button
-          key={l}
-          type="button"
-          onClick={() => setLocale(l)}
-          aria-pressed={locale === l}
-          className="relative rounded-full px-2.5 py-1.5 transition-colors duration-500"
-          style={{ color: locale === l ? "var(--cream)" : "var(--ink-soft)" }}
-        >
-          {locale === l && (
-            <motion.span
-              layoutId="lang-pill"
-              className="absolute inset-0 -z-10 rounded-full"
-              style={{ background: "var(--forest)" }}
-              transition={{ type: "spring", stiffness: 600, damping: 40 }}
-            />
-          )}
-          {l.toUpperCase()}
-        </button>
-      ))}
+      {LOCALES.map((l) => {
+        const isActive = locale === l;
+        return (
+          <motion.button
+            key={l}
+            type="button"
+            onClick={() => setLocale(l)}
+            aria-pressed={isActive}
+            animate={{
+              backgroundColor: isActive ? "#1f3d2e" : "rgba(31,61,46,0)",
+              color: isActive ? "#f7f3ea" : "#625a4d",
+            }}
+            transition={{ duration: 0.25, ease: "easeInOut" }}
+            className="rounded-full px-2.5 py-1.5"
+          >
+            {l.toUpperCase()}
+          </motion.button>
+        );
+      })}
     </div>
   );
 }
