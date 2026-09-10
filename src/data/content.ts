@@ -171,6 +171,24 @@ export const productPage = {
   backToCategory: { bs: "Nazad na kategoriju", en: "Back to category" },
 } as const;
 
+export const newsletter = {
+  eyebrow: { bs: "Newsletter", en: "Newsletter" },
+  title: { bs: "Ne propustite novosti.", en: "Don't miss what's new." },
+  body: {
+    bs: "Prijavite se za nove proizvode, popuste i akcije — direktno u vaš inbox.",
+    en: "Sign up for new products, discounts and offers — straight to your inbox.",
+  },
+  placeholder: { bs: "Vaš e-mail", en: "Your email" },
+  submit: { bs: "Prijavi me", en: "Sign me up" },
+  disclaimer: { bs: "Bez spama. Odjava u bilo kojem trenutku.", en: "No spam. Unsubscribe anytime." },
+  success: {
+    bs: "Hvala! Otvara se vaš e-mail program — samo pošaljite poruku da potvrdite prijavu.",
+    en: "Thanks! Your email app is opening — just hit send to confirm your signup.",
+  },
+  close: { bs: "Zatvori", en: "Close" },
+  errorEmail: { bs: "Unesite ispravnu e-mail adresu.", en: "Enter a valid email address." },
+} as const;
+
 export const footerContent = {
   tagline: { bs: "Za bolji okus života.", en: "For a better taste of life." },
   companyLabel: { bs: "Kompanija", en: "Company" },
