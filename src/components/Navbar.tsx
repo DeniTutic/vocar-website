@@ -6,7 +6,8 @@ import { usePathname } from "next/navigation";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { Menu, X } from "lucide-react";
 import { Logo } from "./Logo";
-import { nav } from "@/data/content";
+import { nav, common } from "@/data/content";
+import { useLocale, useT, type Locale } from "@/lib/locale";
 
 // Plain <a> tags, not next/link: these are same-page hash anchors, and a
 // client-routed Link to "/#id" updates the URL but does not reliably
@@ -22,7 +23,40 @@ const links = [
   { href: "/#kontakt", key: "contact" as const },
 ];
 
+const LOCALES: Locale[] = ["bs", "en"];
+
+function LanguageSwitcher() {
+  const { locale, setLocale } = useLocale();
+  const t = useT();
+
+  return (
+    <div
+      className="flex items-center rounded-full border p-0.5 text-[11px] font-semibold uppercase tracking-wide"
+      style={{ borderColor: "var(--line)" }}
+      role="group"
+      aria-label={t(common.languageLabel)}
+    >
+      {LOCALES.map((l) => (
+        <button
+          key={l}
+          type="button"
+          onClick={() => setLocale(l)}
+          aria-pressed={locale === l}
+          className="rounded-full px-2.5 py-1.5 transition-colors"
+          style={{
+            background: locale === l ? "var(--forest)" : "transparent",
+            color: locale === l ? "var(--cream)" : "var(--ink-soft)",
+          }}
+        >
+          {l}
+        </button>
+      ))}
+    </div>
+  );
+}
+
 export function Navbar() {
+  const t = useT();
   const pathname = usePathname();
   const isHome = pathname === "/";
   const [open, setOpen] = useState(false);
@@ -67,26 +101,27 @@ export function Navbar() {
                   background: active ? "var(--forest)" : "transparent",
                 }}
               >
-                {nav[link.key].bs}
+                {t(nav[link.key])}
               </a>
             );
           })}
         </nav>
 
         <div className="flex items-center gap-3">
+          <LanguageSwitcher />
           {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
           <a
             href="/#proizvodi"
             className="hidden rounded-full px-5 py-2.5 text-sm font-semibold uppercase tracking-wide sm:inline-flex"
             style={{ background: "var(--forest)", color: "var(--cream)" }}
           >
-            Naši proizvodi
+            {t(nav.ctaProducts)}
           </a>
           <button
             type="button"
             onClick={() => setOpen((v) => !v)}
             aria-expanded={open}
-            aria-label="Meni"
+            aria-label={t(nav.menuLabel)}
             className="flex h-10 w-10 items-center justify-center rounded-full border lg:hidden"
             style={{ borderColor: "var(--line)" }}
           >
@@ -109,7 +144,7 @@ export function Navbar() {
                 className="rounded-lg px-3 py-2.5 text-base font-medium"
                 style={{ color: "var(--ink)" }}
               >
-                {nav[link.key].bs}
+                {t(nav[link.key])}
               </a>
             ))}
             {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
@@ -119,7 +154,7 @@ export function Navbar() {
               className="mt-2 rounded-full px-5 py-2.5 text-center text-sm font-semibold uppercase tracking-wide"
               style={{ background: "var(--forest)", color: "var(--cream)" }}
             >
-              Naši proizvodi
+              {t(nav.ctaProducts)}
             </a>
           </nav>
         </div>

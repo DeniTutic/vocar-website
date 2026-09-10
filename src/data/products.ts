@@ -1,19 +1,20 @@
 import { categories, type Category } from "./categories";
+import type { Localized } from "./content";
 
 export interface Product {
   slug: string;
-  name: string;
+  name: Localized;
   sizes: string;
   category: Category;
   image: string;
-  imageAlt: string;
-  description: string;
+  imageAlt: Localized;
+  description: Localized;
   /**
    * Honest, generic composition grounded in the product's real name/type —
    * never a fabricated nutrition table. Precise nutrition values live on
    * the physical packaging, which is what the product page says.
    */
-  composition: string;
+  composition: Localized;
 }
 
 function slugify(input: string): string {
@@ -25,16 +26,32 @@ function slugify(input: string): string {
     .replace(/^-+|-+$/g, "");
 }
 
-function compositionFor(categorySlug: string, name: string): string {
+function compositionFor(categorySlug: string, name: string): Localized {
   const n = name.toLowerCase();
-  if (categorySlug === "peanut-butter") return "100% pržen kikiriki.";
-  if (categorySlug === "peanuts") return "Kikiriki" + (n.includes("obloženi") || n.includes("coated") ? ", začinska obloga." : ", so.");
-  if (categorySlug === "prunes") return n.includes("čoko") || n.includes("choco") ? "Suha šljiva, kakao premaz." : "Sušena šljiva, bez dodataka.";
-  if (categorySlug === "groceries") return "Kukuruz ili pšenica, mljeveno.";
-  if (categorySlug === "wafers") return "Vafel listovi, kremasti fil.";
-  if (categorySlug === "popcorn") return "Kukuruzno zrno" + (n.includes("čoko") || n.includes("choco") ? ", kakao premaz." : n.includes("karamel") || n.includes("caramel") ? ", karamel premaz." : ", so.");
-  if (categorySlug === "cereals") return n.includes("nutto") ? "Pšenica, kakao-lješnjak krem." : "Kukuruz i pšenica, kakao premaz, vitamini.";
-  return "Kukuruzno brašno, biljno ulje, začini.";
+  if (categorySlug === "peanut-butter") return { bs: "100% pržen kikiriki.", en: "100% roasted peanuts." };
+  if (categorySlug === "peanuts") {
+    return n.includes("obloženi") || n.includes("coated")
+      ? { bs: "Kikiriki, začinska obloga.", en: "Peanuts, seasoned coating." }
+      : { bs: "Kikiriki, so.", en: "Peanuts, salt." };
+  }
+  if (categorySlug === "prunes") {
+    return n.includes("čoko") || n.includes("choco")
+      ? { bs: "Suha šljiva, kakao premaz.", en: "Dried plum, cocoa coating." }
+      : { bs: "Sušena šljiva, bez dodataka.", en: "Dried plum, no additives." };
+  }
+  if (categorySlug === "groceries") return { bs: "Kukuruz ili pšenica, mljeveno.", en: "Corn or wheat, milled." };
+  if (categorySlug === "wafers") return { bs: "Vafel listovi, kremasti fil.", en: "Wafer sheets, creamy filling." };
+  if (categorySlug === "popcorn") {
+    if (n.includes("čoko") || n.includes("choco")) return { bs: "Kukuruzno zrno, kakao premaz.", en: "Popcorn kernels, cocoa coating." };
+    if (n.includes("karamel") || n.includes("caramel")) return { bs: "Kukuruzno zrno, karamel premaz.", en: "Popcorn kernels, caramel coating." };
+    return { bs: "Kukuruzno zrno, so.", en: "Popcorn kernels, salt." };
+  }
+  if (categorySlug === "cereals") {
+    return n.includes("nutto")
+      ? { bs: "Pšenica, kakao-lješnjak krem.", en: "Wheat, cocoa-hazelnut cream." }
+      : { bs: "Kukuruz i pšenica, kakao premaz, vitamini.", en: "Corn and wheat, cocoa coating, vitamins." };
+  }
+  return { bs: "Kukuruzno brašno, biljno ulje, začini.", en: "Corn flour, vegetable oil, seasoning." };
 }
 
 function buildProducts(): Product[] {
@@ -56,12 +73,12 @@ function buildProducts(): Product[] {
       const slug = `${category.slug}-${slugify(name)}`;
       const product: Product = {
         slug,
-        name,
+        name: sku.name,
         sizes: sku.sizes,
         category,
         image: category.image,
-        imageAlt: category.imageAlt.bs,
-        description: category.description.bs,
+        imageAlt: category.imageAlt,
+        description: category.description,
         composition: compositionFor(category.slug, name),
       };
       seen.set(name, product);

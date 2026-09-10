@@ -1,5 +1,8 @@
+"use client";
+
 import { Logo } from "./Logo";
 import { nav, footerContent } from "@/data/content";
+import { useT } from "@/lib/locale";
 
 const links = [
   { href: "/", key: "home" as const },
@@ -11,6 +14,8 @@ const links = [
 ];
 
 export function Footer() {
+  const t = useT();
+
   return (
     <footer style={{ background: "var(--charcoal)", color: "var(--beige)" }}>
       <div className="mx-auto grid max-w-7xl gap-10 px-5 py-16 sm:px-8 md:grid-cols-[1.3fr_1fr_1fr]">
@@ -21,23 +26,23 @@ export function Footer() {
               Voćar
             </span>
           </div>
-          <p className="max-w-xs text-sm italic opacity-70">{footerContent.tagline.bs}</p>
+          <p className="max-w-xs text-sm italic opacity-70">{t(footerContent.tagline)}</p>
         </div>
 
         <div className="flex flex-col gap-2 text-sm">
           <span className="mb-1 text-xs font-semibold uppercase tracking-wider opacity-50">
-            {nav.products.bs}
+            {t(nav.products)}
           </span>
           {links.map((link) => (
             <a key={link.href} href={link.href} className="w-fit opacity-80 hover:opacity-100">
-              {nav[link.key].bs}
+              {t(nav[link.key])}
             </a>
           ))}
         </div>
 
         <div className="flex flex-col gap-2 text-sm">
           <span className="mb-1 text-xs font-semibold uppercase tracking-wider opacity-50">
-            {footerContent.contactLabel.bs}
+            {t(footerContent.contactLabel)}
           </span>
           <span className="opacity-80">Voćar d.o.o. Brčko</span>
           <span className="opacity-80">Gornji Rahić 112, 76207 Gornji Rahić</span>
@@ -59,8 +64,8 @@ export function Footer() {
         style={{ borderColor: "rgba(237,227,208,0.15)" }}
       >
         <div className="mx-auto flex max-w-7xl flex-col gap-1 sm:flex-row sm:items-center sm:justify-between">
-          <span>© {new Date().getFullYear()} VOĆAR — {footerContent.rights.bs}</span>
-          <span>Konceptualni redizajn sajta — nije zvanična stranica vocar.ba.</span>
+          <span>© {new Date().getFullYear()} VOĆAR — {t(footerContent.rights)}</span>
+          <span>{t(footerContent.disclaimer)}</span>
         </div>
       </div>
     </footer>

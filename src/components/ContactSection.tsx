@@ -1,5 +1,8 @@
+"use client";
+
 import { MapPin, Phone, Mail } from "lucide-react";
 import { contact } from "@/data/content";
+import { useT } from "@/lib/locale";
 import { ScrollReveal } from "./ScrollReveal";
 import { ContactForm } from "./ContactForm";
 
@@ -7,17 +10,19 @@ const MAPS_SRC =
   "https://www.google.com/maps?q=Vo%C4%87ar+d.o.o.+Gornji+Rahi%C4%87+112%2C+76207+Gornji+Rahi%C4%87%2C+Bosna+i+Hercegovina&output=embed";
 
 export function ContactSection() {
+  const t = useT();
+
   return (
     <section id="kontakt" className="scroll-mt-20 border-t px-5 py-20 sm:px-8 sm:py-28" style={{ borderColor: "var(--line)" }}>
       <div className="mx-auto max-w-3xl text-center">
         <span className="text-xs font-semibold uppercase tracking-[0.14em]" style={{ color: "var(--forest)" }}>
-          {contact.eyebrow.bs}
+          {t(contact.eyebrow)}
         </span>
         <h2 className="mt-3 text-4xl sm:text-5xl" style={{ color: "var(--forest-deep)" }}>
-          {contact.title.bs}
+          {t(contact.title)}
         </h2>
         <p className="mt-4 text-lg leading-relaxed" style={{ color: "var(--ink-soft)" }}>
-          {contact.body.bs}
+          {t(contact.body)}
         </p>
       </div>
 
@@ -28,7 +33,7 @@ export function ContactSection() {
               <MapPin size={22} style={{ color: "var(--forest)" }} className="mt-0.5 shrink-0" />
               <div>
                 <div className="text-sm font-semibold uppercase tracking-wide" style={{ color: "var(--forest-deep)" }}>
-                  {contact.addressLabel.bs}
+                  {t(contact.addressLabel)}
                 </div>
                 <p className="mt-1 text-base" style={{ color: "var(--ink-soft)" }}>
                   Voćar d.o.o. Brčko
@@ -44,7 +49,7 @@ export function ContactSection() {
               <Phone size={22} style={{ color: "var(--forest)" }} className="mt-0.5 shrink-0" />
               <div>
                 <div className="text-sm font-semibold uppercase tracking-wide" style={{ color: "var(--forest-deep)" }}>
-                  {contact.phoneLabel.bs}
+                  {t(contact.phoneLabel)}
                 </div>
                 <a href="tel:+38749512415" className="mt-1 block text-base hover:underline" style={{ color: "var(--ink-soft)" }}>
                   +387 49 512 415
@@ -59,7 +64,7 @@ export function ContactSection() {
               <Mail size={22} style={{ color: "var(--forest)" }} className="mt-0.5 shrink-0" />
               <div>
                 <div className="text-sm font-semibold uppercase tracking-wide" style={{ color: "var(--forest-deep)" }}>
-                  {contact.emailLabel.bs}
+                  {t(contact.emailLabel)}
                 </div>
                 <a href="mailto:sales@vocar.ba" className="mt-1 block text-base hover:underline" style={{ color: "var(--ink-soft)" }}>
                   sales@vocar.ba
@@ -71,7 +76,7 @@ export function ContactSection() {
               <MapPin size={22} style={{ color: "var(--amber)" }} className="mt-0.5 shrink-0" />
               <div>
                 <div className="text-sm font-semibold uppercase tracking-wide" style={{ color: "var(--forest-deep)" }}>
-                  {contact.officeSloveniaLabel.bs}
+                  {t(contact.officeSloveniaLabel)}
                 </div>
                 <p className="mt-1 text-base" style={{ color: "var(--ink-soft)" }}>
                   Voćar Ljubljana d.o.o.

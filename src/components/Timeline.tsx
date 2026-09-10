@@ -3,21 +3,24 @@
 import { Wheat, Factory, ClipboardCheck, PackageCheck, Truck, ChevronRight } from "lucide-react";
 import { motion } from "framer-motion";
 import { home } from "@/data/content";
+import { useT } from "@/lib/locale";
 import { SectionHeading } from "./SectionHeading";
 import { ScrollReveal } from "./ScrollReveal";
 
 const STEPS = [
-  { icon: Wheat, label: "Sastojci", comment: home.processStep1Comment.bs },
-  { icon: Factory, label: "Proizvodnja", comment: home.processStep2Comment.bs },
-  { icon: ClipboardCheck, label: "Kontrola kvaliteta", comment: home.processStep3Comment.bs },
-  { icon: PackageCheck, label: "Pakovanje", comment: home.processStep4Comment.bs },
-  { icon: Truck, label: "Distribucija", comment: home.processStep5Comment.bs },
+  { icon: Wheat, label: home.processStep1Label, comment: home.processStep1Comment },
+  { icon: Factory, label: home.processStep2Label, comment: home.processStep2Comment },
+  { icon: ClipboardCheck, label: home.processStep3Label, comment: home.processStep3Comment },
+  { icon: PackageCheck, label: home.processStep4Label, comment: home.processStep4Comment },
+  { icon: Truck, label: home.processStep5Label, comment: home.processStep5Comment },
 ];
 
 export function Timeline() {
+  const t = useT();
+
   return (
     <section className="mx-auto max-w-6xl px-5 py-20 sm:px-8 sm:py-28">
-      <SectionHeading eyebrow={home.processEyebrow.bs} title={home.processTitle.bs} align="center" />
+      <SectionHeading eyebrow={t(home.processEyebrow)} title={t(home.processTitle)} align="center" />
 
       <div className="mt-16 grid grid-cols-1 gap-8 sm:grid-cols-5">
         {STEPS.map((step, i) => {
@@ -27,7 +30,7 @@ export function Timeline() {
           const arrowLeft = isFirst ? "2rem" : isLast ? "calc(100% - 2rem)" : "50%";
 
           return (
-            <ScrollReveal key={step.label} delay={i * 0.1} className="group relative flex flex-col items-center text-center">
+            <ScrollReveal key={step.label.bs} delay={i * 0.1} className="group relative flex flex-col items-center text-center">
               <div
                 className="relative flex h-16 w-16 cursor-default items-center justify-center rounded-full border-2 transition-transform duration-200 group-hover:scale-105"
                 style={{ borderColor: "var(--forest)", background: "var(--cream)" }}
@@ -39,7 +42,7 @@ export function Timeline() {
                   style={{ background: "var(--forest-deep)", color: "var(--cream)" }}
                   role="tooltip"
                 >
-                  {step.comment}
+                  {t(step.comment)}
                   <span
                     className="absolute top-full h-3 w-3 -translate-y-1/2 rotate-45"
                     style={{ background: "var(--forest-deep)", left: arrowLeft, transform: "translateX(-50%) translateY(-50%) rotate(45deg)" }}
@@ -64,7 +67,7 @@ export function Timeline() {
                 </div>
               )}
               <span className="mt-4 text-sm font-semibold uppercase tracking-wide" style={{ color: "var(--forest-deep)" }}>
-                {step.label}
+                {t(step.label)}
               </span>
             </ScrollReveal>
           );

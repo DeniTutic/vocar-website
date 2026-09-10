@@ -3,13 +3,15 @@
 import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { Check, X } from "lucide-react";
-import { home } from "@/data/content";
+import { home, common } from "@/data/content";
+import { useT } from "@/lib/locale";
 import { SectionHeading } from "./SectionHeading";
 import { CertificateCard } from "./CertificateCard";
 
-const POINTS = [home.qualityPoint1.bs, home.qualityPoint2.bs, home.qualityPoint3.bs, home.qualityPoint4.bs];
+const POINTS = [home.qualityPoint1, home.qualityPoint2, home.qualityPoint3, home.qualityPoint4];
 
 export function QualitySection() {
+  const t = useT();
   const [openIndex, setOpenIndex] = useState<number | null>(null);
 
   return (
@@ -17,12 +19,12 @@ export function QualitySection() {
       <div className="mx-auto max-w-7xl px-5 sm:px-8">
         <div className="grid gap-12 lg:grid-cols-2 lg:gap-16">
           <div>
-            <SectionHeading eyebrow={home.qualityEyebrow.bs} title={home.qualityTitle.bs} body={home.qualityBody.bs} dark />
+            <SectionHeading eyebrow={t(home.qualityEyebrow)} title={t(home.qualityTitle)} body={t(home.qualityBody)} dark />
             <ul className="mt-8 flex flex-col gap-3">
               {POINTS.map((point) => (
-                <li key={point} className="flex items-center gap-3 text-sm sm:text-base" style={{ color: "var(--beige)" }}>
+                <li key={point.bs} className="flex items-center gap-3 text-sm sm:text-base" style={{ color: "var(--beige)" }}>
                   <Check size={18} style={{ color: "var(--amber)" }} />
-                  {point}
+                  {t(point)}
                 </li>
               ))}
             </ul>
@@ -59,14 +61,14 @@ export function QualitySection() {
               <button
                 type="button"
                 onClick={() => setOpenIndex(null)}
-                aria-label="Zatvori"
+                aria-label={t(common.close)}
                 className="absolute right-4 top-4 flex h-9 w-9 items-center justify-center rounded-full border"
                 style={{ borderColor: "var(--line)" }}
               >
                 <X size={16} />
               </button>
               <p className="text-base" style={{ color: "var(--ink-soft)" }}>
-                {home.qualityBody.bs}
+                {t(home.qualityBody)}
               </p>
             </motion.div>
           </motion.div>

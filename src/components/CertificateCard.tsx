@@ -3,8 +3,11 @@
 import { motion } from "framer-motion";
 import { ShieldCheck } from "lucide-react";
 import { home } from "@/data/content";
+import { useT } from "@/lib/locale";
 
 export function CertificateCard({ onClick }: { onClick: () => void }) {
+  const t = useT();
+
   return (
     <motion.button
       type="button"
@@ -16,7 +19,7 @@ export function CertificateCard({ onClick }: { onClick: () => void }) {
     >
       <ShieldCheck size={34} style={{ color: "var(--forest)" }} strokeWidth={1.5} />
       <span className="text-sm font-semibold" style={{ color: "var(--forest-deep)" }}>
-        {home.certificatePlaceholder.bs}
+        {t(home.certificatePlaceholder)}
       </span>
     </motion.button>
   );

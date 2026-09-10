@@ -4,6 +4,7 @@ import { useState, type FormEvent } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Send, CheckCircle2 } from "lucide-react";
 import { contact } from "@/data/content";
+import { useT } from "@/lib/locale";
 
 interface Errors {
   name?: string;
@@ -14,6 +15,7 @@ interface Errors {
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 export function ContactForm() {
+  const t = useT();
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
@@ -24,10 +26,10 @@ export function ContactForm() {
   function handleSubmit(e: FormEvent) {
     e.preventDefault();
     const next: Errors = {};
-    if (!name.trim()) next.name = contact.formErrorRequired.bs;
-    if (!email.trim()) next.email = contact.formErrorRequired.bs;
-    else if (!EMAIL_RE.test(email)) next.email = contact.formErrorEmail.bs;
-    if (!message.trim()) next.message = contact.formErrorRequired.bs;
+    if (!name.trim()) next.name = t(contact.formErrorRequired);
+    if (!email.trim()) next.email = t(contact.formErrorRequired);
+    else if (!EMAIL_RE.test(email)) next.email = t(contact.formErrorEmail);
+    if (!message.trim()) next.message = t(contact.formErrorRequired);
     setErrors(next);
     if (Object.keys(next).length > 0) return;
 
@@ -49,7 +51,7 @@ export function ContactForm() {
     <form onSubmit={handleSubmit} noValidate className="flex flex-col gap-5">
       <div>
         <label htmlFor="name" className="mb-1.5 block text-sm font-medium" style={{ color: "var(--ink)" }}>
-          {contact.formName.bs}
+          {t(contact.formName)}
         </label>
         <input
           id="name"
@@ -70,7 +72,7 @@ export function ContactForm() {
       <div className="grid gap-5 sm:grid-cols-2">
         <div>
           <label htmlFor="email" className="mb-1.5 block text-sm font-medium" style={{ color: "var(--ink)" }}>
-            {contact.formEmail.bs}
+            {t(contact.formEmail)}
           </label>
           <input
             id="email"
@@ -90,7 +92,7 @@ export function ContactForm() {
         </div>
         <div>
           <label htmlFor="phone" className="mb-1.5 block text-sm font-medium" style={{ color: "var(--ink)" }}>
-            {contact.formPhone.bs}
+            {t(contact.formPhone)}
           </label>
           <input
             id="phone"
@@ -105,7 +107,7 @@ export function ContactForm() {
 
       <div>
         <label htmlFor="message" className="mb-1.5 block text-sm font-medium" style={{ color: "var(--ink)" }}>
-          {contact.formMessage.bs}
+          {t(contact.formMessage)}
         </label>
         <textarea
           id="message"
@@ -130,7 +132,7 @@ export function ContactForm() {
         style={{ background: "var(--forest)", color: "var(--cream)" }}
       >
         <Send size={16} />
-        {contact.formSubmit.bs}
+        {t(contact.formSubmit)}
       </button>
 
       <AnimatePresence>
@@ -144,7 +146,7 @@ export function ContactForm() {
             style={{ color: "var(--forest)" }}
           >
             <CheckCircle2 size={16} />
-            {contact.formSuccess.bs}
+            {t(contact.formSuccess)}
           </motion.p>
         )}
       </AnimatePresence>

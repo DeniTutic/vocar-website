@@ -1,8 +1,7 @@
 /**
- * Site copy, kept bilingual-shaped (bs/en) so a future language switch is a
- * data change, not a rewrite — but every page currently renders `.bs` only,
- * per the brief's "Bosnian by default" instruction. English strings are
- * filled in for the architecture; wire up a locale switch later to use them.
+ * Site copy, kept bilingual (bs/en). Components read the active locale via
+ * useT() from @/lib/locale rather than reaching for `.bs` directly, so the
+ * navbar language switch is a data change, not a rewrite.
  */
 export interface Localized {
   bs: string;
@@ -11,6 +10,11 @@ export interface Localized {
 
 export const SITE_URL = "https://vocar.ba";
 
+export const common = {
+  close: { bs: "Zatvori", en: "Close" },
+  languageLabel: { bs: "Jezik", en: "Language" },
+} as const;
+
 export const nav = {
   home: { bs: "Početna", en: "Home" },
   products: { bs: "Proizvodi", en: "Products" },
@@ -18,6 +22,8 @@ export const nav = {
   quality: { bs: "Kvalitet", en: "Quality" },
   catalog: { bs: "Katalog", en: "Catalog" },
   contact: { bs: "Kontakt", en: "Contact" },
+  ctaProducts: { bs: "Naši proizvodi", en: "Our products" },
+  menuLabel: { bs: "Meni", en: "Menu" },
 } satisfies Record<string, Localized>;
 
 export const home = {
@@ -73,6 +79,11 @@ export const home = {
 
   processEyebrow: { bs: "Proces", en: "Process" },
   processTitle: { bs: "Od sastojka do vaše police.", en: "From ingredient to your shelf." },
+  processStep1Label: { bs: "Sastojci", en: "Ingredients" },
+  processStep2Label: { bs: "Proizvodnja", en: "Production" },
+  processStep3Label: { bs: "Kontrola kvaliteta", en: "Quality control" },
+  processStep4Label: { bs: "Pakovanje", en: "Packaging" },
+  processStep5Label: { bs: "Distribucija", en: "Distribution" },
   processStep1Comment: {
     bs: "Sve što koristimo treba da bude svježe i testirano prije nego uđe u proizvodnju.",
     en: "Everything we use has to be fresh and tested before it enters production.",
@@ -132,6 +143,7 @@ export const about = {
   value3Desc: { bs: "Isti ukus u svakoj vrećici, iz godine u godinu.", en: "The same taste in every bag, year after year." },
   value4: { bs: "Poštenje prema kupcu", en: "Honesty with the customer" },
   value4Desc: { bs: "Jasna deklaracija i transparentan sastav.", en: "Clear labeling and transparent composition." },
+  driedFruitImageAlt: { bs: "Sušeno voće Voćar", en: "Voćar dried fruit" },
 } as const;
 
 export const contact = {
@@ -194,4 +206,8 @@ export const footerContent = {
   companyLabel: { bs: "Kompanija", en: "Company" },
   contactLabel: { bs: "Kontakt", en: "Contact" },
   rights: { bs: "Sva prava zadržana.", en: "All rights reserved." },
+  disclaimer: {
+    bs: "Konceptualni redizajn sajta — nije zvanična stranica vocar.ba.",
+    en: "Conceptual site redesign — not the official vocar.ba site.",
+  },
 } as const;

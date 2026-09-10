@@ -1,41 +1,51 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { home } from "@/data/content";
+import { home, type Localized } from "@/data/content";
+import { useT } from "@/lib/locale";
 import { SectionHeading } from "./SectionHeading";
 
 // Hand-placed to roughly echo real bearing/distance from Gornji Rahić rather
 // than an even hub-and-spoke wheel — nearby ex-Yugoslav markets cluster close,
 // Germany and Turkey sit further out, and the US sits far across the map.
-const NODES = [
-  { x: 440, y: 195, label: "Gornji Rahić, BiH", origin: true, anchor: "middle" as const, dx: 0, dy: 26 },
-  { x: 385, y: 172, label: "Hrvatska", anchor: "middle" as const, dx: 0, dy: -14 },
-  { x: 350, y: 125, label: "Slovenija", anchor: "middle" as const, dx: 0, dy: -14 },
-  { x: 395, y: 82, label: "Austrija", anchor: "middle" as const, dx: 0, dy: -14 },
-  { x: 330, y: 42, label: "Njemačka", anchor: "middle" as const, dx: 0, dy: -14 },
-  { x: 570, y: 235, label: "Turska", anchor: "start" as const, dx: 10, dy: 5 },
-  { x: 615, y: 285, label: "Saudijska Arabija", anchor: "middle" as const, dx: 0, dy: 24 },
-  { x: 55, y: 135, label: "Sjedinjene Američke Države", anchor: "start" as const, dx: 10, dy: -12 },
+const NODES: {
+  x: number;
+  y: number;
+  label: Localized;
+  origin?: true;
+  anchor: "start" | "middle";
+  dx: number;
+  dy: number;
+}[] = [
+  { x: 440, y: 195, label: { bs: "Gornji Rahić, BiH", en: "Gornji Rahić, Bosnia" }, origin: true, anchor: "middle", dx: 0, dy: 26 },
+  { x: 385, y: 172, label: { bs: "Hrvatska", en: "Croatia" }, anchor: "middle", dx: 0, dy: -14 },
+  { x: 350, y: 125, label: { bs: "Slovenija", en: "Slovenia" }, anchor: "middle", dx: 0, dy: -14 },
+  { x: 395, y: 82, label: { bs: "Austrija", en: "Austria" }, anchor: "middle", dx: 0, dy: -14 },
+  { x: 330, y: 42, label: { bs: "Njemačka", en: "Germany" }, anchor: "middle", dx: 0, dy: -14 },
+  { x: 570, y: 235, label: { bs: "Turska", en: "Turkey" }, anchor: "start", dx: 10, dy: 5 },
+  { x: 615, y: 285, label: { bs: "Saudijska Arabija", en: "Saudi Arabia" }, anchor: "middle", dx: 0, dy: 24 },
+  { x: 55, y: 135, label: { bs: "Sjedinjene Američke Države", en: "United States" }, anchor: "start", dx: 10, dy: -12 },
 ];
 
 export function DistributionMap() {
+  const t = useT();
   const origin = NODES[0];
 
   return (
     <section className="py-20 sm:py-28" style={{ background: "var(--forest-deep)" }}>
       <div className="mx-auto max-w-6xl px-5 sm:px-8">
-        <SectionHeading eyebrow={home.worldEyebrow.bs} title={home.worldTitle.bs} body={home.worldBody.bs} align="center" dark />
+        <SectionHeading eyebrow={t(home.worldEyebrow)} title={t(home.worldTitle)} body={t(home.worldBody)} align="center" dark />
 
         <div className="mx-auto mt-14 max-w-3xl">
           <svg
             viewBox="0 0 720 340"
             className="w-full"
             role="img"
-            aria-label="Karta distribucije: Bosna i Hercegovina, Hrvatska, Slovenija, Austrija, Njemačka, Turska, Saudijska Arabija, Sjedinjene Američke Države"
+            aria-label={NODES.map((n) => t(n.label)).join(", ")}
           >
             {NODES.slice(1).map((node) => (
               <motion.line
-                key={node.label}
+                key={node.label.bs}
                 x1={origin.x}
                 y1={origin.y}
                 x2={node.x}
@@ -51,7 +61,7 @@ export function DistributionMap() {
             ))}
 
             {NODES.map((node) => (
-              <g key={node.label}>
+              <g key={node.label.bs}>
                 <motion.circle
                   cx={node.x}
                   cy={node.y}
@@ -83,7 +93,7 @@ export function DistributionMap() {
                   fill="var(--beige)"
                   fontFamily="var(--font-body)"
                 >
-                  {node.label}
+                  {t(node.label)}
                 </text>
               </g>
             ))}

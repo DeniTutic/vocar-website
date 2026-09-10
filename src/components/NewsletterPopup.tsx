@@ -4,12 +4,14 @@ import { useEffect, useState, type FormEvent } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { Mail, X, CheckCircle2 } from "lucide-react";
 import { newsletter } from "@/data/content";
+import { useT } from "@/lib/locale";
 
 const STORAGE_KEY = "vocar_newsletter_seen";
 const SHOW_DELAY_MS = 8000;
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 export function NewsletterPopup() {
+  const t = useT();
   const [open, setOpen] = useState(false);
   const [email, setEmail] = useState("");
   const [error, setError] = useState("");
@@ -40,7 +42,7 @@ export function NewsletterPopup() {
   function handleSubmit(e: FormEvent) {
     e.preventDefault();
     if (!EMAIL_RE.test(email)) {
-      setError(newsletter.errorEmail.bs);
+      setError(t(newsletter.errorEmail));
       return;
     }
     setError("");
@@ -81,7 +83,7 @@ export function NewsletterPopup() {
             <button
               type="button"
               onClick={close}
-              aria-label={newsletter.close.bs}
+              aria-label={t(newsletter.close)}
               className="absolute right-5 top-5 flex h-8 w-8 items-center justify-center rounded-full transition-colors hover:bg-black/5"
               style={{ color: "var(--ink-soft)" }}
             >
@@ -99,19 +101,19 @@ export function NewsletterPopup() {
               className="mt-5 block text-xs font-semibold uppercase tracking-[0.14em]"
               style={{ color: "var(--forest)" }}
             >
-              {newsletter.eyebrow.bs}
+              {t(newsletter.eyebrow)}
             </span>
             <h3 id="newsletter-title" className="mt-2 text-3xl leading-tight" style={{ color: "var(--forest-deep)" }}>
-              {newsletter.title.bs}
+              {t(newsletter.title)}
             </h3>
             <p className="mt-3 text-sm leading-relaxed" style={{ color: "var(--ink-soft)" }}>
-              {newsletter.body.bs}
+              {t(newsletter.body)}
             </p>
 
             {sent ? (
               <div className="mt-6 flex items-start gap-2 text-sm" style={{ color: "var(--forest)" }} role="status">
                 <CheckCircle2 size={18} className="mt-0.5 shrink-0" />
-                <span>{newsletter.success.bs}</span>
+                <span>{t(newsletter.success)}</span>
               </div>
             ) : (
               <form onSubmit={handleSubmit} noValidate className="mt-6 flex flex-col gap-3">
@@ -119,8 +121,8 @@ export function NewsletterPopup() {
                   type="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  placeholder={newsletter.placeholder.bs}
-                  aria-label={newsletter.placeholder.bs}
+                  placeholder={t(newsletter.placeholder)}
+                  aria-label={t(newsletter.placeholder)}
                   aria-invalid={!!error}
                   className="w-full rounded-full border px-5 py-3 text-sm outline-none"
                   style={{ borderColor: "var(--line)", background: "var(--cream)", color: "var(--ink)" }}
@@ -135,10 +137,10 @@ export function NewsletterPopup() {
                   className="inline-flex items-center justify-center rounded-full px-7 py-3.5 text-sm font-semibold uppercase tracking-wide"
                   style={{ background: "var(--forest)", color: "var(--cream)" }}
                 >
-                  {newsletter.submit.bs}
+                  {t(newsletter.submit)}
                 </button>
                 <p className="text-center text-xs" style={{ color: "var(--ink-soft)" }}>
-                  {newsletter.disclaimer.bs}
+                  {t(newsletter.disclaimer)}
                 </p>
               </form>
             )}

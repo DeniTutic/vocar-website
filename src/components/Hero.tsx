@@ -3,6 +3,7 @@
 import { motion, type Variants } from "framer-motion";
 import { ChevronDown } from "lucide-react";
 import { home } from "@/data/content";
+import { useT } from "@/lib/locale";
 import { HeroProductField } from "./HeroProductField";
 
 const EASE_OUT: [number, number, number, number] = [0.22, 1, 0.36, 1];
@@ -18,6 +19,8 @@ const item: Variants = {
 };
 
 export function Hero() {
+  const t = useT();
+
   return (
     <section
       className="relative isolate flex min-h-[100svh] flex-col justify-center overflow-hidden border-b"
@@ -45,14 +48,14 @@ export function Hero() {
           className="text-5xl leading-[1.05] sm:text-7xl lg:text-8xl"
           style={{ color: "var(--forest-deep)" }}
         >
-          {home.heroHeadline.bs}
+          {t(home.heroHeadline)}
         </motion.h1>
         <motion.p
           variants={item}
           className="mx-auto mt-6 max-w-xl text-lg leading-relaxed sm:text-xl"
           style={{ color: "var(--ink-soft)" }}
         >
-          {home.heroSub.bs}
+          {t(home.heroSub)}
         </motion.p>
         <motion.div variants={item} className="mt-10 flex flex-wrap items-center justify-center gap-4">
           {/* Plain <a>, not <Link>: reliably scrolls to the same-page anchor. */}
@@ -62,7 +65,7 @@ export function Hero() {
             className="rounded-full px-7 py-3.5 text-sm font-semibold uppercase tracking-wide shadow-sm transition-transform hover:-translate-y-0.5"
             style={{ background: "var(--forest)", color: "var(--cream)" }}
           >
-            {home.ctaPrimary.bs}
+            {t(home.ctaPrimary)}
           </a>
           {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
           <a
@@ -70,7 +73,7 @@ export function Hero() {
             className="rounded-full border px-7 py-3.5 text-sm font-semibold uppercase tracking-wide transition-colors hover:bg-white/60"
             style={{ borderColor: "var(--forest-deep)", color: "var(--forest-deep)" }}
           >
-            {home.ctaSecondary.bs}
+            {t(home.ctaSecondary)}
           </a>
         </motion.div>
       </motion.div>

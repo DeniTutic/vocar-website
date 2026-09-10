@@ -1,8 +1,13 @@
+"use client";
+
 import { Download } from "lucide-react";
 import { home } from "@/data/content";
+import { useT } from "@/lib/locale";
 import { ScrollReveal } from "./ScrollReveal";
 
 export function CatalogCTA() {
+  const t = useT();
+
   return (
     <section id="katalog" className="scroll-mt-20 px-5 py-20 sm:px-8 sm:py-28">
       <div className="mx-auto max-w-3xl">
@@ -12,10 +17,10 @@ export function CatalogCTA() {
             style={{ background: "var(--forest)", color: "var(--cream)" }}
           >
             <span className="text-xs font-semibold uppercase tracking-[0.14em]" style={{ color: "var(--amber)" }}>
-              {home.catalogEyebrow.bs}
+              {t(home.catalogEyebrow)}
             </span>
-            <h2 className="text-4xl sm:text-5xl">{home.catalogTitle.bs}</h2>
-            <p className="max-w-md text-base opacity-85 sm:text-lg">{home.catalogBody.bs}</p>
+            <h2 className="text-4xl sm:text-5xl">{t(home.catalogTitle)}</h2>
+            <p className="max-w-md text-base opacity-85 sm:text-lg">{t(home.catalogBody)}</p>
             <a
               href="/files/vocar-katalog.pdf"
               download
@@ -23,7 +28,7 @@ export function CatalogCTA() {
               style={{ background: "var(--cream)", color: "var(--forest-deep)" }}
             >
               <Download size={16} />
-              {home.catalogCta.bs}
+              {t(home.catalogCta)}
             </a>
           </div>
         </ScrollReveal>

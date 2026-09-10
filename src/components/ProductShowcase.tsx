@@ -4,10 +4,12 @@ import { useMemo, useRef, useState } from "react";
 import { categories } from "@/data/categories";
 import { products } from "@/data/products";
 import { home } from "@/data/content";
+import { useT } from "@/lib/locale";
 import { SectionHeading } from "./SectionHeading";
 import { ProductCard } from "./ProductCard";
 
 export function ProductShowcase() {
+  const t = useT();
   const [active, setActive] = useState<string>(categories[0].slug);
   const trackRef = useRef<HTMLDivElement>(null);
 
@@ -16,7 +18,7 @@ export function ProductShowcase() {
   return (
     <section id="proizvodi" className="scroll-mt-20 py-20 sm:py-28" style={{ background: "var(--beige)" }}>
       <div className="mx-auto max-w-7xl px-5 sm:px-8">
-        <SectionHeading eyebrow={home.showcaseEyebrow.bs} title={home.showcaseTitle.bs} body={home.showcaseBody.bs} />
+        <SectionHeading eyebrow={t(home.showcaseEyebrow)} title={t(home.showcaseTitle)} body={t(home.showcaseBody)} />
 
         <div className="mt-10 flex gap-2 overflow-x-auto pb-2">
           {categories.map((c) => (
@@ -34,7 +36,7 @@ export function ProductShowcase() {
                 color: active === c.slug ? "var(--cream)" : "var(--ink)",
               }}
             >
-              {c.name.bs}
+              {t(c.name)}
             </button>
           ))}
         </div>

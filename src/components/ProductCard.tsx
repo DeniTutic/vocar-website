@@ -5,8 +5,11 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import type { Product } from "@/data/products";
 import { home } from "@/data/content";
+import { useT } from "@/lib/locale";
 
 export function ProductCard({ product, className = "" }: { product: Product; className?: string }) {
+  const t = useT();
+
   return (
     <motion.div
       whileHover="hover"
@@ -23,7 +26,7 @@ export function ProductCard({ product, className = "" }: { product: Product; cla
         >
           <Image
             src={product.image}
-            alt={product.imageAlt}
+            alt={t(product.imageAlt)}
             fill
             sizes="(min-width: 1024px) 320px, 80vw"
             className="object-cover"
@@ -33,13 +36,13 @@ export function ProductCard({ product, className = "" }: { product: Product; cla
           className="absolute left-3 top-3 rounded-full px-3 py-1 text-[11px] font-semibold uppercase tracking-wide"
           style={{ background: "var(--cream)", color: "var(--forest)" }}
         >
-          {product.category.name.bs}
+          {t(product.category.name)}
         </span>
       </div>
 
       <div className="flex flex-1 flex-col gap-3 p-6">
         <h3 className="text-2xl leading-tight" style={{ color: "var(--forest-deep)" }}>
-          {product.name}
+          {t(product.name)}
         </h3>
         <p className="text-sm" style={{ color: "var(--ink-soft)" }}>
           {product.sizes}
@@ -49,7 +52,7 @@ export function ProductCard({ product, className = "" }: { product: Product; cla
           className="mt-auto inline-flex w-fit items-center gap-2 border-b pb-0.5 text-sm font-semibold uppercase tracking-wide transition-colors"
           style={{ borderColor: "var(--forest)", color: "var(--forest)" }}
         >
-          {home.viewProduct.bs}
+          {t(home.viewProduct)}
           <span aria-hidden>→</span>
         </Link>
       </div>
