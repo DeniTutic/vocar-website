@@ -6,6 +6,7 @@ import { BrandStory } from "@/components/BrandStory";
 import { QualitySection } from "@/components/QualitySection";
 import { Timeline } from "@/components/Timeline";
 import { DistributionMap } from "@/components/DistributionMap";
+import { Testimonials } from "@/components/Testimonials";
 import { CatalogCTA } from "@/components/CatalogCTA";
 import { ContactSection } from "@/components/ContactSection";
 
@@ -26,6 +27,7 @@ export default function Home() {
       <QualitySection />
       <Timeline />
       <DistributionMap />
+      <Testimonials />
       <CatalogCTA />
       <ContactSection />
     </>

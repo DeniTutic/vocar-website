@@ -112,6 +112,9 @@ export const home = {
     en: "Voćar products travel from Gornji Rahić in Bosnia and Herzegovina to markets across the region, Europe and beyond — through partners in Croatia, Slovenia, Austria, Germany, Turkey, Saudi Arabia and the United Arab Emirates, all the way to the United States, Mexico, Russia and Australia.",
   },
 
+  testimonialsEyebrow: { bs: "Utisci", en: "Testimonials" },
+  testimonialsTitle: { bs: "Šta kažu naši kupci.", en: "What our customers say." },
+
   catalogEyebrow: { bs: "Katalog", en: "Catalog" },
   catalogTitle: { bs: "Istražite naš katalog.", en: "Explore our catalog." },
   catalogBody: {

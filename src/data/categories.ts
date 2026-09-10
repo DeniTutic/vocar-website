@@ -19,6 +19,26 @@ export interface Category {
 
 export const categories: Category[] = [
   {
+    slug: "peanuts",
+    name: { bs: "Kikiriki", en: "Peanuts" },
+    description: {
+      bs: "Prženi i slani, u čili ili paprika oblozi, ili vakumirani radi svježine.",
+      en: "Roasted and salted, chili- or paprika-coated, or vacuum-sealed for freshness.",
+    },
+    image: "/images/categories/peanuts.jpg",
+    imageAlt: { bs: "Sneki kikiriki u drvenoj zdjeli", en: "Sneki peanuts in a wooden bowl" },
+    accent: "#2E7FB8",
+    accentDeep: "#1B4F72",
+    skus: [
+      { name: { bs: "Sneki kikiriki obloženi, paprika", en: "Sneki Coated peanuts, paprika" }, sizes: "—" },
+      { name: { bs: "Sneki kikiriki obloženi, čili", en: "Sneki Coated peanuts, chili" }, sizes: "—" },
+      { name: { bs: "Sneki kikiriki slani, prženi", en: "Sneki Peanuts, salted & roasted" }, sizes: "200g, 400g" },
+      { name: { bs: "Sneki kikiriki slani, prženi", en: "Sneki Peanuts, salted & roasted" }, sizes: "50g, 100g" },
+      { name: { bs: "Timi kikiriki, vakumirano", en: "Timi Peanuts, vacuum pack" }, sizes: "200g" },
+      { name: { bs: "Timi kikiriki, vakumirano", en: "Timi Peanuts, vacuum pack" }, sizes: "400g" },
+    ],
+  },
+  {
     slug: "prunes",
     name: { bs: "Suhe šljive", en: "Dried Prunes" },
     description: {
@@ -89,26 +109,6 @@ export const categories: Category[] = [
       { name: { bs: "Timi Pikant", en: "Timi Pikant" }, sizes: "90g" },
       { name: { bs: "Timi Flips sa kikirikijem", en: "Timi Flips with peanuts" }, sizes: "25g" },
       { name: { bs: "Timi Flips sa kikirikijem", en: "Timi Flips with peanuts" }, sizes: "90g" },
-    ],
-  },
-  {
-    slug: "peanuts",
-    name: { bs: "Kikiriki", en: "Peanuts" },
-    description: {
-      bs: "Prženi i slani, u čili ili paprika oblozi, ili vakumirani radi svježine.",
-      en: "Roasted and salted, chili- or paprika-coated, or vacuum-sealed for freshness.",
-    },
-    image: "/images/categories/peanuts.jpg",
-    imageAlt: { bs: "Sneki kikiriki u drvenoj zdjeli", en: "Sneki peanuts in a wooden bowl" },
-    accent: "#2E7FB8",
-    accentDeep: "#1B4F72",
-    skus: [
-      { name: { bs: "Sneki kikiriki obloženi, paprika", en: "Sneki Coated peanuts, paprika" }, sizes: "—" },
-      { name: { bs: "Sneki kikiriki obloženi, čili", en: "Sneki Coated peanuts, chili" }, sizes: "—" },
-      { name: { bs: "Sneki kikiriki slani, prženi", en: "Sneki Peanuts, salted & roasted" }, sizes: "200g, 400g" },
-      { name: { bs: "Sneki kikiriki slani, prženi", en: "Sneki Peanuts, salted & roasted" }, sizes: "50g, 100g" },
-      { name: { bs: "Timi kikiriki, vakumirano", en: "Timi Peanuts, vacuum pack" }, sizes: "200g" },
-      { name: { bs: "Timi kikiriki, vakumirano", en: "Timi Peanuts, vacuum pack" }, sizes: "400g" },
     ],
   },
   {
