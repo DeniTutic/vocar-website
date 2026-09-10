@@ -48,7 +48,7 @@ function LanguageSwitcher() {
             color: locale === l ? "var(--cream)" : "var(--ink-soft)",
           }}
         >
-          {l}
+          {l.toUpperCase()}
         </button>
       ))}
     </div>

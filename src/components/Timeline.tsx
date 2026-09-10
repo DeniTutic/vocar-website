@@ -52,7 +52,7 @@ export function Timeline() {
               </div>
               {i < STEPS.length - 1 && (
                 <div
-                  className="absolute left-[calc(50%+2rem)] top-8 hidden h-px w-[calc(100%-4rem)] sm:block"
+                  className="absolute left-[calc(50%+2rem)] top-8 hidden h-px w-[calc(100%-2rem)] sm:block"
                   aria-hidden
                 >
                   <span className="absolute inset-0" style={{ background: "var(--line)" }} />
