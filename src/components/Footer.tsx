@@ -3,6 +3,7 @@
 import { Logo } from "./Logo";
 import { nav, footerContent } from "@/data/content";
 import { useT } from "@/lib/locale";
+import { ScrollReveal } from "./ScrollReveal";
 
 const links = [
   { href: "/", key: "home" as const },
@@ -18,7 +19,7 @@ export function Footer() {
 
   return (
     <footer style={{ background: "var(--charcoal)", color: "var(--beige)" }}>
-      <div className="mx-auto grid max-w-7xl gap-10 px-5 py-16 sm:px-8 md:grid-cols-[1.3fr_1fr_1fr]">
+      <ScrollReveal className="mx-auto grid max-w-7xl gap-10 px-5 py-16 sm:px-8 md:grid-cols-[1.3fr_1fr_1fr]">
         <div className="flex flex-col gap-3">
           <div className="flex items-center">
             <Logo className="h-14 w-auto shrink-0" />
@@ -31,7 +32,11 @@ export function Footer() {
             {t(nav.products)}
           </span>
           {links.map((link) => (
-            <a key={link.href} href={link.href} className="w-fit opacity-80 hover:opacity-100">
+            <a
+              key={link.href}
+              href={link.href}
+              className="w-fit opacity-80 transition-opacity hover:opacity-100"
+            >
               {t(nav[link.key])}
             </a>
           ))}
@@ -44,17 +49,17 @@ export function Footer() {
           <span className="opacity-80">Voćar d.o.o. Brčko</span>
           <span className="opacity-80">Gornji Rahić 112, 76207 Gornji Rahić</span>
           <span className="opacity-80">Bosna i Hercegovina</span>
-          <a href="tel:+38749512415" className="w-fit opacity-80 hover:opacity-100">
+          <a href="tel:+38749512415" className="w-fit opacity-80 transition-opacity hover:opacity-100">
             +387 49 512 415
           </a>
-          <a href="tel:+38749513360" className="w-fit opacity-80 hover:opacity-100">
+          <a href="tel:+38749513360" className="w-fit opacity-80 transition-opacity hover:opacity-100">
             +387 49 513 360
           </a>
-          <a href="mailto:sales@vocar.ba" className="w-fit opacity-80 hover:opacity-100">
+          <a href="mailto:sales@vocar.ba" className="w-fit opacity-80 transition-opacity hover:opacity-100">
             sales@vocar.ba
           </a>
         </div>
-      </div>
+      </ScrollReveal>
 
       <div
         className="border-t px-5 py-5 text-xs opacity-60 sm:px-8"

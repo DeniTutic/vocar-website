@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import { motion } from "framer-motion";
 import { Leaf, Hammer, Gauge, HeartHandshake } from "lucide-react";
 import { home, about } from "@/data/content";
 import { useT } from "@/lib/locale";
@@ -51,6 +52,21 @@ export function BrandStory() {
             sizes="(min-width: 1024px) 45vw, 100vw"
             className="object-cover"
           />
+          <div
+            className="pointer-events-none absolute inset-x-0 bottom-0 h-2/5"
+            style={{ background: "linear-gradient(180deg, rgba(20,32,26,0) 0%, rgba(20,32,26,0.75) 100%)" }}
+            aria-hidden
+          />
+          <motion.p
+            initial={{ opacity: 0, y: 14 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-80px" }}
+            transition={{ duration: 0.6, delay: 0.4, ease: [0.22, 1, 0.36, 1] }}
+            className="font-display absolute bottom-6 left-6 right-6 text-2xl italic leading-snug sm:text-3xl"
+            style={{ color: "var(--cream)" }}
+          >
+            {t(about.slogan)}
+          </motion.p>
         </ScrollReveal>
       </div>
 

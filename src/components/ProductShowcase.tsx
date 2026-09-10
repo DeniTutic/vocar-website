@@ -1,6 +1,7 @@
 "use client";
 
 import { useMemo, useRef, useState } from "react";
+import { motion } from "framer-motion";
 import { categories } from "@/data/categories";
 import { products } from "@/data/products";
 import { home } from "@/data/content";
@@ -29,25 +30,39 @@ export function ProductShowcase() {
                 setActive(c.slug);
                 trackRef.current?.scrollTo({ left: 0, behavior: "smooth" });
               }}
-              className="shrink-0 rounded-full border px-4 py-2 text-sm font-medium transition-colors"
+              className="relative shrink-0 rounded-full border px-4 py-2 text-sm font-medium transition-colors"
               style={{
                 borderColor: active === c.slug ? "var(--forest)" : "var(--line)",
-                background: active === c.slug ? "var(--forest)" : "transparent",
                 color: active === c.slug ? "var(--cream)" : "var(--ink)",
               }}
             >
+              {active === c.slug && (
+                <motion.span
+                  layoutId="category-pill"
+                  className="absolute inset-0 -z-10 rounded-full"
+                  style={{ background: "var(--forest)" }}
+                  transition={{ type: "spring", stiffness: 500, damping: 35 }}
+                />
+              )}
               {t(c.name)}
             </button>
           ))}
         </div>
 
-        <div ref={trackRef} className="mt-8 flex snap-x snap-mandatory gap-5 overflow-x-auto pb-4">
+        <motion.div
+          key={active}
+          ref={trackRef}
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
+          className="mt-8 flex snap-x snap-mandatory gap-5 overflow-x-auto pb-4"
+        >
           {visible.map((product) => (
             <div key={product.slug} className="w-[78vw] shrink-0 snap-start sm:w-[320px]">
               <ProductCard product={product} className="h-full" />
             </div>
           ))}
-        </div>
+        </motion.div>
       </div>
     </section>
   );
