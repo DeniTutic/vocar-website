@@ -81,11 +81,8 @@ export function Navbar() {
       transition={{ duration: 0.3 }}
     >
       <div className="mx-auto flex w-full max-w-7xl items-center justify-between px-5 sm:px-8">
-        <Link href="/" className="flex items-center gap-2.5" onClick={() => setOpen(false)}>
-          <Logo className="h-8 w-8 shrink-0" />
-          <span className="font-display text-xl tracking-tight" style={{ color: "var(--forest)" }}>
-            Voćar
-          </span>
+        <Link href="/" className="flex items-center" onClick={() => setOpen(false)}>
+          <Logo className="h-11 w-auto shrink-0" />
         </Link>
 
         <nav className="hidden items-center gap-1 lg:flex">
