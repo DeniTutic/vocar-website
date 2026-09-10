@@ -48,11 +48,11 @@ export function Hero() {
           <motion.div
             className="pointer-events-none absolute inset-0 z-0 flex items-center justify-center"
             initial={{ opacity: 0, scale: 0.94 }}
-            animate={{ opacity: 0.08, scale: 1 }}
+            animate={{ opacity: 0.14, scale: 1 }}
             transition={{ duration: 1.4, delay: 0.2, ease: EASE_OUT }}
             aria-hidden
           >
-            <Logo decorative priority={false} className="h-[130%] w-auto sm:h-[150%]" />
+            <Logo decorative priority={false} className="h-[260%] w-auto sm:h-[300%]" />
           </motion.div>
           <motion.h1
             variants={item}

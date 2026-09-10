@@ -7,7 +7,7 @@ export interface StatItem {
 
 export function Stats({ items, dark = false }: { items: StatItem[]; dark?: boolean }) {
   return (
-    <div className="grid grid-cols-1 gap-8 sm:grid-cols-3">
+    <div className="grid grid-cols-2 gap-8 sm:grid-cols-3 lg:grid-cols-5">
       {items.map((item, i) => (
         <div key={i}>
           <div
