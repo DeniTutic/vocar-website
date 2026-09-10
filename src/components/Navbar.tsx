@@ -42,7 +42,7 @@ function LanguageSwitcher() {
           type="button"
           onClick={() => setLocale(l)}
           aria-pressed={locale === l}
-          className="relative rounded-full px-2.5 py-1.5 transition-colors"
+          className="relative rounded-full px-2.5 py-1.5 transition-colors duration-500"
           style={{ color: locale === l ? "var(--cream)" : "var(--ink-soft)" }}
         >
           {locale === l && (
@@ -50,7 +50,7 @@ function LanguageSwitcher() {
               layoutId="lang-pill"
               className="absolute inset-0 -z-10 rounded-full"
               style={{ background: "var(--forest)" }}
-              transition={{ type: "spring", stiffness: 500, damping: 35 }}
+              transition={{ type: "spring", stiffness: 600, damping: 40 }}
             />
           )}
           {l.toUpperCase()}

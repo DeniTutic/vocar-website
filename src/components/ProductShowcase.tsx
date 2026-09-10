@@ -30,7 +30,7 @@ export function ProductShowcase() {
                 setActive(c.slug);
                 trackRef.current?.scrollTo({ left: 0, behavior: "smooth" });
               }}
-              className="relative shrink-0 rounded-full border px-4 py-2 text-sm font-medium transition-colors"
+              className="relative shrink-0 rounded-full border px-4 py-2 text-sm font-medium transition-colors duration-500"
               style={{
                 borderColor: active === c.slug ? "var(--forest)" : "var(--line)",
                 color: active === c.slug ? "var(--cream)" : "var(--ink)",
@@ -41,7 +41,7 @@ export function ProductShowcase() {
                   layoutId="category-pill"
                   className="absolute inset-0 -z-10 rounded-full"
                   style={{ background: "var(--forest)" }}
-                  transition={{ type: "spring", stiffness: 500, damping: 35 }}
+                  transition={{ type: "spring", stiffness: 600, damping: 40 }}
                 />
               )}
               {t(c.name)}
