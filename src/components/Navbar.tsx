@@ -15,13 +15,55 @@ import { useLocale, useT, type Locale } from "@/lib/locale";
 // A real <a href="/#id"> scrolls natively both from "/" itself and, via a
 // full navigation, from any other route (e.g. a product detail page).
 const links = [
-  { href: "/", key: "home" as const },
-  { href: "/#proizvodi", key: "products" as const },
-  { href: "/#o-nama", key: "about" as const },
-  { href: "/#kvalitet", key: "quality" as const },
-  { href: "/#katalog", key: "catalog" as const },
-  { href: "/#kontakt", key: "contact" as const },
+  { href: "/", key: "home" as const, sectionId: null },
+  { href: "/#proizvodi", key: "products" as const, sectionId: "proizvodi" },
+  { href: "/#o-nama", key: "about" as const, sectionId: "o-nama" },
+  { href: "/#kvalitet", key: "quality" as const, sectionId: "kvalitet" },
+  { href: "/#katalog", key: "catalog" as const, sectionId: "katalog" },
+  { href: "/#kontakt", key: "contact" as const, sectionId: "kontakt" },
 ];
+
+const SECTION_IDS = links.map((l) => l.sectionId).filter((id): id is string => id !== null);
+
+/** Tracks which anchor section (if any) the user has scrolled into, so the
+ * navbar can highlight the section currently in view rather than only ever
+ * highlighting "Home". Picks the last section whose top has passed the
+ * sticky header, falling back to `null` (home/top of page) above all of them. */
+function useActiveSection(enabled: boolean): string | null {
+  const [activeSection, setActiveSection] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (!enabled) return;
+
+    let frame: number | null = null;
+    const computeActive = () => {
+      frame = null;
+      const headerOffset = 140;
+      let current: string | null = null;
+      for (const id of SECTION_IDS) {
+        const el = document.getElementById(id);
+        if (el && el.getBoundingClientRect().top - headerOffset <= 0) {
+          current = id;
+        }
+      }
+      setActiveSection(current);
+    };
+    const onScroll = () => {
+      if (frame === null) frame = requestAnimationFrame(computeActive);
+    };
+
+    computeActive();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll);
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+      if (frame !== null) cancelAnimationFrame(frame);
+    };
+  }, [enabled]);
+
+  return activeSection;
+}
 
 const LOCALES: Locale[] = ["bs", "en"];
 
@@ -66,6 +108,7 @@ export function Navbar() {
   const [open, setOpen] = useState(false);
   const { scrollY } = useScroll();
   const [scrolled, setScrolled] = useState(false);
+  const activeSection = useActiveSection(isHome);
 
   useEffect(() => {
     return scrollY.on("change", (v) => setScrolled(v > 24));
@@ -91,19 +134,21 @@ export function Navbar() {
 
         <nav className="hidden items-center gap-1 lg:flex">
           {links.map((link) => {
-            const active = link.href === "/" && isHome;
+            const active = isHome && activeSection === link.sectionId;
             return (
-              <a
+              <motion.a
                 key={link.href}
                 href={link.href}
-                className="rounded-full px-4 py-2 text-sm font-medium transition-colors"
-                style={{
-                  color: active ? "var(--cream)" : "var(--ink-soft)",
-                  background: active ? "var(--forest)" : "transparent",
+                aria-current={active ? "true" : undefined}
+                animate={{
+                  backgroundColor: active ? "#1f3d2e" : "rgba(31,61,46,0)",
+                  color: active ? "#f7f3ea" : "#625a4d",
                 }}
+                transition={{ duration: 0.25, ease: "easeInOut" }}
+                className="rounded-full px-4 py-2 text-sm font-medium"
               >
                 {t(nav[link.key])}
-              </a>
+              </motion.a>
             );
           })}
         </nav>
@@ -139,17 +184,24 @@ export function Navbar() {
           style={{ borderColor: "var(--line)", background: "var(--cream)" }}
         >
           <nav className="mx-auto flex max-w-7xl flex-col gap-1 px-5 py-4">
-            {links.map((link) => (
-              <a
-                key={link.href}
-                href={link.href}
-                onClick={() => setOpen(false)}
-                className="rounded-lg px-3 py-2.5 text-base font-medium"
-                style={{ color: "var(--ink)" }}
-              >
-                {t(nav[link.key])}
-              </a>
-            ))}
+            {links.map((link) => {
+              const active = isHome && activeSection === link.sectionId;
+              return (
+                <a
+                  key={link.href}
+                  href={link.href}
+                  onClick={() => setOpen(false)}
+                  aria-current={active ? "true" : undefined}
+                  className="rounded-lg px-3 py-2.5 text-base font-medium transition-colors"
+                  style={{
+                    color: active ? "var(--forest)" : "var(--ink)",
+                    background: active ? "rgba(31,61,46,0.08)" : "transparent",
+                  }}
+                >
+                  {t(nav[link.key])}
+                </a>
+              );
+            })}
             {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
             <a
               href="/#proizvodi"
