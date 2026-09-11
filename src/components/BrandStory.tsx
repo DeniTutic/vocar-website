@@ -40,7 +40,6 @@ export function BrandStory() {
                   { value: home.statYears.value, label: t(home.statYears.label) },
                   { value: home.statProducts.value, label: t(home.statProducts.label) },
                   { value: home.statHappyFaces.value, label: t(home.statHappyFaces.label) },
-                  { value: home.statFacility.value, label: t(home.statFacility.label) },
                   { value: home.statMarkets.value, label: t(home.statMarkets.label) },
                 ]}
               />

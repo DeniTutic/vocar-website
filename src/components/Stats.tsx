@@ -7,11 +7,11 @@ export interface StatItem {
 
 export function Stats({ items, dark = false }: { items: StatItem[]; dark?: boolean }) {
   return (
-    <div className="grid grid-cols-2 gap-8 sm:grid-cols-3 lg:grid-cols-5">
+    <div className="grid grid-cols-2 gap-x-6 gap-y-8">
       {items.map((item, i) => (
         <div key={i}>
           <div
-            className="font-display text-5xl tabular-nums"
+            className="font-display text-4xl tabular-nums sm:text-5xl"
             style={{ color: dark ? "var(--amber)" : "var(--forest)" }}
           >
             <AnimatedCounter value={item.value} />
