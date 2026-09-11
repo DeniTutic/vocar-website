@@ -15,9 +15,14 @@ export function ProductCard({ product, className = "" }: { product: Product; cla
       whileHover="hover"
       initial="rest"
       animate="rest"
-      className={`group flex h-full flex-col overflow-hidden rounded-2xl border bg-white ${className}`}
+      className={`group relative flex h-full flex-col overflow-hidden rounded-2xl border bg-white ${className}`}
       style={{ borderColor: "var(--line)" }}
     >
+      <Link
+        href={`/proizvodi/${product.slug}`}
+        className="absolute inset-0 z-10"
+        aria-label={t(product.name)}
+      />
       <div className="relative aspect-[4/3] overflow-hidden" style={{ background: "var(--beige)" }}>
         <motion.div
           variants={{ rest: { scale: 1 }, hover: { scale: 1.06 } }}
@@ -47,14 +52,13 @@ export function ProductCard({ product, className = "" }: { product: Product; cla
         <p className="text-sm" style={{ color: "var(--ink-soft)" }}>
           {product.sizes}
         </p>
-        <Link
-          href={`/proizvodi/${product.slug}`}
-          className="mt-auto inline-flex w-fit items-center gap-2 border-b pb-0.5 text-sm font-semibold uppercase tracking-wide transition-colors"
+        <span
+          className="mt-auto inline-flex w-fit items-center gap-2 border-b pb-0.5 text-sm font-semibold uppercase tracking-wide"
           style={{ borderColor: "var(--forest)", color: "var(--forest)" }}
         >
           {t(home.viewProduct)}
           <span aria-hidden>→</span>
-        </Link>
+        </span>
       </div>
     </motion.div>
   );
