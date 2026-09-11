@@ -13,7 +13,11 @@ export function ContactSection() {
   const t = useT();
 
   return (
-    <section id="kontakt" className="scroll-mt-20 border-t px-5 py-20 sm:px-8 sm:py-28" style={{ borderColor: "var(--line)" }}>
+    <section
+      id="kontakt"
+      className="scroll-mt-20 border-t px-5 py-20 sm:px-8 sm:py-28"
+      style={{ borderColor: "var(--line)", background: "var(--beige)" }}
+    >
       <div className="mx-auto max-w-3xl text-center">
         <span className="text-xs font-semibold uppercase tracking-[0.14em]" style={{ color: "var(--forest)" }}>
           {t(contact.eyebrow)}
