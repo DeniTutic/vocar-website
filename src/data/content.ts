@@ -109,8 +109,8 @@ export const home = {
   worldEyebrow: { bs: "Prisutnost", en: "Presence" },
   worldTitle: { bs: "Od Balkana do svijeta.", en: "From the Balkans to the world." },
   worldBody: {
-    bs: "Voćar proizvodi putuju iz Gornjeg Rahića u Bosni i Hercegovini na tržišta regije, Evrope i šire — kroz partnere u Hrvatskoj, Sloveniji, Austriji, Njemačkoj, Turskoj, Saudijskoj Arabiji i Ujedinjenim Arapskim Emiratima, sve do Sjedinjenih Američkih Država, Meksika, Rusije i Australije.",
-    en: "Voćar products travel from Gornji Rahić in Bosnia and Herzegovina to markets across the region, Europe and beyond — through partners in Croatia, Slovenia, Austria, Germany, Turkey, Saudi Arabia and the United Arab Emirates, all the way to the United States, Mexico, Russia and Australia.",
+    bs: "Voćar proizvodi putuju iz Gornjeg Rahića u Bosni i Hercegovini na tržišta regije, Evrope i šire — kroz partnere u Hrvatskoj, Sloveniji, Austriji, Njemačkoj, Turskoj, Saudijskoj Arabiji, Ujedinjenim Arapskim Emiratima i Libiji, sve do Sjedinjenih Američkih Država, Meksika, Rusije i Australije.",
+    en: "Voćar products travel from Gornji Rahić in Bosnia and Herzegovina to markets across the region, Europe and beyond — through partners in Croatia, Slovenia, Austria, Germany, Turkey, Saudi Arabia, the United Arab Emirates and Libya, all the way to the United States, Mexico, Russia and Australia.",
   },
 
   testimonialsEyebrow: { bs: "Utisci", en: "Testimonials" },

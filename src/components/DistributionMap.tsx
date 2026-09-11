@@ -31,6 +31,7 @@ const NODES: {
   { x: 760, y: 30, label: { bs: "Rusija", en: "Russia" }, anchor: "end", dx: -10, dy: 20 },
   { x: 25, y: 235, label: { bs: "Meksiko", en: "Mexico" }, anchor: "start", dx: 8, dy: -10 },
   { x: 790, y: 380, label: { bs: "Australija", en: "Australia" }, anchor: "end", dx: -10, dy: -12 },
+  { x: 505, y: 270, label: { bs: "Libija", en: "Libya" }, anchor: "middle", dx: 0, dy: 22 },
 ];
 
 export function DistributionMap() {
