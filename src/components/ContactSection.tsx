@@ -104,8 +104,10 @@ export function ContactSection() {
           </div>
         </ScrollReveal>
 
-        <ScrollReveal delay={0.1} className="rounded-2xl border p-6 sm:p-10" style={{ borderColor: "var(--line)" }}>
-          <ContactForm />
+        <ScrollReveal delay={0.1}>
+          <div id="distributer" className="scroll-mt-24 rounded-2xl border p-6 sm:p-10" style={{ borderColor: "var(--line)" }}>
+            <ContactForm />
+          </div>
         </ScrollReveal>
       </div>
     </section>

@@ -9,6 +9,7 @@ import { DistributionMap } from "@/components/DistributionMap";
 import { Testimonials } from "@/components/Testimonials";
 import { CatalogCTA } from "@/components/CatalogCTA";
 import { ContactSection } from "@/components/ContactSection";
+import { WhereToBuy } from "@/components/WhereToBuy";
 import { BackToTop } from "@/components/BackToTop";
 
 export const metadata: Metadata = {
@@ -24,6 +25,7 @@ export default function Home() {
       <Hero />
       <ProductShowcase />
       <FeaturedProducts />
+      <WhereToBuy />
       <BrandStory />
       <QualitySection />
       <Timeline />
