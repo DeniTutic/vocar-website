@@ -4,25 +4,25 @@ import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import type { Product } from "@/data/products";
-import { home } from "@/data/content";
+import { home, productPage } from "@/data/content";
 import { useT } from "@/lib/locale";
+import { ProductBadge } from "./ProductBadge";
 
 export function ProductCard({ product, className = "" }: { product: Product; className?: string }) {
   const t = useT();
+  const sizes = product.sizeList.length ? product.sizeList.join(" · ") : t(productPage.sizeOnRequest);
 
   return (
     <motion.div
       whileHover="hover"
       initial="rest"
       animate="rest"
-      className={`group relative flex h-full flex-col overflow-hidden rounded-2xl border bg-white ${className}`}
-      style={{ borderColor: "var(--line)" }}
+      variants={{ rest: { y: 0, rotate: 0 }, hover: { y: -6, rotate: -1 } }}
+      transition={{ type: "spring", stiffness: 300, damping: 20 }}
+      className={`group relative flex h-full flex-col overflow-hidden rounded-2xl border border-line bg-paper ${className}`}
     >
-      <Link
-        href={`/proizvodi/${product.slug}`}
-        className="absolute inset-0 z-10"
-        aria-label={t(product.name)}
-      />
+      <Link href={`/proizvodi/${product.slug}`} className="absolute inset-0 z-10" aria-label={t(product.name)} />
+
       <div className="relative aspect-[4/3] overflow-hidden" style={{ background: "var(--beige)" }}>
         <motion.div
           variants={{ rest: { scale: 1 }, hover: { scale: 1.06 } }}
@@ -33,32 +33,39 @@ export function ProductCard({ product, className = "" }: { product: Product; cla
             src={product.image}
             alt={t(product.imageAlt)}
             fill
-            sizes="(min-width: 1024px) 320px, 80vw"
+            sizes="(min-width: 768px) 33vw, 50vw"
             className="object-cover"
           />
         </motion.div>
-        <span
-          className="absolute left-3 top-3 rounded-full px-3 py-1 text-[11px] font-semibold uppercase tracking-wide"
-          style={{ background: "var(--cream)", color: "var(--forest)" }}
-        >
-          {t(product.category.name)}
-        </span>
+        {product.badges.length > 0 && (
+          <div className="absolute right-2 top-2 flex flex-col items-end gap-1">
+            {product.badges.slice(0, 2).map((badge) => (
+              <ProductBadge key={badge} badge={badge} className="shadow-sm" />
+            ))}
+          </div>
+        )}
       </div>
 
-      <div className="flex flex-1 flex-col gap-3 p-6">
-        <h3 className="text-2xl leading-tight" style={{ color: "var(--forest-deep)" }}>
+      <div className="flex flex-1 flex-col gap-2 p-3 sm:p-5">
+        <span className="flex items-center gap-1.5 text-[11px] font-medium uppercase tracking-wide" style={{ color: "var(--ink-soft)" }}>
+          <span className="h-2 w-2 shrink-0 rounded-full" style={{ background: product.category.accent }} aria-hidden />
+          {t(product.category.name)}
+        </span>
+        <h3 className="text-base leading-tight sm:text-xl" style={{ color: "var(--forest-deep)" }}>
           {t(product.name)}
         </h3>
-        <p className="text-sm" style={{ color: "var(--ink-soft)" }}>
-          {product.sizes}
+        <p className="line-clamp-2 text-xs leading-snug sm:text-sm" style={{ color: "var(--ink-soft)" }}>
+          {t(product.flavor)}
         </p>
-        <span
-          className="mt-auto inline-flex w-fit items-center gap-2 border-b pb-0.5 text-sm font-semibold uppercase tracking-wide"
-          style={{ borderColor: "var(--forest)", color: "var(--forest)" }}
-        >
-          {t(home.viewProduct)}
-          <span aria-hidden>→</span>
-        </span>
+        <div className="mt-auto flex flex-col items-start gap-1.5 pt-2 sm:flex-row sm:items-end sm:justify-between sm:gap-2">
+          <span className="text-[11px] tabular-nums sm:text-xs" style={{ color: "var(--ink-soft)" }}>
+            {sizes}
+          </span>
+          <span className="inline-flex shrink-0 items-center gap-1 border-b-2 border-forest pb-0.5 text-[11px] font-semibold uppercase tracking-wide text-forest transition-colors group-hover:border-pop group-hover:text-pop sm:text-xs">
+            {t(home.viewProduct)}
+            <span aria-hidden>→</span>
+          </span>
+        </div>
       </div>
     </motion.div>
   );

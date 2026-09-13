@@ -14,21 +14,20 @@ interface FloatingProduct {
   delay: number;
   objectPosition: string;
   hideOnMobile?: boolean;
-  centered?: boolean;
 }
 
 // Real product photos cropped to their cleanest region — no packaging text,
 // just the product itself — so each card reads at a glance.
 const PRODUCTS: FloatingProduct[] = [
   {
-    src: "/images/categories/popcorn.jpg",
-    alt: "Kokice preliven karamelom",
+    src: "/images/categories/flips-time.jpg",
+    alt: "Flips Time grickalice",
     wrapperClass: "left-[2%] top-[24%] sm:left-[5%] sm:top-[22%]",
     sizeClass: "h-24 w-44 sm:h-36 sm:w-64 lg:h-40 lg:w-72",
     rotate: -7,
     duration: 5.2,
     delay: 0,
-    objectPosition: "50% 100%",
+    objectPosition: "50% 50%",
   },
   {
     src: "/images/categories/chips.jpg",
@@ -104,17 +103,6 @@ const PRODUCTS: FloatingProduct[] = [
     objectPosition: "50% 40%",
     hideOnMobile: true,
   },
-  {
-    src: "/images/categories/groceries.jpg",
-    alt: "Osnovne namirnice iz Voćar asortimana",
-    wrapperClass: "left-1/2 top-[2%] sm:top-[1%]",
-    sizeClass: "h-20 w-36 sm:h-28 sm:w-52 lg:h-32 lg:w-60",
-    rotate: -2,
-    duration: 5.6,
-    delay: 0.7,
-    objectPosition: "50% 45%",
-    centered: true,
-  },
 ];
 
 export function HeroProductField() {
@@ -126,7 +114,7 @@ export function HeroProductField() {
         <div
           key={p.src}
           className={`absolute ${p.wrapperClass} ${p.hideOnMobile ? "hidden sm:block" : ""}`}
-          style={{ transform: `${p.centered ? "translateX(-50%) " : ""}rotate(${p.rotate}deg)` }}
+          style={{ transform: `rotate(${p.rotate}deg)` }}
         >
           <motion.div
             className={`relative ${p.sizeClass} overflow-hidden rounded-3xl shadow-xl ring-4 ring-white/70`}

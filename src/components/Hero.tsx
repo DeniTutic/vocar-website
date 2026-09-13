@@ -1,11 +1,20 @@
 "use client";
 
+import Image from "next/image";
+import Link from "next/link";
 import { motion, type Variants } from "framer-motion";
 import { ChevronDown } from "lucide-react";
-import { home } from "@/data/content";
+import { home, buy } from "@/data/content";
+import { getProductBySlug } from "@/data/products";
 import { useT } from "@/lib/locale";
+import { useReducedMotion } from "@/lib/useReducedMotion";
 import { HeroProductField } from "./HeroProductField";
 import { Logo } from "./Logo";
+import { CtaLink } from "./CtaLink";
+import { ProductBadge } from "./ProductBadge";
+
+const FLAGSHIP_SLUG = "popcorn-pop-star-kokice-karamel";
+const flagship = getProductBySlug(FLAGSHIP_SLUG)!;
 
 const EASE_OUT: [number, number, number, number] = [0.22, 1, 0.36, 1];
 
@@ -19,8 +28,11 @@ const item: Variants = {
   show: { opacity: 1, y: 0, transition: { duration: 0.7, ease: EASE_OUT } },
 };
 
+const MotionLink = motion.create(Link);
+
 export function Hero() {
   const t = useT();
+  const reducedMotion = useReducedMotion();
 
   return (
     <section
@@ -42,56 +54,82 @@ export function Hero() {
         variants={container}
         initial="hidden"
         animate="show"
-        className="relative z-10 mx-auto w-full max-w-5xl px-5 py-24 text-center sm:px-8"
+        className="relative z-10 mx-auto w-full max-w-5xl px-5 py-20 text-center sm:px-8 sm:py-24"
       >
-        <div className="relative">
-          <motion.div
-            className="pointer-events-none absolute inset-0 z-0 flex items-center justify-center"
-            initial={{ opacity: 0, scale: 0.94 }}
-            animate={{ opacity: 0.14, scale: 1 }}
-            transition={{ duration: 1.4, delay: 0.2, ease: EASE_OUT }}
-            aria-hidden
+        <motion.div
+          className="pointer-events-none absolute inset-0 z-0 flex items-center justify-center"
+          initial={{ opacity: 0, scale: 0.94 }}
+          animate={{ opacity: 0.14, scale: 1 }}
+          transition={{ duration: 1.4, delay: 0.2, ease: EASE_OUT }}
+          aria-hidden
+        >
+          <Logo decorative priority={false} className="h-[120%] w-auto sm:h-[130%]" />
+        </motion.div>
+
+        <div className="relative z-10 flex flex-col items-center">
+          <motion.span
+            variants={item}
+            className="text-xs font-semibold uppercase tracking-[0.14em]"
+            style={{ color: "var(--forest)" }}
           >
-            <Logo decorative priority={false} className="h-[260%] w-auto sm:h-[300%]" />
+            {t(home.heroEyebrow)}
+          </motion.span>
+
+          {/* Three layers: stagger entrance, idle float, hover lift — each owns its own `y`. */}
+          <motion.div variants={item} className="mt-6">
+            <motion.div
+              animate={reducedMotion ? undefined : { y: [-6, 6, -6] }}
+              transition={reducedMotion ? undefined : { duration: 5, repeat: Infinity, ease: "easeInOut" }}
+            >
+            <MotionLink
+              href={`/proizvodi/${flagship.slug}`}
+              className="relative block h-40 w-40 sm:h-56 sm:w-56"
+              whileHover={{ y: -4, rotate: -2, scale: 1.03 }}
+              whileTap={{ scale: 0.96 }}
+              transition={{ type: "spring", stiffness: 400, damping: 15 }}
+              aria-label={t(flagship.name)}
+            >
+              <div className="relative h-full w-full overflow-hidden rounded-3xl shadow-2xl ring-4 ring-white/80">
+                <Image
+                  src={flagship.image}
+                  alt={t(home.heroFlagshipAlt)}
+                  fill
+                  priority
+                  sizes="(min-width: 640px) 224px, 160px"
+                  className="object-cover"
+                  style={{ objectPosition: "50% 100%" }}
+                />
+              </div>
+              <ProductBadge badge="hit" wiggle className="absolute -left-2 -top-2 rotate-[-8deg] shadow-md" />
+            </MotionLink>
+            </motion.div>
           </motion.div>
+
           <motion.h1
             variants={item}
-            className="relative z-10 text-5xl leading-[1.05] sm:text-7xl lg:text-8xl"
+            className="mt-8 max-w-4xl text-4xl leading-[1.05] sm:text-6xl lg:text-7xl"
             style={{ color: "var(--forest-deep)" }}
           >
-            {t(home.heroHeadline)}
+            {t(flagship.flavor)}
           </motion.h1>
+
+          <motion.p
+            variants={item}
+            className="mx-auto mt-5 max-w-xl text-base leading-relaxed sm:text-lg"
+            style={{ color: "var(--ink-soft)" }}
+          >
+            {t(home.heroSkuLine)}
+          </motion.p>
+
+          <motion.div variants={item} className="mt-8 flex flex-wrap items-center justify-center gap-4">
+            <CtaLink href="/#gdje-kupiti" variant="buy">
+              {t(buy.whereToBuy)}
+            </CtaLink>
+            <CtaLink href="/#proizvodi" variant="secondary">
+              {t(buy.seeSnacks)}
+            </CtaLink>
+          </motion.div>
         </div>
-        <motion.p
-          variants={item}
-          className="mx-auto mt-6 max-w-xl text-lg leading-relaxed sm:text-xl"
-          style={{ color: "var(--ink-soft)" }}
-        >
-          {t(home.heroSub)}
-        </motion.p>
-        <motion.div variants={item} className="mt-10 flex flex-wrap items-center justify-center gap-4">
-          {/* Plain <a>, not <Link>: reliably scrolls to the same-page anchor. */}
-          <motion.a
-            href="/#proizvodi"
-            className="rounded-full px-7 py-3.5 text-sm font-semibold uppercase tracking-wide shadow-sm"
-            style={{ background: "var(--forest)", color: "var(--cream)" }}
-            whileHover={{ y: -3, scale: 1.03 }}
-            whileTap={{ scale: 0.94 }}
-            transition={{ type: "spring", stiffness: 400, damping: 15 }}
-          >
-            {t(home.ctaPrimary)}
-          </motion.a>
-          <motion.a
-            href="/#o-nama"
-            className="rounded-full border px-7 py-3.5 text-sm font-semibold uppercase tracking-wide transition-colors hover:bg-white/60"
-            style={{ borderColor: "var(--forest-deep)", color: "var(--forest-deep)" }}
-            whileHover={{ y: -3, scale: 1.03 }}
-            whileTap={{ scale: 0.94 }}
-            transition={{ type: "spring", stiffness: 400, damping: 15 }}
-          >
-            {t(home.ctaSecondary)}
-          </motion.a>
-        </motion.div>
       </motion.div>
 
       <motion.div

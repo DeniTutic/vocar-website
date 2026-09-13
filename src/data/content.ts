@@ -56,8 +56,6 @@ export const home = {
     en: "Pop Star popcorn, caramel · 100 g. Our best seller.",
   },
   heroFlagshipAlt: { bs: "Pop Star karamel kokice", en: "Pop Star caramel popcorn" },
-  ctaPrimary: { bs: "Otkrijte proizvode", en: "Discover products" },
-  ctaSecondary: { bs: "Saznajte više o nama", en: "Learn more about us" },
 
   storyEyebrow: { bs: "O Voćaru", en: "About Voćar" },
   storyTitle: { bs: "Okus tradicije. Pogled u budućnost.", en: "The taste of tradition. A look to the future." },
