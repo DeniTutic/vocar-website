@@ -86,7 +86,7 @@ export function FeaturedProducts() {
   const t = useT();
 
   return (
-    <section className="mx-auto max-w-6xl px-5 py-20 sm:px-8 sm:py-28">
+    <section id="favoriti" className="mx-auto max-w-6xl scroll-mt-20 px-5 py-20 sm:px-8 sm:py-28">
       <SectionHeading eyebrow={t(home.featuredEyebrow)} title={t(home.featuredTitle)} align="center" />
       <div className="mt-8 divide-y" style={{ borderColor: "var(--line)" }}>
         {FLAGSHIPS.map(({ product, badge, color }, i) => (

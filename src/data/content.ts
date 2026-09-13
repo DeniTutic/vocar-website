@@ -13,6 +13,7 @@ export const SITE_URL = "https://vocar.ba";
 export const common = {
   close: { bs: "Zatvori", en: "Close" },
   languageLabel: { bs: "Jezik", en: "Language" },
+  backToTop: { bs: "Nazad na vrh", en: "Back to top" },
 } as const;
 
 export const nav = {

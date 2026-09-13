@@ -9,6 +9,7 @@ import { DistributionMap } from "@/components/DistributionMap";
 import { Testimonials } from "@/components/Testimonials";
 import { CatalogCTA } from "@/components/CatalogCTA";
 import { ContactSection } from "@/components/ContactSection";
+import { BackToTop } from "@/components/BackToTop";
 
 export const metadata: Metadata = {
   title: "Voćar — Za bolji okus života",
@@ -30,6 +31,7 @@ export default function Home() {
       <Testimonials />
       <CatalogCTA />
       <ContactSection />
+      <BackToTop />
     </>
   );
 }
