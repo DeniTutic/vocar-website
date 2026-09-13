@@ -25,7 +25,6 @@ export const nav = {
   contact: { bs: "Kontakt", en: "Contact" },
   whereToBuy: { bs: "Gdje kupiti", en: "Where to buy" },
   forDistributors: { bs: "Za distributere", en: "For distributors" },
-  ctaProducts: { bs: "Naši proizvodi", en: "Our products" },
   menuLabel: { bs: "Meni", en: "Menu" },
 } satisfies Record<string, Localized>;
 

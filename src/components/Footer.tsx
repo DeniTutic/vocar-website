@@ -5,21 +5,40 @@ import { nav, footerContent } from "@/data/content";
 import { useT } from "@/lib/locale";
 import { ScrollReveal } from "./ScrollReveal";
 
-const links = [
+const exploreLinks = [
   { href: "/", key: "home" as const },
   { href: "/#proizvodi", key: "products" as const },
-  { href: "/#o-nama", key: "about" as const },
-  { href: "/#kvalitet", key: "quality" as const },
+  { href: "/o-nama", key: "about" as const },
+  { href: "/o-nama#kvalitet", key: "quality" as const },
   { href: "/#katalog", key: "catalog" as const },
   { href: "/#kontakt", key: "contact" as const },
 ];
+
+const buyLinks = [
+  { href: "/#gdje-kupiti", key: "whereToBuy" as const },
+  { href: "/#distributer", key: "forDistributors" as const },
+];
+
+function LinkColumn({ label, links }: { label: string; links: { href: string; key: keyof typeof nav }[] }) {
+  const t = useT();
+  return (
+    <div className="flex flex-col gap-2 text-sm">
+      <span className="mb-1 text-xs font-semibold uppercase tracking-wider opacity-50">{label}</span>
+      {links.map((link) => (
+        <a key={link.href} href={link.href} className="w-fit opacity-80 transition-opacity hover:opacity-100">
+          {t(nav[link.key])}
+        </a>
+      ))}
+    </div>
+  );
+}
 
 export function Footer() {
   const t = useT();
 
   return (
     <footer style={{ background: "var(--charcoal)", color: "var(--beige)" }}>
-      <ScrollReveal className="mx-auto grid max-w-7xl gap-10 px-5 py-16 sm:px-8 md:grid-cols-[1.3fr_1fr_1fr]">
+      <ScrollReveal className="mx-auto grid max-w-7xl gap-10 px-5 py-16 sm:px-8 md:grid-cols-[1.3fr_1fr_1fr_1.2fr]">
         <div className="flex flex-col gap-3">
           <div className="flex items-center">
             <Logo className="h-20 w-auto shrink-0" />
@@ -27,20 +46,8 @@ export function Footer() {
           <p className="max-w-xs text-sm italic opacity-70">{t(footerContent.tagline)}</p>
         </div>
 
-        <div className="flex flex-col gap-2 text-sm">
-          <span className="mb-1 text-xs font-semibold uppercase tracking-wider opacity-50">
-            {t(nav.products)}
-          </span>
-          {links.map((link) => (
-            <a
-              key={link.href}
-              href={link.href}
-              className="w-fit opacity-80 transition-opacity hover:opacity-100"
-            >
-              {t(nav[link.key])}
-            </a>
-          ))}
-        </div>
+        <LinkColumn label={t(footerContent.exploreLabel)} links={exploreLinks} />
+        <LinkColumn label={t(footerContent.buyLabel)} links={buyLinks} />
 
         <div className="flex flex-col gap-2 text-sm">
           <span className="mb-1 text-xs font-semibold uppercase tracking-wider opacity-50">
