@@ -9,6 +9,7 @@
 */
 :root {
   --cream: #f7f3ea;
+  --paper: #fffdf8;
   --beige: #ede3d0;
   --charcoal: #211f1a;
   --forest: #1f3d2e;
@@ -27,6 +28,7 @@
 
 @theme inline {
   --color-cream: var(--cream);
+  --color-paper: var(--paper);
   --color-beige: var(--beige);
   --color-charcoal: var(--charcoal);
   --color-forest: var(--forest);

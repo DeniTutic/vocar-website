@@ -23,9 +23,27 @@ export const nav = {
   quality: { bs: "Kvalitet", en: "Quality" },
   catalog: { bs: "Katalog", en: "Catalog" },
   contact: { bs: "Kontakt", en: "Contact" },
+  whereToBuy: { bs: "Gdje kupiti", en: "Where to buy" },
+  forDistributors: { bs: "Za distributere", en: "For distributors" },
   ctaProducts: { bs: "Naši proizvodi", en: "Our products" },
   menuLabel: { bs: "Meni", en: "Menu" },
 } satisfies Record<string, Localized>;
+
+/** The one red "buy" language — every action that moves money reads from here. */
+export const buy = {
+  whereToBuy: { bs: "Gdje kupiti", en: "Where to buy" },
+  requestQuote: { bs: "Zatraži ponudu", en: "Request a quote" },
+  askUs: { bs: "Ne znate gdje? Pitajte nas", en: "Not sure where? Ask us" },
+  takeMeThere: { bs: "Vodi me tamo", en: "Take me there" },
+  seeSnacks: { bs: "Pogledaj grickalice", en: "See snacks" },
+  quoteShort: { bs: "Ponuda", en: "Quote" },
+} as const;
+
+export const badges = {
+  hit: { bs: "Hit", en: "Hit" },
+  novo: { bs: "Novo", en: "New" },
+  coko: { bs: "Čoko", en: "Choco" },
+} as const;
 
 export const home = {
   heroHeadline: { bs: "Za bolji okus života.", en: "For a better taste of life." },
@@ -33,6 +51,12 @@ export const home = {
     bs: "Generacije tradicije. Prirodni sastojci. Okus koji traje.",
     en: "Generations of tradition. Natural ingredients. A taste that lasts.",
   },
+  heroEyebrow: { bs: "Voćar · Za bolji okus života.", en: "Voćar · For a better taste of life." },
+  heroSkuLine: {
+    bs: "Pop Star kokice, karamel · 100 g. Naš najprodavaniji ukus.",
+    en: "Pop Star popcorn, caramel · 100 g. Our best seller.",
+  },
+  heroFlagshipAlt: { bs: "Pop Star karamel kokice", en: "Pop Star caramel popcorn" },
   ctaPrimary: { bs: "Otkrijte proizvode", en: "Discover products" },
   ctaSecondary: { bs: "Saznajte više o nama", en: "Learn more about us" },
 
@@ -58,10 +82,15 @@ export const home = {
     en: "Eleven product families, each with its own character — from dried fruit to popcorn.",
   },
   viewProduct: { bs: "Pogledaj proizvod", en: "View product" },
+  showcaseAll: { bs: "Sve", en: "All" },
+  showcaseShowing: { bs: "Prikazano", en: "Showing" },
+  showcaseOf: { bs: "od", en: "of" },
+  showcaseShowAll: { bs: "Prikaži sve", en: "Show all" },
 
-  featuredEyebrow: { bs: "Izdvajamo", en: "Featured" },
-  featuredTitle: { bs: "Naši favoriti", en: "Our favorites" },
+  featuredEyebrow: { bs: "Degustacija", en: "Tasting" },
+  featuredTitle: { bs: "Probajte prvo ovo.", en: "Try these first." },
   learnMore: { bs: "Saznaj više", en: "Learn more" },
+  storyTeaserCta: { bs: "Naša priča", en: "Our story" },
   qualityBadge: { bs: "100% kvalitet", en: "100% quality" },
   bestsellerBadge: { bs: "Najprodavaniji", en: "Best seller" },
   favoriteBadge: { bs: "Omiljeno kupaca", en: "Customer favorite" },
@@ -118,12 +147,43 @@ export const home = {
   testimonialsTitle: { bs: "Šta kažu naši kupci.", en: "What our customers say." },
 
   catalogEyebrow: { bs: "Katalog", en: "Catalog" },
-  catalogTitle: { bs: "Istražite naš katalog.", en: "Explore our catalog." },
+  catalogTitle: { bs: "Cijeli asortiman, u jednoj vrećici.", en: "The whole range, in one bag." },
   catalogBody: {
     bs: "Pregledajte kompletan asortiman Voćar proizvoda.",
     en: "Browse the complete Voćar product range.",
   },
   catalogCta: { bs: "Preuzmi katalog", en: "Download catalog" },
+  catalogSeal: { bs: "PDF · 14 str.", en: "PDF · 14 pp." },
+  catalogSize: { bs: "12,7 MB", en: "12.7 MB" },
+} as const;
+
+export const whereToBuyContent = {
+  eyebrow: { bs: "Gdje kupiti", en: "Where to buy" },
+  title: { bs: "Na polici blizu vas.", en: "On a shelf near you." },
+  body: {
+    bs: "Voćar proizvode potražite u marketima i trafikama širom Bosne i Hercegovine — a preko partnera stižu i na police u {count} zemalja.",
+    en: "Look for Voćar products in supermarkets and kiosks across Bosnia and Herzegovina — and, through our partners, on shelves in {count} countries.",
+  },
+  bagTitle: { bs: "Tražite vrećicu?", en: "Looking for a bag?" },
+  bagBody: { bs: "Gradovi i regije u kojima ćete nas najlakše naći.", en: "Cities and regions where you'll find us most easily." },
+  exportTitle: { bs: "Izvozna tržišta", en: "Export markets" },
+  retailersTitle: { bs: "Trgovine", en: "Retailers" },
+  mapLink: { bs: "Mapa tržišta", en: "Market map" },
+  palletTitle: { bs: "Tražite paletu?", en: "Looking for a pallet?" },
+  palletBody: {
+    bs: "Za trgovine, distributere i uvoznike: veleprodajne količine, otvorena tržišta i kompletan katalog.",
+    en: "For shops, distributors and importers: wholesale volumes, open markets and the full catalog.",
+  },
+  palletPoint1: { bs: "Veleprodajne količine i paletna isporuka", en: "Wholesale volumes and pallet delivery" },
+  palletPoint2: { bs: "Izvoz u {count} zemalja, otvoreni za nova tržišta", en: "Exporting to {count} countries, open to new markets" },
+  palletPoint3: { bs: "Kompletan katalog asortimana (PDF)", en: "Full range catalog (PDF)" },
+} as const;
+
+/** Server-rendered metadata is bs-only, matching the product pages. */
+export const aboutPage = {
+  metaTitle: "O nama",
+  metaDescription:
+    "Voćar d.o.o. Brčko — historija od 1989., misija i vrijednosti, kvalitet i kontrola, proces proizvodnje i tržišta na kojima smo prisutni.",
 } as const;
 
 export const about = {
@@ -168,6 +228,13 @@ export const contact = {
   formPhone: { bs: "Telefon", en: "Phone" },
   formMessage: { bs: "Poruka", en: "Message" },
   formSubmit: { bs: "Pošalji poruku", en: "Send message" },
+  formModeLabel: { bs: "Javljam se kao", en: "I'm reaching out as" },
+  formModeCustomer: { bs: "Kupac", en: "Customer" },
+  formModeTrade: { bs: "Trgovina / uvoznik", en: "Shop / importer" },
+  formCompany: { bs: "Firma", en: "Company" },
+  formMarket: { bs: "Tržište / zemlja", en: "Market / country" },
+  formVolume: { bs: "Okvirna količina", en: "Estimated volume" },
+  formVolumePlaceholder: { bs: "npr. 2 palete mjesečno", en: "e.g. 2 pallets a month" },
   formSuccess: {
     bs: "Otvara se vaš e-mail program sa popunjenom porukom — samo je pošaljite.",
     en: "Your email app is opening with the message filled in — just hit send.",
@@ -187,6 +254,13 @@ export const productPage = {
   },
   relatedTitle: { bs: "Iz iste kategorije", en: "From the same category" },
   backToCategory: { bs: "Nazad na kategoriju", en: "Back to category" },
+  sizeOnRequest: { bs: "Na upit", en: "On request" },
+  siblingsTitle: { bs: "Još ukusa iz kategorije", en: "More flavors from" },
+  quoteSubject: { bs: "Upit za ponudu", en: "Quote request" },
+  quoteBody: {
+    bs: "Pozdrav,\n\nzanima me ponuda za: {product} ({size}).\n\nFirma:\nTržište / zemlja:\nOkvirna količina:\n\nHvala.",
+    en: "Hello,\n\nI'd like a quote for: {product} ({size}).\n\nCompany:\nMarket / country:\nEstimated volume:\n\nThanks.",
+  },
 } as const;
 
 export const newsletter = {
@@ -210,6 +284,8 @@ export const newsletter = {
 export const footerContent = {
   tagline: { bs: "Za bolji okus života.", en: "For a better taste of life." },
   companyLabel: { bs: "Kompanija", en: "Company" },
+  exploreLabel: { bs: "Istraži", en: "Explore" },
+  buyLabel: { bs: "Kupovina", en: "Buying" },
   contactLabel: { bs: "Kontakt", en: "Contact" },
   rights: { bs: "Sva prava zadržana.", en: "All rights reserved." },
   disclaimer: {

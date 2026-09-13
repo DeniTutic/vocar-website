@@ -1,13 +1,23 @@
-import { categories, type Category } from "./categories";
+import { categories, type Category, type EditorialBadge } from "./categories";
 import type { Localized } from "./content";
+import type { TasteKey } from "./tastes";
+
+export type Badge = EditorialBadge | "coko";
+
+export const BADGE_ORDER: Badge[] = ["hit", "novo", "coko"];
 
 export interface Product {
   slug: string;
   name: Localized;
+  /** Sorted, comma-joined `sizeList`; "—" when no sizes are known. */
   sizes: string;
+  sizeList: string[];
   category: Category;
   image: string;
   imageAlt: Localized;
+  flavor: Localized;
+  tastes: TasteKey[];
+  badges: Badge[];
   description: Localized;
   /**
    * Honest, generic composition grounded in the product's real name/type —
@@ -15,6 +25,16 @@ export interface Product {
    * the physical packaging, which is what the product page says.
    */
   composition: Localized;
+}
+
+function parseSizes(raw: string): string[] {
+  const unique = new Set(
+    raw
+      .split(",")
+      .map((s) => s.trim())
+      .filter((s) => s && s !== "—")
+  );
+  return Array.from(unique).sort((a, b) => parseInt(a, 10) - parseInt(b, 10));
 }
 
 function slugify(input: string): string {
@@ -136,26 +156,43 @@ function buildProducts(): Product[] {
       const name = sku.name.bs;
       const existing = seen.get(name);
       if (existing) {
-        existing.sizes = Array.from(
-          new Set([...existing.sizes.split(",").map((s) => s.trim()), ...sku.sizes.split(",").map((s) => s.trim())])
-        ).join(", ");
+        existing.sizeList = parseSizes([...existing.sizeList, ...parseSizes(sku.sizes)].join(","));
+        existing.sizes = existing.sizeList.length ? existing.sizeList.join(", ") : "—";
+        existing.flavor = existing.flavor ?? sku.flavor!;
+        existing.tastes = existing.tastes.length ? existing.tastes : (sku.tastes ?? []);
+        for (const badge of sku.badges ?? []) {
+          if (!existing.badges.includes(badge)) existing.badges.push(badge);
+        }
         continue;
       }
 
       const slug = `${category.slug}-${slugify(name)}`;
+      const sizeList = parseSizes(sku.sizes);
       const product: Product = {
         slug,
         name: sku.name,
-        sizes: sku.sizes,
+        sizes: sizeList.length ? sizeList.join(", ") : "—",
+        sizeList,
         category,
         image: category.image,
         imageAlt: category.imageAlt,
+        flavor: sku.flavor!,
+        tastes: sku.tastes ?? [],
+        badges: [...(sku.badges ?? [])],
         description: descriptionFor(category.slug, name, category.description),
         composition: compositionFor(category.slug, name),
       };
       seen.set(name, product);
       products.push(product);
     }
+  }
+
+  for (const product of products) {
+    if (!product.flavor) throw new Error(`Missing flavor for ${product.slug}`);
+    if (product.name.bs.toLowerCase().includes("čoko") && !product.badges.includes("coko")) {
+      product.badges.push("coko");
+    }
+    product.badges.sort((a, b) => BADGE_ORDER.indexOf(a) - BADGE_ORDER.indexOf(b));
   }
 
   return products;
@@ -167,6 +204,6 @@ export function getProductBySlug(slug: string): Product | undefined {
   return products.find((p) => p.slug === slug);
 }
 
-export function getRelatedProducts(product: Product, limit = 3): Product[] {
+export function getRelatedProducts(product: Product, limit = Infinity): Product[] {
   return products.filter((p) => p.category.slug === product.category.slug && p.slug !== product.slug).slice(0, limit);
 }

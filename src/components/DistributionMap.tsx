@@ -1,45 +1,17 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { home, type Localized } from "@/data/content";
+import { home } from "@/data/content";
+import { MARKETS as NODES } from "@/data/markets";
 import { useT } from "@/lib/locale";
 import { SectionHeading } from "./SectionHeading";
-
-// Hand-placed to roughly echo real bearing/distance from Gornji Rahić rather
-// than an even hub-and-spoke wheel — nearby ex-Yugoslav markets cluster close,
-// Germany and Turkey sit further out, and the US/Mexico/Russia/Australia sit
-// far across the map. The first seven markets were requested directly; the
-// UAE/Australia/Russia/Mexico additions match Voćar's real export markets.
-const NODES: {
-  x: number;
-  y: number;
-  label: Localized;
-  origin?: true;
-  anchor: "start" | "middle" | "end";
-  dx: number;
-  dy: number;
-}[] = [
-  { x: 440, y: 195, label: { bs: "Gornji Rahić, BiH", en: "Gornji Rahić, Bosnia" }, origin: true, anchor: "middle", dx: 0, dy: 26 },
-  { x: 385, y: 172, label: { bs: "Hrvatska", en: "Croatia" }, anchor: "middle", dx: 0, dy: -14 },
-  { x: 350, y: 125, label: { bs: "Slovenija", en: "Slovenia" }, anchor: "middle", dx: 0, dy: -14 },
-  { x: 395, y: 82, label: { bs: "Austrija", en: "Austria" }, anchor: "middle", dx: 0, dy: -14 },
-  { x: 330, y: 42, label: { bs: "Njemačka", en: "Germany" }, anchor: "middle", dx: 0, dy: -14 },
-  { x: 570, y: 235, label: { bs: "Turska", en: "Turkey" }, anchor: "start", dx: 10, dy: 5 },
-  { x: 615, y: 285, label: { bs: "Saudijska Arabija", en: "Saudi Arabia" }, anchor: "middle", dx: 0, dy: 24 },
-  { x: 55, y: 135, label: { bs: "Sjedinjene Američke Države", en: "United States" }, anchor: "start", dx: 10, dy: -12 },
-  { x: 640, y: 260, label: { bs: "Ujedinjeni Arapski Emirati", en: "United Arab Emirates" }, anchor: "start", dx: 10, dy: 5 },
-  { x: 760, y: 30, label: { bs: "Rusija", en: "Russia" }, anchor: "end", dx: -10, dy: 20 },
-  { x: 25, y: 235, label: { bs: "Meksiko", en: "Mexico" }, anchor: "start", dx: 8, dy: -10 },
-  { x: 790, y: 380, label: { bs: "Australija", en: "Australia" }, anchor: "end", dx: -10, dy: -12 },
-  { x: 505, y: 270, label: { bs: "Libija", en: "Libya" }, anchor: "middle", dx: 0, dy: 22 },
-];
 
 export function DistributionMap() {
   const t = useT();
   const origin = NODES[0];
 
   return (
-    <section className="py-20 sm:py-28" style={{ background: "var(--forest-deep)" }}>
+    <section id="trzista" className="scroll-mt-20 py-20 sm:py-28" style={{ background: "var(--forest-deep)" }}>
       <div className="mx-auto max-w-6xl px-5 sm:px-8">
         <SectionHeading eyebrow={t(home.worldEyebrow)} title={t(home.worldTitle)} body={t(home.worldBody)} align="center" dark />
 
