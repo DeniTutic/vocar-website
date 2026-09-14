@@ -4,7 +4,7 @@ import { useRef } from "react";
 import Image from "next/image";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { products, type Product } from "@/data/products";
-import { home, buy, type Localized } from "@/data/content";
+import { home, buy, badges, type Localized } from "@/data/content";
 import { useT } from "@/lib/locale";
 import { SectionHeading } from "./SectionHeading";
 import { CtaLink } from "./CtaLink";
@@ -16,10 +16,11 @@ function findFlagship(categorySlug: string, nameIncludes: string): Product | und
   );
 }
 
-// Popcorn karamel is the hero's flagship, so the tasting leads with the other two.
+// Popcorn karamel is the hero's flagship, so the tasting leads with the others.
 const FLAGSHIP_CANDIDATES: { product: Product | undefined; badge: Localized; color: string }[] = [
   { product: findFlagship("peanut-butter", "kremasti 100"), badge: home.qualityBadge, color: "var(--forest)" },
   { product: findFlagship("prunes", "čoko"), badge: home.favoriteBadge, color: "var(--plum)" },
+  { product: findFlagship("quinoa-flips", "kečap i kikiriki"), badge: badges.novo, color: "var(--amber)" },
 ];
 
 const FLAGSHIPS = FLAGSHIP_CANDIDATES.filter(
