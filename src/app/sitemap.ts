@@ -10,6 +10,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 1,
   };
 
+  const about = {
+    url: `${SITE_URL}/o-nama`,
+    lastModified: new Date(),
+    changeFrequency: "yearly" as const,
+    priority: 0.8,
+  };
+
   const productRoutes = products.map((p) => ({
     url: `${SITE_URL}/proizvodi/${p.slug}`,
     lastModified: new Date(),
@@ -17,5 +24,5 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.6,
   }));
 
-  return [home, ...productRoutes];
+  return [home, about, ...productRoutes];
 }

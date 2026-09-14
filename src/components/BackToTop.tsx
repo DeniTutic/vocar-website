@@ -6,7 +6,7 @@ import { ArrowUp } from "lucide-react";
 import { common } from "@/data/content";
 import { useT } from "@/lib/locale";
 
-/** Shows once the user has scrolled down to (or past) the "Naši favoriti" section. */
+/** Shows once the user is a screen and a half down the page. */
 export function BackToTop() {
   const t = useT();
   const [visible, setVisible] = useState(false);
@@ -15,8 +15,7 @@ export function BackToTop() {
     let frame: number | null = null;
     const computeVisible = () => {
       frame = null;
-      const target = document.getElementById("favoriti");
-      setVisible(Boolean(target) && target!.getBoundingClientRect().top <= 0);
+      setVisible(window.scrollY > window.innerHeight * 1.5);
     };
     const onScroll = () => {
       if (frame === null) frame = requestAnimationFrame(computeVisible);

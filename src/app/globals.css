@@ -49,8 +49,9 @@
   box-sizing: border-box;
 }
 
+/* scroll-behavior: smooth is applied after load by <SmoothScroll />; setting it
+   here makes Chrome skip the initial scroll to a URL fragment. */
 html {
-  scroll-behavior: smooth;
   color-scheme: light;
 }
 

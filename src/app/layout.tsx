@@ -4,6 +4,7 @@ import "./globals.css";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import { NewsletterPopup } from "@/components/NewsletterPopup";
+import { SmoothScroll } from "@/components/SmoothScroll";
 import { LocaleProvider } from "@/lib/locale";
 import { SITE_URL } from "@/data/content";
 
@@ -82,6 +83,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
             }),
           }}
         />
+        <SmoothScroll />
         <LocaleProvider>
           <Navbar />
           <main className="flex-1">{children}</main>

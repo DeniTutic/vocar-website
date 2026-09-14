@@ -2,14 +2,11 @@ import type { Metadata } from "next";
 import { Hero } from "@/components/Hero";
 import { ProductShowcase } from "@/components/ProductShowcase";
 import { FeaturedProducts } from "@/components/FeaturedProducts";
-import { BrandStory } from "@/components/BrandStory";
-import { QualitySection } from "@/components/QualitySection";
-import { Timeline } from "@/components/Timeline";
-import { DistributionMap } from "@/components/DistributionMap";
+import { WhereToBuy } from "@/components/WhereToBuy";
+import { StoryTeaser } from "@/components/StoryTeaser";
 import { Testimonials } from "@/components/Testimonials";
 import { CatalogCTA } from "@/components/CatalogCTA";
 import { ContactSection } from "@/components/ContactSection";
-import { WhereToBuy } from "@/components/WhereToBuy";
 import { BackToTop } from "@/components/BackToTop";
 
 export const metadata: Metadata = {
@@ -26,10 +23,7 @@ export default function Home() {
       <ProductShowcase />
       <FeaturedProducts />
       <WhereToBuy />
-      <BrandStory />
-      <QualitySection />
-      <Timeline />
-      <DistributionMap />
+      <StoryTeaser />
       <Testimonials />
       <CatalogCTA />
       <ContactSection />
