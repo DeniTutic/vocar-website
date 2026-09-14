@@ -75,61 +75,63 @@ export function Hero() {
         </motion.div>
 
         <div className="relative z-10 flex flex-col items-center">
-          <motion.span
-            variants={item}
-            className="text-xs font-semibold uppercase tracking-[0.14em]"
-            style={{ color: "var(--forest)" }}
-          >
-            {t(home.heroEyebrow)}
-          </motion.span>
-
-          {/* Three layers: stagger entrance, idle float, hover lift — each owns its own `y`. */}
-          <motion.div variants={item} className="mt-6">
-            <motion.div
-              animate={reducedMotion ? undefined : { y: [-6, 6, -6] }}
-              transition={reducedMotion ? undefined : { duration: 5, repeat: Infinity, ease: "easeInOut" }}
-            >
-            <MotionLink
-              href={`/proizvodi/${flagship.slug}`}
-              className="relative block h-36 w-36 sm:h-48 sm:w-48"
-              whileHover={{ y: -4, rotate: -2, scale: 1.03 }}
-              whileTap={{ scale: 0.96 }}
-              transition={{ type: "spring", stiffness: 400, damping: 15 }}
-              aria-label={t(flagship.name)}
-            >
-              <div className="relative h-full w-full overflow-hidden rounded-3xl shadow-2xl ring-4 ring-white/80">
-                <Image
-                  src={flagship.image}
-                  alt={t(home.heroFlagshipAlt)}
-                  fill
-                  priority
-                  sizes="(min-width: 640px) 192px, 144px"
-                  className="object-cover"
-                  style={{ objectPosition: "50% 100%" }}
-                />
-              </div>
-              <ProductBadge badge="hit" wiggle className="absolute -left-2 -top-2 rotate-[-8deg] shadow-md" />
-            </MotionLink>
-            </motion.div>
+          {/* Brand first: the real logo and the company motto are what should
+              catch the eye before anything product-specific. */}
+          <motion.div variants={item}>
+            <Logo className="h-12 w-auto sm:h-14" />
           </motion.div>
 
           <motion.h1
             variants={item}
-            className="mt-6 max-w-4xl text-4xl leading-[1.05] sm:text-5xl lg:text-6xl"
+            className="mt-4 max-w-2xl text-4xl leading-[1.1] sm:text-5xl lg:text-6xl"
             style={{ color: "var(--forest-deep)" }}
           >
-            {t(flagship.flavor)}
+            {t(home.heroMotto)}
           </motion.h1>
 
-          <motion.p
-            variants={item}
-            className="mx-auto mt-4 max-w-xl text-base leading-relaxed sm:text-lg"
-            style={{ color: "var(--ink-soft)" }}
-          >
-            {t(home.heroSkuLine)}
-          </motion.p>
+          {/* Product spotlight, second: the flagship pack in a compact card
+              rather than the page's main headline. */}
+          <motion.div variants={item} className="mt-8 sm:mt-10">
+            <motion.div
+              animate={reducedMotion ? undefined : { y: [-5, 5, -5] }}
+              transition={reducedMotion ? undefined : { duration: 5, repeat: Infinity, ease: "easeInOut" }}
+            >
+              <MotionLink
+                href={`/proizvodi/${flagship.slug}`}
+                className="flex items-center gap-4 rounded-3xl px-4 py-3 text-left shadow-sm ring-1 ring-black/5 backdrop-blur-sm sm:gap-5 sm:px-6 sm:py-4"
+                style={{ background: "rgba(255,255,255,0.6)" }}
+                whileHover={{ y: -4, scale: 1.02 }}
+                whileTap={{ scale: 0.97 }}
+                transition={{ type: "spring", stiffness: 400, damping: 15 }}
+                aria-label={t(flagship.name)}
+              >
+                <div className="relative h-20 w-20 shrink-0 sm:h-28 sm:w-28">
+                  <div className="h-full w-full overflow-hidden rounded-2xl shadow-lg ring-4 ring-white/80">
+                    <Image
+                      src={flagship.image}
+                      alt={t(home.heroFlagshipAlt)}
+                      fill
+                      priority
+                      sizes="(min-width: 640px) 112px, 80px"
+                      className="object-cover"
+                      style={{ objectPosition: "50% 100%" }}
+                    />
+                  </div>
+                  <ProductBadge badge="hit" wiggle className="absolute -left-2 -top-2 rotate-[-8deg] shadow-md" />
+                </div>
+                <div>
+                  <h2 className="text-lg leading-snug sm:text-2xl" style={{ color: "var(--forest-deep)" }}>
+                    {t(flagship.flavor)}
+                  </h2>
+                  <p className="mt-1 text-xs leading-snug sm:text-sm" style={{ color: "var(--ink-soft)" }}>
+                    {t(home.heroSkuLine)}
+                  </p>
+                </div>
+              </MotionLink>
+            </motion.div>
+          </motion.div>
 
-          <motion.div variants={item} className="mt-7 flex flex-wrap items-center justify-center gap-4">
+          <motion.div variants={item} className="mt-8 flex flex-wrap items-center justify-center gap-4">
             <CtaLink href="/#gdje-kupiti" variant="buy">
               {t(buy.whereToBuy)}
             </CtaLink>

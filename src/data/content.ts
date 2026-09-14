@@ -45,7 +45,7 @@ export const badges = {
 } as const;
 
 export const home = {
-  heroEyebrow: { bs: "Voćar · Za bolji okus života.", en: "Voćar · For a better taste of life." },
+  heroMotto: { bs: "Za bolji okus života.", en: "For a better taste of life." },
   heroSkuLine: {
     bs: "Pop Star kokice, karamel · 100 g. Naš najprodavaniji ukus.",
     en: "Pop Star popcorn, caramel · 100 g. Our best seller.",
