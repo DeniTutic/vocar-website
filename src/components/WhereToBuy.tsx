@@ -1,9 +1,8 @@
 "use client";
 
-import Link from "next/link";
 import { Check } from "lucide-react";
 import { home, buy, whereToBuyContent as copy } from "@/data/content";
-import { bihRegions, exportCountries, retailers } from "@/data/whereToBuy";
+import { exportCountries, retailers } from "@/data/whereToBuy";
 import { useT } from "@/lib/locale";
 import { CtaLink } from "./CtaLink";
 import { ScrollReveal } from "./ScrollReveal";
@@ -51,38 +50,27 @@ export function WhereToBuy() {
               <h3 className="text-3xl" style={{ color: "var(--cream)" }}>
                 {t(copy.bagTitle)}
               </h3>
-              <p className="mt-2 text-base" style={{ color: "rgba(247,243,234,0.7)" }}>
+              <p className="mt-3 max-w-md text-base leading-relaxed" style={{ color: "rgba(247,243,234,0.75)" }}>
                 {t(copy.bagBody)}
               </p>
             </div>
 
-            <div className="flex flex-col gap-5">
-              {bihRegions.map((region) => (
-                <div key={region.name.bs} className="flex flex-col gap-2">
-                  <GroupLabel>{t(region.name)}</GroupLabel>
-                  <ul className="flex flex-wrap gap-2">
-                    {region.cities.map((city) => (
-                      <Pill key={city}>{city}</Pill>
-                    ))}
-                  </ul>
-                </div>
-              ))}
-            </div>
-
-            <div className="flex flex-col gap-2 border-t pt-6" style={{ borderColor: "rgba(247,243,234,0.15)" }}>
+            <div className="flex flex-col gap-3 border-t pt-6" style={{ borderColor: "rgba(247,243,234,0.15)" }}>
               <GroupLabel>{t(copy.exportTitle)}</GroupLabel>
               <ul className="flex flex-wrap gap-2">
                 {exportCountries.map((market) => (
                   <Pill key={market.label.bs}>{t(market.label)}</Pill>
                 ))}
               </ul>
-              <Link
-                href="/o-nama#trzista"
+              {/* Plain <a>, not <Link>: reliably scrolls to the same-page anchor. */}
+              {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
+              <a
+                href="/#trzista"
                 className="mt-1 w-fit text-sm font-semibold uppercase tracking-wide hover:underline"
                 style={{ color: "var(--amber)" }}
               >
                 {t(copy.mapLink)} →
-              </Link>
+              </a>
             </div>
 
             {retailers.length > 0 && (

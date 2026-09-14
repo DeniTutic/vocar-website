@@ -81,7 +81,6 @@ export const home = {
 
   featuredEyebrow: { bs: "Degustacija", en: "Tasting" },
   featuredTitle: { bs: "Probajte prvo ovo.", en: "Try these first." },
-  storyTeaserCta: { bs: "Naša priča", en: "Our story" },
   qualityBadge: { bs: "100% kvalitet", en: "100% quality" },
   favoriteBadge: { bs: "Omiljeno kupaca", en: "Customer favorite" },
 
@@ -154,7 +153,10 @@ export const whereToBuyContent = {
     en: "Look for Voćar products in supermarkets and kiosks across Bosnia and Herzegovina — and, through our partners, on shelves in {count} countries.",
   },
   bagTitle: { bs: "Tražite vrećicu?", en: "Looking for a bag?" },
-  bagBody: { bs: "Gradovi i regije u kojima ćete nas najlakše naći.", en: "Cities and regions where you'll find us most easily." },
+  bagBody: {
+    bs: "Voćar proizvode naći ćete u supermarketima i trafikama širom Bosne i Hercegovine — od Sarajeva i Tuzle, preko Banje Luke i Bijeljine, do Mostara i Zenice. Ne vidite nas na polici u svom gradu? Javite nam se i pomoći ćemo da to promijenimo.",
+    en: "You'll find Voćar products in supermarkets and kiosks across Bosnia and Herzegovina — from Sarajevo and Tuzla to Banja Luka, Bijeljina, Mostar and Zenica. Don't see us on a shelf near you yet? Let us know and we'll help change that.",
+  },
   exportTitle: { bs: "Izvozna tržišta", en: "Export markets" },
   retailersTitle: { bs: "Trgovine", en: "Retailers" },
   mapLink: { bs: "Mapa tržišta", en: "Market map" },
@@ -166,13 +168,6 @@ export const whereToBuyContent = {
   palletPoint1: { bs: "Veleprodajne količine i paletna isporuka", en: "Wholesale volumes and pallet delivery" },
   palletPoint2: { bs: "Izvoz u {count} zemalja, otvoreni za nova tržišta", en: "Exporting to {count} countries, open to new markets" },
   palletPoint3: { bs: "Kompletan katalog asortimana (PDF)", en: "Full range catalog (PDF)" },
-} as const;
-
-/** Server-rendered metadata is bs-only, matching the product pages. */
-export const aboutPage = {
-  metaTitle: "O nama",
-  metaDescription:
-    "Voćar d.o.o. Brčko — historija od 1989., misija i vrijednosti, kvalitet i kontrola, proces proizvodnje i tržišta na kojima smo prisutni.",
 } as const;
 
 export const about = {

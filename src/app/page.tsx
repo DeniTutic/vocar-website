@@ -3,7 +3,10 @@ import { Hero } from "@/components/Hero";
 import { ProductShowcase } from "@/components/ProductShowcase";
 import { FeaturedProducts } from "@/components/FeaturedProducts";
 import { WhereToBuy } from "@/components/WhereToBuy";
-import { StoryTeaser } from "@/components/StoryTeaser";
+import { BrandStory } from "@/components/BrandStory";
+import { QualitySection } from "@/components/QualitySection";
+import { Timeline } from "@/components/Timeline";
+import { DistributionMap } from "@/components/DistributionMap";
 import { Testimonials } from "@/components/Testimonials";
 import { CatalogCTA } from "@/components/CatalogCTA";
 import { ContactSection } from "@/components/ContactSection";
@@ -23,7 +26,10 @@ export default function Home() {
       <ProductShowcase />
       <FeaturedProducts />
       <WhereToBuy />
-      <StoryTeaser />
+      <BrandStory />
+      <QualitySection />
+      <Timeline />
+      <DistributionMap />
       <Testimonials />
       <CatalogCTA />
       <ContactSection />

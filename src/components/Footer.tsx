@@ -9,8 +9,8 @@ import { NewsletterInline } from "./NewsletterInline";
 const exploreLinks = [
   { href: "/", key: "home" as const },
   { href: "/#proizvodi", key: "products" as const },
-  { href: "/o-nama", key: "about" as const },
-  { href: "/o-nama#kvalitet", key: "quality" as const },
+  { href: "/#o-nama", key: "about" as const },
+  { href: "/#kvalitet", key: "quality" as const },
   { href: "/#katalog", key: "catalog" as const },
   { href: "/#kontakt", key: "contact" as const },
 ];
