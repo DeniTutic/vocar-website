@@ -11,7 +11,6 @@ import { ScrollReveal } from "./ScrollReveal";
 import { ProductCard } from "./ProductCard";
 import { ProductBadge, TasteChips } from "./ProductBadge";
 import { CtaLink } from "./CtaLink";
-import { NewsletterInline } from "./NewsletterInline";
 
 /** Shows the sticky mobile bar once the buy block has scrolled off the top. */
 function useBuyBlockPassed(ref: React.RefObject<HTMLDivElement | null>): boolean {
@@ -175,12 +174,6 @@ export function ProductDetailView({ product, related }: { product: Product; rela
           </div>
         </section>
       )}
-
-      <section className="border-t px-5 py-16 sm:px-8 sm:py-20" style={{ borderColor: "var(--line)", background: "var(--beige)" }}>
-        <div className="mx-auto max-w-4xl">
-          <NewsletterInline />
-        </div>
-      </section>
 
       {/* Spacer so the sticky bar never covers the last content on mobile. */}
       <div className="h-20 lg:hidden" aria-hidden />
