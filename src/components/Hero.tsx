@@ -10,6 +10,7 @@ import { useT } from "@/lib/locale";
 import { useReducedMotion } from "@/lib/useReducedMotion";
 import { HeroProductField } from "./HeroProductField";
 import { Logo } from "./Logo";
+import { NAVBAR_HEIGHT_EXPANDED } from "./Navbar";
 import { CtaLink } from "./CtaLink";
 import { ProductBadge } from "./ProductBadge";
 
@@ -36,8 +37,15 @@ export function Hero() {
 
   return (
     <section
-      className="relative isolate flex min-h-[100svh] flex-col justify-center overflow-hidden border-b"
-      style={{ borderColor: "var(--line)", background: "linear-gradient(180deg, #faf7f0 0%, #f7f3ea 55%, #ede3d0 100%)" }}
+      className="relative isolate flex flex-col justify-center overflow-hidden border-b"
+      style={{
+        borderColor: "var(--line)",
+        background: "linear-gradient(180deg, #faf7f0 0%, #f7f3ea 55%, #ede3d0 100%)",
+        // Navbar is sticky (occupies normal-flow height), not fixed, so the
+        // hero must be shorter than a full screen by exactly that height —
+        // otherwise the two together overflow the viewport on first load.
+        height: `calc(100svh - ${NAVBAR_HEIGHT_EXPANDED}px)`,
+      }}
     >
       <HeroProductField />
 

@@ -25,6 +25,12 @@ const links = [
 
 const SECTION_IDS = links.map((l) => l.sectionId).filter((id): id is string => id !== null);
 
+/** Navbar height at the top of the page, before it shrinks on scroll.
+ * Exported so the Hero section can size itself to exactly fill the first
+ * screen (navbar + hero == 100svh) instead of overflowing past the fold. */
+export const NAVBAR_HEIGHT_EXPANDED = 104;
+const NAVBAR_HEIGHT_COLLAPSED = 76;
+
 /** Tracks which anchor section (if any) the user has scrolled into, so the
  * navbar can highlight the section currently in view rather than only ever
  * highlighting "Home". Picks the last section whose top has passed the
@@ -204,7 +210,7 @@ export function Navbar() {
     setOpen(false);
   }, [pathname]);
 
-  const height = useTransform(scrollY, [0, 120], [104, 76]);
+  const height = useTransform(scrollY, [0, 120], [NAVBAR_HEIGHT_EXPANDED, NAVBAR_HEIGHT_COLLAPSED]);
 
   return (
     <>
