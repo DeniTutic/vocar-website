@@ -54,7 +54,7 @@ export function Hero() {
         variants={container}
         initial="hidden"
         animate="show"
-        className="relative z-10 mx-auto w-full max-w-5xl px-5 py-20 text-center sm:px-8 sm:py-24"
+        className="relative z-10 mx-auto w-full max-w-5xl px-5 py-16 text-center sm:px-8 sm:py-20"
       >
         <motion.div
           className="pointer-events-none absolute inset-0 z-0 flex items-center justify-center"
@@ -83,7 +83,7 @@ export function Hero() {
             >
             <MotionLink
               href={`/proizvodi/${flagship.slug}`}
-              className="relative block h-40 w-40 sm:h-56 sm:w-56"
+              className="relative block h-36 w-36 sm:h-48 sm:w-48"
               whileHover={{ y: -4, rotate: -2, scale: 1.03 }}
               whileTap={{ scale: 0.96 }}
               transition={{ type: "spring", stiffness: 400, damping: 15 }}
@@ -95,7 +95,7 @@ export function Hero() {
                   alt={t(home.heroFlagshipAlt)}
                   fill
                   priority
-                  sizes="(min-width: 640px) 224px, 160px"
+                  sizes="(min-width: 640px) 192px, 144px"
                   className="object-cover"
                   style={{ objectPosition: "50% 100%" }}
                 />
@@ -107,7 +107,7 @@ export function Hero() {
 
           <motion.h1
             variants={item}
-            className="mt-8 max-w-4xl text-4xl leading-[1.05] sm:text-6xl lg:text-7xl"
+            className="mt-6 max-w-4xl text-4xl leading-[1.05] sm:text-5xl lg:text-6xl"
             style={{ color: "var(--forest-deep)" }}
           >
             {t(flagship.flavor)}
@@ -115,13 +115,13 @@ export function Hero() {
 
           <motion.p
             variants={item}
-            className="mx-auto mt-5 max-w-xl text-base leading-relaxed sm:text-lg"
+            className="mx-auto mt-4 max-w-xl text-base leading-relaxed sm:text-lg"
             style={{ color: "var(--ink-soft)" }}
           >
             {t(home.heroSkuLine)}
           </motion.p>
 
-          <motion.div variants={item} className="mt-8 flex flex-wrap items-center justify-center gap-4">
+          <motion.div variants={item} className="mt-7 flex flex-wrap items-center justify-center gap-4">
             <CtaLink href="/#gdje-kupiti" variant="buy">
               {t(buy.whereToBuy)}
             </CtaLink>
