@@ -1,15 +1,54 @@
 "use client";
 
 import Image from "next/image";
+import { useEffect, useRef, useState } from "react";
+import { AnimatePresence, motion } from "framer-motion";
 import { ArrowLeft } from "lucide-react";
 import type { Product } from "@/data/products";
-import { productPage } from "@/data/content";
+import { productPage, buy } from "@/data/content";
 import { useT } from "@/lib/locale";
 import { ScrollReveal } from "./ScrollReveal";
 import { ProductCard } from "./ProductCard";
+import { ProductBadge, TasteChips } from "./ProductBadge";
+import { CtaLink } from "./CtaLink";
+
+/** Shows the sticky mobile bar once the buy block has scrolled off the top. */
+function useBuyBlockPassed(ref: React.RefObject<HTMLDivElement | null>): boolean {
+  const [passed, setPassed] = useState(false);
+
+  useEffect(() => {
+    let frame: number | null = null;
+    const compute = () => {
+      frame = null;
+      const el = ref.current;
+      setPassed(Boolean(el) && el!.getBoundingClientRect().bottom < 0);
+    };
+    const onScroll = () => {
+      if (frame === null) frame = requestAnimationFrame(compute);
+    };
+    compute();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll);
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+      if (frame !== null) cancelAnimationFrame(frame);
+    };
+  }, [ref]);
+
+  return passed;
+}
 
 export function ProductDetailView({ product, related }: { product: Product; related: Product[] }) {
   const t = useT();
+  const sizeOptions = product.sizeList.length ? product.sizeList : [t(productPage.sizeOnRequest)];
+  const [size, setSize] = useState(sizeOptions[0]);
+  const buyRef = useRef<HTMLDivElement>(null);
+  const showStickyBar = useBuyBlockPassed(buyRef);
+
+  const quoteHref = `mailto:sales@vocar.ba?subject=${encodeURIComponent(
+    `${t(productPage.quoteSubject)} — ${product.name.bs} (${size})`
+  )}&body=${encodeURIComponent(t(productPage.quoteBody).replace("{product}", t(product.name)).replace("{size}", size))}`;
 
   return (
     <>
@@ -39,28 +78,67 @@ export function ProductDetailView({ product, related }: { product: Product; rela
           </ScrollReveal>
 
           <ScrollReveal delay={0.1}>
-            <span
-              className="inline-block rounded-full px-3 py-1 text-xs font-semibold uppercase tracking-wide"
-              style={{ background: product.category.accent, color: "#fffdf8" }}
-            >
-              {t(productPage.categoryLabel)}: {t(product.category.name)}
-            </span>
+            <div className="flex flex-wrap items-center gap-2">
+              <span
+                className="inline-block rounded-full px-3 py-1 text-xs font-semibold uppercase tracking-wide"
+                style={{ background: product.category.accent, color: "var(--paper)" }}
+              >
+                {t(productPage.categoryLabel)}: {t(product.category.name)}
+              </span>
+              {product.badges.map((badge) => (
+                <ProductBadge key={badge} badge={badge} wiggle />
+              ))}
+            </div>
             <h1 className="mt-4 text-4xl sm:text-5xl" style={{ color: "var(--forest-deep)" }}>
               {t(product.name)}
             </h1>
-            <p className="mt-4 text-lg leading-relaxed" style={{ color: "var(--ink-soft)" }}>
+            <p className="mt-3 text-lg font-medium leading-snug" style={{ color: "var(--forest)" }}>
+              {t(product.flavor)}
+            </p>
+            <TasteChips tastes={product.tastes} className="mt-3" />
+            <p className="mt-5 text-base leading-relaxed" style={{ color: "var(--ink-soft)" }}>
               {t(product.description)}
             </p>
 
-            <dl className="mt-8 flex flex-col gap-5 border-t pt-6" style={{ borderColor: "var(--line)" }}>
-              <div>
-                <dt className="text-xs font-semibold uppercase tracking-wide" style={{ color: "var(--forest)" }}>
-                  {t(productPage.sizesLabel)}
-                </dt>
-                <dd className="mt-1 text-base" style={{ color: "var(--ink)" }}>
-                  {product.sizes}
-                </dd>
+            <div ref={buyRef} className="mt-8 rounded-2xl border p-5" style={{ borderColor: "var(--line)", background: "var(--paper)" }}>
+              <span className="block text-xs font-semibold uppercase tracking-wide" style={{ color: "var(--forest)" }}>
+                {t(productPage.sizesLabel)}
+              </span>
+              <div role="radiogroup" aria-label={t(productPage.sizesLabel)} className="mt-3 flex flex-wrap gap-2">
+                {sizeOptions.map((option) => {
+                  const isActive = size === option;
+                  return (
+                    <motion.button
+                      key={option}
+                      type="button"
+                      role="radio"
+                      aria-checked={isActive}
+                      onClick={() => setSize(option)}
+                      animate={{
+                        backgroundColor: isActive ? "#1f3d2e" : "rgba(31,61,46,0)",
+                        borderColor: isActive ? "#1f3d2e" : "#ddd2b8",
+                        color: isActive ? "#f7f3ea" : "#262420",
+                      }}
+                      whileTap={{ scale: 0.92 }}
+                      transition={{ duration: 0.2, ease: "easeInOut" }}
+                      className="rounded-full border px-4 py-1.5 text-sm font-medium tabular-nums"
+                    >
+                      {option}
+                    </motion.button>
+                  );
+                })}
               </div>
+              <div className="mt-5 flex flex-wrap gap-3">
+                <CtaLink href="/#gdje-kupiti" variant="buy">
+                  {t(buy.whereToBuy)}
+                </CtaLink>
+                <CtaLink href={quoteHref} variant="outline">
+                  {t(buy.requestQuote)}
+                </CtaLink>
+              </div>
+            </div>
+
+            <dl className="mt-8 flex flex-col gap-5 border-t pt-6" style={{ borderColor: "var(--line)" }}>
               <div>
                 <dt className="text-xs font-semibold uppercase tracking-wide" style={{ color: "var(--forest)" }}>
                   {t(productPage.compositionLabel)}
@@ -86,9 +164,9 @@ export function ProductDetailView({ product, related }: { product: Product; rela
         <section className="border-t px-5 py-16 sm:px-8 sm:py-20" style={{ borderColor: "var(--line)" }}>
           <div className="mx-auto max-w-7xl">
             <h2 className="text-3xl" style={{ color: "var(--forest-deep)" }}>
-              {t(productPage.relatedTitle)}
+              {t(productPage.siblingsTitle)} {t(product.category.name)}
             </h2>
-            <div className="mt-8 grid grid-cols-1 gap-6 sm:grid-cols-3">
+            <div className="mt-8 grid grid-cols-2 gap-4 md:grid-cols-4 md:gap-6">
               {related.map((p) => (
                 <ProductCard key={p.slug} product={p} className="h-full" />
               ))}
@@ -96,6 +174,29 @@ export function ProductDetailView({ product, related }: { product: Product; rela
           </div>
         </section>
       )}
+
+      {/* Spacer so the sticky bar never covers the last content on mobile. */}
+      <div className="h-20 lg:hidden" aria-hidden />
+
+      <AnimatePresence>
+        {showStickyBar && (
+          <motion.div
+            initial={{ y: 80, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            exit={{ y: 80, opacity: 0 }}
+            transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
+            className="fixed inset-x-0 bottom-0 z-40 flex gap-3 border-t px-4 pt-3 pb-[max(0.75rem,env(safe-area-inset-bottom))] backdrop-blur lg:hidden"
+            style={{ borderColor: "var(--line)", background: "rgba(247,243,234,0.95)" }}
+          >
+            <CtaLink href="/#gdje-kupiti" variant="buy" className="flex-1">
+              {t(buy.whereToBuy)}
+            </CtaLink>
+            <CtaLink href={quoteHref} variant="outline" className="flex-1">
+              {t(buy.quoteShort)}
+            </CtaLink>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </>
   );
 }
