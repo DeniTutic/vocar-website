@@ -45,11 +45,6 @@ export const badges = {
 } as const;
 
 export const home = {
-  heroHeadline: { bs: "Za bolji okus života.", en: "For a better taste of life." },
-  heroSub: {
-    bs: "Generacije tradicije. Prirodni sastojci. Okus koji traje.",
-    en: "Generations of tradition. Natural ingredients. A taste that lasts.",
-  },
   heroEyebrow: { bs: "Voćar · Za bolji okus života.", en: "Voćar · For a better taste of life." },
   heroSkuLine: {
     bs: "Pop Star kokice, karamel · 100 g. Naš najprodavaniji ukus.",
@@ -86,12 +81,9 @@ export const home = {
 
   featuredEyebrow: { bs: "Degustacija", en: "Tasting" },
   featuredTitle: { bs: "Probajte prvo ovo.", en: "Try these first." },
-  learnMore: { bs: "Saznaj više", en: "Learn more" },
   storyTeaserCta: { bs: "Naša priča", en: "Our story" },
   qualityBadge: { bs: "100% kvalitet", en: "100% quality" },
-  bestsellerBadge: { bs: "Najprodavaniji", en: "Best seller" },
   favoriteBadge: { bs: "Omiljeno kupaca", en: "Customer favorite" },
-  seasonalBadge: { bs: "Hit sezone", en: "Seasonal hit" },
 
   qualityEyebrow: { bs: "Kvalitet", en: "Quality" },
   qualityTitle: { bs: "Kvalitet koji se osjeti.", en: "Quality you can taste." },
@@ -274,7 +266,6 @@ export const newsletter = {
     bs: "Hvala! Otvara se vaš e-mail program — samo pošaljite poruku da potvrdite prijavu.",
     en: "Thanks! Your email app is opening — just hit send to confirm your signup.",
   },
-  close: { bs: "Zatvori", en: "Close" },
   errorEmail: { bs: "Unesite ispravnu e-mail adresu.", en: "Enter a valid email address." },
 } as const;
 

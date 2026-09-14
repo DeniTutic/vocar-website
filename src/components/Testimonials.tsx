@@ -2,6 +2,7 @@
 
 import { Star } from "lucide-react";
 import { home } from "@/data/content";
+import { categories } from "@/data/categories";
 import { useT } from "@/lib/locale";
 import { SectionHeading } from "./SectionHeading";
 
@@ -9,6 +10,8 @@ interface Review {
   name: string;
   location: string;
   text: string;
+  /** Category the quote is about, shown as a small tag on the card. */
+  categorySlug?: string;
 }
 
 // Illustrative customer quotes for this concept redesign — not real
@@ -20,26 +23,31 @@ const REVIEWS: Review[] = [
     name: "Amina Hodžić",
     location: "Sarajevo, BiH",
     text: "Voćar grickalice su dio svake naše porodične večeri. Kvalitet je uvijek isti, godinama unazad.",
+    categorySlug: "peanuts",
   },
   {
     name: "Emir Kovačević",
     location: "Tuzla, BiH",
     text: "Puter od kikirikija mi je promijenio doručke. Kremast, bez nepotrebnih dodataka — tačno kako treba.",
+    categorySlug: "peanut-butter",
   },
   {
     name: "John Miller",
     location: "SAD",
     text: "Found Voćar snacks at a specialty store and got hooked instantly. The quality really stands out compared to what we usually get here.",
+    categorySlug: "chips",
   },
   {
     name: "Selma Bajramović",
     location: "Mostar, BiH",
     text: "Pop Star kokice sa karamelom su hit na svakom filmskom veče kod nas. Djeca ih obožavaju.",
+    categorySlug: "popcorn",
   },
   {
     name: "Markus Weber",
     location: "Njemačka",
     text: "We've been importing Voćar products for our stores for two years now — reliable delivery, fair pricing, and customers keep coming back for the wafers.",
+    categorySlug: "wafers",
   },
   {
     name: "Adnan Delić",
@@ -50,24 +58,40 @@ const REVIEWS: Review[] = [
     name: "Yusuf Al-Rashid",
     location: "UAE",
     text: "The peanuts are perfectly roasted every time. My family stocks up on them whenever we visit Bosnia.",
+    categorySlug: "peanuts",
   },
   {
     name: "Amela Softić",
     location: "Zenica, BiH",
     text: "Čoko šljive su moja tajna slabost. Prirodne, bez viška šećera, i uvijek svježe.",
+    categorySlug: "prunes",
   },
 ];
 
 function ReviewCard({ review }: { review: Review }) {
+  const t = useT();
+  const category = categories.find((c) => c.slug === review.categorySlug);
+
   return (
     <div
       className="flex w-80 shrink-0 flex-col gap-3 rounded-2xl border p-6 shadow-sm"
       style={{ borderColor: "var(--line)", background: "var(--cream)" }}
     >
-      <div className="flex gap-0.5" aria-hidden>
-        {Array.from({ length: 5 }).map((_, i) => (
-          <Star key={i} size={14} fill="var(--amber)" style={{ color: "var(--amber)" }} />
-        ))}
+      <div className="flex items-center justify-between gap-3">
+        <div className="flex gap-0.5" aria-hidden>
+          {Array.from({ length: 5 }).map((_, i) => (
+            <Star key={i} size={14} fill="var(--amber)" style={{ color: "var(--amber)" }} />
+          ))}
+        </div>
+        {category && (
+          <span
+            className="inline-flex items-center gap-1.5 rounded-full border px-2.5 py-0.5 text-[11px] font-medium uppercase tracking-wide"
+            style={{ borderColor: "var(--line)", color: "var(--ink-soft)" }}
+          >
+            <span className="h-1.5 w-1.5 rounded-full" style={{ background: category.accent }} aria-hidden />
+            {t(category.name)}
+          </span>
+        )}
       </div>
       <p className="text-sm leading-relaxed" style={{ color: "var(--ink)" }}>
         &ldquo;{review.text}&rdquo;

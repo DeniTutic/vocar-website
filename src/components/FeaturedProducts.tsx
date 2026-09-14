@@ -2,12 +2,13 @@
 
 import { useRef } from "react";
 import Image from "next/image";
-import Link from "next/link";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { products, type Product } from "@/data/products";
-import { home, type Localized } from "@/data/content";
+import { home, buy, type Localized } from "@/data/content";
 import { useT } from "@/lib/locale";
 import { SectionHeading } from "./SectionHeading";
+import { CtaLink } from "./CtaLink";
+import { TasteChips, WIGGLE } from "./ProductBadge";
 
 function findFlagship(categorySlug: string, nameIncludes: string): Product | undefined {
   return products.find(
@@ -15,11 +16,10 @@ function findFlagship(categorySlug: string, nameIncludes: string): Product | und
   );
 }
 
+// Popcorn karamel is the hero's flagship, so the tasting leads with the other two.
 const FLAGSHIP_CANDIDATES: { product: Product | undefined; badge: Localized; color: string }[] = [
   { product: findFlagship("peanut-butter", "kremasti 100"), badge: home.qualityBadge, color: "var(--forest)" },
-  { product: findFlagship("popcorn", "karamel"), badge: home.bestsellerBadge, color: "var(--pop)" },
   { product: findFlagship("prunes", "čoko"), badge: home.favoriteBadge, color: "var(--plum)" },
-  { product: findFlagship("chips", "piletina"), badge: home.seasonalBadge, color: "var(--amber)" },
 ];
 
 const FLAGSHIPS = FLAGSHIP_CANDIDATES.filter(
@@ -40,12 +40,12 @@ function FeaturedRow({
   const t = useT();
   const ref = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "end start"] });
-  const y = useTransform(scrollYProgress, [0, 1], [40, -40]);
+  const y = useTransform(scrollYProgress, [0, 1], [30, -30]);
   const reversed = index % 2 === 1;
 
   return (
-    <div ref={ref} className={`grid items-center gap-10 py-16 lg:grid-cols-2 lg:gap-16 ${reversed ? "lg:[&>*:first-child]:order-2" : ""}`}>
-      <motion.div style={{ y }} className="relative aspect-[4/3] overflow-hidden rounded-3xl">
+    <div ref={ref} className={`grid items-center gap-8 py-10 lg:grid-cols-2 lg:gap-12 ${reversed ? "lg:[&>*:first-child]:order-2" : ""}`}>
+      <motion.div style={{ y }} className="relative aspect-[16/10] max-h-[360px] overflow-hidden rounded-3xl">
         <Image
           src={product.image}
           alt={t(product.imageAlt)}
@@ -58,25 +58,22 @@ function FeaturedRow({
         <motion.span
           className="inline-block cursor-default rounded-full px-3 py-1 text-xs font-semibold uppercase tracking-wide"
           style={{ background: color, color: "var(--cream)" }}
-          whileHover={{ rotate: [0, -4, 4, -3, 3, 0], scale: 1.06 }}
-          transition={{ duration: 0.5 }}
+          {...WIGGLE}
         >
           {t(badge)}
         </motion.span>
-        <h3 className="mt-4 text-4xl leading-tight sm:text-5xl" style={{ color: "var(--forest-deep)" }}>
+        <h3 className="mt-4 text-3xl leading-tight sm:text-4xl" style={{ color: "var(--forest-deep)" }}>
           {t(product.name)}
         </h3>
-        <p className="mt-4 max-w-md text-base leading-relaxed sm:text-lg" style={{ color: "var(--ink-soft)" }}>
-          {t(product.description)}
+        <p className="mt-3 max-w-md text-lg leading-snug" style={{ color: "var(--ink)" }}>
+          {t(product.flavor)}
         </p>
-        <Link
-          href={`/proizvodi/${product.slug}`}
-          className="mt-6 inline-flex items-center gap-2 text-sm font-semibold uppercase tracking-wide"
-          style={{ color: "var(--forest)" }}
-        >
-          {t(home.learnMore)}
-          <span aria-hidden>→</span>
-        </Link>
+        <TasteChips tastes={product.tastes} className="mt-4" />
+        <div className="mt-6">
+          <CtaLink href={`/proizvodi/${product.slug}`} variant="buy" size="sm">
+            {t(buy.takeMeThere)} <span aria-hidden>→</span>
+          </CtaLink>
+        </div>
       </div>
     </div>
   );
@@ -86,12 +83,14 @@ export function FeaturedProducts() {
   const t = useT();
 
   return (
-    <section id="favoriti" className="mx-auto max-w-6xl scroll-mt-20 px-5 py-20 sm:px-8 sm:py-28">
-      <SectionHeading eyebrow={t(home.featuredEyebrow)} title={t(home.featuredTitle)} align="center" />
-      <div className="mt-8 divide-y" style={{ borderColor: "var(--line)" }}>
-        {FLAGSHIPS.map(({ product, badge, color }, i) => (
-          <FeaturedRow key={product.slug} product={product} badge={badge} color={color} index={i} />
-        ))}
+    <section id="favoriti" className="scroll-mt-20 py-16 sm:py-20" style={{ background: "var(--beige)" }}>
+      <div className="mx-auto max-w-6xl px-5 sm:px-8">
+        <SectionHeading eyebrow={t(home.featuredEyebrow)} title={t(home.featuredTitle)} align="center" />
+        <div className="mt-4 divide-y" style={{ borderColor: "var(--line)" }}>
+          {FLAGSHIPS.map(({ product, badge, color }, i) => (
+            <FeaturedRow key={product.slug} product={product} badge={badge} color={color} index={i} />
+          ))}
+        </div>
       </div>
     </section>
   );
