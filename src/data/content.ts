@@ -46,11 +46,11 @@ export const badges = {
 
 export const home = {
   heroMotto: { bs: "Za bolji okus života.", en: "For a better taste of life." },
-  heroSkuLine: {
-    bs: "Pop Star kokice, karamel · 100 g. Naš najprodavaniji ukus.",
-    en: "Pop Star popcorn, caramel · 100 g. Our best seller.",
-  },
-  heroFlagshipAlt: { bs: "Pop Star karamel kokice", en: "Pop Star caramel popcorn" },
+  heroWord1: { bs: "Domaće", en: "Homemade" },
+  heroWord2: { bs: "Svježe", en: "Fresh" },
+  heroWord3: { bs: "Ukusno", en: "Tasty" },
+  heroWord4: { bs: "Prirodno", en: "Natural" },
+  heroWord5: { bs: "Pošteno", en: "Honest" },
 
   storyEyebrow: { bs: "O Voćaru", en: "About Voćar" },
   storyTitle: { bs: "Okus tradicije. Pogled u budućnost.", en: "The taste of tradition. A look to the future." },

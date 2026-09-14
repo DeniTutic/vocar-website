@@ -1,21 +1,14 @@
 "use client";
 
-import Image from "next/image";
-import Link from "next/link";
 import { motion, type Variants } from "framer-motion";
 import { ChevronDown } from "lucide-react";
 import { home, buy } from "@/data/content";
-import { getProductBySlug } from "@/data/products";
 import { useT } from "@/lib/locale";
-import { useReducedMotion } from "@/lib/useReducedMotion";
 import { HeroProductField } from "./HeroProductField";
 import { Logo } from "./Logo";
 import { NAVBAR_HEIGHT_EXPANDED } from "./Navbar";
 import { CtaLink } from "./CtaLink";
-import { ProductBadge } from "./ProductBadge";
-
-const FLAGSHIP_SLUG = "popcorn-pop-star-kokice-karamel";
-const flagship = getProductBySlug(FLAGSHIP_SLUG)!;
+import { RotatingWord } from "./RotatingWord";
 
 const EASE_OUT: [number, number, number, number] = [0.22, 1, 0.36, 1];
 
@@ -29,11 +22,9 @@ const item: Variants = {
   show: { opacity: 1, y: 0, transition: { duration: 0.7, ease: EASE_OUT } },
 };
 
-const MotionLink = motion.create(Link);
-
 export function Hero() {
   const t = useT();
-  const reducedMotion = useReducedMotion();
+  const words = [home.heroWord1, home.heroWord2, home.heroWord3, home.heroWord4, home.heroWord5].map(t);
 
   return (
     <section
@@ -89,46 +80,8 @@ export function Hero() {
             {t(home.heroMotto)}
           </motion.h1>
 
-          {/* Product spotlight, second: the flagship pack in a compact card
-              rather than the page's main headline. */}
-          <motion.div variants={item} className="mt-8 sm:mt-10">
-            <motion.div
-              animate={reducedMotion ? undefined : { y: [-5, 5, -5] }}
-              transition={reducedMotion ? undefined : { duration: 5, repeat: Infinity, ease: "easeInOut" }}
-            >
-              <MotionLink
-                href={`/proizvodi/${flagship.slug}`}
-                className="flex items-center gap-4 rounded-3xl px-4 py-3 text-left shadow-sm ring-1 ring-black/5 backdrop-blur-sm sm:gap-5 sm:px-6 sm:py-4"
-                style={{ background: "rgba(255,255,255,0.6)" }}
-                whileHover={{ y: -4, scale: 1.02 }}
-                whileTap={{ scale: 0.97 }}
-                transition={{ type: "spring", stiffness: 400, damping: 15 }}
-                aria-label={t(flagship.name)}
-              >
-                <div className="relative h-20 w-20 shrink-0 sm:h-28 sm:w-28">
-                  <div className="h-full w-full overflow-hidden rounded-2xl shadow-lg ring-4 ring-white/80">
-                    <Image
-                      src={flagship.image}
-                      alt={t(home.heroFlagshipAlt)}
-                      fill
-                      priority
-                      sizes="(min-width: 640px) 112px, 80px"
-                      className="object-cover"
-                      style={{ objectPosition: "50% 100%" }}
-                    />
-                  </div>
-                  <ProductBadge badge="hit" wiggle className="absolute -left-2 -top-2 rotate-[-8deg] shadow-md" />
-                </div>
-                <div>
-                  <h2 className="text-lg leading-snug sm:text-2xl" style={{ color: "var(--forest-deep)" }}>
-                    {t(flagship.flavor)}
-                  </h2>
-                  <p className="mt-1 text-xs leading-snug sm:text-sm" style={{ color: "var(--ink-soft)" }}>
-                    {t(home.heroSkuLine)}
-                  </p>
-                </div>
-              </MotionLink>
-            </motion.div>
+          <motion.div variants={item} className="mt-6">
+            <RotatingWord words={words} className="text-2xl font-semibold text-forest sm:text-3xl" />
           </motion.div>
 
           <motion.div variants={item} className="mt-8 flex flex-wrap items-center justify-center gap-4">
