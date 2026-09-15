@@ -5,6 +5,12 @@ import { nav, footerContent } from "@/data/content";
 import { useT } from "@/lib/locale";
 import { ScrollReveal } from "./ScrollReveal";
 import { NewsletterInline } from "./NewsletterInline";
+import { InstagramIcon, FacebookIcon } from "./SocialIcons";
+
+const socialLinks = [
+  { href: "https://www.instagram.com/vocardoo/", label: "Instagram", Icon: InstagramIcon },
+  { href: "https://www.facebook.com/p/Vo%C4%87ar-Br%C4%8Dko-100094245247924/", label: "Facebook", Icon: FacebookIcon },
+];
 
 const exploreLinks = [
   { href: "/", key: "home" as const },
@@ -49,6 +55,25 @@ export function Footer() {
             <Logo className="h-20 w-auto shrink-0" />
           </div>
           <p className="max-w-xs text-sm italic opacity-70">{t(footerContent.tagline)}</p>
+          <div className="mt-1 flex flex-col gap-2">
+            <span className="text-xs font-semibold uppercase tracking-wider opacity-50">
+              {t(footerContent.followUs)}
+            </span>
+            <div className="flex items-center gap-3">
+              {socialLinks.map(({ href, label, Icon }) => (
+                <a
+                  key={label}
+                  href={href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={label}
+                  className="opacity-80 transition-opacity hover:opacity-100"
+                >
+                  <Icon size={20} />
+                </a>
+              ))}
+            </div>
+          </div>
         </div>
 
         <LinkColumn label={t(footerContent.exploreLabel)} links={exploreLinks} />

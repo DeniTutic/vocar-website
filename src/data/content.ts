@@ -266,6 +266,7 @@ export const newsletter = {
 
 export const footerContent = {
   tagline: { bs: "Za bolji okus života.", en: "For a better taste of life." },
+  followUs: { bs: "Pratite nas", en: "Follow us" },
   companyLabel: { bs: "Kompanija", en: "Company" },
   exploreLabel: { bs: "Istraži", en: "Explore" },
   buyLabel: { bs: "Kupovina", en: "Buying" },
