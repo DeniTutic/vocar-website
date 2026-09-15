@@ -18,6 +18,9 @@ interface Review {
 // submissions. Mostly Bosnian voices, plus a few export-market customers
 // (see the presence map above) commenting on specific products, the range
 // overall, and — for the German import partner — the business relationship.
+// Each quote stays in the reviewer's own language on purpose — a Bosnian
+// card in Bosnian, a German partner in German — so the marquee reads like
+// real people, not translated copy. (Gulf customers write in English.)
 const REVIEWS: Review[] = [
   {
     name: "Amina Hodžić",
@@ -46,7 +49,7 @@ const REVIEWS: Review[] = [
   {
     name: "Markus Weber",
     location: "Njemačka",
-    text: "We've been importing Voćar products for our stores for two years now — reliable delivery, fair pricing, and customers keep coming back for the wafers.",
+    text: "Seit zwei Jahren importieren wir Voćar-Produkte für unsere Läden — zuverlässige Lieferung, faire Preise, und die Kunden kommen immer wieder wegen der Waffeln.",
     categorySlug: "wafers",
   },
   {

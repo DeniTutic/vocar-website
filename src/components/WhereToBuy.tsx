@@ -2,7 +2,7 @@
 
 import { Check } from "lucide-react";
 import { home, buy, whereToBuyContent as copy } from "@/data/content";
-import { exportCountries, retailers } from "@/data/whereToBuy";
+import { bihRegions, exportCountries, retailers } from "@/data/whereToBuy";
 import { useT } from "@/lib/locale";
 import { CtaLink } from "./CtaLink";
 import { ScrollReveal } from "./ScrollReveal";
@@ -53,6 +53,22 @@ export function WhereToBuy() {
               <p className="mt-3 max-w-md text-base leading-relaxed" style={{ color: "rgba(247,243,234,0.75)" }}>
                 {t(copy.bagBody)}
               </p>
+            </div>
+
+            <div className="flex flex-col gap-4 border-t pt-6" style={{ borderColor: "rgba(247,243,234,0.15)" }}>
+              <GroupLabel>{t(copy.regionsTitle)}</GroupLabel>
+              {bihRegions.map((region) => (
+                <div key={region.name.bs} className="flex flex-col gap-2">
+                  <span className="text-sm font-medium" style={{ color: "rgba(247,243,234,0.75)" }}>
+                    {t(region.name)}
+                  </span>
+                  <ul className="flex flex-wrap gap-2">
+                    {region.cities.map((city) => (
+                      <Pill key={city}>{city}</Pill>
+                    ))}
+                  </ul>
+                </div>
+              ))}
             </div>
 
             <div className="flex flex-col gap-3 border-t pt-6" style={{ borderColor: "rgba(247,243,234,0.15)" }}>

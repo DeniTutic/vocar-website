@@ -46,6 +46,9 @@ export function ContactSection() {
                   <br />
                   Bosna i Hercegovina
                 </p>
+                <p className="mt-2 text-sm italic" style={{ color: "var(--ink-soft)" }}>
+                  {t(contact.addressNote)}
+                </p>
               </div>
             </div>
 

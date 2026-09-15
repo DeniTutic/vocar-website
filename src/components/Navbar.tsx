@@ -19,7 +19,8 @@ const links = [
   { href: "/#proizvodi", key: "products" as const, sectionId: "proizvodi" },
   { href: "/#o-nama", key: "about" as const, sectionId: "o-nama" },
   { href: "/#kvalitet", key: "quality" as const, sectionId: "kvalitet" },
-  { href: "/#katalog", key: "catalog" as const, sectionId: "katalog" },
+  // Katalog is a download, not a destination — it lives in WhereToBuy, the
+  // catalog section and the footer, so it doesn't earn a slot in the bar.
   { href: "/#kontakt", key: "contact" as const, sectionId: "kontakt" },
 ];
 

@@ -78,6 +78,9 @@ export const home = {
   showcaseShowing: { bs: "Prikazano", en: "Showing" },
   showcaseOf: { bs: "od", en: "of" },
   showcaseShowAll: { bs: "Prikaži sve", en: "Show all" },
+  tasteFilterLabel: { bs: "Ukus", en: "Taste" },
+  showcaseEmpty: { bs: "Ništa u ovoj kombinaciji — probajte drugi ukus.", en: "Nothing in this combination — try another taste." },
+  showcaseClear: { bs: "Poništi filtere", en: "Clear filters" },
 
   featuredEyebrow: { bs: "Degustacija", en: "Tasting" },
   featuredTitle: { bs: "Probajte prvo ovo.", en: "Try these first." },
@@ -157,6 +160,7 @@ export const whereToBuyContent = {
     bs: "Voćar proizvode naći ćete u supermarketima i trafikama širom Bosne i Hercegovine — od Sarajeva i Tuzle, preko Banje Luke i Bijeljine, do Mostara i Zenice. Ne vidite nas na polici u svom gradu? Javite nam se i pomoći ćemo da to promijenimo.",
     en: "You'll find Voćar products in supermarkets and kiosks across Bosnia and Herzegovina — from Sarajevo and Tuzla to Banja Luka, Bijeljina, Mostar and Zenica. Don't see us on a shelf near you yet? Let us know and we'll help change that.",
   },
+  regionsTitle: { bs: "U Bosni i Hercegovini", en: "In Bosnia and Herzegovina" },
   exportTitle: { bs: "Izvozna tržišta", en: "Export markets" },
   retailersTitle: { bs: "Trgovine", en: "Retailers" },
   mapLink: { bs: "Mapa tržišta", en: "Market map" },
@@ -204,6 +208,10 @@ export const contact = {
     en: "For orders, distribution, or any question about the range — we're here.",
   },
   addressLabel: { bs: "Adresa", en: "Address" },
+  addressNote: {
+    bs: "Proizvodni pogon, nije maloprodaja. Posjete uz prethodnu najavu.",
+    en: "Production site, not a retail shop. Visits by appointment.",
+  },
   phoneLabel: { bs: "Telefon", en: "Phone" },
   emailLabel: { bs: "E-mail", en: "Email" },
   officeSloveniaLabel: { bs: "Predstavništvo Slovenija", en: "Slovenia office" },
@@ -237,8 +245,17 @@ export const productPage = {
     en: "Detailed nutritional values are printed on each package's label.",
   },
   relatedTitle: { bs: "Iz iste kategorije", en: "From the same category" },
-  backToCategory: { bs: "Nazad na kategoriju", en: "Back to category" },
+  breadcrumbLabel: { bs: "Putanja", en: "Breadcrumb" },
   sizeOnRequest: { bs: "Na upit", en: "On request" },
+  share: { bs: "Podijeli", en: "Share" },
+  copied: { bs: "Link kopiran", en: "Link copied" },
+  findBagTitle: { bs: "Gdje naći ovu vrećicu", en: "Where to find this bag" },
+  findBagBody: {
+    bs: "U marketima i trafikama širom BiH, između ostalog u:",
+    en: "In supermarkets and kiosks across BiH, including:",
+  },
+  findBagAsk: { bs: "Ne vidite nas u svom gradu?", en: "Don't see us in your town?" },
+  findBagAskLink: { bs: "Javite nam se", en: "Let us know" },
   siblingsTitle: { bs: "Još ukusa iz kategorije", en: "More flavors from" },
   quoteSubject: { bs: "Upit za ponudu", en: "Quote request" },
   quoteBody: {
@@ -262,6 +279,17 @@ export const newsletter = {
     en: "Thanks! Your email app is opening — just hit send to confirm your signup.",
   },
   errorEmail: { bs: "Unesite ispravnu e-mail adresu.", en: "Enter a valid email address." },
+} as const;
+
+export const notFoundPage = {
+  eyebrow: { bs: "404", en: "404" },
+  title: { bs: "Ta vrećica se otkotrljala.", en: "That bag rolled away." },
+  body: {
+    bs: "Stranica koju tražite ne postoji ili je premještena. Evo par hitova da ne odete praznih ruku.",
+    en: "The page you're looking for doesn't exist or has moved. Here are a few hits so you don't leave empty-handed.",
+  },
+  cta: { bs: "Svi proizvodi", en: "All products" },
+  hitsTitle: { bs: "Najtraženije", en: "Most wanted" },
 } as const;
 
 export const footerContent = {
