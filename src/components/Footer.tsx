@@ -102,9 +102,8 @@ export function Footer() {
         className="border-t px-5 py-5 text-xs opacity-60 sm:px-8"
         style={{ borderColor: "rgba(237,227,208,0.15)" }}
       >
-        <div className="mx-auto flex max-w-7xl flex-col gap-1 sm:flex-row sm:items-center sm:justify-between">
+        <div className="mx-auto max-w-7xl">
           <span>© {new Date().getFullYear()} VOĆAR — {t(footerContent.rights)}</span>
-          <span>{t(footerContent.disclaimer)}</span>
         </div>
       </div>
     </footer>

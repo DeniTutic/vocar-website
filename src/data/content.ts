@@ -272,8 +272,4 @@ export const footerContent = {
   buyLabel: { bs: "Kupovina", en: "Buying" },
   contactLabel: { bs: "Kontakt", en: "Contact" },
   rights: { bs: "Sva prava zadržana.", en: "All rights reserved." },
-  disclaimer: {
-    bs: "Konceptualni redizajn sajta — nije zvanična stranica vocar.ba.",
-    en: "Conceptual site redesign — not the official vocar.ba site.",
-  },
 } as const;
