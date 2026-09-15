@@ -272,4 +272,87 @@ export const footerContent = {
   buyLabel: { bs: "Kupovina", en: "Buying" },
   contactLabel: { bs: "Kontakt", en: "Contact" },
   rights: { bs: "Sva prava zadržana.", en: "All rights reserved." },
+  privacyLabel: { bs: "Politika privatnosti", en: "Privacy policy" },
+} as const;
+
+/**
+ * Written from scratch, grounded in what this codebase actually does —
+ * localStorage "vocar_locale" is the only client storage, forms submit via
+ * mailto with no server-side storage, and the Google Maps embed is the only
+ * third-party resource. Not a substitute for legal review, and says so.
+ */
+export const privacyPage = {
+  metaTitle: "Politika privatnosti",
+  metaDescription:
+    "Politika privatnosti sajta Voćar d.o.o. Brčko — koje podatke prikupljamo, kako se koriste i kome se obratiti za pitanja o privatnosti.",
+  eyebrow: { bs: "Pravne informacije", en: "Legal" },
+  title: { bs: "Politika privatnosti", en: "Privacy policy" },
+  updated: { bs: "Zadnje ažurirano: 15. septembar 2026.", en: "Last updated: September 15, 2026." },
+  intro: {
+    bs: "Ova politika opisuje koje podatke Voćar d.o.o. Brčko (Gornji Rahić 112, 76207 Gornji Rahić, Bosna i Hercegovina) prikuplja preko ove web stranice, zašto, i kome se možete obratiti u vezi s tim. Ne odnosi se na naše profile na društvenim mrežama (Instagram, Facebook), koji imaju vlastita pravila privatnosti.",
+    en: "This policy describes what data Voćar d.o.o. Brčko (Gornji Rahić 112, 76207 Gornji Rahić, Bosnia and Herzegovina) collects through this website, why, and who to contact about it. It doesn't cover our social media profiles (Instagram, Facebook), which have their own privacy rules.",
+  },
+  sections: [
+    {
+      title: { bs: "Koje podatke prikupljamo", en: "What we collect" },
+      body: {
+        bs: "Ako popunite formular za kontakt: ime, e-mail, telefon (opcionalno) i sadržaj poruke. Ako se prijavite na newsletter: samo e-mail adresa. Ne prikupljamo nikakve podatke o plaćanju — ova stranica nema online prodavnicu.",
+        en: "If you fill out the contact form: name, email, phone (optional) and your message. If you sign up for the newsletter: just your email address. We don't collect any payment information — this site has no online store.",
+      },
+    },
+    {
+      title: { bs: "Kako formulari zapravo rade", en: "How the forms actually work" },
+      body: {
+        bs: "Oba formulara otvaraju vaš vlastiti e-mail program s unaprijed popunjenom porukom upućenom na sales@vocar.ba — poruku šaljete direktno sa svog naloga, baš kao svaki drugi e-mail. Mi ne čuvamo podatke iz formulara na serveru; jedini zapis poruke je onaj koji ostaje u vašem poslatom e-mailu.",
+        en: "Both forms open your own email app with a message pre-filled to sales@vocar.ba — you send it directly from your own account, just like any other email. We don't store form data on a server; the only record of the message is the one in your own sent mail.",
+      },
+    },
+    {
+      title: { bs: "Kolačići i lokalno skladištenje", en: "Cookies and local storage" },
+      body: {
+        bs: "Ova stranica ne koristi kolačiće za praćenje niti analitiku (npr. Google Analytics). Jedino što čuvamo u vašem pregledaču je odabir jezika (bosanski/engleski), lokalno na vašem uređaju — taj podatak se nikad ne šalje nama niti trećim stranama.",
+        en: "This site doesn't use tracking cookies or analytics (e.g. Google Analytics). The only thing we store in your browser is your language choice (Bosnian/English), locally on your device — it's never sent to us or anyone else.",
+      },
+    },
+    {
+      title: { bs: "Google mapa", en: "Google Map" },
+      body: {
+        bs: "Sekcija za kontakt sadrži ugrađenu Google mapu naše lokacije. Kad se ta mapa učita, Google može postaviti vlastite kolačiće u skladu sa svojom politikom privatnosti, nezavisno od nas.",
+        en: "The contact section embeds a Google Map of our location. When that map loads, Google may set its own cookies under its own privacy policy, independent of us.",
+      },
+    },
+    {
+      title: { bs: "Vaša prava", en: "Your rights" },
+      body: {
+        bs: "Možete tražiti uvid, ispravku ili brisanje bilo kojih podataka koje ste nam poslali (npr. e-mail iz prijave na newsletter). Pišite nam na sales@vocar.ba.",
+        en: "You can ask to see, correct, or delete any data you've sent us (e.g. an email from a newsletter signup). Write to us at sales@vocar.ba.",
+      },
+    },
+    {
+      title: { bs: "Treće strane", en: "Third parties" },
+      body: {
+        bs: "Ne prodajemo niti dijelimo vaše podatke s trećim stranama u marketinške svrhe. Jedini vanjski servis na stranici je Google mapa, opisana iznad.",
+        en: "We don't sell or share your data with third parties for marketing purposes. The only outside service on this site is the Google Map described above.",
+      },
+    },
+    {
+      title: { bs: "Djeca", en: "Children" },
+      body: {
+        bs: "Ova stranica nije namijenjena djeci mlađoj od 16 godina i ne prikupljamo svjesno podatke od njih.",
+        en: "This site isn't directed at children under 16, and we don't knowingly collect data from them.",
+      },
+    },
+    {
+      title: { bs: "Izmjene ove politike", en: "Changes to this policy" },
+      body: {
+        bs: "Ako promijenimo kako radimo sa podacima, ažuriraćemo ovu stranicu i datum na vrhu.",
+        en: "If how we handle data changes, we'll update this page and the date at the top.",
+      },
+    },
+  ],
+  disclaimer: {
+    bs: "Ovo je opšti opis naše prakse, a ne formalni pravni dokument — za specifične zakonske zahtjeve (npr. GDPR za tržište Slovenije) preporučujemo pravnu provjeru.",
+    en: "This is a plain-language description of our practice, not a formal legal document — for specific legal requirements (e.g. GDPR for the Slovenia market), we recommend a legal review.",
+  },
+  contactCta: { bs: "Imate pitanje o privatnosti?", en: "Have a privacy question?" },
 } as const;

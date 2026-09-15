@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { Logo } from "./Logo";
 import { nav, footerContent } from "@/data/content";
 import { useT } from "@/lib/locale";
@@ -102,8 +103,11 @@ export function Footer() {
         className="border-t px-5 py-5 text-xs opacity-60 sm:px-8"
         style={{ borderColor: "rgba(237,227,208,0.15)" }}
       >
-        <div className="mx-auto max-w-7xl">
+        <div className="mx-auto flex max-w-7xl flex-col gap-1 sm:flex-row sm:items-center sm:justify-between">
           <span>© {new Date().getFullYear()} VOĆAR — {t(footerContent.rights)}</span>
+          <Link href="/privatnost" className="w-fit opacity-80 transition-opacity hover:opacity-100">
+            {t(footerContent.privacyLabel)}
+          </Link>
         </div>
       </div>
     </footer>
