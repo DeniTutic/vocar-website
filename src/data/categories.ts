@@ -37,7 +37,7 @@ export const categories: Category[] = [
       en: "Peanuts aren't technically nuts at all — they're legumes that grow underground in pods, like beans and lentils, which is part of why they pack more protein than most true tree nuts. The kernels are roasted at high heat until crisp, then salted or vacuum-sealed while fresh. Removing the oxygen through vacuum packing keeps the natural oils from turning rancid, so they stay crunchy far longer.",
     },
     image: "/images/categories/peanuts.jpg",
-    imageAlt: { bs: "Sneki kikiriki u drvenoj zdjeli", en: "Sneki peanuts in a wooden bowl" },
+    imageAlt: { bs: "Pakovanje Sneki kikiriki, slani i prženi", en: "Sneki peanuts, salted and roasted, package" },
     accent: "#2E7FB8",
     accentDeep: "#1B4F72",
     skus: [
@@ -77,7 +77,7 @@ export const categories: Category[] = [
       en: "Naturally sun-dried plums, pitted, with no added sugar — just fruit and time. Bosnia and Herzegovina has a long plum-growing tradition built around the Požegača variety, dried this same way for generations for snacking and for the region's beloved šljivovica brandy.",
     },
     image: "/images/categories/prunes.jpg",
-    imageAlt: { bs: "Suhe šljive na zobenoj kaši sa bademima", en: "Dried prunes over oatmeal with almonds" },
+    imageAlt: { bs: "Pakovanje Čoko šljiva", en: "Choco Prunes package" },
     accent: "#7A3B6B",
     accentDeep: "#4B2145",
     skus: [
@@ -111,7 +111,7 @@ export const categories: Category[] = [
       en: "Puffed corn and quinoa in five flavors, from sweet corn to ketchup and peanut. Quinoa originally comes from the Andes Mountains in South America, where it's been grown for roughly 5,000 years, and it's one of the few plant foods containing all nine essential amino acids — a genuinely complete protein, and naturally gluten-free too.",
     },
     image: "/images/categories/quinoa-flips.jpg",
-    imageAlt: { bs: "Zdjela Q Flips kukuruzno-kinoa grickalica", en: "Bowl of Q Flips quinoa and corn puffs" },
+    imageAlt: { bs: "Pakovanje Q Flips kinoa i kukuruz, kikiriki", en: "Q Flips quinoa and corn, peanuts package" },
     accent: "#5F8A3F",
     accentDeep: "#3B5C26",
     skus: [
@@ -160,7 +160,7 @@ export const categories: Category[] = [
       en: "Full-flavor corn rings made through extrusion — corn dough is cooked under pressure, then the sudden release of that pressure as it exits the machine makes it puff instantly into its familiar shape. Available in pizza, peanut, and piquant flavors.",
     },
     image: "/images/categories/flips-time.jpg",
-    imageAlt: { bs: "Vrećice Flips Time sa paradajzom i bosiljkom", en: "Flips Time bags with tomato and basil" },
+    imageAlt: { bs: "Pakovanje Flips Time, kikiriki", en: "Flips Time peanuts package" },
     accent: "#C4432B",
     accentDeep: "#231F1B",
     skus: [
@@ -192,7 +192,7 @@ export const categories: Category[] = [
       en: "The original corn rings and peanut puffs, extruded under pressure to get their light, crunchy texture. Lunchbox or family-size packs, always the same familiar taste.",
     },
     image: "/images/categories/timi-flips.jpg",
-    imageAlt: { bs: "Timi Pikant i Timi Flips kikiriki pakovanja", en: "Timi Pikant and Timi Flips peanut packs" },
+    imageAlt: { bs: "Pakovanje Timi Pikant", en: "Timi Pikant package" },
     accent: "#D8452E",
     accentDeep: "#7A1E1A",
     skus: [
@@ -226,7 +226,7 @@ export const categories: Category[] = [
       en: "100% roasted peanuts, ground into a smooth creamy paste or left crunchy with small peanut pieces. Peanuts are technically a legume, not a nut, which gives them an unusually high protein content — a great base for a spread with nothing extra needed.",
     },
     image: "/images/categories/peanut-butter.jpg",
-    imageAlt: { bs: "Tost sa puterom od kikirikija i džemom", en: "Toast with peanut butter and jam" },
+    imageAlt: { bs: "Teglica Puter od kikirikija, kremasti 100%", en: "Peanut Butter, Creamy 100% jar" },
     accent: "#2D5FA0",
     accentDeep: "#1B3A66",
     skus: [
@@ -261,7 +261,7 @@ export const categories: Category[] = [
       en: "Popcorn is made from a specific type of corn (Zea mays everta) with a hard, non-porous hull that traps steam inside the kernel. Once the pressure builds high enough, the hull bursts and the kernel puffs up to 50 times its original size. Salted, caramel, or chocolate — plus loose kernels for popping at home.",
     },
     image: "/images/categories/popcorn.jpg",
-    imageAlt: { bs: "Kokice koje se prosipaju iz kutije", en: "Popcorn spilling out of a striped tub" },
+    imageAlt: { bs: "Pakovanje Pop Star kokice, karamel", en: "Pop Star Popcorn, Caramel package" },
     accent: "#C98A3B",
     accentDeep: "#2B2350",
     skus: [
@@ -302,7 +302,7 @@ export const categories: Category[] = [
       en: "Thin wafer sheets are baked between hot metal plates until crisp and light — a technique centuries old, once done by hand over an open fire, now done on modern machines. The sheets are then layered with a smooth cream filling and cut into their familiar shape.",
     },
     image: "/images/categories/wafers.jpg",
-    imageAlt: { bs: "Naslagane Tima oblatne u ružičastoj zdjeli", en: "Stacked Tima wafers in a pink bowl" },
+    imageAlt: { bs: "Pakovanje Tima oblatne", en: "Tima Wafers package" },
     accent: "#C97FA0",
     accentDeep: "#8A4A63",
     skus: [
@@ -323,7 +323,7 @@ export const categories: Category[] = [
       en: "Grits, instant polenta, and corn flour, milled fine for everyday cooking. Polenta is the base for kačamak, a traditional Bosnian cornmeal dish that's been made across the region for generations.",
     },
     image: "/images/categories/groceries.jpg",
-    imageAlt: { bs: "Zdjela sa voćem preko griza i vrećica polente", en: "Bowl of fruit over grits beside polenta packs" },
+    imageAlt: { bs: "Pakovanje Zlatna instant polenta", en: "Golden Instant Polenta package" },
     accent: "#C68A2E",
     accentDeep: "#7A551C",
     skus: [
@@ -361,7 +361,7 @@ export const categories: Category[] = [
       en: "Corn chips made through extrusion — corn dough is shaped and, as it exits the machine, instantly puffs into crisp cones, a completely different technique from classic fried potato chips. Available in chicken, sour cream, or chili flavor.",
     },
     image: "/images/categories/chips.jpg",
-    imageAlt: { bs: "Zdjela Crispy Fun čips kornetića", en: "Bowl of Crispy Fun chip cones" },
+    imageAlt: { bs: "Pakovanje Crispy Fun, piletina", en: "Crispy Fun, Chicken package" },
     accent: "#E0522B",
     accentDeep: "#1A1712",
     skus: [
@@ -394,7 +394,7 @@ export const categories: Category[] = [
       en: "Vitamin-fortified chocolate cereal, and a hazelnut cream bar — two different treats for breakfast or a snack.",
     },
     image: "/images/categories/cereals.jpg",
-    imageAlt: { bs: "Zdjela čokoladnih žitarica i Happy Cerios pakovanje", en: "Bowl of chocolate cereal balls beside a Happy Cerios pack" },
+    imageAlt: { bs: "Pakovanje Happy Cerios, kuglice sa vitaminima", en: "Happy Cerios, vitamin cereal balls package" },
     accent: "#D98A2E",
     accentDeep: "#6B4226",
     skus: [
