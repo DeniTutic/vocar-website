@@ -7,7 +7,11 @@ import { useReducedMotion } from "@/lib/useReducedMotion";
 /** Animates the numeric prefix of a value like "20+" or "80+" up to its target when scrolled into view. */
 export function AnimatedCounter({ value, className = "" }: { value: string; className?: string }) {
   const ref = useRef<HTMLSpanElement>(null);
-  const inView = useInView(ref, { once: true, margin: "-60px" });
+  // Two-value shorthand: shrink only top/bottom. A single "-60px" expands to
+  // all four sides, which on narrow (mobile) viewports can shrink the
+  // horizontal intersection window enough that a multi-column grid's side
+  // items never register as in-view at all.
+  const inView = useInView(ref, { once: true, margin: "-60px 0px" });
   const reducedMotion = useReducedMotion();
   const [display, setDisplay] = useState(reducedMotion ? value : "0");
 
