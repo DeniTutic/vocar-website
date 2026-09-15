@@ -17,6 +17,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.3,
   };
 
+  const terms = {
+    url: `${SITE_URL}/uslovi`,
+    lastModified: new Date(),
+    changeFrequency: "yearly" as const,
+    priority: 0.3,
+  };
+
   const productRoutes = products.map((p) => ({
     url: `${SITE_URL}/proizvodi/${p.slug}`,
     lastModified: new Date(),
@@ -24,5 +31,5 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.6,
   }));
 
-  return [home, privacy, ...productRoutes];
+  return [home, privacy, terms, ...productRoutes];
 }

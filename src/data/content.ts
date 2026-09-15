@@ -273,6 +273,7 @@ export const footerContent = {
   contactLabel: { bs: "Kontakt", en: "Contact" },
   rights: { bs: "Sva prava zadržana.", en: "All rights reserved." },
   privacyLabel: { bs: "Politika privatnosti", en: "Privacy policy" },
+  termsLabel: { bs: "Uslovi korištenja", en: "Terms of use" },
 } as const;
 
 /**
@@ -355,4 +356,79 @@ export const privacyPage = {
     en: "This is a plain-language description of our practice, not a formal legal document — for specific legal requirements (e.g. GDPR for the Slovenia market), we recommend a legal review.",
   },
   contactCta: { bs: "Imate pitanje o privatnosti?", en: "Have a privacy question?" },
+} as const;
+
+/**
+ * Written from scratch — vocar.ba has no terms page either — and scoped to
+ * what this site actually does: no checkout, no accounts, no user-submitted
+ * content. Every CTA on the site either opens a mailto or downloads the PDF
+ * catalog, so no sale is ever concluded here.
+ */
+export const termsPage = {
+  metaTitle: "Uslovi korištenja",
+  metaDescription:
+    "Uslovi korištenja sajta Voćar d.o.o. Brčko — šta stranica jeste i nije, autorska prava, i mjerodavno pravo.",
+  eyebrow: { bs: "Pravne informacije", en: "Legal" },
+  title: { bs: "Uslovi korištenja", en: "Terms of use" },
+  updated: { bs: "Zadnje ažurirano: 16. septembar 2026.", en: "Last updated: September 16, 2026." },
+  intro: {
+    bs: "Korištenjem ove web stranice prihvatate ove uslove. Stranicu održava Voćar d.o.o. Brčko (Gornji Rahić 112, 76207 Gornji Rahić, Bosna i Hercegovina). Ako se ne slažete s bilo kojim dijelom ovih uslova, molimo da ne koristite stranicu.",
+    en: "By using this website, you accept these terms. The site is maintained by Voćar d.o.o. Brčko (Gornji Rahić 112, 76207 Gornji Rahić, Bosnia and Herzegovina). If you don't agree with any part of these terms, please don't use the site.",
+  },
+  sections: [
+    {
+      title: { bs: "Ova stranica nije online prodavnica", en: "This site is not an online store" },
+      body: {
+        bs: "Ovdje ne možete kupiti proizvode niti platiti narudžbu. Dugmad poput \"Gdje kupiti\" i \"Zatraži ponudu\" otvaraju vaš e-mail program ili vas usmjeravaju na fizičke prodajne kanale — nijedan ugovor o kupoprodaji se ne sklapa preko ove stranice.",
+        en: "You can't buy products or pay for an order here. Buttons like \"Where to buy\" and \"Request a quote\" open your email app or point you to physical retail channels — no sales contract is formed on this site.",
+      },
+    },
+    {
+      title: { bs: "Podaci o proizvodima su informativni", en: "Product information is for reference only" },
+      body: {
+        bs: "Opisi, sastojci i fotografije proizvoda su informativni i mogu se razlikovati od stvarnog pakovanja. Tačan sastav, alergeni i nutritivne vrijednosti uvijek provjerite na deklaraciji fizičkog proizvoda.",
+        en: "Product descriptions, composition notes and photos are for reference and may differ from the actual package. Always check the physical product's label for exact composition, allergens and nutritional values.",
+      },
+    },
+    {
+      title: { bs: "Autorska prava i žig", en: "Copyright and trademark" },
+      body: {
+        bs: "Naziv Voćar, logo i fotografije proizvoda na ovoj stranici su vlasništvo Voćar d.o.o. Brčko ili se koriste uz dozvolu. Ne smiju se kopirati niti koristiti u komercijalne svrhe bez našeg pismenog odobrenja.",
+        en: "The Voćar name, logo and product photography on this site belong to Voćar d.o.o. Brčko or are used with permission. They may not be copied or used commercially without our written consent.",
+      },
+    },
+    {
+      title: { bs: "Vanjski linkovi i servisi", en: "External links and services" },
+      body: {
+        bs: "Stranica sadrži linkove ka Instagramu i Facebooku, te ugrađenu Google mapu. Ti servisi imaju vlastite uslove korištenja i politike privatnosti, van naše kontrole i odgovornosti.",
+        en: "The site links to Instagram and Facebook, and embeds a Google Map. Those services have their own terms and privacy policies, outside our control and responsibility.",
+      },
+    },
+    {
+      title: { bs: "Ograničenje odgovornosti", en: "Limitation of liability" },
+      body: {
+        bs: "Trudimo se da sadržaj bude tačan i ažuran, ali ga dajemo \"kakav jeste\", bez garancija. Ne odgovaramo za eventualne greške u opisu, dostupnosti proizvoda ili privremenu nedostupnost stranice.",
+        en: "We try to keep this content accurate and current, but it's provided \"as is\", without warranties. We're not liable for errors in descriptions, product availability, or temporary downtime of the site.",
+      },
+    },
+    {
+      title: { bs: "Mjerodavno pravo", en: "Governing law" },
+      body: {
+        bs: "Ovi uslovi se tumače u skladu sa zakonima Bosne i Hercegovine.",
+        en: "These terms are governed by the laws of Bosnia and Herzegovina.",
+      },
+    },
+    {
+      title: { bs: "Izmjene ovih uslova", en: "Changes to these terms" },
+      body: {
+        bs: "Ako promijenimo ove uslove, ažuriraćemo ovu stranicu i datum na vrhu.",
+        en: "If we change these terms, we'll update this page and the date at the top.",
+      },
+    },
+  ],
+  disclaimer: {
+    bs: "Ovo je opšti, jednostavan opis pravila korištenja, a ne formalni pravni dokument — za specifične zakonske zahtjeve preporučujemo pravnu provjeru.",
+    en: "This is a plain-language description of our terms, not a formal legal document — for specific legal requirements, we recommend a legal review.",
+  },
+  contactCta: { bs: "Imate pitanje o ovim uslovima?", en: "Have a question about these terms?" },
 } as const;

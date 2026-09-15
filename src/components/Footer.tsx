@@ -105,9 +105,14 @@ export function Footer() {
       >
         <div className="mx-auto flex max-w-7xl flex-col gap-1 sm:flex-row sm:items-center sm:justify-between">
           <span>© {new Date().getFullYear()} VOĆAR — {t(footerContent.rights)}</span>
-          <Link href="/privatnost" className="w-fit opacity-80 transition-opacity hover:opacity-100">
-            {t(footerContent.privacyLabel)}
-          </Link>
+          <div className="flex items-center gap-4">
+            <Link href="/privatnost" className="w-fit opacity-80 transition-opacity hover:opacity-100">
+              {t(footerContent.privacyLabel)}
+            </Link>
+            <Link href="/uslovi" className="w-fit opacity-80 transition-opacity hover:opacity-100">
+              {t(footerContent.termsLabel)}
+            </Link>
+          </div>
         </div>
       </div>
     </footer>
