@@ -94,7 +94,7 @@ export const home = {
   qualityPoint2: { bs: "Moderna proizvodnja", en: "Modern production" },
   qualityPoint3: { bs: "Kontrola kvaliteta u svakoj fazi", en: "Quality control at every stage" },
   qualityPoint4: { bs: "Sigurnost hrane i dosljedan kvalitet", en: "Food safety and consistent quality" },
-  certificatePlaceholder: { bs: "Rezervisano za certifikat", en: "Reserved for certificate" },
+  certificateComingSoon: { bs: "Uskoro", en: "Coming soon" },
 
   processEyebrow: { bs: "Proces", en: "Process" },
   processTitle: { bs: "Od sastojka do vaše police.", en: "From ingredient to your shelf." },

@@ -9,6 +9,7 @@ import { SectionHeading } from "./SectionHeading";
 import { CertificateCard } from "./CertificateCard";
 
 const POINTS = [home.qualityPoint1, home.qualityPoint2, home.qualityPoint3, home.qualityPoint4];
+const CERTS = ["ISO", "IFS"];
 
 export function QualitySection() {
   const t = useT();
@@ -30,9 +31,9 @@ export function QualitySection() {
             </ul>
           </div>
 
-          <div className="grid grid-cols-2 gap-4 sm:grid-cols-4 lg:grid-cols-2">
-            {[0, 1, 2, 3].map((i) => (
-              <CertificateCard key={i} onClick={() => setOpenIndex(i)} />
+          <div className="grid grid-cols-2 gap-4">
+            {CERTS.map((name, i) => (
+              <CertificateCard key={name} name={name} onClick={() => setOpenIndex(i)} />
             ))}
           </div>
         </div>

@@ -60,7 +60,7 @@ export function Footer() {
             <span className="text-xs font-semibold uppercase tracking-wider opacity-50">
               {t(footerContent.followUs)}
             </span>
-            <div className="flex items-center gap-3">
+            <div className="-m-2 flex items-center gap-1">
               {socialLinks.map(({ href, label, Icon }) => (
                 <a
                   key={label}
@@ -68,7 +68,7 @@ export function Footer() {
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label={label}
-                  className="opacity-80 transition-opacity hover:opacity-100"
+                  className="flex h-9 w-9 items-center justify-center opacity-80 transition-opacity hover:opacity-100"
                 >
                   <Icon size={20} />
                 </a>
