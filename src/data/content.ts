@@ -156,10 +156,13 @@ export const whereToBuyContent = {
     en: "Look for Voćar products in supermarkets and kiosks across Bosnia and Herzegovina — and, through our partners, on shelves in {count} countries.",
   },
   bagTitle: { bs: "Tražite vrećicu?", en: "Looking for a bag?" },
+  // Split around the link so "Javite nam se" can point at the contact section.
   bagBody: {
-    bs: "Voćar proizvode naći ćete u supermarketima i trafikama širom Bosne i Hercegovine — od Sarajeva i Tuzle, preko Banje Luke i Bijeljine, do Mostara i Zenice. Ne vidite nas na polici u svom gradu? Javite nam se i pomoći ćemo da to promijenimo.",
-    en: "You'll find Voćar products in supermarkets and kiosks across Bosnia and Herzegovina — from Sarajevo and Tuzla to Banja Luka, Bijeljina, Mostar and Zenica. Don't see us on a shelf near you yet? Let us know and we'll help change that.",
+    bs: "Voćar proizvode naći ćete u supermarketima i trafikama širom Bosne i Hercegovine — od Sarajeva i Tuzle, preko Banje Luke i Bijeljine, do Mostara i Zenice. Ne vidite nas na polici u svom gradu?",
+    en: "You'll find Voćar products in supermarkets and kiosks across Bosnia and Herzegovina — from Sarajevo and Tuzla to Banja Luka, Bijeljina, Mostar and Zenica. Don't see us on a shelf near you yet?",
   },
+  bagLink: { bs: "Javite nam se", en: "Let us know" },
+  bagBodyAfter: { bs: "i pomoći ćemo da to promijenimo.", en: "and we'll help change that." },
   regionsTitle: { bs: "U Bosni i Hercegovini", en: "In Bosnia and Herzegovina" },
   exportTitle: { bs: "Izvozna tržišta", en: "Export markets" },
   retailersTitle: { bs: "Trgovine", en: "Retailers" },
