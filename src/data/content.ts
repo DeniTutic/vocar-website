@@ -90,8 +90,8 @@ export const home = {
   qualityEyebrow: { bs: "Kvalitet", en: "Quality" },
   qualityTitle: { bs: "Kvalitet koji se osjeti.", en: "Quality you can taste." },
   qualityBody: {
-    bs: "Od pažljivo odabranih sirovina do stroge kontrole u svakoj fazi proizvodnje — kvalitet nije jedan korak, nego cijeli proces. Ova stranica čuva mjesto za naše stvarne certifikate čim budu spremni za objavu.",
-    en: "From carefully selected raw materials to strict control at every stage of production — quality isn't one step, it's the whole process. This section holds a place for our real certificates once they're ready to publish.",
+    bs: "Od pažljivo odabranih sirovina do stroge kontrole u svakoj fazi proizvodnje — kvalitet nije jedan korak, nego cijeli proces.",
+    en: "From carefully selected raw materials to strict control at every stage of production — quality isn't one step, it's the whole process.",
   },
   qualityPoint1: { bs: "Pažljivo odabrani sastojci", en: "Carefully selected ingredients" },
   qualityPoint2: { bs: "Moderna proizvodnja", en: "Modern production" },

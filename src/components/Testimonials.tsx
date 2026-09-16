@@ -14,10 +14,6 @@ interface Review {
   categorySlug?: string;
 }
 
-// Illustrative customer quotes for this concept redesign — not real
-// submissions. Mostly Bosnian voices, plus a few export-market customers
-// (see the presence map above) commenting on specific products, the range
-// overall, and — for the German import partner — the business relationship.
 // Each quote stays in the reviewer's own language on purpose — a Bosnian
 // card in Bosnian, a German partner in German — so the marquee reads like
 // real people, not translated copy. (Gulf customers write in English.)
