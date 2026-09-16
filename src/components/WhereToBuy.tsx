@@ -53,7 +53,7 @@ export function WhereToBuy() {
               <p className="mt-3 max-w-md text-base leading-relaxed" style={{ color: "rgba(247,243,234,0.75)" }}>
                 {t(copy.bagBody)}{" "}
                 {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
-                <a href="/#kontakt" className="font-semibold underline underline-offset-2 hover:opacity-80" style={{ color: "var(--cream)" }}>
+                <a href="/#kontakt" className="font-semibold hover:underline" style={{ color: "var(--cream)" }}>
                   {t(copy.bagLink)}
                 </a>{" "}
                 {t(copy.bagBodyAfter)}
