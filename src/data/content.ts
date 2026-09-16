@@ -64,7 +64,7 @@ export const home = {
   },
   statYears: { value: "35+", label: { bs: "godina iskustva", en: "years of experience" } },
   statProducts: { value: "100+", label: { bs: "proizvoda", en: "products" } },
-  statHappyFaces: { value: "10.000+", label: { bs: "nasmijanih lica", en: "happy faces" } },
+  statHappyFaces: { value: "100.000+", label: { bs: "nasmijanih lica", en: "happy faces" } },
   statMarkets: { value: "BiH", label: { bs: "i međunarodna tržišta", en: "and international markets" } },
 
   showcaseEyebrow: { bs: "Asortiman", en: "The range" },
