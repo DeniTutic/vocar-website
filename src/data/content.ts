@@ -233,6 +233,16 @@ export const contact = {
     bs: "Otvara se vaš e-mail program sa popunjenom porukom — samo je pošaljite.",
     en: "Your email app is opening with the message filled in — just hit send.",
   },
+  formSent: {
+    bs: "Poruka je poslana. Javljamo se u roku od jednog radnog dana.",
+    en: "Message sent. We'll get back to you within one business day.",
+  },
+  formSending: { bs: "Šaljem…", en: "Sending…" },
+  formError: {
+    bs: "Slanje nije uspjelo. Pokušajte ponovo ili nam pišite direktno na sales@vocar.ba.",
+    en: "Sending failed. Try again or write to us directly at sales@vocar.ba.",
+  },
+  formRateLimited: { bs: "Prebrzo — sačekajte pola minute pa pokušajte ponovo.", en: "Too fast — wait half a minute and try again." },
   formErrorRequired: { bs: "Ovo polje je obavezno.", en: "This field is required." },
   formErrorEmail: { bs: "Unesite ispravnu e-mail adresu.", en: "Enter a valid email address." },
 } as const;
@@ -260,11 +270,6 @@ export const productPage = {
   findBagAsk: { bs: "Ne vidite nas u svom gradu?", en: "Don't see us in your town?" },
   findBagAskLink: { bs: "Javite nam se", en: "Let us know" },
   siblingsTitle: { bs: "Još ukusa iz kategorije", en: "More flavors from" },
-  quoteSubject: { bs: "Upit za ponudu", en: "Quote request" },
-  quoteBody: {
-    bs: "Pozdrav,\n\nzanima me ponuda za: {product} ({size}).\n\nFirma:\nTržište / zemlja:\nOkvirna količina:\n\nHvala.",
-    en: "Hello,\n\nI'd like a quote for: {product} ({size}).\n\nCompany:\nMarket / country:\nEstimated volume:\n\nThanks.",
-  },
 } as const;
 
 export const newsletter = {

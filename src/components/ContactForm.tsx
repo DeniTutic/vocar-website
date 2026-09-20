@@ -2,7 +2,7 @@
 
 import { useEffect, useState, type FormEvent } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Send, CheckCircle2 } from "lucide-react";
+import { Send, CheckCircle2, AlertCircle } from "lucide-react";
 import { contact, buy } from "@/data/content";
 import { useT } from "@/lib/locale";
 
@@ -123,7 +123,10 @@ export function ContactForm() {
   const [volume, setVolume] = useState("");
   const [message, setMessage] = useState("");
   const [errors, setErrors] = useState<Errors>({});
-  const [sent, setSent] = useState(false);
+  const [status, setStatus] = useState<"idle" | "sending" | "sent" | "mailto" | "error" | "rate_limited">("idle");
+  const [website, setWebsite] = useState(""); // honeypot
+  const [product, setProduct] = useState("");
+  const [size, setSize] = useState("");
 
   // "/#distributer" links (footer, where-to-buy card) preselect trade mode.
   // A hash is used instead of a query param so the page stays fully static.
@@ -136,9 +139,35 @@ export function ContactForm() {
     return () => window.removeEventListener("hashchange", syncFromHash);
   }, []);
 
+  // Product pages send "/#distributer?proizvod=…&pakovanje=…" — actually
+  // "/?proizvod=…&pakovanje=…#distributer" — so the quote form opens
+  // pre-filled instead of bouncing through a mailto:.
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const p = params.get("proizvod");
+    const s = params.get("pakovanje");
+    if (p) {
+      // Reads an SSR-unavailable external store (the URL) after mount — the
+      // same justification as the locale provider's localStorage read.
+      // eslint-disable-next-line react-hooks/set-state-in-effect
+      setProduct(p);
+      setSize(s ?? "");
+      setMode("trade");
+      setMessage((m) => m || `Zanima me ponuda za: ${p}${s ? ` (${s})` : ""}.`);
+    }
+  }, []);
+
   const isTrade = mode === "trade";
 
-  function handleSubmit(e: FormEvent) {
+  function openMailto() {
+    const subject = encodeURIComponent(isTrade ? `Upit za ponudu — ${company}` : `Poruka sa sajta — ${name}`);
+    const tradeLines = isTrade ? `Firma: ${company}\nTržište: ${market || "—"}\nKoličina: ${volume || "—"}\n` : "";
+    const body = encodeURIComponent(`Ime: ${name}\nEmail: ${email}\nTelefon: ${phone || "—"}\n${tradeLines}\n${message}`);
+    window.location.href = `mailto:sales@vocar.ba?subject=${subject}&body=${body}`;
+    setStatus("mailto");
+  }
+
+  async function handleSubmit(e: FormEvent) {
     e.preventDefault();
     const next: Errors = {};
     if (!name.trim()) next.name = t(contact.formErrorRequired);
@@ -149,15 +178,41 @@ export function ContactForm() {
     setErrors(next);
     if (Object.keys(next).length > 0) return;
 
-    const subject = encodeURIComponent(isTrade ? `Upit za ponudu — ${company}` : `Poruka sa sajta — ${name}`);
-    const tradeLines = isTrade ? `Firma: ${company}\nTržište: ${market || "—"}\nKoličina: ${volume || "—"}\n` : "";
-    const body = encodeURIComponent(`Ime: ${name}\nEmail: ${email}\nTelefon: ${phone || "—"}\n${tradeLines}\n${message}`);
-    window.location.href = `mailto:sales@vocar.ba?subject=${subject}&body=${body}`;
-    setSent(true);
+    setStatus("sending");
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ mode, name, email, phone, company, market, volume, message, product, size, website }),
+      });
+      if (res.ok) {
+        setStatus("sent");
+        return;
+      }
+      // No sending backend configured yet — hand off to the mail client.
+      if (res.status === 503) {
+        openMailto();
+        return;
+      }
+      setStatus(res.status === 429 ? "rate_limited" : "error");
+    } catch {
+      setStatus("error");
+    }
   }
 
+  const feedback =
+    status === "sent"
+      ? { text: t(contact.formSent), ok: true }
+      : status === "mailto"
+        ? { text: t(contact.formSuccess), ok: true }
+        : status === "rate_limited"
+          ? { text: t(contact.formRateLimited), ok: false }
+          : status === "error"
+            ? { text: t(contact.formError), ok: false }
+            : null;
+
   return (
-    <form onSubmit={handleSubmit} noValidate className="flex flex-col gap-5">
+    <form onSubmit={handleSubmit} noValidate className="relative flex flex-col gap-5">
       <ModeSwitch mode={mode} onChange={setMode} />
 
       <Field id="name" label={t(contact.formName)} value={name} onChange={setName} error={errors.name} />
@@ -215,9 +270,15 @@ export function ContactForm() {
         )}
       </div>
 
+      {/* Honeypot: off-screen, tab-skipped, never labelled for humans. */}
+      <div aria-hidden className="absolute -left-[9999px] h-px w-px overflow-hidden">
+        <input type="text" name="website" tabIndex={-1} autoComplete="off" value={website} onChange={(e) => setWebsite(e.target.value)} />
+      </div>
+
       <motion.button
         type="submit"
-        className={`inline-flex w-fit items-center gap-2 rounded-full px-7 py-3.5 text-sm font-semibold uppercase tracking-wide text-cream transition-colors ${
+        disabled={status === "sending" || status === "sent"}
+        className={`inline-flex w-fit items-center gap-2 rounded-full px-7 py-3.5 text-sm font-semibold uppercase tracking-wide text-cream transition-colors disabled:opacity-60 ${
           isTrade ? "bg-pop shadow-sm hover:bg-pop-deep" : "bg-forest hover:bg-forest-deep"
         }`}
         whileHover={{ y: -2, scale: 1.03 }}
@@ -225,21 +286,22 @@ export function ContactForm() {
         transition={{ type: "spring", stiffness: 400, damping: 15 }}
       >
         <Send size={16} />
-        {isTrade ? t(buy.requestQuote) : t(contact.formSubmit)}
+        {status === "sending" ? t(contact.formSending) : isTrade ? t(buy.requestQuote) : t(contact.formSubmit)}
       </motion.button>
 
       <AnimatePresence>
-        {sent && (
+        {feedback && (
           <motion.p
+            key={status}
             initial={{ opacity: 0, y: -6 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0 }}
             role="status"
             className="flex items-center gap-2 text-sm"
-            style={{ color: "var(--forest)" }}
+            style={{ color: feedback.ok ? "var(--forest)" : "var(--berry)" }}
           >
-            <CheckCircle2 size={16} />
-            {t(contact.formSuccess)}
+            {feedback.ok ? <CheckCircle2 size={16} /> : <AlertCircle size={16} />}
+            {feedback.text}
           </motion.p>
         )}
       </AnimatePresence>

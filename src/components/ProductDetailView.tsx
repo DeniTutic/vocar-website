@@ -91,9 +91,9 @@ export function ProductDetailView({ product, related }: { product: Product; rela
   const crumbClass = "hover:underline";
   const crumbStyle = { color: "var(--forest)" } as const;
 
-  const quoteHref = `mailto:sales@vocar.ba?subject=${encodeURIComponent(
-    `${t(productPage.quoteSubject)} — ${product.name.bs} (${size})`
-  )}&body=${encodeURIComponent(t(productPage.quoteBody).replace("{product}", t(product.name)).replace("{size}", size))}`;
+  // Lands on the contact form in trade mode with the product pre-filled
+  // (ContactForm reads ?proizvod/&pakovanje and the #distributer hash).
+  const quoteHref = `/?proizvod=${encodeURIComponent(product.name.bs)}&pakovanje=${encodeURIComponent(size)}#distributer`;
 
   return (
     <>
