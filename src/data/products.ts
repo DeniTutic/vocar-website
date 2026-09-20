@@ -25,6 +25,13 @@ export interface Product {
    * the physical packaging, which is what the product page says.
    */
   composition: Localized;
+  /**
+   * Only allergens that are certain from the product's own name/composition
+   * (peanuts in peanut products, wheat where the name says so). Nothing is
+   * guessed — the nutrition note already sends people to the pack for the
+   * full declaration.
+   */
+  allergens?: Localized;
 }
 
 function parseSizes(raw: string): string[] {
@@ -146,6 +153,21 @@ function compositionFor(categorySlug: string, name: string): Localized {
   return { bs: "Kukuruzno brašno, biljno ulje, začini.", en: "Corn flour, vegetable oil, seasoning." };
 }
 
+function allergensFor(categorySlug: string, name: string): Localized | undefined {
+  const n = name.toLowerCase();
+  const peanut = { bs: "Kikiriki.", en: "Peanuts." };
+  if (categorySlug === "peanuts" || categorySlug === "peanut-butter") return peanut;
+  if (["quinoa-flips", "flips-time", "timi-flips"].includes(categorySlug) && n.includes("kikiriki")) return peanut;
+  if (categorySlug === "wafers") return { bs: "Gluten (pšenica).", en: "Gluten (wheat)." };
+  if (categorySlug === "groceries" && n.includes("pšenični")) return { bs: "Gluten (pšenica).", en: "Gluten (wheat)." };
+  if (categorySlug === "cereals") {
+    return n.includes("nutto")
+      ? { bs: "Gluten (pšenica), lješnjak.", en: "Gluten (wheat), hazelnut." }
+      : { bs: "Gluten (pšenica).", en: "Gluten (wheat)." };
+  }
+  return undefined;
+}
+
 function buildProducts(): Product[] {
   const products: Product[] = [];
 
@@ -181,6 +203,7 @@ function buildProducts(): Product[] {
         badges: [...(sku.badges ?? [])],
         description: descriptionFor(category.slug, name, category.description),
         composition: compositionFor(category.slug, name),
+        allergens: allergensFor(category.slug, name),
       };
       seen.set(name, product);
       products.push(product);

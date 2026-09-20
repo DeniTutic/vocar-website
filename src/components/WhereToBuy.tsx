@@ -3,6 +3,7 @@
 import { Check } from "lucide-react";
 import { home, buy, whereToBuyContent as copy } from "@/data/content";
 import { bihRegions, exportCountries, retailers } from "@/data/whereToBuy";
+import { DistributionMap } from "./DistributionMap";
 import { useT } from "@/lib/locale";
 import { CtaLink } from "./CtaLink";
 import { ScrollReveal } from "./ScrollReveal";
@@ -76,21 +77,12 @@ export function WhereToBuy() {
               ))}
             </div>
 
-            <div className="flex flex-col gap-3 border-t pt-6" style={{ borderColor: "rgba(247,243,234,0.15)" }}>
+            <div className="flex flex-col gap-2 border-t pt-6" style={{ borderColor: "rgba(247,243,234,0.15)" }}>
               <GroupLabel>{t(copy.exportTitle)}</GroupLabel>
-              <ul className="flex flex-wrap gap-2">
-                {exportCountries.map((market) => (
-                  <Pill key={market.label.bs}>{t(market.label)}</Pill>
-                ))}
-              </ul>
               {/* Plain <a>, not <Link>: reliably scrolls to the same-page anchor. */}
               {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
-              <a
-                href="/#trzista"
-                className="mt-1 w-fit text-sm font-semibold uppercase tracking-wide hover:underline"
-                style={{ color: "var(--amber)" }}
-              >
-                {t(copy.mapLink)} →
+              <a href="/#trzista" className="w-fit text-sm hover:underline" style={{ color: "rgba(247,243,234,0.75)" }}>
+                {t(copy.exportLine).replace("{count}", COUNT)}
               </a>
             </div>
 
@@ -141,6 +133,8 @@ export function WhereToBuy() {
             </div>
           </ScrollReveal>
         </div>
+
+        <DistributionMap />
       </div>
     </section>
   );

@@ -4,11 +4,11 @@ import { useRef } from "react";
 import Image from "next/image";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { products, type Product } from "@/data/products";
-import { home, buy, badges, type Localized } from "@/data/content";
+import { home, type Localized } from "@/data/content";
 import { useT } from "@/lib/locale";
 import { SectionHeading } from "./SectionHeading";
 import { CtaLink } from "./CtaLink";
-import { TasteChips, WIGGLE } from "./ProductBadge";
+import { TasteChips } from "./ProductBadge";
 
 function findFlagship(categorySlug: string, nameIncludes: string): Product | undefined {
   return products.find(
@@ -16,11 +16,11 @@ function findFlagship(categorySlug: string, nameIncludes: string): Product | und
   );
 }
 
-// Popcorn karamel is the hero's flagship, so the tasting leads with the others.
+// One flagship, not a second grid: the family tiles above already show the
+// range, so this block is the single big-photo appetite moment. Swap the
+// candidate seasonally (peanut butter "kremasti 100", Q Flips "kečap").
 const FLAGSHIP_CANDIDATES: { product: Product | undefined; badge: Localized; color: string }[] = [
-  { product: findFlagship("peanut-butter", "kremasti 100"), badge: home.qualityBadge, color: "var(--forest)" },
   { product: findFlagship("prunes", "čoko"), badge: home.favoriteBadge, color: "var(--plum)" },
-  { product: findFlagship("quinoa-flips", "kečap i kikiriki"), badge: badges.novo, color: "var(--amber)" },
 ];
 
 const FLAGSHIPS = FLAGSHIP_CANDIDATES.filter(
@@ -56,13 +56,12 @@ function FeaturedRow({
         />
       </motion.div>
       <div>
-        <motion.span
-          className="inline-block cursor-default rounded-full px-3 py-1 text-xs font-semibold uppercase tracking-wide"
+        <span
+          className="inline-block rounded-full px-3 py-1 text-xs font-semibold uppercase tracking-wide"
           style={{ background: color, color: "var(--cream)" }}
-          {...WIGGLE}
         >
           {t(badge)}
-        </motion.span>
+        </span>
         <h3 className="mt-4 text-3xl leading-tight sm:text-4xl" style={{ color: "var(--forest-deep)" }}>
           {t(product.name)}
         </h3>
@@ -71,8 +70,8 @@ function FeaturedRow({
         </p>
         <TasteChips tastes={product.tastes} className="mt-4" />
         <div className="mt-6">
-          <CtaLink href={`/proizvodi/${product.slug}`} variant="buy" size="sm">
-            {t(buy.takeMeThere)} <span aria-hidden>→</span>
+          <CtaLink href={`/proizvodi/${product.slug}`} variant="secondary" size="sm">
+            {t(home.viewProduct)} <span aria-hidden>→</span>
           </CtaLink>
         </div>
       </div>

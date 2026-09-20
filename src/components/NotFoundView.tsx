@@ -24,7 +24,7 @@ export function NotFoundView() {
           {t(notFoundPage.body)}
         </p>
         <div className="mt-8">
-          <CtaLink href="/#proizvodi" variant="buy">
+          <CtaLink href="/proizvodi" variant="buy">
             {t(notFoundPage.cta)}
           </CtaLink>
         </div>

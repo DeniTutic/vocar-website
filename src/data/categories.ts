@@ -19,6 +19,8 @@ export interface Sku {
 export interface Category {
   slug: string;
   name: Localized;
+  /** Five-ish words for the homepage tile; `description` is the long read. */
+  tagline: Localized;
   description: Localized;
   image: string;
   imageAlt: Localized;
@@ -32,6 +34,7 @@ export const categories: Category[] = [
   {
     slug: "peanuts",
     name: { bs: "Kikiriki", en: "Peanuts" },
+    tagline: { bs: "Prženi, slani, hrskavi.", en: "Roasted, salted, crunchy." },
     description: {
       bs: "Kikiriki tehnički nije orah nego mahunarka — raste u mahunama pod zemljom, baš kao grah i leća, pa nosi i više proteina od većine pravih oraha. Zrna se prže na visokoj temperaturi dok ne dobiju hrskavu teksturu, a zatim soli ili vakumiraju dok su svježa. Vakumiranje izbacuje kisik iz pakovanja i sprječava užeglost, pa kikiriki ostaje hrskav mnogo duže.",
       en: "Peanuts aren't technically nuts at all — they're legumes that grow underground in pods, like beans and lentils, which is part of why they pack more protein than most true tree nuts. The kernels are roasted at high heat until crisp, then salted or vacuum-sealed while fresh. Removing the oxygen through vacuum packing keeps the natural oils from turning rancid, so they stay crunchy far longer.",
@@ -72,6 +75,7 @@ export const categories: Category[] = [
   {
     slug: "prunes",
     name: { bs: "Suhe šljive", en: "Dried Prunes" },
+    tagline: { bs: "Samo voće i vrijeme.", en: "Just fruit and time." },
     description: {
       bs: "Prirodno sušene šljive bez koštice, bez dodanog šećera — samo voće i vrijeme. Bosna i Hercegovina ima dugu tradiciju uzgoja šljiva, prvenstveno domaće sorte Požegača, koja se stoljećima suši baš za ovakve grickalice i za pečenje rakije šljivovice.",
       en: "Naturally sun-dried plums, pitted, with no added sugar — just fruit and time. Bosnia and Herzegovina has a long plum-growing tradition built around the Požegača variety, dried this same way for generations for snacking and for the region's beloved šljivovica brandy.",
@@ -106,6 +110,7 @@ export const categories: Category[] = [
   {
     slug: "quinoa-flips",
     name: { bs: "Kinoa Flips", en: "Quinoa Flips" },
+    tagline: { bs: "Napuhani kukuruz i kinoa.", en: "Puffed corn and quinoa." },
     description: {
       bs: "Napuhani kukuruz i kinoa u pet ukusa, od slatkog kukuruza do kečapa i kikirikija. Kinoa je porijeklom iz Anda u Južnoj Americi, gdje se gaji već oko 5.000 godina, a jedna je od rijetkih biljnih namirnica koja sadrži svih devet esencijalnih aminokiselina — pravi kompletan protein, uz to i prirodno bez glutena.",
       en: "Puffed corn and quinoa in five flavors, from sweet corn to ketchup and peanut. Quinoa originally comes from the Andes Mountains in South America, where it's been grown for roughly 5,000 years, and it's one of the few plant foods containing all nine essential amino acids — a genuinely complete protein, and naturally gluten-free too.",
@@ -155,6 +160,7 @@ export const categories: Category[] = [
   {
     slug: "flips-time",
     name: { bs: "Flips Time", en: "Flips Time" },
+    tagline: { bs: "Kukuruzni krugovi punog ukusa.", en: "Full-flavor corn rings." },
     description: {
       bs: "Kukuruzni krugovi punog ukusa, napravljeni ekstruzijom — kukuruzno tijesto se kuha pod pritiskom, a naglo oslobađanje tog pritiska pri izlasku iz mašine čini da se odmah napuše u svoj poznati oblik. Dostupni u ukusu pice, kikirikija i pikantnom.",
       en: "Full-flavor corn rings made through extrusion — corn dough is cooked under pressure, then the sudden release of that pressure as it exits the machine makes it puff instantly into its familiar shape. Available in pizza, peanut, and piquant flavors.",
@@ -187,6 +193,7 @@ export const categories: Category[] = [
   {
     slug: "timi-flips",
     name: { bs: "Timi Flips", en: "Timi Flips" },
+    tagline: { bs: "Originalni flips za užinu.", en: "The original snack puff." },
     description: {
       bs: "Originalni kukuruzni krugovi i kikiriki flipsevi, ekstrudirani pod pritiskom da bi dobili svoju laganu, hrskavu teksturu. Pakovanja za užinu ili za cijelu porodicu, uvijek isti prepoznatljiv ukus.",
       en: "The original corn rings and peanut puffs, extruded under pressure to get their light, crunchy texture. Lunchbox or family-size packs, always the same familiar taste.",
@@ -221,6 +228,7 @@ export const categories: Category[] = [
   {
     slug: "peanut-butter",
     name: { bs: "Puter od kikirikija", en: "Peanut Butter" },
+    tagline: { bs: "100% pržen kikiriki.", en: "100% roasted peanuts." },
     description: {
       bs: "100% pržen kikiriki, mljeven u glatku kremastu pastu ili ostavljen hrskav sa sitnim komadićima. Kikiriki je zapravo mahunarka, a ne orah, što mu daje izuzetno visok sadržaj proteina — savršena osnova za namaz bez suvišnih dodataka.",
       en: "100% roasted peanuts, ground into a smooth creamy paste or left crunchy with small peanut pieces. Peanuts are technically a legume, not a nut, which gives them an unusually high protein content — a great base for a spread with nothing extra needed.",
@@ -256,6 +264,7 @@ export const categories: Category[] = [
   {
     slug: "popcorn",
     name: { bs: "Kokice", en: "Popcorn" },
+    tagline: { bs: "Slane, karamel ili čoko.", en: "Salted, caramel or choco." },
     description: {
       bs: "Kokice se prave od posebne sorte kukuruza (Zea mays everta) čija tvrda, nepropusna ljuska zadržava paru unutar zrna. Kad pritisak naraste dovoljno visoko, ljuska naglo puca i zrno se napuše i do 50 puta veće od originalne veličine. Slane, karamel ili čokoladne — plus zrno za kuhanje kod kuće.",
       en: "Popcorn is made from a specific type of corn (Zea mays everta) with a hard, non-porous hull that traps steam inside the kernel. Once the pressure builds high enough, the hull bursts and the kernel puffs up to 50 times its original size. Salted, caramel, or chocolate — plus loose kernels for popping at home.",
@@ -297,6 +306,7 @@ export const categories: Category[] = [
   {
     slug: "wafers",
     name: { bs: "Oblatne", en: "Wafers" },
+    tagline: { bs: "Hrskavi listovi, kremasti fil.", en: "Crisp sheets, creamy filling." },
     description: {
       bs: "Tanki slojevi oblatni peku se između vrućih metalnih ploča dok ne postanu hrskavi i lagani — tehnika stara vjekovima, nekad rađena ručno na vatri, danas na modernim mašinama. Slojevi se zatim slažu sa kremastim filom i sijeku u prepoznatljive komade.",
       en: "Thin wafer sheets are baked between hot metal plates until crisp and light — a technique centuries old, once done by hand over an open fire, now done on modern machines. The sheets are then layered with a smooth cream filling and cut into their familiar shape.",
@@ -318,6 +328,7 @@ export const categories: Category[] = [
   {
     slug: "groceries",
     name: { bs: "Namirnice", en: "Groceries" },
+    tagline: { bs: "Griz, polenta, brašno.", en: "Grits, polenta, flour." },
     description: {
       bs: "Griz, instant polenta i kukuruzno brašno, mljeveni fino za svakodnevnu upotrebu. Polenta je osnova za kačamak, tradicionalno bosansko jelo od kukuruznog brašna koje se generacijama sprema na ovim prostorima.",
       en: "Grits, instant polenta, and corn flour, milled fine for everyday cooking. Polenta is the base for kačamak, a traditional Bosnian cornmeal dish that's been made across the region for generations.",
@@ -356,6 +367,7 @@ export const categories: Category[] = [
   {
     slug: "chips",
     name: { bs: "Čips", en: "Chips" },
+    tagline: { bs: "Hrskavi kukuruzni kornetići.", en: "Crunchy corn cones." },
     description: {
       bs: "Kukuruzni čips napravljen ekstruzijom — kukuruzno tijesto se oblikuje i pri izlasku iz mašine naglo napuše u hrskave kornetiće, potpuno drugačijom tehnikom od klasičnog prženog krompirovog čipsa. Dostupan u ukusu piletine, pavlake ili čilija.",
       en: "Corn chips made through extrusion — corn dough is shaped and, as it exits the machine, instantly puffs into crisp cones, a completely different technique from classic fried potato chips. Available in chicken, sour cream, or chili flavor.",
@@ -389,6 +401,7 @@ export const categories: Category[] = [
   {
     slug: "cereals",
     name: { bs: "Žitarice i krem bar", en: "Cereals & Cream Bar" },
+    tagline: { bs: "Za doručak i užinu.", en: "For breakfast and snacks." },
     description: {
       bs: "Čokoladne kuglice sa vitaminima, i krem bar sa lješnjacima — dvije različite poslastice za doručak ili užinu.",
       en: "Vitamin-fortified chocolate cereal, and a hazelnut cream bar — two different treats for breakfast or a snack.",

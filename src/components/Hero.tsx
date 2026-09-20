@@ -24,7 +24,7 @@ const item: Variants = {
 
 export function Hero() {
   const t = useT();
-  const words = [home.heroWord1, home.heroWord2, home.heroWord3, home.heroWord4, home.heroWord5].map(t);
+  const words = [home.heroWord1, home.heroWord2, home.heroWord3].map(t);
 
   return (
     <section
@@ -55,16 +55,6 @@ export function Hero() {
         animate="show"
         className="relative z-10 mx-auto w-full max-w-5xl px-5 py-16 text-center sm:px-8 sm:py-20"
       >
-        <motion.div
-          className="pointer-events-none absolute inset-0 z-0 flex items-center justify-center"
-          initial={{ opacity: 0, scale: 0.94 }}
-          animate={{ opacity: 0.14, scale: 1 }}
-          transition={{ duration: 1.4, delay: 0.2, ease: EASE_OUT }}
-          aria-hidden
-        >
-          <Logo decorative priority={false} className="h-[120%] w-auto sm:h-[130%]" />
-        </motion.div>
-
         <div className="relative z-10 flex flex-col items-center">
           {/* Brand first: the real logo and the company motto are what should
               catch the eye before anything product-specific. */}
@@ -88,7 +78,7 @@ export function Hero() {
             <CtaLink href="/#gdje-kupiti" variant="buy">
               {t(buy.whereToBuy)}
             </CtaLink>
-            <CtaLink href="/#proizvodi" variant="secondary">
+            <CtaLink href="/proizvodi" variant="secondary">
               {t(buy.seeSnacks)}
             </CtaLink>
           </motion.div>

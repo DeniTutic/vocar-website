@@ -1,6 +1,7 @@
 "use client";
 
-import { useMemo, useRef, useState, type MouseEvent } from "react";
+import { useEffect, useMemo, useRef, useState, type MouseEvent } from "react";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { motion } from "framer-motion";
 import { categories } from "@/data/categories";
 import { products, BADGE_ORDER } from "@/data/products";
@@ -12,7 +13,6 @@ import { SectionHeading } from "./SectionHeading";
 import { ProductCard } from "./ProductCard";
 
 const ALL = "all";
-const PREVIEW_COUNT = 9;
 
 /** The broad taste axes a shopper actually filters by; the finer tastes stay on the cards. */
 const TASTE_FILTERS: TasteKey[] = ["slano", "slatko", "coko", "pikant"];
@@ -55,7 +55,7 @@ function Chip({
         backgroundColor: active ? "#1f3d2e" : "rgba(31,61,46,0)",
         borderColor: active ? "#1f3d2e" : "#ddd2b8",
         color: active ? "#f7f3ea" : "#262420",
-        scale: active ? 1.04 : 1,
+        scale: 1,
       }}
       whileTap={{ scale: 0.88 }}
       transition={{
@@ -87,20 +87,39 @@ function ChipRow({ label, children }: { label: string; children: React.ReactNode
   );
 }
 
+const isCategory = (v: string | null): v is string => !!v && categories.some((c) => c.slug === v);
+const isTaste = (v: string | null): v is TasteKey => !!v && (TASTE_FILTERS as string[]).includes(v);
+
+/**
+ * The full catalog: category chips, taste filter, every product. Lives on
+ * /proizvodi. Filters are mirrored into ?kategorija= / ?ukus= so homepage
+ * tiles and shared links land pre-filtered.
+ */
 export function ProductShowcase() {
   const t = useT();
   const { locale } = useLocale();
-  const [active, setActive] = useState<string>(ALL);
-  const [taste, setTaste] = useState<TasteKey | null>(null);
-  const [expanded, setExpanded] = useState(false);
+  const router = useRouter();
+  const pathname = usePathname();
+  const params = useSearchParams();
+  const [active, setActive] = useState<string>(() => (isCategory(params.get("kategorija")) ? params.get("kategorija")! : ALL));
+  const [taste, setTaste] = useState<TasteKey | null>(() => (isTaste(params.get("ukus")) ? (params.get("ukus") as TasteKey) : null));
   const gridRef = useRef<HTMLDivElement>(null);
+
+  // Keep the URL in step with the chips (replace, not push — filters aren't history).
+  useEffect(() => {
+    const next = new URLSearchParams();
+    if (active !== ALL) next.set("kategorija", active);
+    if (taste) next.set("ukus", taste);
+    const qs = next.toString();
+    const current = params.toString();
+    if (qs !== current) router.replace(qs ? `${pathname}?${qs}` : pathname, { scroll: false });
+  }, [active, taste, pathname, params, router]);
 
   const matching = useMemo(() => {
     const byCategory = active === ALL ? highlightedFirst : products.filter((p) => p.category.slug === active);
     return taste ? byCategory.filter((p) => p.tastes.includes(taste)) : byCategory;
   }, [active, taste]);
-  const isCapped = active === ALL && !taste && !expanded && matching.length > PREVIEW_COUNT;
-  const visible = isCapped ? matching.slice(0, PREVIEW_COUNT) : matching;
+  const visible = matching;
 
   const chips = [
     { slug: ALL, label: `${t(home.showcaseAll)} (${products.length})` },
@@ -116,14 +135,12 @@ export function ProductShowcase() {
 
   function selectChip(slug: string, e: MouseEvent<HTMLButtonElement>) {
     setActive(slug);
-    setExpanded(false);
     revealChip(e);
     scrollGridIntoView();
   }
 
   function selectTaste(key: TasteKey, e: MouseEvent<HTMLButtonElement>) {
     setTaste((current) => (current === key ? null : key));
-    setExpanded(false);
     revealChip(e);
     scrollGridIntoView();
   }
@@ -131,17 +148,14 @@ export function ProductShowcase() {
   function clearFilters() {
     setActive(ALL);
     setTaste(null);
-    setExpanded(false);
   }
 
-  const countLine = isCapped
-    ? `${t(home.showcaseShowing)} ${visible.length} ${t(home.showcaseOf)} ${matching.length} ${productsLabel(matching.length, locale)}`
-    : `${matching.length} ${productsLabel(matching.length, locale)}`;
+  const countLine = `${matching.length} ${productsLabel(matching.length, locale)}`;
 
   return (
-    <section id="proizvodi" className="scroll-mt-20 py-20 sm:py-28" style={{ background: "var(--cream)" }}>
+    <section id="proizvodi" className="scroll-mt-20 py-12 sm:py-16" style={{ background: "var(--cream)" }}>
       <div className="mx-auto max-w-7xl px-5 sm:px-8">
-        <SectionHeading eyebrow={t(home.showcaseEyebrow)} title={t(home.showcaseTitle)} body={t(home.showcaseBody)} />
+        <SectionHeading eyebrow={t(home.showcaseEyebrow)} title={t(home.catalogPageTitle)} body={t(home.showcaseBody)} />
 
         <div
           className="sticky top-[76px] z-30 -mx-5 mt-10 flex flex-col gap-3 px-5 py-3 md:static md:mx-0 md:bg-transparent md:px-0 md:py-0"
@@ -206,20 +220,6 @@ export function ProductShowcase() {
           </div>
         )}
 
-        {isCapped && (
-          <div className="mt-10 flex justify-center">
-            <motion.button
-              type="button"
-              onClick={() => setExpanded(true)}
-              className="inline-flex items-center justify-center rounded-full bg-forest px-7 py-3.5 text-sm font-semibold uppercase tracking-wide text-cream transition-colors hover:bg-forest-deep"
-              whileHover={{ y: -2, scale: 1.03 }}
-              whileTap={{ scale: 0.94 }}
-              transition={{ type: "spring", stiffness: 400, damping: 15 }}
-            >
-              {t(home.showcaseShowAll)} ({matching.length})
-            </motion.button>
-          </div>
-        )}
       </div>
     </section>
   );

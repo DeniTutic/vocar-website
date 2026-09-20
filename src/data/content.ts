@@ -33,7 +33,6 @@ export const buy = {
   whereToBuy: { bs: "Gdje kupiti", en: "Where to buy" },
   requestQuote: { bs: "Zatraži ponudu", en: "Request a quote" },
   askUs: { bs: "Ne znate gdje? Pitajte nas", en: "Not sure where? Ask us" },
-  takeMeThere: { bs: "Vodi me tamo", en: "Take me there" },
   seeSnacks: { bs: "Pogledaj grickalice", en: "See snacks" },
   quoteShort: { bs: "Ponuda", en: "Quote" },
 } as const;
@@ -47,10 +46,8 @@ export const badges = {
 export const home = {
   heroMotto: { bs: "Za bolji okus života.", en: "For a better taste of life." },
   heroWord1: { bs: "Domaće", en: "Homemade" },
-  heroWord2: { bs: "Svježe", en: "Fresh" },
-  heroWord3: { bs: "Ukusno", en: "Tasty" },
-  heroWord4: { bs: "Prirodno", en: "Natural" },
-  heroWord5: { bs: "Pošteno", en: "Honest" },
+  heroWord2: { bs: "Prirodno", en: "Natural" },
+  heroWord3: { bs: "Pošteno", en: "Honest" },
 
   storyEyebrow: { bs: "O Voćaru", en: "About Voćar" },
   storyTitle: { bs: "Okus tradicije. Pogled u budućnost.", en: "The taste of tradition. A look to the future." },
@@ -73,11 +70,16 @@ export const home = {
     bs: "Jedanaest porodica proizvoda, svaka sa svojim karakterom — od suhog voća do kokica.",
     en: "Eleven product families, each with its own character — from dried fruit to popcorn.",
   },
+  familiesBody: { bs: "Jedanaest porodica proizvoda — izaberite svoju.", en: "Eleven product families — pick yours." },
+  familiesView: { bs: "Pogledaj", en: "View" },
+  familiesAll: { bs: "Cijeli asortiman", en: "Full range" },
+  catalogPageTitle: { bs: "Proizvodi", en: "Products" },
+  catalogPageDescription: {
+    bs: "Kompletan Voćar asortiman — kikiriki, suhe šljive, flips, kokice, puter od kikirikija, oblatne, čips i namirnice. Filtrirajte po kategoriji ili ukusu.",
+    en: "The complete Voćar range — peanuts, prunes, flips, popcorn, peanut butter, wafers, chips and pantry staples. Filter by category or taste.",
+  },
   viewProduct: { bs: "Pogledaj proizvod", en: "View product" },
   showcaseAll: { bs: "Sve", en: "All" },
-  showcaseShowing: { bs: "Prikazano", en: "Showing" },
-  showcaseOf: { bs: "od", en: "of" },
-  showcaseShowAll: { bs: "Prikaži sve", en: "Show all" },
   tasteFilterLabel: { bs: "Ukus", en: "Taste" },
   showcaseEmpty: { bs: "Ništa u ovoj kombinaciji — probajte drugi ukus.", en: "Nothing in this combination — try another taste." },
   showcaseClear: { bs: "Poništi filtere", en: "Clear filters" },
@@ -137,15 +139,7 @@ export const home = {
   testimonialsEyebrow: { bs: "Utisci", en: "Testimonials" },
   testimonialsTitle: { bs: "Šta kažu naši kupci.", en: "What our customers say." },
 
-  catalogEyebrow: { bs: "Katalog", en: "Catalog" },
-  catalogTitle: { bs: "Cijeli asortiman, u jednoj vrećici.", en: "The whole range, in one bag." },
-  catalogBody: {
-    bs: "Pregledajte kompletan asortiman Voćar proizvoda.",
-    en: "Browse the complete Voćar product range.",
-  },
   catalogCta: { bs: "Preuzmi katalog", en: "Download catalog" },
-  catalogSeal: { bs: "PDF · 14 str.", en: "PDF · 14 pp." },
-  catalogSize: { bs: "12,7 MB", en: "12.7 MB" },
 } as const;
 
 export const whereToBuyContent = {
@@ -165,8 +159,8 @@ export const whereToBuyContent = {
   bagBodyAfter: { bs: "i pomoći ćemo da to promijenimo.", en: "and we'll help change that." },
   regionsTitle: { bs: "U Bosni i Hercegovini", en: "In Bosnia and Herzegovina" },
   exportTitle: { bs: "Izvozna tržišta", en: "Export markets" },
+  exportLine: { bs: "{count} zemalja — pogledajte mapu ispod.", en: "{count} countries — see the map below." },
   retailersTitle: { bs: "Trgovine", en: "Retailers" },
-  mapLink: { bs: "Mapa tržišta", en: "Market map" },
   palletTitle: { bs: "Tražite paletu?", en: "Looking for a pallet?" },
   palletBody: {
     bs: "Za trgovine, distributere i uvoznike: veleprodajne količine, otvorena tržišta i kompletan katalog.",
@@ -218,6 +212,11 @@ export const contact = {
   phoneLabel: { bs: "Telefon", en: "Phone" },
   emailLabel: { bs: "E-mail", en: "Email" },
   officeSloveniaLabel: { bs: "Predstavništvo Slovenija", en: "Slovenia office" },
+  mapLoad: { bs: "Učitaj mapu", en: "Load map" },
+  mapNote: {
+    bs: "Mapa se učitava sa Google Maps. Klikom se povezujete sa Google-om.",
+    en: "The map is served by Google Maps. Clicking connects you to Google.",
+  },
   formName: { bs: "Ime", en: "Name" },
   formEmail: { bs: "Email", en: "Email" },
   formPhone: { bs: "Telefon", en: "Phone" },
@@ -242,6 +241,7 @@ export const productPage = {
   categoryLabel: { bs: "Kategorija", en: "Category" },
   sizesLabel: { bs: "Pakovanje", en: "Packaging" },
   compositionLabel: { bs: "Sastav", en: "Composition" },
+  allergensLabel: { bs: "Alergeni", en: "Allergens" },
   nutritionLabel: { bs: "Nutritivne vrijednosti", en: "Nutritional information" },
   nutritionNote: {
     bs: "Detaljne nutritivne vrijednosti nalaze se na deklaraciji svakog pakovanja.",

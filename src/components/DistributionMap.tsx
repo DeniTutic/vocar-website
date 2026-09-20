@@ -4,18 +4,28 @@ import { motion } from "framer-motion";
 import { home } from "@/data/content";
 import { MARKETS as NODES } from "@/data/markets";
 import { useT } from "@/lib/locale";
-import { SectionHeading } from "./SectionHeading";
+import { ScrollReveal } from "./ScrollReveal";
 
+/** Rendered inside WhereToBuy's dark band, so it carries no section chrome of its own. */
 export function DistributionMap() {
   const t = useT();
   const origin = NODES[0];
 
   return (
-    <section id="trzista" className="scroll-mt-20 py-20 sm:py-28" style={{ background: "var(--forest-deep)" }}>
-      <div className="mx-auto max-w-6xl px-5 sm:px-8">
-        <SectionHeading eyebrow={t(home.worldEyebrow)} title={t(home.worldTitle)} body={t(home.worldBody)} align="center" dark />
+    <div id="trzista" className="mt-16 scroll-mt-28 border-t pt-14" style={{ borderColor: "rgba(247,243,234,0.15)" }}>
+      <ScrollReveal className="mx-auto max-w-2xl text-center">
+        <span className="text-xs font-semibold uppercase tracking-[0.14em]" style={{ color: "var(--amber)" }}>
+          {t(home.worldEyebrow)}
+        </span>
+        <h3 className="mt-3 text-3xl leading-tight sm:text-4xl" style={{ color: "var(--cream)" }}>
+          {t(home.worldTitle)}
+        </h3>
+        <p className="mt-4 text-base leading-relaxed" style={{ color: "rgba(247,243,234,0.75)" }}>
+          {t(home.worldBody)}
+        </p>
+      </ScrollReveal>
 
-        <div className="mx-auto mt-14 max-w-3xl">
+      <div className="mx-auto mt-12 max-w-3xl">
           <svg
             viewBox="0 0 820 400"
             className="w-full"
@@ -77,8 +87,7 @@ export function DistributionMap() {
               </g>
             ))}
           </svg>
-        </div>
       </div>
-    </section>
+    </div>
   );
 }

@@ -22,8 +22,8 @@ const PRODUCTS: FloatingProduct[] = [
   {
     src: "/images/categories/flips-time.jpg",
     alt: "Pakovanje Flips Time, kikiriki",
-    wrapperClass: "left-[2%] top-[24%] sm:left-[5%] sm:top-[22%]",
-    sizeClass: "h-24 w-44 sm:h-36 sm:w-64 lg:h-40 lg:w-72",
+    wrapperClass: "left-[2%] top-[7%] sm:left-[5%] sm:top-[22%]",
+    sizeClass: "h-20 w-36 sm:h-36 sm:w-64 lg:h-40 lg:w-72",
     rotate: -7,
     duration: 5.2,
     delay: 0,
@@ -32,8 +32,8 @@ const PRODUCTS: FloatingProduct[] = [
   {
     src: "/images/categories/chips.jpg",
     alt: "Pakovanje Crispy Fun, piletina",
-    wrapperClass: "left-[5%] bottom-[16%] sm:left-[9%] sm:bottom-[14%]",
-    sizeClass: "h-28 w-28 sm:h-44 sm:w-44 lg:h-52 lg:w-52",
+    wrapperClass: "left-[4%] bottom-[4%] sm:left-[9%] sm:bottom-[14%]",
+    sizeClass: "h-24 w-24 sm:h-44 sm:w-44 lg:h-52 lg:w-52",
     rotate: 5,
     duration: 6.1,
     delay: 0.6,
@@ -42,8 +42,8 @@ const PRODUCTS: FloatingProduct[] = [
   {
     src: "/images/categories/peanuts.jpg",
     alt: "Pakovanje Sneki kikiriki, slani i prženi",
-    wrapperClass: "right-[3%] top-[22%] sm:right-[6%] sm:top-[20%]",
-    sizeClass: "h-32 w-32 sm:h-48 sm:w-48 lg:h-56 lg:w-56",
+    wrapperClass: "right-[3%] top-[6%] sm:right-[6%] sm:top-[20%]",
+    sizeClass: "h-24 w-24 sm:h-48 sm:w-48 lg:h-56 lg:w-56",
     rotate: 6,
     duration: 5.8,
     delay: 0.3,
@@ -52,8 +52,8 @@ const PRODUCTS: FloatingProduct[] = [
   {
     src: "/images/categories/wafers.jpg",
     alt: "Pakovanje Tima oblatne",
-    wrapperClass: "right-[5%] bottom-[14%] sm:right-[8%] sm:bottom-[12%]",
-    sizeClass: "h-28 w-44 sm:h-36 sm:w-60 lg:h-40 lg:w-72",
+    wrapperClass: "right-[4%] bottom-[5%] sm:right-[8%] sm:bottom-[12%]",
+    sizeClass: "h-20 w-36 sm:h-36 sm:w-60 lg:h-40 lg:w-72",
     rotate: -5,
     duration: 4.7,
     delay: 0.9,

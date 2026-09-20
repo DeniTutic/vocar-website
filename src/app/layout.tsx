@@ -46,13 +46,13 @@ export const metadata: Metadata = {
     title: "Voćar — Za bolji okus života",
     description: "Generacije tradicije. Prirodni sastojci. Okus koji traje.",
     url: SITE_URL,
-    images: [{ url: "/images/cover.jpg", width: 1426, height: 2000, alt: "Voćar proizvodi" }],
+    images: [{ url: "/images/og.jpg", width: 1200, height: 630, alt: "Voćar — Za bolji okus života" }],
   },
   twitter: {
     card: "summary_large_image",
     title: "Voćar — Za bolji okus života",
     description: "Generacije tradicije. Prirodni sastojci. Okus koji traje.",
-    images: ["/images/cover.jpg"],
+    images: ["/images/og.jpg"],
   },
   robots: { index: true, follow: true },
 };
@@ -69,7 +69,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
               "@type": "Organization",
               name: "Voćar d.o.o. Brčko",
               url: SITE_URL,
-              logo: `${SITE_URL}/images/cover.jpg`,
+              logo: `${SITE_URL}/images/logo.png`,
               address: {
                 "@type": "PostalAddress",
                 streetAddress: "Gornji Rahić 112",

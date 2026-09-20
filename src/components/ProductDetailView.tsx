@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { Check, ChevronRight, Share2 } from "lucide-react";
@@ -111,10 +112,9 @@ export function ProductDetailView({ product, related }: { product: Product; rela
               <ChevronRight size={14} />
             </li>
             <li>
-              {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
-              <a href="/#proizvodi" className={crumbClass} style={crumbStyle}>
+              <Link href={`/proizvodi?kategorija=${product.category.slug}`} className={crumbClass} style={crumbStyle}>
                 {t(product.category.name)}
-              </a>
+              </Link>
             </li>
             <li aria-hidden style={{ color: "var(--ink-soft)" }}>
               <ChevronRight size={14} />
@@ -210,6 +210,16 @@ export function ProductDetailView({ product, related }: { product: Product; rela
                   {t(product.composition)}
                 </dd>
               </div>
+              {product.allergens && (
+                <div>
+                  <dt className="text-xs font-semibold uppercase tracking-wide" style={{ color: "var(--forest)" }}>
+                    {t(productPage.allergensLabel)}
+                  </dt>
+                  <dd className="mt-1 text-base" style={{ color: "var(--ink)" }}>
+                    {t(product.allergens)}
+                  </dd>
+                </div>
+              )}
               <div>
                 <dt className="text-xs font-semibold uppercase tracking-wide" style={{ color: "var(--forest)" }}>
                   {t(productPage.nutritionLabel)}

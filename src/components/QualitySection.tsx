@@ -9,6 +9,7 @@ import { home, common } from "@/data/content";
 import { useT } from "@/lib/locale";
 import { SectionHeading } from "./SectionHeading";
 import { CertificateCard, type Certificate } from "./CertificateCard";
+import { Timeline } from "./Timeline";
 
 const POINTS = [home.qualityPoint1, home.qualityPoint2, home.qualityPoint3, home.qualityPoint4];
 
@@ -36,15 +37,15 @@ export function QualitySection() {
   const openCert = openIndex !== null ? CERTS[openIndex] : null;
 
   return (
-    <section id="kvalitet" className="scroll-mt-20 py-20 sm:py-28" style={{ background: "var(--charcoal)" }}>
+    <section id="kvalitet" className="scroll-mt-20 border-t py-20 sm:py-28" style={{ background: "var(--cream)", borderColor: "var(--line)" }}>
       <div className="mx-auto max-w-7xl px-5 sm:px-8">
         <div className="grid gap-12 lg:grid-cols-2 lg:gap-16">
           <div>
-            <SectionHeading eyebrow={t(home.qualityEyebrow)} title={t(home.qualityTitle)} body={t(home.qualityBody)} dark />
+            <SectionHeading eyebrow={t(home.qualityEyebrow)} title={t(home.qualityTitle)} body={t(home.qualityBody)} />
             <ul className="mt-8 flex flex-col gap-3">
               {POINTS.map((point) => (
-                <li key={point.bs} className="flex items-center gap-3 text-sm sm:text-base" style={{ color: "var(--beige)" }}>
-                  <Check size={18} style={{ color: "var(--amber)" }} />
+                <li key={point.bs} className="flex items-center gap-3 text-sm sm:text-base" style={{ color: "var(--ink)" }}>
+                  <Check size={18} style={{ color: "var(--forest)" }} />
                   {t(point)}
                 </li>
               ))}
@@ -57,6 +58,8 @@ export function QualitySection() {
             ))}
           </div>
         </div>
+
+        <Timeline />
       </div>
 
       <AnimatePresence>

@@ -1,14 +1,11 @@
 import type { Metadata } from "next";
 import { Hero } from "@/components/Hero";
-import { ProductShowcase } from "@/components/ProductShowcase";
+import { ProductFamilies } from "@/components/ProductFamilies";
 import { FeaturedProducts } from "@/components/FeaturedProducts";
-import { WhereToBuy } from "@/components/WhereToBuy";
 import { BrandStory } from "@/components/BrandStory";
 import { QualitySection } from "@/components/QualitySection";
-import { Timeline } from "@/components/Timeline";
-import { DistributionMap } from "@/components/DistributionMap";
+import { WhereToBuy } from "@/components/WhereToBuy";
 import { Testimonials } from "@/components/Testimonials";
-import { CatalogCTA } from "@/components/CatalogCTA";
 import { ContactSection } from "@/components/ContactSection";
 import { BackToTop } from "@/components/BackToTop";
 
@@ -23,15 +20,12 @@ export default function Home() {
   return (
     <>
       <Hero />
-      <ProductShowcase />
+      <ProductFamilies />
       <FeaturedProducts />
-      <WhereToBuy />
       <BrandStory />
       <QualitySection />
-      <Timeline />
-      <DistributionMap />
+      <WhereToBuy />
       <Testimonials />
-      <CatalogCTA />
       <ContactSection />
       <BackToTop />
     </>

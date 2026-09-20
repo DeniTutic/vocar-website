@@ -5,7 +5,6 @@ import { motion } from "framer-motion";
 import { Mail } from "lucide-react";
 import { newsletter } from "@/data/content";
 import { useT } from "@/lib/locale";
-import { ConfettiBurst, generateConfetti, type ConfettiPiece } from "./ConfettiBurst";
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
@@ -14,7 +13,6 @@ export function NewsletterInline() {
   const [email, setEmail] = useState("");
   const [error, setError] = useState("");
   const [sent, setSent] = useState(false);
-  const [confetti, setConfetti] = useState<ConfettiPiece[]>([]);
 
   function handleSubmit(e: FormEvent) {
     e.preventDefault();
@@ -26,7 +24,6 @@ export function NewsletterInline() {
     const subject = encodeURIComponent("Prijava na newsletter");
     const body = encodeURIComponent(`Email za prijavu: ${email}`);
     window.location.href = `mailto:sales@vocar.ba?subject=${subject}&body=${body}`;
-    setConfetti(generateConfetti());
     setSent(true);
   }
 
@@ -52,7 +49,6 @@ export function NewsletterInline() {
 
       {sent ? (
         <div className="flex flex-col items-center gap-3 py-2 text-center" role="status">
-          <ConfettiBurst pieces={confetti} />
           <p className="text-sm leading-relaxed" style={{ color: "var(--ink-soft)" }}>
             {t(newsletter.success)}
           </p>

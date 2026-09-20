@@ -16,7 +16,7 @@ import { useLocale, useT, type Locale } from "@/lib/locale";
 // and, via a full navigation, from any other route.
 const links = [
   { href: "/", key: "home" as const, sectionId: null },
-  { href: "/#proizvodi", key: "products" as const, sectionId: "proizvodi" },
+  { href: "/proizvodi", key: "products" as const, sectionId: null },
   { href: "/#o-nama", key: "about" as const, sectionId: "o-nama" },
   { href: "/#kvalitet", key: "quality" as const, sectionId: "kvalitet" },
   // Katalog is a download, not a destination — it lives in WhereToBuy, the
@@ -112,7 +112,8 @@ function isLinkActive(link: (typeof links)[number], pathname: string, activeSect
   const isHome = pathname === "/";
   if (link.href === "/") return isHome && activeSection === null;
   if (link.sectionId) return isHome && activeSection === link.sectionId;
-  return pathname === link.href;
+  // Route links (e.g. /proizvodi) also own their children (/proizvodi/[slug]).
+  return pathname === link.href || pathname.startsWith(`${link.href}/`);
 }
 
 function MobileSheet({ onClose, pathname, activeSection }: { onClose: () => void; pathname: string; activeSection: string | null }) {

@@ -10,6 +10,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 1,
   };
 
+  const catalog = {
+    url: `${SITE_URL}/proizvodi`,
+    lastModified: new Date(),
+    changeFrequency: "monthly" as const,
+    priority: 0.8,
+  };
+
   const privacy = {
     url: `${SITE_URL}/privatnost`,
     lastModified: new Date(),
@@ -31,5 +38,5 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.6,
   }));
 
-  return [home, privacy, terms, ...productRoutes];
+  return [home, catalog, privacy, terms, ...productRoutes];
 }
