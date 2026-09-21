@@ -139,6 +139,7 @@ function compositionFor(categorySlug: string, name: string): Localized {
       : { bs: "Sušena šljiva, bez dodataka.", en: "Dried plum, no additives." };
   }
   if (categorySlug === "groceries") return { bs: "Kukuruz ili pšenica, mljeveno.", en: "Corn or wheat, milled." };
+  if (categorySlug === "biscuits") return { bs: "Pšenično brašno, šećer, vanilija, šećer u prahu.", en: "Wheat flour, sugar, vanilla, powdered sugar." };
   if (categorySlug === "wafers") return { bs: "Vafel listovi, kremasti fil.", en: "Wafer sheets, creamy filling." };
   if (categorySlug === "popcorn") {
     if (n.includes("čoko") || n.includes("choco")) return { bs: "Kukuruzno zrno, kakao premaz.", en: "Popcorn kernels, cocoa coating." };
@@ -158,7 +159,7 @@ function allergensFor(categorySlug: string, name: string): Localized | undefined
   const peanut = { bs: "Kikiriki.", en: "Peanuts." };
   if (categorySlug === "peanuts" || categorySlug === "peanut-butter") return peanut;
   if (["quinoa-flips", "flips-time", "timi-flips"].includes(categorySlug) && n.includes("kikiriki")) return peanut;
-  if (categorySlug === "wafers") return { bs: "Gluten (pšenica).", en: "Gluten (wheat)." };
+  if (categorySlug === "wafers" || categorySlug === "biscuits") return { bs: "Gluten (pšenica).", en: "Gluten (wheat)." };
   if (categorySlug === "groceries" && n.includes("pšenični")) return { bs: "Gluten (pšenica).", en: "Gluten (wheat)." };
   if (categorySlug === "cereals") {
     return n.includes("nutto")

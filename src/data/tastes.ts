@@ -35,6 +35,8 @@ export const TASTES = {
   zaKuhanje: { bs: "za kuhanje", en: "for cooking" },
   kacamak: { bs: "za kačamak", en: "for kačamak" },
   kodKuce: { bs: "kod kuće", en: "pop at home" },
+  vanilija: { bs: "vanilija", en: "vanilla" },
+  cajnoPecivo: { bs: "čajno pecivo", en: "tea biscuit" },
 } as const satisfies Record<string, Localized>;
 
 export type TasteKey = keyof typeof TASTES;

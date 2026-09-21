@@ -464,6 +464,35 @@ export const categories: Category[] = [
       },
     ],
   },
+  {
+    slug: "biscuits",
+    name: { bs: "Keksi", en: "Biscuits" },
+    tagline: { bs: "Čajno pecivo sa šećernim prahom.", en: "Tea biscuits in powdered sugar." },
+    description: {
+      bs: "Vanilin čajno pecivo kakvo se u Bosni iznosi uz kafu — hrskavo, sitno i posuto šećerom u prahu. Sevdah dolazi u kutiji za sto, a vanilice u tacni, spremne za poslužavnik. Isti recept po kojem se ovakvi keksi prave generacijama, samo pečeni u pogonu umjesto u kućnoj rerni.",
+      en: "Vanilla tea biscuits the way they're served with coffee in Bosnia — crisp, small and dusted with powdered sugar. Sevdah comes boxed for the table, vanilice in a tray ready for the platter. The same kind of recipe these biscuits have followed for generations, just baked on a line instead of in a home oven.",
+    },
+    image: "/images/categories/biscuits.jpg",
+    imageAlt: { bs: "Kutija Sevdah vanilin čajno pecivo", en: "Sevdah vanilla tea biscuits box" },
+    accent: "#E3B31C",
+    accentDeep: "#9C1C1C",
+    skus: [
+      {
+        name: { bs: "Sevdah vanilin čajno pecivo", en: "Sevdah vanilla tea biscuits" },
+        image: "/images/products/biscuits-sevdah-vanilin-cajno-pecivo.jpg",
+        sizes: "250g",
+        flavor: { bs: "Čajno pecivo sa vanilijom, u kutiji.", en: "Vanilla tea biscuits, boxed." },
+        tastes: ["slatko", "vanilija", "cajnoPecivo"],
+      },
+      {
+        name: { bs: "Vanilice sa šećernim prahom", en: "Vanilice, vanilla biscuits in powdered sugar" },
+        image: "/images/products/biscuits-vanilice-sa-secernim-prahom.jpg",
+        sizes: "300g",
+        flavor: { bs: "Klasične vanilice, posute šećerom u prahu.", en: "Classic vanilice rings, dusted with powdered sugar." },
+        tastes: ["slatko", "vanilija", "hrskavo"],
+      },
+    ],
+  },
 ];
 
 export const totalSkuCount = categories.reduce((sum, c) => sum + c.skus.length, 0);
