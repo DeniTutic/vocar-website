@@ -196,7 +196,7 @@ function buildProducts(): Product[] {
         sizes: sizeList.length ? sizeList.join(", ") : "—",
         sizeList,
         category,
-        image: category.image,
+        image: sku.image ?? category.image,
         imageAlt: category.imageAlt,
         flavor: sku.flavor!,
         tastes: sku.tastes ?? [],

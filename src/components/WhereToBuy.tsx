@@ -8,6 +8,7 @@ import { useT } from "@/lib/locale";
 import { CtaLink } from "./CtaLink";
 import { ScrollReveal } from "./ScrollReveal";
 import { SectionHeading } from "./SectionHeading";
+import { track } from "@/lib/track";
 
 const COUNT = String(exportCountries.length);
 
@@ -32,7 +33,7 @@ function GroupLabel({ children }: { children: string }) {
 
 export function WhereToBuy() {
   const t = useT();
-  const palletPoints = [copy.palletPoint1, copy.palletPoint2, copy.palletPoint3];
+  const palletPoints = [copy.palletPoint1, copy.palletPoint2, copy.palletPoint3, copy.palletPoint4, copy.palletPoint5];
 
   return (
     <section id="gdje-kupiti" className="scroll-mt-20 py-20 sm:py-28" style={{ background: "var(--forest-deep)" }}>
@@ -104,7 +105,7 @@ export function WhereToBuy() {
                 <CtaLink href="/#distributer" variant="buy">
                   {t(buy.requestQuote)}
                 </CtaLink>
-                <CtaLink href="/files/vocar-katalog.pdf" download variant="outline">
+                <CtaLink href="/files/vocar-katalog.pdf" download variant="outline" onClick={() => track({ name: "catalog_download", where: "gdje-kupiti" })}>
                   {t(home.catalogCta)}
                 </CtaLink>
               </div>

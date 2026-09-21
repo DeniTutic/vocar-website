@@ -24,7 +24,9 @@ const links = [
   { href: "/#kontakt", key: "contact" as const, sectionId: "kontakt" },
 ];
 
-const SECTION_IDS = links.map((l) => l.sectionId).filter((id): id is string => id !== null);
+// In page order. "gdje-kupiti" has no nav link, but tracking it means
+// "Kvalitet" stops staying highlighted through Where to buy and Testimonials.
+const SECTION_IDS = ["o-nama", "kvalitet", "gdje-kupiti", "kontakt"];
 
 /** Navbar height at the top of the page, before it shrinks on scroll.
  * Exported so the Hero section can size itself to exactly fill the first

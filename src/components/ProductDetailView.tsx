@@ -8,6 +8,7 @@ import { Check, ChevronRight, Share2 } from "lucide-react";
 import type { Product } from "@/data/products";
 import { productPage, buy, nav } from "@/data/content";
 import { useT } from "@/lib/locale";
+import { track } from "@/lib/track";
 import { ScrollReveal } from "./ScrollReveal";
 import { ProductCard } from "./ProductCard";
 import { ProductBadge, TasteChips } from "./ProductBadge";
@@ -85,12 +86,21 @@ export function ProductDetailView({ product, related }: { product: Product; rela
   const [size, setSize] = useState(sizeOptions[0]);
   const buyRef = useRef<HTMLDivElement>(null);
   const showStickyBar = useBuyBlockPassed(buyRef);
+
+  useEffect(() => {
+    track({ name: "product_view", slug: product.slug });
+  }, [product.slug]);
+
   const crumbClass = "hover:underline";
   const crumbStyle = { color: "var(--forest)" } as const;
 
-  // Lands on the contact form in trade mode with the product pre-filled
-  // (ContactForm reads ?proizvod/&pakovanje and the #distributer hash).
-  const quoteHref = `/?proizvod=${encodeURIComponent(product.name.bs)}&pakovanje=${encodeURIComponent(size)}#distributer`;
+  // All three land on the contact form pre-filled (ContactForm reads the
+  // query and the #distributer hash): shoppers in Kupac mode asking where
+  // to buy, buyers in trade mode asking for a quote or a sample.
+  const base = `/?proizvod=${encodeURIComponent(product.name.bs)}&pakovanje=${encodeURIComponent(size)}&kategorija=${product.category.slug}`;
+  const whereHref = `${base}&namjera=kupac#distributer`;
+  const quoteHref = `${base}#distributer`;
+  const sampleHref = `${base}&uzorak=1#distributer`;
 
   return (
     <>
@@ -188,13 +198,16 @@ export function ProductDetailView({ product, related }: { product: Product; rela
                   );
                 })}
               </div>
-              <div className="mt-5 flex flex-wrap gap-3">
-                <CtaLink href="/#gdje-kupiti" variant="buy">
+              <div className="mt-5 flex flex-wrap items-center gap-3">
+                <CtaLink href={whereHref} variant="buy">
                   {t(buy.whereToBuy)}
                 </CtaLink>
                 <CtaLink href={quoteHref} variant="outline">
                   {t(buy.requestQuote)}
                 </CtaLink>
+                <a href={sampleHref} className="text-xs font-semibold uppercase tracking-wide hover:underline" style={{ color: "var(--forest)" }}>
+                  {t(productPage.requestSample)} →
+                </a>
               </div>
             </div>
 
@@ -259,7 +272,7 @@ export function ProductDetailView({ product, related }: { product: Product; rela
             className="fixed inset-x-0 bottom-0 z-40 flex gap-3 border-t px-4 pt-3 pb-[max(0.75rem,env(safe-area-inset-bottom))] backdrop-blur lg:hidden"
             style={{ borderColor: "var(--line)", background: "rgba(247,243,234,0.95)" }}
           >
-            <CtaLink href="/#gdje-kupiti" variant="buy" className="flex-1">
+            <CtaLink href={whereHref} variant="buy" className="flex-1">
               {t(buy.whereToBuy)}
             </CtaLink>
             <CtaLink href={quoteHref} variant="outline" className="flex-1">

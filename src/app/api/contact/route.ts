@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { categories } from "@/data/categories";
 
 /**
  * Contact + quote endpoint. Sends through Resend's REST API (no SDK, one
@@ -29,6 +30,8 @@ interface Payload {
   message: string;
   product?: string;
   size?: string;
+  families?: string[];
+  sample?: boolean;
   /** Honeypot — humans never see it, bots fill it. */
   website?: string;
 }
@@ -78,6 +81,13 @@ export async function POST(req: Request) {
   const message = clean(raw.message, MAX.message);
   const product = clean(raw.product, 200);
   const size = clean(raw.size, 40);
+  // Family slugs → Bosnian names; unknown slugs are dropped rather than echoed.
+  const families = Array.isArray(raw.families)
+    ? raw.families
+        .map((f) => categories.find((c) => c.slug === clean(f, 40))?.name.bs)
+        .filter((n): n is string => Boolean(n))
+    : [];
+  const sample = raw.sample === true;
 
   if (!name || !EMAIL_RE.test(email) || !message || (mode === "trade" && !company)) {
     return NextResponse.json({ ok: false, reason: "invalid" }, { status: 400 });
@@ -96,6 +106,7 @@ export async function POST(req: Request) {
   if (mode === "trade") {
     rows.push(["Firma", company], ["Tržište", market || "—"], ["Količina", volume || "—"]);
     if (product) rows.push(["Proizvod", `${product}${size ? ` (${size})` : ""}`]);
+    rows.push(["Porodice proizvoda", families.length ? families.join(", ") : "—"], ["Uzorak", sample ? "da" : "ne"]);
   }
 
   const text = `${rows.map(([k, v]) => `${k}: ${v}`).join("\n")}\n\n${message}`;

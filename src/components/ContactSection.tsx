@@ -6,6 +6,7 @@ import { contact } from "@/data/content";
 import { useT } from "@/lib/locale";
 import { ScrollReveal } from "./ScrollReveal";
 import { ContactForm } from "./ContactForm";
+import { track } from "@/lib/track";
 
 const MAPS_SRC =
   "https://www.google.com/maps?q=Vo%C4%87ar+d.o.o.+Gornji+Rahi%C4%87+112%2C+76207+Gornji+Rahi%C4%87%2C+Bosna+i+Hercegovina&output=embed";
@@ -59,10 +60,10 @@ export function ContactSection() {
                 <div className="text-sm font-semibold uppercase tracking-wide" style={{ color: "var(--forest-deep)" }}>
                   {t(contact.phoneLabel)}
                 </div>
-                <a href="tel:+38749512415" className="mt-1 block text-base hover:underline" style={{ color: "var(--ink-soft)" }}>
+                <a href="tel:+38749512415" onClick={() => track({ name: "tel_click", number: "+38749512415" })} className="mt-1 block text-base hover:underline" style={{ color: "var(--ink-soft)" }}>
                   +387 49 512 415
                 </a>
-                <a href="tel:+38749513360" className="block text-base hover:underline" style={{ color: "var(--ink-soft)" }}>
+                <a href="tel:+38749513360" onClick={() => track({ name: "tel_click", number: "+38749513360" })} className="block text-base hover:underline" style={{ color: "var(--ink-soft)" }}>
                   +387 49 513 360
                 </a>
               </div>
@@ -74,13 +75,14 @@ export function ContactSection() {
                 <div className="text-sm font-semibold uppercase tracking-wide" style={{ color: "var(--forest-deep)" }}>
                   {t(contact.mobileLabel)}
                 </div>
-                <a href="tel:+38761720012" className="mt-1 block text-base hover:underline" style={{ color: "var(--ink-soft)" }}>
+                <a href="tel:+38761720012" onClick={() => track({ name: "tel_click", number: "+38761720012" })} className="mt-1 block text-base hover:underline" style={{ color: "var(--ink-soft)" }}>
                   +387 61 720 012
                 </a>
                 <a
                   href="https://wa.me/38761720012"
                   target="_blank"
                   rel="noopener noreferrer"
+                  onClick={() => track({ name: "whatsapp_click", where: "kontakt" })}
                   className="mt-2 inline-flex items-center gap-2 rounded-full px-4 py-2 text-sm font-semibold text-cream transition-colors"
                   style={{ background: "#25D366" }}
                 >

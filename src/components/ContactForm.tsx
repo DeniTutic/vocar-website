@@ -4,7 +4,10 @@ import { useEffect, useState, type FormEvent } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Send, CheckCircle2, AlertCircle } from "lucide-react";
 import { contact, buy } from "@/data/content";
+import { categories } from "@/data/categories";
+import { exportCountries } from "@/data/whereToBuy";
 import { useT } from "@/lib/locale";
+import { track } from "@/lib/track";
 
 type Mode = "customer" | "trade";
 
@@ -127,6 +130,8 @@ export function ContactForm() {
   const [website, setWebsite] = useState(""); // honeypot
   const [product, setProduct] = useState("");
   const [size, setSize] = useState("");
+  const [families, setFamilies] = useState<string[]>([]);
+  const [sample, setSample] = useState(false);
 
   // "/#distributer" links (footer, where-to-buy card) preselect trade mode.
   // A hash is used instead of a query param so the page stays fully static.
@@ -146,22 +151,41 @@ export function ContactForm() {
     const params = new URLSearchParams(window.location.search);
     const p = params.get("proizvod");
     const s = params.get("pakovanje");
+    const k = params.get("kategorija");
+    const asCustomer = params.get("namjera") === "kupac";
     if (p) {
+      const label = `${p}${s ? ` (${s})` : ""}`;
       // Reads an SSR-unavailable external store (the URL) after mount — the
       // same justification as the locale provider's localStorage read.
       // eslint-disable-next-line react-hooks/set-state-in-effect
       setProduct(p);
       setSize(s ?? "");
-      setMode("trade");
-      setMessage((m) => m || `Zanima me ponuda za: ${p}${s ? ` (${s})` : ""}.`);
+      if (asCustomer) {
+        setMode("customer");
+        setMessage((m) => m || t(contact.prefillWhereToBuy).replace("{product}", label));
+      } else {
+        setMode("trade");
+        setMessage((m) => m || t(contact.prefillQuote).replace("{product}", label));
+        if (k && categories.some((c) => c.slug === k)) setFamilies([k]);
+        if (params.get("uzorak") === "1") setSample(true);
+      }
     }
+    // t is stable for the initial locale; the prefill is a one-time read of the URL.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  function toggleFamily(slug: string) {
+    setFamilies((f) => (f.includes(slug) ? f.filter((x) => x !== slug) : [...f, slug]));
+  }
 
   const isTrade = mode === "trade";
 
   function openMailto() {
     const subject = encodeURIComponent(isTrade ? `Upit za ponudu — ${company}` : `Poruka sa sajta — ${name}`);
-    const tradeLines = isTrade ? `Firma: ${company}\nTržište: ${market || "—"}\nKoličina: ${volume || "—"}\n` : "";
+    const familyNames = families.map((slug) => categories.find((c) => c.slug === slug)?.name.bs ?? slug).join(", ");
+    const tradeLines = isTrade
+      ? `Firma: ${company}\nTržište: ${market || "—"}\nKoličina: ${volume || "—"}\nProizvodi: ${familyNames || "—"}\nUzorak: ${sample ? "da" : "ne"}\n`
+      : "";
     const body = encodeURIComponent(`Ime: ${name}\nEmail: ${email}\nTelefon: ${phone || "—"}\n${tradeLines}\n${message}`);
     window.location.href = `mailto:sales@vocar.ba?subject=${subject}&body=${body}`;
     setStatus("mailto");
@@ -179,11 +203,12 @@ export function ContactForm() {
     if (Object.keys(next).length > 0) return;
 
     setStatus("sending");
+    track({ name: "quote_submit", mode, sample: isTrade ? sample : undefined });
     try {
       const res = await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ mode, name, email, phone, company, market, volume, message, product, size, website }),
+        body: JSON.stringify({ mode, name, email, phone, company, market, volume, message, product, size, families, sample, website }),
       });
       if (res.ok) {
         setStatus("sent");
@@ -213,6 +238,15 @@ export function ContactForm() {
 
   return (
     <form onSubmit={handleSubmit} noValidate className="relative flex flex-col gap-5">
+      <ul className="-mt-1 flex flex-wrap gap-x-4 gap-y-1 text-xs" style={{ color: "var(--ink-soft)" }}>
+        {[t(contact.trustCertified), t(contact.trustExport).replace("{count}", String(exportCountries.length)), t(contact.trustReply)].map((item) => (
+          <li key={item} className="inline-flex items-center gap-1.5">
+            <CheckCircle2 size={13} style={{ color: "var(--forest)" }} />
+            {item}
+          </li>
+        ))}
+      </ul>
+
       <ModeSwitch mode={mode} onChange={setMode} />
 
       <Field id="name" label={t(contact.formName)} value={name} onChange={setName} error={errors.name} />
@@ -244,6 +278,43 @@ export function ContactForm() {
                   placeholder={t(contact.formVolumePlaceholder)}
                 />
               </div>
+
+              <div>
+                <span className={labelClass} style={{ color: "var(--ink)" }}>
+                  {t(contact.formFamilies)}
+                </span>
+                <div className="flex flex-wrap gap-2" role="group" aria-label={t(contact.formFamilies)}>
+                  {categories.map((c) => {
+                    const on = families.includes(c.slug);
+                    return (
+                      <button
+                        key={c.slug}
+                        type="button"
+                        aria-pressed={on}
+                        onClick={() => toggleFamily(c.slug)}
+                        className="rounded-full border px-3 py-1.5 text-xs font-medium transition-colors"
+                        style={{
+                          borderColor: on ? "#1f3d2e" : "var(--line)",
+                          background: on ? "#1f3d2e" : "var(--cream)",
+                          color: on ? "#f7f3ea" : "var(--ink)",
+                        }}
+                      >
+                        {t(c.name)}
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
+
+              <label className="inline-flex cursor-pointer items-center gap-2.5 text-sm" style={{ color: "var(--ink)" }}>
+                <input
+                  type="checkbox"
+                  checked={sample}
+                  onChange={(e) => setSample(e.target.checked)}
+                  className="h-4 w-4 accent-[#1f3d2e]"
+                />
+                {t(contact.formSample)}
+              </label>
             </div>
           </motion.div>
         )}

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { products, getProductBySlug, getRelatedProducts } from "@/data/products";
+import { SITE_URL } from "@/data/content";
 import { ProductDetailView } from "@/components/ProductDetailView";
 
 export function generateStaticParams() {
@@ -38,5 +39,25 @@ export default async function ProductPage({
 
   const related = getRelatedProducts(product);
 
-  return <ProductDetailView product={product} related={related} />;
+  // No `offers`: there's no price and no shop here. Product + brand + image
+  // is enough for a product rich result and stays honest.
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    name: product.name.bs,
+    image: `${SITE_URL}${product.image}`,
+    description: product.description.bs,
+    sku: product.slug,
+    category: product.category.name.bs,
+    brand: { "@type": "Brand", name: "Voćar" },
+    manufacturer: { "@type": "Organization", name: "Voćar d.o.o. Brčko", url: SITE_URL },
+    url: `${SITE_URL}/proizvodi/${product.slug}`,
+  };
+
+  return (
+    <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
+      <ProductDetailView product={product} related={related} />
+    </>
+  );
 }

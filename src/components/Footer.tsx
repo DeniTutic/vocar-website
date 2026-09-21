@@ -7,6 +7,7 @@ import { useT } from "@/lib/locale";
 import { ScrollReveal } from "./ScrollReveal";
 import { InstagramIcon, FacebookIcon, WhatsAppIcon } from "./SocialIcons";
 import { NewsletterInline } from "./NewsletterInline";
+import { track } from "@/lib/track";
 
 const socialLinks = [
   { href: "https://www.instagram.com/vocardoo/", label: "Instagram", Icon: InstagramIcon },
@@ -34,7 +35,12 @@ function LinkColumn({ label, links }: { label: string; links: { href: string; ke
     <div className="flex flex-col gap-2 text-sm">
       <span className="mb-1 text-xs font-semibold uppercase tracking-wider opacity-50">{label}</span>
       {links.map((link) => (
-        <a key={link.href} href={link.href} className="w-fit opacity-80 transition-opacity hover:opacity-100">
+        <a
+          key={link.href}
+          href={link.href}
+          onClick={link.key === "catalog" ? () => track({ name: "catalog_download", where: "footer" }) : undefined}
+          className="w-fit opacity-80 transition-opacity hover:opacity-100"
+        >
           {t(nav[link.key])}
         </a>
       ))}
@@ -101,6 +107,7 @@ export function Footer() {
             href="https://wa.me/38761720012"
             target="_blank"
             rel="noopener noreferrer"
+            onClick={() => track({ name: "whatsapp_click", where: "footer" })}
             className="inline-flex w-fit items-center gap-1.5 opacity-80 transition-opacity hover:opacity-100"
           >
             <WhatsAppIcon size={14} />

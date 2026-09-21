@@ -165,9 +165,11 @@ export const whereToBuyContent = {
     bs: "Za trgovine, distributere i uvoznike: veleprodajne količine, otvorena tržišta i kompletan katalog.",
     en: "For shops, distributors and importers: wholesale volumes, open markets and the full catalog.",
   },
-  palletPoint1: { bs: "Veleprodajne količine i paletna isporuka", en: "Wholesale volumes and pallet delivery" },
+  palletPoint1: { bs: "HACCP i IFS Food certificirana proizvodnja", en: "HACCP and IFS Food certified production" },
   palletPoint2: { bs: "Izvoz u {count} zemalja, otvoreni za nova tržišta", en: "Exporting to {count} countries, open to new markets" },
-  palletPoint3: { bs: "Kompletan katalog asortimana (PDF)", en: "Full range catalog (PDF)" },
+  palletPoint3: { bs: "Višejezična ambalaža (BS · EN · DE · SL · RU · AR)", en: "Multilingual packaging (BS · EN · DE · SL · RU · AR)" },
+  palletPoint4: { bs: "Uvoznici već u Sloveniji (Voćar Ljubljana) i Austriji (Dulipak)", en: "Importers already in Slovenia (Voćar Ljubljana) and Austria (Dulipak)" },
+  palletPoint5: { bs: "Kompletan katalog (PDF) · odgovor u roku od 1 radnog dana", en: "Full catalog (PDF) · reply within 1 business day" },
 } as const;
 
 export const about = {
@@ -227,6 +229,13 @@ export const contact = {
   formMarket: { bs: "Tržište / zemlja", en: "Market / country" },
   formVolume: { bs: "Okvirna količina", en: "Estimated volume" },
   formVolumePlaceholder: { bs: "npr. 2 palete mjesečno", en: "e.g. 2 pallets a month" },
+  formFamilies: { bs: "Proizvodi od interesa", en: "Products of interest" },
+  formSample: { bs: "Zanima me uzorak", en: "I'd like a sample" },
+  prefillWhereToBuy: { bs: "Gdje mogu kupiti: {product}?", en: "Where can I buy: {product}?" },
+  prefillQuote: { bs: "Zanima me ponuda za: {product}.", en: "I'd like a quote for: {product}." },
+  trustCertified: { bs: "HACCP + IFS Food", en: "HACCP + IFS Food" },
+  trustExport: { bs: "Izvoz u {count} zemalja", en: "Exporting to {count} countries" },
+  trustReply: { bs: "Odgovor u roku od 1 radnog dana", en: "Reply within 1 business day" },
   formSuccess: {
     bs: "Otvara se vaš e-mail program sa popunjenom porukom — samo je pošaljite.",
     en: "Your email app is opening with the message filled in — just hit send.",
@@ -259,6 +268,7 @@ export const productPage = {
   breadcrumbLabel: { bs: "Putanja", en: "Breadcrumb" },
   sizeOnRequest: { bs: "Na upit", en: "On request" },
   share: { bs: "Podijeli", en: "Share" },
+  requestSample: { bs: "Traži uzorak", en: "Request a sample" },
   copied: { bs: "Link kopiran", en: "Link copied" },
   siblingsTitle: { bs: "Još ukusa iz kategorije", en: "More flavors from" },
 } as const;
@@ -315,7 +325,7 @@ export const privacyPage = {
     "Politika privatnosti sajta Voćar d.o.o. Brčko — koje podatke prikupljamo, kako se koriste i kome se obratiti za pitanja o privatnosti.",
   eyebrow: { bs: "Pravne informacije", en: "Legal" },
   title: { bs: "Politika privatnosti", en: "Privacy policy" },
-  updated: { bs: "Zadnje ažurirano: 15. septembar 2026.", en: "Last updated: September 15, 2026." },
+  updated: { bs: "Zadnje ažurirano: 22. septembar 2026.", en: "Last updated: September 22, 2026." },
   intro: {
     bs: "Ova politika opisuje koje podatke Voćar d.o.o. Brčko (Gornji Rahić 112, 76207 Gornji Rahić, Bosna i Hercegovina) prikuplja preko ove web stranice, zašto, i kome se možete obratiti u vezi s tim. Ne odnosi se na naše profile na društvenim mrežama (Instagram, Facebook), koji imaju vlastita pravila privatnosti.",
     en: "This policy describes what data Voćar d.o.o. Brčko (Gornji Rahić 112, 76207 Gornji Rahić, Bosnia and Herzegovina) collects through this website, why, and who to contact about it. It doesn't cover our social media profiles (Instagram, Facebook), which have their own privacy rules.",
@@ -338,8 +348,8 @@ export const privacyPage = {
     {
       title: { bs: "Kolačići i lokalno skladištenje", en: "Cookies and local storage" },
       body: {
-        bs: "Ova stranica ne koristi kolačiće za praćenje niti analitiku (npr. Google Analytics). Jedino što čuvamo u vašem pregledaču je odabir jezika (bosanski/engleski), lokalno na vašem uređaju — taj podatak se nikad ne šalje nama niti trećim stranama.",
-        en: "This site doesn't use tracking cookies or analytics (e.g. Google Analytics). The only thing we store in your browser is your language choice (Bosnian/English), locally on your device — it's never sent to us or anyone else.",
+        bs: "Ova stranica ne koristi kolačiće za praćenje. Jedino što čuvamo u vašem pregledaču je odabir jezika (bosanski/engleski), lokalno na vašem uređaju — taj podatak se nikad ne šalje nama niti trećim stranama. Za mjerenje posjećenosti koristimo Vercel Web Analytics, koji radi bez kolačića i bilježi samo zbirne podatke (koje su stranice posjećene, koliko puta je kliknut katalog ili WhatsApp) — bez ličnih podataka i bez praćenja između stranica.",
+        en: "This site doesn't use tracking cookies. The only thing we store in your browser is your language choice (Bosnian/English), locally on your device — it's never sent to us or anyone else. To measure traffic we use Vercel Web Analytics, which works without cookies and records only aggregate data (which pages were visited, how often the catalog or WhatsApp was clicked) — no personal data and no cross-site tracking.",
       },
     },
     {
@@ -359,8 +369,8 @@ export const privacyPage = {
     {
       title: { bs: "Treće strane", en: "Third parties" },
       body: {
-        bs: "Ne prodajemo niti dijelimo vaše podatke s trećim stranama u marketinške svrhe. Jedini vanjski servis na stranici je Google mapa, opisana iznad.",
-        en: "We don't sell or share your data with third parties for marketing purposes. The only outside service on this site is the Google Map described above.",
+        bs: "Ne prodajemo niti dijelimo vaše podatke s trećim stranama u marketinške svrhe. Vanjski servisi na stranici su Google mapa i Vercel Web Analytics, oba opisana iznad; stranicu hostuje Vercel.",
+        en: "We don't sell or share your data with third parties for marketing purposes. The outside services on this site are the Google Map and Vercel Web Analytics, both described above; the site is hosted on Vercel.",
       },
     },
     {

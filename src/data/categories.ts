@@ -14,6 +14,8 @@ export interface Sku {
   flavor?: Localized;
   tastes?: TasteKey[];
   badges?: EditorialBadge[];
+  /** Dedicated pack shot under /images/products; falls back to the category image. */
+  image?: string;
 }
 
 export interface Category {
@@ -46,18 +48,21 @@ export const categories: Category[] = [
     skus: [
       {
         name: { bs: "Sneki kikiriki obloženi, paprika", en: "Sneki Coated peanuts, paprika" },
+        image: "/images/products/peanuts-sneki-kikiriki-oblozeni-paprika.jpg",
         sizes: "—",
         flavor: { bs: "Hrskava obloga, puna ukusa paprike.", en: "Crunchy coating, full paprika flavor." },
         tastes: ["paprika", "hrskavo", "slano"],
       },
       {
         name: { bs: "Sneki kikiriki obloženi, čili", en: "Sneki Coated peanuts, chili" },
+        image: "/images/products/peanuts-sneki-kikiriki-oblozeni-cili.jpg",
         sizes: "—",
         flavor: { bs: "Hrskava obloga sa ljutim čilijem.", en: "Crunchy coating with a chili kick." },
         tastes: ["cili", "pikant", "hrskavo"],
       },
       {
         name: { bs: "Sneki kikiriki slani, prženi", en: "Sneki Peanuts, salted & roasted" },
+        image: "/images/products/peanuts-sneki-kikiriki-slani-przeni.jpg",
         sizes: "200g, 400g",
         flavor: { bs: "Klasik: pržen, slan, hrskav.", en: "The classic: roasted, salted, crunchy." },
         tastes: ["slano", "przeno", "hrskavo"],
@@ -65,6 +70,7 @@ export const categories: Category[] = [
       { name: { bs: "Sneki kikiriki slani, prženi", en: "Sneki Peanuts, salted & roasted" }, sizes: "50g, 100g" },
       {
         name: { bs: "Timi kikiriki, vakumirano", en: "Timi Peanuts, vacuum pack" },
+        image: "/images/products/peanuts-timi-kikiriki-vakumirano.jpg",
         sizes: "200g",
         flavor: { bs: "Svježina zaključana u vakumu.", en: "Freshness locked in under vacuum." },
         tastes: ["slano", "przeno", "vakum"],
@@ -87,6 +93,7 @@ export const categories: Category[] = [
     skus: [
       {
         name: { bs: "Čoko šljive bez koštice", en: "Choco Prunes pitted" },
+        image: "/images/products/prunes-coko-sljive-bez-kostice.jpg",
         sizes: "200g",
         flavor: { bs: "Suha šljiva pod tankim kakao premazom.", en: "Dried plum under a thin cocoa coat." },
         tastes: ["coko", "suhoVoce", "bezKostice"],
@@ -94,6 +101,7 @@ export const categories: Category[] = [
       },
       {
         name: { bs: "Suhe šljive bez koštice", en: "Prunes pitted" },
+        image: "/images/products/prunes-suhe-sljive-bez-kostice.jpg",
         sizes: "200g",
         flavor: { bs: "Samo voće i vrijeme, bez koštice.", en: "Just fruit and time, pitted." },
         tastes: ["suhoVoce", "bezKostice", "bezSecera"],
@@ -101,6 +109,7 @@ export const categories: Category[] = [
       { name: { bs: "Suhe šljive bez koštice", en: "Prunes pitted" }, sizes: "200g, 400g" },
       {
         name: { bs: "Suhe šljive", en: "Prunes" },
+        image: "/images/products/prunes-suhe-sljive.jpg",
         sizes: "250g, 500g",
         flavor: { bs: "Cijela sušena šljiva, bez dodanog šećera.", en: "Whole dried plum, no added sugar." },
         tastes: ["suhoVoce", "bezSecera"],
@@ -122,6 +131,7 @@ export const categories: Category[] = [
     skus: [
       {
         name: { bs: "Q Flips slatki kukuruz", en: "Q Flips Sweet corn" },
+        image: "/images/products/quinoa-flips-q-flips-slatki-kukuruz.jpg",
         sizes: "80g",
         flavor: { bs: "Napuhani kukuruz i kinoa, blago slatki.", en: "Puffed corn and quinoa, gently sweet." },
         tastes: ["slatko", "kukuruz", "kinoa"],
@@ -129,6 +139,7 @@ export const categories: Category[] = [
       },
       {
         name: { bs: "Q Flips kikiriki", en: "Q Flips Peanuts" },
+        image: "/images/products/quinoa-flips-q-flips-kikiriki.jpg",
         sizes: "80g",
         flavor: { bs: "Kinoa flips sa ukusom kikirikija.", en: "Quinoa puffs with peanut flavor." },
         tastes: ["kikiriki", "kinoa", "hrskavo"],
@@ -136,6 +147,7 @@ export const categories: Category[] = [
       },
       {
         name: { bs: "Q Flips kikiriki, bez masti i soli", en: "Q Flips Peanuts, no fat or salt" },
+        image: "/images/products/quinoa-flips-q-flips-kikiriki-bez-masti-i-soli.jpg",
         sizes: "60g",
         flavor: { bs: "Kikiriki ukus, bez masti i bez soli.", en: "Peanut flavor, no fat and no salt." },
         tastes: ["kikiriki", "bezMasti", "bezSoli"],
@@ -143,6 +155,7 @@ export const categories: Category[] = [
       },
       {
         name: { bs: "Q Flips kečap i kikiriki", en: "Q Flips Ketchup & peanuts" },
+        image: "/images/products/quinoa-flips-q-flips-kecap-i-kikiriki.jpg",
         sizes: "80g",
         flavor: { bs: "Kečap i kikiriki u jednom zalogaju.", en: "Ketchup and peanut in one bite." },
         tastes: ["kecap", "kikiriki", "kinoa"],
@@ -150,6 +163,7 @@ export const categories: Category[] = [
       },
       {
         name: { bs: "Q Flips slani", en: "Q Flips Salted" },
+        image: "/images/products/quinoa-flips-q-flips-slani.jpg",
         sizes: "60g",
         flavor: { bs: "Lagano slani flips od kinoe i kukuruza.", en: "Lightly salted quinoa and corn puffs." },
         tastes: ["slano", "kinoa", "kukuruz"],
@@ -172,18 +186,21 @@ export const categories: Category[] = [
     skus: [
       {
         name: { bs: "Flips Time pizza", en: "Flips Time Pizza" },
+        image: "/images/products/flips-time-flips-time-pizza.jpg",
         sizes: "150g",
         flavor: { bs: "Kukuruzni krugovi sa ukusom pice.", en: "Corn rings with pizza flavor." },
         tastes: ["pizza", "hrskavo", "kukuruz"],
       },
       {
         name: { bs: "Flips Time kikiriki", en: "Flips Time Peanuts" },
+        image: "/images/products/flips-time-flips-time-kikiriki.jpg",
         sizes: "150g",
         flavor: { bs: "Kukuruzni krugovi sa kikirikijem.", en: "Corn rings with peanut." },
         tastes: ["kikiriki", "hrskavo", "kukuruz"],
       },
       {
         name: { bs: "Flips Time pikant", en: "Flips Time Piquant" },
+        image: "/images/products/flips-time-flips-time-pikant.jpg",
         sizes: "150g",
         flavor: { bs: "Kukuruzni krugovi sa pikantnom notom.", en: "Corn rings with a piquant edge." },
         tastes: ["pikant", "hrskavo", "kukuruz"],
@@ -205,12 +222,14 @@ export const categories: Category[] = [
     skus: [
       {
         name: { bs: "Timi Pikant pizza ukus", en: "Timi Pikant Pizza flavor" },
+        image: "/images/products/timi-flips-timi-pikant-pizza-ukus.jpg",
         sizes: "30g",
         flavor: { bs: "Pikantni flips sa ukusom pice.", en: "Piquant puffs with pizza flavor." },
         tastes: ["pizza", "pikant", "hrskavo"],
       },
       {
         name: { bs: "Timi Pikant", en: "Timi Pikant" },
+        image: "/images/products/timi-flips-timi-pikant.jpg",
         sizes: "30g",
         flavor: { bs: "Originalni pikantni flips za užinu.", en: "The original piquant snack puff." },
         tastes: ["pikant", "hrskavo", "kukuruz"],
@@ -218,6 +237,7 @@ export const categories: Category[] = [
       { name: { bs: "Timi Pikant", en: "Timi Pikant" }, sizes: "90g" },
       {
         name: { bs: "Timi Flips sa kikirikijem", en: "Timi Flips with peanuts" },
+        image: "/images/products/timi-flips-timi-flips-sa-kikirikijem.jpg",
         sizes: "25g",
         flavor: { bs: "Lagani kukuruzni flips sa kikirikijem.", en: "Light corn puffs with peanut." },
         tastes: ["kikiriki", "lagano", "kukuruz"],
@@ -240,6 +260,7 @@ export const categories: Category[] = [
     skus: [
       {
         name: { bs: "Puter od kikirikija, kremasti 100%", en: "Peanut Butter, Creamy 100%" },
+        image: "/images/products/peanut-butter-puter-od-kikirikija-kremasti-100.jpg",
         sizes: "350g",
         flavor: { bs: "Samo kikiriki, ništa drugo. Glatko.", en: "Nothing but peanuts. Smooth." },
         tastes: ["stoPosto", "kremasto", "kikiriki"],
@@ -247,12 +268,14 @@ export const categories: Category[] = [
       },
       {
         name: { bs: "Puter od kikirikija, kremasti", en: "Peanut Butter, Creamy" },
+        image: "/images/products/peanut-butter-puter-od-kikirikija-kremasti.jpg",
         sizes: "350g",
         flavor: { bs: "Glatka kremasta pasta od prženog kikirikija.", en: "Smooth creamy roasted-peanut spread." },
         tastes: ["kremasto", "kikiriki", "przeno"],
       },
       {
         name: { bs: "Puter od kikirikija, hrskavi", en: "Peanut Butter, Crunchy" },
+        image: "/images/products/peanut-butter-puter-od-kikirikija-hrskavi.jpg",
         sizes: "350g",
         flavor: { bs: "Kremasti puter sa komadićima kikirikija.", en: "Creamy butter with peanut pieces." },
         tastes: ["hrskavo", "kikiriki", "przeno"],
@@ -276,18 +299,21 @@ export const categories: Category[] = [
     skus: [
       {
         name: { bs: "Pop Star kokice, slane", en: "Pop Star Popcorn, Salted" },
+        image: "/images/products/popcorn-pop-star-kokice-slane.jpg",
         sizes: "40g",
         flavor: { bs: "Klasične slane kokice za film.", en: "Classic salted movie popcorn." },
         tastes: ["slano", "kukuruz", "hrskavo"],
       },
       {
         name: { bs: "Pop Star kokice, čoko", en: "Pop Star Popcorn, Choco" },
+        image: "/images/products/popcorn-pop-star-kokice-coko.jpg",
         sizes: "100g",
         flavor: { bs: "Kokice pod slojem kakaa.", en: "Popcorn under a layer of cocoa." },
         tastes: ["coko", "slatko", "hrskavo"],
       },
       {
         name: { bs: "Pop Star kokice, karamel", en: "Pop Star Popcorn, Caramel" },
+        image: "/images/products/popcorn-pop-star-kokice-karamel.jpg",
         sizes: "100g",
         flavor: { bs: "Karamel kokice koje nestanu prije filma.", en: "Caramel popcorn that's gone before the movie starts." },
         tastes: ["karamel", "slatko", "hrskavo"],
@@ -296,6 +322,7 @@ export const categories: Category[] = [
       { name: { bs: "Pop Star kokice, slane", en: "Pop Star Popcorn, Salted" }, sizes: "120g, 250g" },
       {
         name: { bs: "Pop Star zrno za kokice", en: "Pop Star Popcorn beans" },
+        image: "/images/products/popcorn-pop-star-zrno-za-kokice.jpg",
         sizes: "350g",
         flavor: { bs: "Sirovo zrno za kokice kod kuće.", en: "Raw kernels for popping at home." },
         tastes: ["kukuruz", "kodKuce"],
@@ -318,6 +345,7 @@ export const categories: Category[] = [
     skus: [
       {
         name: { bs: "Tima oblatne", en: "Tima Wafers" },
+        image: "/images/products/wafers-tima-oblatne.jpg",
         sizes: "200g",
         flavor: { bs: "Hrskavi listovi, kremasti fil.", en: "Crisp wafer sheets, creamy filling." },
         tastes: ["hrskavo", "kremasto", "slatko"],
@@ -340,24 +368,28 @@ export const categories: Category[] = [
     skus: [
       {
         name: { bs: "Pšenični griz", en: "Wheat Grits" },
+        image: "/images/products/groceries-psenicni-griz.jpg",
         sizes: "200g",
         flavor: { bs: "Fino mljeveni pšenični griz za svaki dan.", en: "Finely milled wheat grits for every day." },
         tastes: ["psenica", "finoMljeveno", "zaKuhanje"],
       },
       {
         name: { bs: "Zlatna instant polenta", en: "Golden Instant Polenta" },
+        image: "/images/products/groceries-zlatna-instant-polenta.jpg",
         sizes: "200g",
         flavor: { bs: "Instant polenta, gotova za par minuta.", en: "Instant polenta, ready in minutes." },
         tastes: ["kukuruz", "instant", "zaKuhanje"],
       },
       {
         name: { bs: "Tima palenta (koruzni zdrob)", en: "Tima Palenta (corn grits)" },
+        image: "/images/products/groceries-tima-palenta-koruzni-zdrob.jpg",
         sizes: "800g, 1000g",
         flavor: { bs: "Kukuruzni zdrob za pravi kačamak.", en: "Corn grits for a proper kačamak." },
         tastes: ["kukuruz", "kacamak", "zaKuhanje"],
       },
       {
         name: { bs: "Tima kukuruzno brašno", en: "Tima Corn Flour" },
+        image: "/images/products/groceries-tima-kukuruzno-brasno.jpg",
         sizes: "200g",
         flavor: { bs: "Fino mljeveno kukuruzno brašno.", en: "Finely milled corn flour." },
         tastes: ["kukuruz", "finoMljeveno", "zaKuhanje"],
@@ -379,6 +411,7 @@ export const categories: Category[] = [
     skus: [
       {
         name: { bs: "Crispy Fun, piletina", en: "Crispy Fun, Chicken" },
+        image: "/images/products/chips-crispy-fun-piletina.jpg",
         sizes: "50g, 100g",
         flavor: { bs: "Hrskavi kornetići sa ukusom piletine.", en: "Crunchy cones with chicken flavor." },
         tastes: ["piletina", "hrskavo", "slano"],
@@ -386,12 +419,14 @@ export const categories: Category[] = [
       },
       {
         name: { bs: "Crispy Fun, pavlaka", en: "Crispy Fun, Sour Cream" },
+        image: "/images/products/chips-crispy-fun-pavlaka.jpg",
         sizes: "50g, 100g",
         flavor: { bs: "Hrskavi kornetići sa ukusom pavlake.", en: "Crunchy cones with sour cream flavor." },
         tastes: ["pavlaka", "hrskavo", "slano"],
       },
       {
         name: { bs: "Crispy Fun, čili", en: "Crispy Fun, Chili" },
+        image: "/images/products/chips-crispy-fun-cili.jpg",
         sizes: "50g, 100g",
         flavor: { bs: "Hrskavi kornetići sa ljutim čilijem.", en: "Crunchy cones with a chili kick." },
         tastes: ["cili", "pikant", "hrskavo"],
@@ -413,6 +448,7 @@ export const categories: Category[] = [
     skus: [
       {
         name: { bs: "Nutto krem bar, lješnjak", en: "Nutto Cream Bar, hazelnut" },
+        image: "/images/products/cereals-nutto-krem-bar-ljesnjak.jpg",
         sizes: "80g",
         flavor: { bs: "Hrskav spolja, lješnjak krem iznutra.", en: "Crisp outside, hazelnut cream inside." },
         tastes: ["ljesnjak", "kremasto", "coko"],
@@ -420,6 +456,7 @@ export const categories: Category[] = [
       },
       {
         name: { bs: "Happy Cerios, kuglice sa vitaminima", en: "Happy Cerios, vitamin cereal balls" },
+        image: "/images/products/cereals-happy-cerios-kuglice-sa-vitaminima.jpg",
         sizes: "250g",
         flavor: { bs: "Čokoladne kuglice sa vitaminima za doručak.", en: "Chocolate cereal balls with vitamins for breakfast." },
         tastes: ["coko", "vitamini", "dorucak"],
