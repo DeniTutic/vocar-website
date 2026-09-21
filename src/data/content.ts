@@ -46,8 +46,10 @@ export const badges = {
 export const home = {
   heroMotto: { bs: "Za bolji okus života.", en: "For a better taste of life." },
   heroWord1: { bs: "Domaće", en: "Homemade" },
-  heroWord2: { bs: "Prirodno", en: "Natural" },
-  heroWord3: { bs: "Pošteno", en: "Honest" },
+  heroWord2: { bs: "Svježe", en: "Fresh" },
+  heroWord3: { bs: "Ukusno", en: "Tasty" },
+  heroWord4: { bs: "Prirodno", en: "Natural" },
+  heroWord5: { bs: "Pošteno", en: "Honest" },
 
   storyEyebrow: { bs: "O Voćaru", en: "About Voćar" },
   storyTitle: { bs: "Okus tradicije. Pogled u budućnost.", en: "The taste of tradition. A look to the future." },

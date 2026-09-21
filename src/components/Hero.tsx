@@ -24,7 +24,7 @@ const item: Variants = {
 
 export function Hero() {
   const t = useT();
-  const words = [home.heroWord1, home.heroWord2, home.heroWord3].map(t);
+  const words = [home.heroWord1, home.heroWord2, home.heroWord3, home.heroWord4, home.heroWord5].map(t);
 
   return (
     <section
