@@ -6,6 +6,7 @@ import { nav, footerContent } from "@/data/content";
 import { useT } from "@/lib/locale";
 import { ScrollReveal } from "./ScrollReveal";
 import { InstagramIcon, FacebookIcon } from "./SocialIcons";
+import { NewsletterInline } from "./NewsletterInline";
 
 const socialLinks = [
   { href: "https://www.instagram.com/vocardoo/", label: "Instagram", Icon: InstagramIcon },
@@ -46,6 +47,10 @@ export function Footer() {
 
   return (
     <footer style={{ background: "var(--charcoal)", color: "var(--beige)" }}>
+      <ScrollReveal className="mx-auto max-w-7xl px-5 pt-16 sm:px-8">
+        <NewsletterInline />
+      </ScrollReveal>
+
       <ScrollReveal className="mx-auto grid max-w-7xl gap-10 px-5 py-16 sm:px-8 md:grid-cols-[1.3fr_1fr_1fr_1.2fr]">
         <div className="flex flex-col gap-3">
           <div className="flex items-center">
