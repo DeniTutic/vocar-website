@@ -1,6 +1,5 @@
 "use client";
 
-import { useState } from "react";
 import { MapPin, Phone, Smartphone, Mail } from "lucide-react";
 import { WhatsAppIcon } from "./SocialIcons";
 import { contact } from "@/data/content";
@@ -10,45 +9,6 @@ import { ContactForm } from "./ContactForm";
 
 const MAPS_SRC =
   "https://www.google.com/maps?q=Vo%C4%87ar+d.o.o.+Gornji+Rahi%C4%87+112%2C+76207+Gornji+Rahi%C4%87%2C+Bosna+i+Hercegovina&output=embed";
-
-/**
- * Google's embed sets cookies as soon as it loads, so it stays a static card
- * until the visitor asks for it — matching what /privatnost promises.
- */
-function MapEmbed() {
-  const t = useT();
-  const [loaded, setLoaded] = useState(false);
-
-  if (loaded) {
-    return (
-      <iframe
-        title="Voćar d.o.o. — Gornji Rahić"
-        src={MAPS_SRC}
-        width="100%"
-        height="280"
-        style={{ border: 0, display: "block" }}
-        loading="lazy"
-        referrerPolicy="no-referrer-when-downgrade"
-      />
-    );
-  }
-
-  return (
-    <div className="flex h-[280px] flex-col items-center justify-center gap-3 px-6 text-center" style={{ background: "var(--cream)" }}>
-      <MapPin size={28} style={{ color: "var(--forest)" }} strokeWidth={1.5} />
-      <button
-        type="button"
-        onClick={() => setLoaded(true)}
-        className="rounded-full bg-forest px-6 py-2.5 text-xs font-semibold uppercase tracking-wide text-cream transition-colors hover:bg-forest-deep"
-      >
-        {t(contact.mapLoad)}
-      </button>
-      <p className="max-w-xs text-xs" style={{ color: "var(--ink-soft)" }}>
-        {t(contact.mapNote)}
-      </p>
-    </div>
-  );
-}
 
 export function ContactSection() {
   const t = useT();
@@ -161,7 +121,15 @@ export function ContactSection() {
           </div>
 
           <div className="overflow-hidden rounded-2xl border" style={{ borderColor: "var(--line)" }}>
-            <MapEmbed />
+            <iframe
+              title="Voćar d.o.o. — Gornji Rahić"
+              src={MAPS_SRC}
+              width="100%"
+              height="280"
+              style={{ border: 0, display: "block" }}
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+            />
           </div>
         </ScrollReveal>
 

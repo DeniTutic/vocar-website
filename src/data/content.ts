@@ -216,11 +216,6 @@ export const contact = {
   emailGeneral: { bs: "opšta pitanja", en: "general questions" },
   emailSales: { bs: "narudžbe i prodaja", en: "orders and trade" },
   officeSloveniaLabel: { bs: "Predstavništvo Slovenija", en: "Slovenia office" },
-  mapLoad: { bs: "Učitaj mapu", en: "Load map" },
-  mapNote: {
-    bs: "Mapa se učitava sa Google Maps. Klikom se povezujete sa Google-om.",
-    en: "The map is served by Google Maps. Clicking connects you to Google.",
-  },
   formName: { bs: "Ime", en: "Name" },
   formEmail: { bs: "Email", en: "Email" },
   formPhone: { bs: "Telefon", en: "Phone" },
