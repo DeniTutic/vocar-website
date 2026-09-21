@@ -138,7 +138,16 @@ function compositionFor(categorySlug: string, name: string): Localized {
       ? { bs: "Suha šljiva, kakao premaz.", en: "Dried plum, cocoa coating." }
       : { bs: "Sušena šljiva, bez dodataka.", en: "Dried plum, no additives." };
   }
-  if (categorySlug === "groceries") return { bs: "Kukuruz ili pšenica, mljeveno.", en: "Corn or wheat, milled." };
+  if (categorySlug === "groceries") {
+    if (n.includes("kokos")) return { bs: "Kokos, mljeveni.", en: "Coconut, milled." };
+    if (n.includes("biber")) return { bs: "Crni biber, mljeveni.", en: "Black pepper, ground." };
+    return { bs: "Kukuruz ili pšenica, mljeveno.", en: "Corn or wheat, milled." };
+  }
+  if (categorySlug === "croissants") {
+    return n.includes("čokolad")
+      ? { bs: "Pšenično brašno, čokoladno punjenje.", en: "Wheat flour, chocolate filling." }
+      : { bs: "Pšenično brašno, vanilin krem punjenje.", en: "Wheat flour, vanilla cream filling." };
+  }
   if (categorySlug === "biscuits") return { bs: "Pšenično brašno, šećer, vanilija, šećer u prahu.", en: "Wheat flour, sugar, vanilla, powdered sugar." };
   if (categorySlug === "wafers") return { bs: "Vafel listovi, kremasti fil.", en: "Wafer sheets, creamy filling." };
   if (categorySlug === "popcorn") {
@@ -159,7 +168,7 @@ function allergensFor(categorySlug: string, name: string): Localized | undefined
   const peanut = { bs: "Kikiriki.", en: "Peanuts." };
   if (categorySlug === "peanuts" || categorySlug === "peanut-butter") return peanut;
   if (["quinoa-flips", "flips-time", "timi-flips"].includes(categorySlug) && n.includes("kikiriki")) return peanut;
-  if (categorySlug === "wafers" || categorySlug === "biscuits") return { bs: "Gluten (pšenica).", en: "Gluten (wheat)." };
+  if (["wafers", "biscuits", "croissants"].includes(categorySlug)) return { bs: "Gluten (pšenica).", en: "Gluten (wheat)." };
   if (categorySlug === "groceries" && n.includes("pšenični")) return { bs: "Gluten (pšenica).", en: "Gluten (wheat)." };
   if (categorySlug === "cereals") {
     return n.includes("nutto")
