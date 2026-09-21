@@ -260,13 +260,6 @@ export const productPage = {
   sizeOnRequest: { bs: "Na upit", en: "On request" },
   share: { bs: "Podijeli", en: "Share" },
   copied: { bs: "Link kopiran", en: "Link copied" },
-  findBagTitle: { bs: "Gdje naći ovu vrećicu", en: "Where to find this bag" },
-  findBagBody: {
-    bs: "U marketima i trafikama širom BiH, između ostalog u:",
-    en: "In supermarkets and kiosks across BiH, including:",
-  },
-  findBagAsk: { bs: "Ne vidite nas u svom gradu?", en: "Don't see us in your town?" },
-  findBagAskLink: { bs: "Javite nam se", en: "Let us know" },
   siblingsTitle: { bs: "Još ukusa iz kategorije", en: "More flavors from" },
 } as const;
 

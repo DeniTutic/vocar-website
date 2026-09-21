@@ -7,7 +7,6 @@ import { AnimatePresence, motion } from "framer-motion";
 import { Check, ChevronRight, Share2 } from "lucide-react";
 import type { Product } from "@/data/products";
 import { productPage, buy, nav } from "@/data/content";
-import { bihRegions } from "@/data/whereToBuy";
 import { useT } from "@/lib/locale";
 import { ScrollReveal } from "./ScrollReveal";
 import { ProductCard } from "./ProductCard";
@@ -40,8 +39,6 @@ function useBuyBlockPassed(ref: React.RefObject<HTMLDivElement | null>): boolean
 
   return passed;
 }
-
-const CITIES = bihRegions.flatMap((r) => r.cities);
 
 /** Native share sheet where it exists (phones), clipboard copy elsewhere. */
 function ShareButton({ title }: { title: string }) {
@@ -230,28 +227,6 @@ export function ProductDetailView({ product, related }: { product: Product; rela
               </div>
             </dl>
 
-            <div className="mt-8 border-t pt-6" style={{ borderColor: "var(--line)" }}>
-              <h2 className="text-xs font-semibold uppercase tracking-wide" style={{ color: "var(--forest)" }}>
-                {t(productPage.findBagTitle)}
-              </h2>
-              <p className="mt-1 text-sm" style={{ color: "var(--ink-soft)" }}>
-                {t(productPage.findBagBody)}
-              </p>
-              <ul className="mt-3 flex flex-wrap gap-1.5">
-                {CITIES.map((city) => (
-                  <li key={city} className="rounded-full border border-line px-2.5 py-1 text-xs text-ink">
-                    {city}
-                  </li>
-                ))}
-              </ul>
-              <p className="mt-4 text-sm" style={{ color: "var(--ink-soft)" }}>
-                {t(productPage.findBagAsk)}{" "}
-                {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
-                <a href="/#kontakt" className="font-semibold hover:underline" style={{ color: "var(--forest)" }}>
-                  {t(productPage.findBagAskLink)} →
-                </a>
-              </p>
-            </div>
           </ScrollReveal>
         </div>
       </section>

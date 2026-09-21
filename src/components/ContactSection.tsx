@@ -31,7 +31,7 @@ export function ContactSection() {
         </p>
       </div>
 
-      <div className="mx-auto mt-14 grid max-w-6xl gap-12 lg:grid-cols-[0.9fr_1.1fr] lg:gap-16">
+      <div className="mx-auto mt-14 grid max-w-6xl gap-12 lg:grid-cols-[0.9fr_1.1fr] lg:items-start lg:gap-16">
         <ScrollReveal className="flex flex-col gap-8">
           <div className="flex flex-col gap-6">
             <div className="flex gap-4">
@@ -133,7 +133,9 @@ export function ContactSection() {
           </div>
         </ScrollReveal>
 
-        <ScrollReveal delay={0.1}>
+        {/* On desktop the form rides along while the contact details scroll,
+            and stops where the grid ends — just above the newsletter. */}
+        <ScrollReveal delay={0.1} className="lg:sticky lg:top-24">
           <div id="distributer" className="scroll-mt-24 rounded-2xl border p-6 sm:p-10" style={{ borderColor: "var(--line)" }}>
             <ContactForm />
           </div>
