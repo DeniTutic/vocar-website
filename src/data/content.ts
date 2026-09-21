@@ -159,9 +159,6 @@ export const whereToBuyContent = {
   },
   bagLink: { bs: "Javite nam se", en: "Let us know" },
   bagBodyAfter: { bs: "i pomoći ćemo da to promijenimo.", en: "and we'll help change that." },
-  regionsTitle: { bs: "U Bosni i Hercegovini", en: "In Bosnia and Herzegovina" },
-  exportTitle: { bs: "Izvozna tržišta", en: "Export markets" },
-  exportLine: { bs: "{count} zemalja — pogledajte mapu ispod.", en: "{count} countries — see the map below." },
   retailersTitle: { bs: "Trgovine", en: "Retailers" },
   palletTitle: { bs: "Tražite paletu?", en: "Looking for a pallet?" },
   palletBody: {

@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { useReducedMotion } from "@/lib/useReducedMotion";
 
-const INTERVAL_MS = 3500;
+const INTERVAL_MS = 2500;
 
 /** Cycles through a handful of one-word brand values, all caps, one at a
  * time, with a soft slide-and-fade between them. */

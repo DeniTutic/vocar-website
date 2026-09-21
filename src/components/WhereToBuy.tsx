@@ -2,7 +2,7 @@
 
 import { Check } from "lucide-react";
 import { home, buy, whereToBuyContent as copy } from "@/data/content";
-import { bihRegions, exportCountries, retailers } from "@/data/whereToBuy";
+import { exportCountries, retailers } from "@/data/whereToBuy";
 import { DistributionMap } from "./DistributionMap";
 import { useT } from "@/lib/locale";
 import { CtaLink } from "./CtaLink";
@@ -45,13 +45,16 @@ export function WhereToBuy() {
           dark
         />
 
-        <div className="mt-14 grid gap-8 lg:grid-cols-[1.2fr_0.8fr]">
-          <ScrollReveal className="flex flex-col gap-8">
+        <div className="mt-14 grid gap-8 lg:grid-cols-2">
+          <ScrollReveal
+            className="flex h-full flex-col gap-8 rounded-3xl border p-8 sm:p-10"
+            style={{ borderColor: "rgba(247,243,234,0.15)" }}
+          >
             <div>
               <h3 className="text-3xl" style={{ color: "var(--cream)" }}>
                 {t(copy.bagTitle)}
               </h3>
-              <p className="mt-3 max-w-md text-base leading-relaxed" style={{ color: "rgba(247,243,234,0.75)" }}>
+              <p className="mt-3 text-base leading-relaxed" style={{ color: "rgba(247,243,234,0.75)" }}>
                 {t(copy.bagBody)}{" "}
                 {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
                 <a href="/#kontakt" className="font-semibold hover:underline" style={{ color: "var(--cream)" }}>
@@ -59,31 +62,6 @@ export function WhereToBuy() {
                 </a>{" "}
                 {t(copy.bagBodyAfter)}
               </p>
-            </div>
-
-            <div className="flex flex-col gap-4 border-t pt-6" style={{ borderColor: "rgba(247,243,234,0.15)" }}>
-              <GroupLabel>{t(copy.regionsTitle)}</GroupLabel>
-              {bihRegions.map((region) => (
-                <div key={region.name.bs} className="flex flex-col gap-2">
-                  <span className="text-sm font-medium" style={{ color: "rgba(247,243,234,0.75)" }}>
-                    {t(region.name)}
-                  </span>
-                  <ul className="flex flex-wrap gap-2">
-                    {region.cities.map((city) => (
-                      <Pill key={city}>{city}</Pill>
-                    ))}
-                  </ul>
-                </div>
-              ))}
-            </div>
-
-            <div className="flex flex-col gap-2 border-t pt-6" style={{ borderColor: "rgba(247,243,234,0.15)" }}>
-              <GroupLabel>{t(copy.exportTitle)}</GroupLabel>
-              {/* Plain <a>, not <Link>: reliably scrolls to the same-page anchor. */}
-              {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
-              <a href="/#trzista" className="w-fit text-sm hover:underline" style={{ color: "rgba(247,243,234,0.75)" }}>
-                {t(copy.exportLine).replace("{count}", COUNT)}
-              </a>
             </div>
 
             {retailers.length > 0 && (
@@ -97,7 +75,7 @@ export function WhereToBuy() {
               </div>
             )}
 
-            <div>
+            <div className="mt-auto">
               <CtaLink href="/#kontakt" variant="outlineDark">
                 {t(buy.askUs)}
               </CtaLink>
@@ -126,7 +104,7 @@ export function WhereToBuy() {
                 <CtaLink href="/#distributer" variant="buy">
                   {t(buy.requestQuote)}
                 </CtaLink>
-                <CtaLink href="/files/vocar-katalog.pdf" download variant="outline" size="sm">
+                <CtaLink href="/files/vocar-katalog.pdf" download variant="outline">
                   {t(home.catalogCta)}
                 </CtaLink>
               </div>
