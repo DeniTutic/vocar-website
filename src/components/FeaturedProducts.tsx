@@ -4,7 +4,7 @@ import { useRef } from "react";
 import Image from "next/image";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { products, type Product } from "@/data/products";
-import { home, type Localized } from "@/data/content";
+import { home, badges, type Localized } from "@/data/content";
 import { useT } from "@/lib/locale";
 import { SectionHeading } from "./SectionHeading";
 import { CtaLink } from "./CtaLink";
@@ -16,11 +16,11 @@ function findFlagship(categorySlug: string, nameIncludes: string): Product | und
   );
 }
 
-// One flagship, not a second grid: the family tiles above already show the
-// range, so this block is the single big-photo appetite moment. Swap the
-// candidate seasonally (peanut butter "kremasti 100", Q Flips "kečap").
+// Popcorn karamel is the hero's flagship, so the tasting leads with the others.
 const FLAGSHIP_CANDIDATES: { product: Product | undefined; badge: Localized; color: string }[] = [
+  { product: findFlagship("peanut-butter", "kremasti 100"), badge: home.qualityBadge, color: "var(--forest)" },
   { product: findFlagship("prunes", "čoko"), badge: home.favoriteBadge, color: "var(--plum)" },
+  { product: findFlagship("quinoa-flips", "kečap i kikiriki"), badge: badges.novo, color: "var(--amber)" },
 ];
 
 const FLAGSHIPS = FLAGSHIP_CANDIDATES.filter(
