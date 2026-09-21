@@ -5,7 +5,7 @@ import { Logo } from "./Logo";
 import { nav, footerContent } from "@/data/content";
 import { useT } from "@/lib/locale";
 import { ScrollReveal } from "./ScrollReveal";
-import { InstagramIcon, FacebookIcon } from "./SocialIcons";
+import { InstagramIcon, FacebookIcon, WhatsAppIcon } from "./SocialIcons";
 import { NewsletterInline } from "./NewsletterInline";
 
 const socialLinks = [
@@ -93,6 +93,21 @@ export function Footer() {
           </a>
           <a href="tel:+38749513360" className="w-fit opacity-80 transition-opacity hover:opacity-100">
             +387 49 513 360
+          </a>
+          <a href="tel:+38761720012" className="w-fit opacity-80 transition-opacity hover:opacity-100">
+            +387 61 720 012
+          </a>
+          <a
+            href="https://wa.me/38761720012"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex w-fit items-center gap-1.5 opacity-80 transition-opacity hover:opacity-100"
+          >
+            <WhatsAppIcon size={14} />
+            WhatsApp
+          </a>
+          <a href="mailto:info@vocar.ba" className="w-fit opacity-80 transition-opacity hover:opacity-100">
+            info@vocar.ba
           </a>
           <a href="mailto:sales@vocar.ba" className="w-fit opacity-80 transition-opacity hover:opacity-100">
             sales@vocar.ba

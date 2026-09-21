@@ -77,8 +77,8 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
                 addressLocality: "Gornji Rahić",
                 addressCountry: "BA",
               },
-              telephone: "+387 49 512 415",
-              email: "sales@vocar.ba",
+              telephone: ["+387 49 512 415", "+387 61 720 012"],
+              email: "info@vocar.ba",
             }),
           }}
         />

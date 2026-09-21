@@ -210,7 +210,11 @@ export const contact = {
     en: "Production site, not a retail shop. Visits by appointment.",
   },
   phoneLabel: { bs: "Telefon", en: "Phone" },
+  mobileLabel: { bs: "Mobitel", en: "Mobile" },
+  whatsapp: { bs: "Pišite nam na WhatsApp", en: "Message us on WhatsApp" },
   emailLabel: { bs: "E-mail", en: "Email" },
+  emailGeneral: { bs: "opšta pitanja", en: "general questions" },
+  emailSales: { bs: "narudžbe i prodaja", en: "orders and trade" },
   officeSloveniaLabel: { bs: "Predstavništvo Slovenija", en: "Slovenia office" },
   mapLoad: { bs: "Učitaj mapu", en: "Load map" },
   mapNote: {

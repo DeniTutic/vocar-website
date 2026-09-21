@@ -39,3 +39,24 @@ export function FacebookIcon({ size = 20, className = "" }: { size?: number; cla
     </svg>
   );
 }
+
+export function WhatsAppIcon({ size = 20, className = "" }: { size?: number; className?: string }) {
+  return (
+    <svg
+      width={size}
+      height={size}
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth={1.5}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className={className}
+      aria-hidden
+    >
+      {/* Speech bubble with the tail bottom-left, handset inside. */}
+      <path d="M3.5 20.5l1.3-4.2A8.5 8.5 0 1 1 8 19.3z" />
+      <path d="M9.2 8.6c.2-.5.5-.5.8-.5h.5c.2 0 .4.1.5.4l.7 1.6c.1.2 0 .4-.1.6l-.5.6c-.1.2-.1.3 0 .5a6 6 0 0 0 2.9 2.7c.2.1.4.1.5-.1l.6-.7c.2-.2.4-.2.6-.1l1.6.8c.2.1.3.3.3.5 0 .9-.6 1.6-1.4 1.8-.7.2-1.7.1-3.2-.9a10 10 0 0 1-3.5-3.7c-.8-1.5-.6-2.6-.3-3.5z" />
+    </svg>
+  );
+}

@@ -1,7 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import { MapPin, Phone, Mail } from "lucide-react";
+import { MapPin, Phone, Smartphone, Mail } from "lucide-react";
+import { WhatsAppIcon } from "./SocialIcons";
 import { contact } from "@/data/content";
 import { useT } from "@/lib/locale";
 import { ScrollReveal } from "./ScrollReveal";
@@ -108,13 +109,38 @@ export function ContactSection() {
             </div>
 
             <div className="flex gap-4">
+              <Smartphone size={22} style={{ color: "var(--forest)" }} className="mt-0.5 shrink-0" />
+              <div>
+                <div className="text-sm font-semibold uppercase tracking-wide" style={{ color: "var(--forest-deep)" }}>
+                  {t(contact.mobileLabel)}
+                </div>
+                <a href="tel:+38761720012" className="mt-1 block text-base hover:underline" style={{ color: "var(--ink-soft)" }}>
+                  +387 61 720 012
+                </a>
+                <a
+                  href="https://wa.me/38761720012"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="mt-2 inline-flex items-center gap-2 rounded-full px-4 py-2 text-sm font-semibold text-cream transition-colors"
+                  style={{ background: "#25D366" }}
+                >
+                  <WhatsAppIcon size={16} />
+                  {t(contact.whatsapp)}
+                </a>
+              </div>
+            </div>
+
+            <div className="flex gap-4">
               <Mail size={22} style={{ color: "var(--forest)" }} className="mt-0.5 shrink-0" />
               <div>
                 <div className="text-sm font-semibold uppercase tracking-wide" style={{ color: "var(--forest-deep)" }}>
                   {t(contact.emailLabel)}
                 </div>
-                <a href="mailto:sales@vocar.ba" className="mt-1 block text-base hover:underline" style={{ color: "var(--ink-soft)" }}>
-                  sales@vocar.ba
+                <a href="mailto:info@vocar.ba" className="mt-1 block text-base hover:underline" style={{ color: "var(--ink-soft)" }}>
+                  info@vocar.ba <span className="text-sm">— {t(contact.emailGeneral)}</span>
+                </a>
+                <a href="mailto:sales@vocar.ba" className="block text-base hover:underline" style={{ color: "var(--ink-soft)" }}>
+                  sales@vocar.ba <span className="text-sm">— {t(contact.emailSales)}</span>
                 </a>
               </div>
             </div>
