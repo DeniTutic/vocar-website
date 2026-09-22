@@ -225,6 +225,10 @@ export const about = {
   value4: { bs: "Poštenje prema kupcu", en: "Honesty with the customer" },
   value4Desc: { bs: "Jasna deklaracija i transparentan sastav.", en: "Clear labeling and transparent composition." },
   driedFruitImageAlt: { bs: "Sušeno voće Voćar", en: "Voćar dried fruit" },
+  plantImageAlt: {
+    bs: "Voćar proizvodi u rukama, ispred proizvodnog pogona u Gornjem Rahiću",
+    en: "Voćar products held in front of the production plant in Gornji Rahić",
+  },
 } as const;
 
 export const contact = {

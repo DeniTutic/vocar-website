@@ -46,13 +46,15 @@ export function BrandStory() {
             </div>
           </ScrollReveal>
 
-          <ScrollReveal delay={0.15} className="relative aspect-[4/5] overflow-hidden rounded-2xl lg:aspect-auto">
+          {/* A real photo of the plant and the range, not another packshot —
+              the one thing the rest of the page can't show. */}
+          <ScrollReveal delay={0.15} className="relative aspect-[3/2] overflow-hidden rounded-2xl sm:aspect-[4/3] lg:aspect-auto lg:min-h-[420px]">
             <Image
-              src="/images/categories/prunes.jpg"
-              alt={t(about.driedFruitImageAlt)}
+              src="/images/about/vocar-pogon.jpg"
+              alt={t(about.plantImageAlt)}
               fill
               sizes="(min-width: 1024px) 45vw, 100vw"
-              className="object-cover"
+              className="object-cover object-[50%_35%]"
             />
             <div
               className="pointer-events-none absolute inset-x-0 bottom-0 h-2/5"
