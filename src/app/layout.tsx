@@ -60,7 +60,10 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="bs" className={`${baloo.variable} ${manrope.variable} h-full antialiased`}>
+    // data-scroll-behavior: Next 16 stopped disabling CSS smooth scroll during
+    // navigation; without this a product page opens with a visible glide from
+    // wherever the catalog was scrolled to. Anchor links stay smooth.
+    <html lang="bs" data-scroll-behavior="smooth" className={`${baloo.variable} ${manrope.variable} h-full antialiased`}>
       <body className="min-h-full flex flex-col bg-cream text-ink">
         <script
           type="application/ld+json"

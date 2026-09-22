@@ -97,10 +97,9 @@ export function ProductDetailView({ product, related }: { product: Product; rela
   // All three land on the contact form pre-filled (ContactForm reads the
   // query and the #distributer hash): shoppers in Kupac mode asking where
   // to buy, buyers in trade mode asking for a quote or a sample.
-  const base = `/?proizvod=${encodeURIComponent(product.name.bs)}&pakovanje=${encodeURIComponent(size)}&kategorija=${product.category.slug}`;
+  const base = `/?proizvod=${encodeURIComponent(t(product.name))}&pakovanje=${encodeURIComponent(size)}&kategorija=${product.category.slug}`;
   const whereHref = `${base}&namjera=kupac#distributer`;
   const quoteHref = `${base}#distributer`;
-  const sampleHref = `${base}&uzorak=1#distributer`;
 
   return (
     <>
@@ -198,16 +197,13 @@ export function ProductDetailView({ product, related }: { product: Product; rela
                   );
                 })}
               </div>
-              <div className="mt-5 flex flex-wrap items-center gap-3">
+              <div className="mt-5 flex flex-wrap gap-3">
                 <CtaLink href={whereHref} variant="buy">
                   {t(buy.whereToBuy)}
                 </CtaLink>
                 <CtaLink href={quoteHref} variant="outline">
                   {t(buy.requestQuote)}
                 </CtaLink>
-                <a href={sampleHref} className="text-xs font-semibold uppercase tracking-wide hover:underline" style={{ color: "var(--forest)" }}>
-                  {t(productPage.requestSample)} →
-                </a>
               </div>
             </div>
 

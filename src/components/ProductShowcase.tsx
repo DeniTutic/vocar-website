@@ -6,7 +6,8 @@ import { motion } from "framer-motion";
 import { categories } from "@/data/categories";
 import { products, BADGE_ORDER } from "@/data/products";
 import { TASTES, type TasteKey } from "@/data/tastes";
-import { home } from "@/data/content";
+import { home, nav, productPage } from "@/data/content";
+import { ChevronRight } from "lucide-react";
 import { useLocale, useT } from "@/lib/locale";
 import { productsLabel } from "@/lib/plural";
 import { SectionHeading } from "./SectionHeading";
@@ -155,6 +156,23 @@ export function ProductShowcase() {
   return (
     <section id="proizvodi" className="scroll-mt-20 py-12 sm:py-16" style={{ background: "var(--cream)" }}>
       <div className="mx-auto max-w-7xl px-5 sm:px-8">
+        <nav aria-label={t(productPage.breadcrumbLabel)} className="mb-6">
+          <ol className="flex flex-wrap items-center gap-1 text-sm font-medium">
+            <li>
+              {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
+              <a href="/" className="hover:underline" style={{ color: "var(--forest)" }}>
+                {t(nav.home)}
+              </a>
+            </li>
+            <li aria-hidden style={{ color: "var(--ink-soft)" }}>
+              <ChevronRight size={14} />
+            </li>
+            <li aria-current="page" style={{ color: "var(--ink-soft)" }}>
+              {t(nav.products)}
+            </li>
+          </ol>
+        </nav>
+
         <SectionHeading eyebrow={t(home.showcaseEyebrow)} title={t(home.catalogPageTitle)} body={t(home.showcaseBody)} />
 
         <div

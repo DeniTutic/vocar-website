@@ -1,12 +1,12 @@
 "use client";
 
-import { useEffect, useState, type FormEvent } from "react";
+import { useEffect, useRef, useState, type FormEvent } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Send, CheckCircle2, AlertCircle } from "lucide-react";
 import { contact, buy } from "@/data/content";
 import { categories } from "@/data/categories";
 import { exportCountries } from "@/data/whereToBuy";
-import { useT } from "@/lib/locale";
+import { useLocale, useT } from "@/lib/locale";
 import { track } from "@/lib/track";
 
 type Mode = "customer" | "trade";
@@ -117,6 +117,7 @@ function ModeSwitch({ mode, onChange }: { mode: Mode; onChange: (m: Mode) => voi
 
 export function ContactForm() {
   const t = useT();
+  const { locale } = useLocale();
   const [mode, setMode] = useState<Mode>("customer");
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -144,35 +145,38 @@ export function ContactForm() {
     return () => window.removeEventListener("hashchange", syncFromHash);
   }, []);
 
-  // Product pages send "/#distributer?proizvod=…&pakovanje=…" — actually
-  // "/?proizvod=…&pakovanje=…#distributer" — so the quote form opens
-  // pre-filled instead of bouncing through a mailto:.
+  // Product pages link to "/?proizvod=…&pakovanje=…[&namjera=kupac]#distributer"
+  // so the form opens pre-filled. The locale provider reads the stored language
+  // a beat after mount, so this runs again on locale change and re-derives the
+  // prefill — but only while the message is still the text we wrote ourselves.
+  const prefillRef = useRef("");
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
     const p = params.get("proizvod");
+    if (!p) return;
     const s = params.get("pakovanje");
     const k = params.get("kategorija");
     const asCustomer = params.get("namjera") === "kupac";
-    if (p) {
-      const label = `${p}${s ? ` (${s})` : ""}`;
-      // Reads an SSR-unavailable external store (the URL) after mount — the
-      // same justification as the locale provider's localStorage read.
-      // eslint-disable-next-line react-hooks/set-state-in-effect
-      setProduct(p);
-      setSize(s ?? "");
-      if (asCustomer) {
-        setMode("customer");
-        setMessage((m) => m || t(contact.prefillWhereToBuy).replace("{product}", label));
-      } else {
-        setMode("trade");
-        setMessage((m) => m || t(contact.prefillQuote).replace("{product}", label));
-        if (k && categories.some((c) => c.slug === k)) setFamilies([k]);
-        if (params.get("uzorak") === "1") setSample(true);
-      }
+    const label = `${p}${s ? ` (${s})` : ""}`;
+    const next = t(asCustomer ? contact.prefillWhereToBuy : contact.prefillQuote).replace("{product}", label);
+
+    // Reads an SSR-unavailable external store (the URL) after mount — the
+    // same justification as the locale provider's localStorage read.
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setProduct(p);
+    setSize(s ?? "");
+    setMode(asCustomer ? "customer" : "trade");
+    if (!asCustomer) {
+      if (k && categories.some((c) => c.slug === k)) setFamilies([k]);
+      if (params.get("uzorak") === "1") setSample(true);
     }
-    // t is stable for the initial locale; the prefill is a one-time read of the URL.
+    // Capture before overwriting: the updater runs later, at render time.
+    const previous = prefillRef.current;
+    prefillRef.current = next;
+    setMessage((m) => (m === "" || m === previous ? next : m));
+    // `t` changes identity with the locale, which is exactly the trigger we want.
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [locale]);
 
   function toggleFamily(slug: string) {
     setFamilies((f) => (f.includes(slug) ? f.filter((x) => x !== slug) : [...f, slug]));

@@ -69,10 +69,10 @@ export const home = {
   showcaseEyebrow: { bs: "Asortiman", en: "The range" },
   showcaseTitle: { bs: "Naši proizvodi", en: "Our products" },
   showcaseBody: {
-    bs: "Trinaest porodica proizvoda, svaka sa svojim karakterom — od suhog voća do kroasana.",
-    en: "Thirteen product families, each with its own character — from dried fruit to croissants.",
+    bs: "Dvanaest porodica proizvoda, svaka sa svojim karakterom — od suhog voća do kroasana.",
+    en: "Twelve product families, each with its own character — from dried fruit to croissants.",
   },
-  familiesBody: { bs: "Trinaest porodica proizvoda — izaberite svoju.", en: "Thirteen product families — pick yours." },
+  familiesBody: { bs: "Dvanaest porodica proizvoda — izaberite svoju.", en: "Twelve product families — pick yours." },
   familiesView: { bs: "Pogledaj", en: "View" },
   familiesAll: { bs: "Cijeli asortiman", en: "Full range" },
   catalogPageTitle: { bs: "Proizvodi", en: "Products" },
@@ -268,7 +268,6 @@ export const productPage = {
   breadcrumbLabel: { bs: "Putanja", en: "Breadcrumb" },
   sizeOnRequest: { bs: "Na upit", en: "On request" },
   share: { bs: "Podijeli", en: "Share" },
-  requestSample: { bs: "Traži uzorak", en: "Request a sample" },
   copied: { bs: "Link kopiran", en: "Link copied" },
   siblingsTitle: { bs: "Još ukusa iz kategorije", en: "More flavors from" },
 } as const;
