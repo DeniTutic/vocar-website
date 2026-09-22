@@ -47,30 +47,53 @@ export function BrandStory() {
           </ScrollReveal>
 
           {/* A real photo of the plant and the range, not another packshot —
-              the one thing the rest of the page can't show. */}
-          <ScrollReveal delay={0.15} className="relative aspect-[3/2] overflow-hidden rounded-2xl sm:aspect-[4/3] lg:aspect-auto lg:min-h-[420px]">
-            <Image
-              src="/images/about/vocar-pogon.jpg"
-              alt={t(about.plantImageAlt)}
-              fill
-              sizes="(min-width: 1024px) 45vw, 100vw"
-              className="object-cover object-[50%_35%]"
-            />
-            <div
-              className="pointer-events-none absolute inset-x-0 bottom-0 h-2/5"
-              style={{ background: "linear-gradient(180deg, rgba(20,32,26,0) 0%, rgba(20,32,26,0.75) 100%)" }}
-              aria-hidden
-            />
-            <motion.p
-              initial={{ opacity: 0, y: 14 }}
+              the one thing the rest of the page can't show. The director's
+              words sit in a card that overlaps it, so the two read as one
+              piece instead of a caption under a picture. */}
+          <ScrollReveal delay={0.15} className="relative self-start">
+            <div className="relative aspect-[3/2] overflow-hidden rounded-2xl sm:aspect-[4/3] lg:aspect-[5/6]">
+              <Image
+                src="/images/about/vocar-pogon.jpg"
+                alt={t(about.plantImageAlt)}
+                fill
+                sizes="(min-width: 1024px) 45vw, 100vw"
+                className="object-cover object-[68%_28%]"
+              />
+              <div
+                className="pointer-events-none absolute inset-x-0 bottom-0 h-1/3"
+                style={{ background: "linear-gradient(180deg, rgba(20,32,26,0) 0%, rgba(20,32,26,0.45) 100%)" }}
+                aria-hidden
+              />
+            </div>
+
+            <motion.figure
+              initial={{ opacity: 0, y: 18 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-80px" }}
-              transition={{ duration: 0.6, delay: 0.4, ease: [0.22, 1, 0.36, 1] }}
-              className="font-display absolute bottom-6 left-6 right-6 text-2xl italic leading-snug sm:text-3xl"
-              style={{ color: "var(--cream)" }}
+              transition={{ duration: 0.6, delay: 0.35, ease: [0.22, 1, 0.36, 1] }}
+              className="relative z-10 -mt-6 ml-4 mr-4 rounded-2xl border p-6 shadow-lg sm:-mt-8 sm:ml-10 sm:mr-6 sm:p-7"
+              style={{ borderColor: "var(--line)", background: "var(--paper)" }}
             >
-              {t(about.slogan)}
-            </motion.p>
+              <span
+                aria-hidden
+                className="font-display block text-6xl leading-[0.7] sm:text-7xl"
+                style={{ color: "var(--amber)" }}
+              >
+                &ldquo;
+              </span>
+              <blockquote className="font-display mt-2 text-xl italic leading-snug sm:text-2xl" style={{ color: "var(--forest-deep)" }}>
+                {t(about.quote)}
+              </blockquote>
+              <figcaption className="mt-4 flex items-center gap-3">
+                <span className="h-px w-8 shrink-0" style={{ background: "var(--amber)" }} aria-hidden />
+                <span className="text-sm leading-tight" style={{ color: "var(--ink-soft)" }}>
+                  <span className="block font-semibold" style={{ color: "var(--ink)" }}>
+                    {t(about.quoteAuthor)}
+                  </span>
+                  {t(about.quoteRole)}
+                </span>
+              </figcaption>
+            </motion.figure>
           </ScrollReveal>
         </div>
 

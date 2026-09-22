@@ -209,7 +209,13 @@ export const about = {
     bs: "Voćar d.o.o. je osnovan 1989. godine u Brčkom. Danas posluje sa sjedištem u Gornjem Rahiću, na proizvodno-administrativnom kompleksu od 18.000 m², opremljenom najmodernijom tehnologijom vodećih svjetskih proizvođača. Kroz godine rada, asortiman je narastao na više od 40 proizvoda — od suhog voća i kikirikija, preko kukuruznog flipsa i kokica, do putera od kikirikija, oblatni i osnovnih namirnica.",
     en: "Voćar d.o.o. was founded in 1989 in Brčko. Today it operates from an 18,000 m² production and administration complex in Gornji Rahić, equipped with the latest technology from the world's leading manufacturers. Over the years, the range has grown to more than 40 products — from dried fruit and peanuts, through corn flips and popcorn, to peanut butter, wafers and pantry staples.",
   },
-  slogan: { bs: "Kvalitet je poštenje.", en: "Quality is honesty." },
+  /** Director's statement shown beside the plant photo — approved wording. */
+  quote: {
+    bs: "Kvalitet i zadovoljstvo kupaca su nam na prvom mjestu.",
+    en: "Quality and our customers' satisfaction come first.",
+  },
+  quoteAuthor: { bs: "Esed Musić", en: "Esed Musić" },
+  quoteRole: { bs: "vlasnik i direktor", en: "owner and director" },
   missionTitle: { bs: "Misija", en: "Mission" },
   missionBody: {
     bs: "Praviti grickalice i namirnice po istom standardu, bez obzira da li vrećica ide na policu u Gornjem Rahiću ili preko granice — i zadržati vaše povjerenje kroz naraštaje.",
