@@ -12,6 +12,7 @@ import { useLocale, useT } from "@/lib/locale";
 import { productsLabel } from "@/lib/plural";
 import { SectionHeading } from "./SectionHeading";
 import { ProductCard } from "./ProductCard";
+import { ScrollToTopOnArrival } from "./ScrollToTopOnArrival";
 
 const ALL = "all";
 
@@ -155,6 +156,7 @@ export function ProductShowcase() {
 
   return (
     <section id="proizvodi" className="scroll-mt-20 py-12 sm:py-16" style={{ background: "var(--cream)" }}>
+      <ScrollToTopOnArrival />
       <div className="mx-auto max-w-7xl px-5 sm:px-8">
         <nav aria-label={t(productPage.breadcrumbLabel)} className="mb-6">
           <ol className="flex flex-wrap items-center gap-1 text-sm font-medium">
