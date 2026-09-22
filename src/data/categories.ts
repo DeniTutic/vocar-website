@@ -79,7 +79,8 @@ export const categories: Category[] = [
       {
         name: { bs: "Timi kikiriki, limenka", en: "Timi Peanuts, tin" },
         image: "/images/products/peanuts-timi-kikiriki-limenka.jpg",
-        sizes: "185g",
+        // The tin itself reads 180 g; vocar.ba's shop lists 185 g.
+        sizes: "180g",
         flavor: { bs: "Prženi i slani kikiriki u limenci — za sto i za put.", en: "Roasted salted peanuts in a tin — for the table and the road." },
         tastes: ["slano", "przeno", "limenka"],
       },

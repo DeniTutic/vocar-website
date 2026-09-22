@@ -62,7 +62,7 @@ export const home = {
     en: "From carefully selected raw materials to modern production, every step preserves the taste generations recognize us by — and opens the way to markets beyond Bosnia and Herzegovina.",
   },
   statYears: { value: "35+", label: { bs: "godina iskustva", en: "years of experience" } },
-  statProducts: { value: "100+", label: { bs: "proizvoda", en: "products" } },
+  statProducts: { value: "40+", label: { bs: "proizvoda", en: "products" } },
   statHappyFaces: { value: "100.000+", label: { bs: "nasmijanih lica", en: "happy faces" } },
   statMarkets: { value: "BiH", label: { bs: "i međunarodna tržišta", en: "and international markets" } },
 
@@ -177,8 +177,8 @@ export const about = {
   title: { bs: "Voćar — okus koji traje generacijama.", en: "Voćar — a taste that lasts generations." },
   historyTitle: { bs: "Historija", en: "History" },
   historyBody: {
-    bs: "Voćar d.o.o. je osnovan 1989. godine u Brčkom. Danas posluje sa sjedištem u Gornjem Rahiću, na proizvodno-administrativnom kompleksu od 18.000 m², opremljenom najmodernijom tehnologijom vodećih svjetskih proizvođača. Kroz godine rada, asortiman je narastao na više od 100 proizvoda — od suhog voća i kikirikija, preko kukuruznog flipsa i kokica, do putera od kikirikija, oblatni i osnovnih namirnica.",
-    en: "Voćar d.o.o. was founded in 1989 in Brčko. Today it operates from an 18,000 m² production and administration complex in Gornji Rahić, equipped with the latest technology from the world's leading manufacturers. Over the years, the range has grown to more than 100 products — from dried fruit and peanuts, through corn flips and popcorn, to peanut butter, wafers and pantry staples.",
+    bs: "Voćar d.o.o. je osnovan 1989. godine u Brčkom. Danas posluje sa sjedištem u Gornjem Rahiću, na proizvodno-administrativnom kompleksu od 18.000 m², opremljenom najmodernijom tehnologijom vodećih svjetskih proizvođača. Kroz godine rada, asortiman je narastao na više od 40 proizvoda — od suhog voća i kikirikija, preko kukuruznog flipsa i kokica, do putera od kikirikija, oblatni i osnovnih namirnica.",
+    en: "Voćar d.o.o. was founded in 1989 in Brčko. Today it operates from an 18,000 m² production and administration complex in Gornji Rahić, equipped with the latest technology from the world's leading manufacturers. Over the years, the range has grown to more than 40 products — from dried fruit and peanuts, through corn flips and popcorn, to peanut butter, wafers and pantry staples.",
   },
   slogan: { bs: "Kvalitet je poštenje.", en: "Quality is honesty." },
   missionTitle: { bs: "Misija", en: "Mission" },
