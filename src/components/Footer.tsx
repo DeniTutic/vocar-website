@@ -3,7 +3,8 @@
 import Link from "next/link";
 import { Logo } from "./Logo";
 import { nav, footerContent } from "@/data/content";
-import { useT } from "@/lib/locale";
+import { useLocale, useT, type Locale } from "@/lib/locale";
+import { homeHash, path } from "@/lib/routes";
 import { ScrollReveal } from "./ScrollReveal";
 import { InstagramIcon, FacebookIcon, WhatsAppIcon } from "./SocialIcons";
 import { NewsletterInline } from "./NewsletterInline";
@@ -14,18 +15,18 @@ const socialLinks = [
   { href: "https://www.facebook.com/p/Vo%C4%87ar-Br%C4%8Dko-100094245247924/", label: "Facebook", Icon: FacebookIcon },
 ];
 
-const exploreLinks = [
-  { href: "/", key: "home" as const },
-  { href: "/proizvodi", key: "products" as const },
-  { href: "/#o-nama", key: "about" as const },
-  { href: "/#kvalitet", key: "quality" as const },
-  { href: "/#kontakt", key: "contact" as const },
+const exploreLinks = (locale: Locale) => [
+  { href: path("home", locale), key: "home" as const },
+  { href: path("products", locale), key: "products" as const },
+  { href: homeHash("#o-nama", locale), key: "about" as const },
+  { href: homeHash("#kvalitet", locale), key: "quality" as const },
+  { href: homeHash("#kontakt", locale), key: "contact" as const },
 ];
 
 // The catalog is a PDF download, so it lives with the buying links.
-const buyLinks = [
-  { href: "/#gdje-kupiti", key: "whereToBuy" as const },
-  { href: "/#distributer", key: "forDistributors" as const },
+const buyLinks = (locale: Locale) => [
+  { href: homeHash("#gdje-kupiti", locale), key: "whereToBuy" as const },
+  { href: homeHash("#distributer", locale), key: "forDistributors" as const },
   { href: "/files/vocar-katalog.pdf", key: "catalog" as const },
 ];
 
@@ -50,6 +51,7 @@ function LinkColumn({ label, links }: { label: string; links: { href: string; ke
 
 export function Footer() {
   const t = useT();
+  const { locale } = useLocale();
 
   return (
     <footer style={{ background: "var(--charcoal)", color: "var(--beige)" }}>
@@ -84,8 +86,8 @@ export function Footer() {
           </div>
         </div>
 
-        <LinkColumn label={t(footerContent.exploreLabel)} links={exploreLinks} />
-        <LinkColumn label={t(footerContent.buyLabel)} links={buyLinks} />
+        <LinkColumn label={t(footerContent.exploreLabel)} links={exploreLinks(locale)} />
+        <LinkColumn label={t(footerContent.buyLabel)} links={buyLinks(locale)} />
 
         <div className="flex flex-col gap-2 text-sm">
           <span className="mb-1 text-xs font-semibold uppercase tracking-wider opacity-50">
@@ -129,10 +131,10 @@ export function Footer() {
         <div className="mx-auto flex max-w-7xl flex-col gap-1 sm:flex-row sm:items-center sm:justify-between">
           <span>© {new Date().getFullYear()} VOĆAR — {t(footerContent.rights)}</span>
           <div className="flex items-center gap-4">
-            <Link href="/privatnost" className="w-fit opacity-80 transition-opacity hover:opacity-100">
+            <Link href={path("privacy", locale)} className="w-fit opacity-80 transition-opacity hover:opacity-100">
               {t(footerContent.privacyLabel)}
             </Link>
-            <Link href="/uslovi" className="w-fit opacity-80 transition-opacity hover:opacity-100">
+            <Link href={path("terms", locale)} className="w-fit opacity-80 transition-opacity hover:opacity-100">
               {t(footerContent.termsLabel)}
             </Link>
           </div>

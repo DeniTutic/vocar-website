@@ -1,42 +1,41 @@
 import type { MetadataRoute } from "next";
 import { products } from "@/data/products";
 import { SITE_URL } from "@/data/content";
+import { LOCALES, path, productPath } from "@/lib/routes";
 
+/** Both languages, each entry declaring the other as its alternate (hreflang). */
 export default function sitemap(): MetadataRoute.Sitemap {
-  const home = {
-    url: SITE_URL,
-    lastModified: new Date(),
-    changeFrequency: "monthly" as const,
-    priority: 1,
-  };
+  const lastModified = new Date();
 
-  const catalog = {
-    url: `${SITE_URL}/proizvodi`,
-    lastModified: new Date(),
-    changeFrequency: "monthly" as const,
-    priority: 0.8,
-  };
+  const entry = (
+    paths: Record<(typeof LOCALES)[number], string>,
+    changeFrequency: "monthly" | "yearly",
+    priority: number
+  ) =>
+    LOCALES.map((locale) => ({
+      url: `${SITE_URL}${paths[locale]}`,
+      lastModified,
+      changeFrequency,
+      priority,
+      alternates: {
+        languages: Object.fromEntries(LOCALES.map((l) => [l, `${SITE_URL}${paths[l]}`])),
+      },
+    }));
 
-  const privacy = {
-    url: `${SITE_URL}/privatnost`,
-    lastModified: new Date(),
-    changeFrequency: "yearly" as const,
-    priority: 0.3,
-  };
+  const pathsFor = (key: "home" | "products" | "privacy" | "terms") =>
+    Object.fromEntries(LOCALES.map((l) => [l, path(key, l)])) as Record<(typeof LOCALES)[number], string>;
 
-  const terms = {
-    url: `${SITE_URL}/uslovi`,
-    lastModified: new Date(),
-    changeFrequency: "yearly" as const,
-    priority: 0.3,
-  };
-
-  const productRoutes = products.map((p) => ({
-    url: `${SITE_URL}/proizvodi/${p.slug}`,
-    lastModified: new Date(),
-    changeFrequency: "yearly" as const,
-    priority: 0.6,
-  }));
-
-  return [home, catalog, privacy, terms, ...productRoutes];
+  return [
+    ...entry(pathsFor("home"), "monthly", 1),
+    ...entry(pathsFor("products"), "monthly", 0.8),
+    ...products.flatMap((p) =>
+      entry(
+        Object.fromEntries(LOCALES.map((l) => [l, productPath(p.slug, l)])) as Record<(typeof LOCALES)[number], string>,
+        "yearly",
+        0.6
+      )
+    ),
+    ...entry(pathsFor("privacy"), "yearly", 0.3),
+    ...entry(pathsFor("terms"), "yearly", 0.3),
+  ];
 }

@@ -10,6 +10,35 @@ export interface Localized {
 
 export const SITE_URL = "https://vocar.ba";
 
+/** Titles/descriptions for <head>, per locale. Pages read these via lib/metadata. */
+export const siteMeta = {
+  title: {
+    bs: "Voćar — Za bolji okus života",
+    en: "Voćar — For a better taste of life",
+  },
+  description: {
+    bs: "Voćar d.o.o. Brčko proizvodi grickalice, suho voće, čips, flips i kikiriki iz Gornjeg Rahića, Bosna i Hercegovina — generacije tradicije, prirodni sastojci, okus koji traje.",
+    en: "Voćar d.o.o. Brčko makes snacks, dried fruit, chips, flips and peanuts in Gornji Rahić, Bosnia and Herzegovina — HACCP and IFS Food certified, exporting to 17 countries, open to new importers.",
+  },
+  homeDescription: {
+    bs: "Generacije tradicije. Prirodni sastojci. Okus koji traje. Voćar proizvodi grickalice, suho voće, čips, flips i kikiriki iz Gornjeg Rahića, Bosna i Hercegovina.",
+    en: "Generations of tradition. Natural ingredients. A taste that lasts. Voćar makes snacks, dried fruit, chips, flips and peanuts in Gornji Rahić, Bosnia and Herzegovina.",
+  },
+  ogAlt: { bs: "Voćar — Za bolji okus života", en: "Voćar — For a better taste of life" },
+  keywords: {
+    bs: ["Voćar", "Voćar d.o.o.", "grickalice Bosna", "suho voće BiH", "čips proizvođač", "Gornji Rahić", "Brčko"],
+    en: [
+      "Voćar",
+      "Bosnian snacks manufacturer",
+      "dried prunes supplier",
+      "peanut butter producer Bosnia",
+      "private label snacks Balkans",
+      "IFS Food certified snacks",
+      "snack food exporter Bosnia",
+    ],
+  },
+} as const;
+
 export const common = {
   close: { bs: "Zatvori", en: "Close" },
   languageLabel: { bs: "Jezik", en: "Language" },
@@ -319,9 +348,11 @@ export const footerContent = {
  * third-party resource. Not a substitute for legal review, and says so.
  */
 export const privacyPage = {
-  metaTitle: "Politika privatnosti",
-  metaDescription:
-    "Politika privatnosti sajta Voćar d.o.o. Brčko — koje podatke prikupljamo, kako se koriste i kome se obratiti za pitanja o privatnosti.",
+  metaTitle: { bs: "Politika privatnosti", en: "Privacy policy" },
+  metaDescription: {
+    bs: "Politika privatnosti sajta Voćar d.o.o. Brčko — koje podatke prikupljamo, kako se koriste i kome se obratiti za pitanja o privatnosti.",
+    en: "Privacy policy for Voćar d.o.o. Brčko — what data we collect, how it's used, and who to contact about it.",
+  },
   eyebrow: { bs: "Pravne informacije", en: "Legal" },
   title: { bs: "Politika privatnosti", en: "Privacy policy" },
   updated: { bs: "Zadnje ažurirano: 22. septembar 2026.", en: "Last updated: September 22, 2026." },
@@ -401,9 +432,11 @@ export const privacyPage = {
  * catalog, so no sale is ever concluded here.
  */
 export const termsPage = {
-  metaTitle: "Uslovi korištenja",
-  metaDescription:
-    "Uslovi korištenja sajta Voćar d.o.o. Brčko — šta stranica jeste i nije, autorska prava, i mjerodavno pravo.",
+  metaTitle: { bs: "Uslovi korištenja", en: "Terms of use" },
+  metaDescription: {
+    bs: "Uslovi korištenja sajta Voćar d.o.o. Brčko — šta stranica jeste i nije, autorska prava, i mjerodavno pravo.",
+    en: "Terms of use for the Voćar d.o.o. Brčko website — what this site is and isn't, copyright, and governing law.",
+  },
   eyebrow: { bs: "Pravne informacije", en: "Legal" },
   title: { bs: "Uslovi korištenja", en: "Terms of use" },
   updated: { bs: "Zadnje ažurirano: 16. septembar 2026.", en: "Last updated: September 16, 2026." },

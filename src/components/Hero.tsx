@@ -3,7 +3,8 @@
 import { motion, type Variants } from "framer-motion";
 import { ChevronDown } from "lucide-react";
 import { home, buy } from "@/data/content";
-import { useT } from "@/lib/locale";
+import { useLocale, useT } from "@/lib/locale";
+import { homeHash, path } from "@/lib/routes";
 import { HeroProductField } from "./HeroProductField";
 import { Logo } from "./Logo";
 import { NAVBAR_HEIGHT_EXPANDED } from "./Navbar";
@@ -24,6 +25,7 @@ const item: Variants = {
 
 export function Hero() {
   const t = useT();
+  const { locale } = useLocale();
   const words = [home.heroWord1, home.heroWord2, home.heroWord3, home.heroWord4, home.heroWord5].map(t);
 
   return (
@@ -75,10 +77,10 @@ export function Hero() {
           </motion.div>
 
           <motion.div variants={item} className="mt-8 flex flex-wrap items-center justify-center gap-4">
-            <CtaLink href="/#gdje-kupiti" variant="buy">
+            <CtaLink href={homeHash("#gdje-kupiti", locale)} variant="buy">
               {t(buy.whereToBuy)}
             </CtaLink>
-            <CtaLink href="/proizvodi" variant="secondary">
+            <CtaLink href={path("products", locale)} variant="secondary">
               {t(buy.seeSnacks)}
             </CtaLink>
           </motion.div>

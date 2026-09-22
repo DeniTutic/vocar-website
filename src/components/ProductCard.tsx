@@ -5,11 +5,13 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import type { Product } from "@/data/products";
 import { home, productPage } from "@/data/content";
-import { useT } from "@/lib/locale";
+import { useLocale, useT } from "@/lib/locale";
+import { productPath } from "@/lib/routes";
 import { ProductBadge } from "./ProductBadge";
 
 export function ProductCard({ product, className = "" }: { product: Product; className?: string }) {
   const t = useT();
+  const { locale } = useLocale();
   const sizes = product.sizeList.length ? product.sizeList.join(" · ") : t(productPage.sizeOnRequest);
 
   return (
@@ -21,7 +23,7 @@ export function ProductCard({ product, className = "" }: { product: Product; cla
       transition={{ type: "spring", stiffness: 300, damping: 20 }}
       className={`group relative flex h-full flex-col overflow-hidden rounded-2xl border border-line bg-paper ${className}`}
     >
-      <Link href={`/proizvodi/${product.slug}`} className="absolute inset-0 z-10" aria-label={t(product.name)} />
+      <Link href={productPath(product.slug, locale)} className="absolute inset-0 z-10" aria-label={t(product.name)} />
 
       <div className="relative aspect-[4/3] overflow-hidden" style={{ background: "var(--beige)" }}>
         <motion.div

@@ -2,7 +2,8 @@
 
 import { products } from "@/data/products";
 import { notFoundPage } from "@/data/content";
-import { useT } from "@/lib/locale";
+import { useLocale, useT } from "@/lib/locale";
+import { path } from "@/lib/routes";
 import { CtaLink } from "./CtaLink";
 import { ProductCard } from "./ProductCard";
 
@@ -10,6 +11,7 @@ const hits = products.filter((p) => p.badges.includes("hit")).slice(0, 4);
 
 export function NotFoundView() {
   const t = useT();
+  const { locale } = useLocale();
 
   return (
     <section className="mx-auto max-w-7xl px-5 py-20 sm:px-8 sm:py-28">
@@ -24,7 +26,7 @@ export function NotFoundView() {
           {t(notFoundPage.body)}
         </p>
         <div className="mt-8">
-          <CtaLink href="/proizvodi" variant="buy">
+          <CtaLink href={path("products", locale)} variant="buy">
             {t(notFoundPage.cta)}
           </CtaLink>
         </div>

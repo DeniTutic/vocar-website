@@ -1,39 +1,20 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { products, getProductBySlug, getRelatedProducts } from "@/data/products";
+import { getProductBySlug, getRelatedProducts } from "@/data/products";
 import { SITE_URL } from "@/data/content";
+import type { Locale } from "@/lib/locale";
+import { productMetadata } from "@/lib/metadata";
+import { productPath } from "@/lib/routes";
 import { ProductDetailView } from "@/components/ProductDetailView";
 
-export function generateStaticParams() {
-  return products.map((p) => ({ slug: p.slug }));
-}
-
-export async function generateMetadata({
-  params,
-}: {
-  params: Promise<{ slug: string }>;
-}): Promise<Metadata> {
-  const { slug } = await params;
+/** Both language routes render this; only the locale differs. */
+export async function productRouteMetadata(locale: Locale, { slug }: { slug: string }): Promise<Metadata> {
   const product = getProductBySlug(slug);
   if (!product) return {};
-  return {
-    title: product.name.bs,
-    description: `${product.name.bs} (${product.sizes}) — ${product.description.bs}`,
-    alternates: { canonical: `/proizvodi/${product.slug}` },
-    openGraph: {
-      title: product.name.bs,
-      description: product.description.bs,
-      images: [{ url: product.image }],
-    },
-  };
+  return productMetadata(locale, product);
 }
 
-export default async function ProductPage({
-  params,
-}: {
-  params: Promise<{ slug: string }>;
-}) {
-  const { slug } = await params;
+export function ProductRoute({ locale, slug }: { locale: Locale; slug: string }) {
   const product = getProductBySlug(slug);
   if (!product) notFound();
 
@@ -44,14 +25,15 @@ export default async function ProductPage({
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "Product",
-    name: product.name.bs,
+    name: product.name[locale],
     image: `${SITE_URL}${product.image}`,
-    description: product.description.bs,
+    description: product.description[locale],
     sku: product.slug,
-    category: product.category.name.bs,
+    category: product.category.name[locale],
     brand: { "@type": "Brand", name: "Voćar" },
     manufacturer: { "@type": "Organization", name: "Voćar d.o.o. Brčko", url: SITE_URL },
-    url: `${SITE_URL}/proizvodi/${product.slug}`,
+    url: `${SITE_URL}${productPath(product.slug, locale)}`,
+    inLanguage: locale === "en" ? "en" : "bs",
   };
 
   return (

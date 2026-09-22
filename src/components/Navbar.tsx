@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 import { AnimatePresence, motion, useScroll, useTransform } from "framer-motion";
 import { Menu, X } from "lucide-react";
@@ -9,20 +9,24 @@ import { Logo } from "./Logo";
 import { CtaLink } from "./CtaLink";
 import { nav, common, buy } from "@/data/content";
 import { useLocale, useT, type Locale } from "@/lib/locale";
+import { LOCALES, homeHash, path, swapLocale } from "@/lib/routes";
 
 // Hash anchors stay plain <a> tags: a client-routed Link to "/#id" updates the
 // URL but does not reliably trigger the browser's native scroll-to-anchor when
 // already on "/". A real <a href="/#id"> scrolls natively both from "/" itself
 // and, via a full navigation, from any other route.
-const links = [
-  { href: "/", key: "home" as const, sectionId: null },
-  { href: "/proizvodi", key: "products" as const, sectionId: null },
-  { href: "/#o-nama", key: "about" as const, sectionId: "o-nama" },
-  { href: "/#kvalitet", key: "quality" as const, sectionId: "kvalitet" },
-  // Katalog is a download, not a destination — it lives in WhereToBuy, the
-  // catalog section and the footer, so it doesn't earn a slot in the bar.
-  { href: "/#kontakt", key: "contact" as const, sectionId: "kontakt" },
-];
+function navLinks(locale: Locale) {
+  return [
+    { href: path("home", locale), key: "home" as const, sectionId: null },
+    { href: path("products", locale), key: "products" as const, sectionId: null },
+    { href: homeHash("#o-nama", locale), key: "about" as const, sectionId: "o-nama" },
+    { href: homeHash("#kvalitet", locale), key: "quality" as const, sectionId: "kvalitet" },
+    // Katalog is a download, not a destination — it lives in WhereToBuy, the
+    // catalog section and the footer, so it doesn't earn a slot in the bar.
+    { href: homeHash("#kontakt", locale), key: "contact" as const, sectionId: "kontakt" },
+  ];
+}
+type NavLink = ReturnType<typeof navLinks>[number];
 
 // In page order. "gdje-kupiti" has no nav link, but tracking it means
 // "Kvalitet" stops staying highlighted through Where to buy and Testimonials.
@@ -74,10 +78,11 @@ function useActiveSection(enabled: boolean): string | null {
   return activeSection;
 }
 
-const LOCALES: Locale[] = ["bs", "en"];
-
+/** Language is a URL, not state: each option links to this same page in the
+ *  other language, so the choice is shareable and indexable. */
 function LanguageSwitcher() {
-  const { locale, setLocale } = useLocale();
+  const { locale } = useLocale();
+  const pathname = usePathname();
   const t = useT();
 
   return (
@@ -90,11 +95,11 @@ function LanguageSwitcher() {
       {LOCALES.map((l) => {
         const isActive = locale === l;
         return (
-          <motion.button
+          <motion.a
             key={l}
-            type="button"
-            onClick={() => setLocale(l)}
-            aria-pressed={isActive}
+            href={swapLocale(pathname, l)}
+            hrefLang={l}
+            aria-current={isActive ? "true" : undefined}
             animate={{
               backgroundColor: isActive ? "#1f3d2e" : "rgba(31,61,46,0)",
               color: isActive ? "#f7f3ea" : "#625a4d",
@@ -103,16 +108,16 @@ function LanguageSwitcher() {
             className="rounded-full px-2.5 py-1.5"
           >
             {l.toUpperCase()}
-          </motion.button>
+          </motion.a>
         );
       })}
     </div>
   );
 }
 
-function isLinkActive(link: (typeof links)[number], pathname: string, activeSection: string | null): boolean {
-  const isHome = pathname === "/";
-  if (link.href === "/") return isHome && activeSection === null;
+function isLinkActive(link: NavLink, pathname: string, activeSection: string | null, home: string): boolean {
+  const isHome = pathname === home;
+  if (link.href === home) return isHome && activeSection === null;
   if (link.sectionId) return isHome && activeSection === link.sectionId;
   // Route links (e.g. /proizvodi) also own their children (/proizvodi/[slug]).
   return pathname === link.href || pathname.startsWith(`${link.href}/`);
@@ -120,6 +125,9 @@ function isLinkActive(link: (typeof links)[number], pathname: string, activeSect
 
 function MobileSheet({ onClose, pathname, activeSection }: { onClose: () => void; pathname: string; activeSection: string | null }) {
   const t = useT();
+  const { locale } = useLocale();
+  const links = navLinks(locale);
+  const home = path("home", locale);
 
   useEffect(() => {
     const previous = document.body.style.overflow;
@@ -147,7 +155,7 @@ function MobileSheet({ onClose, pathname, activeSection }: { onClose: () => void
       transition={{ duration: 0.22, ease: [0.22, 1, 0.36, 1] }}
     >
       <div className="flex items-center justify-between px-5 py-4 sm:px-8">
-        <Link href="/" onClick={onClose} className="flex items-center">
+        <Link href={home} onClick={onClose} className="flex items-center">
           <Logo className="h-14 w-auto shrink-0" priority={false} />
         </Link>
         <button
@@ -163,7 +171,7 @@ function MobileSheet({ onClose, pathname, activeSection }: { onClose: () => void
 
       <nav className="flex flex-1 flex-col gap-1 overflow-y-auto px-5 py-4 sm:px-8">
         {links.map((link) => {
-          const active = isLinkActive(link, pathname, activeSection);
+          const active = isLinkActive(link, pathname, activeSection, home);
           return (
             <a
               key={link.href}
@@ -186,7 +194,7 @@ function MobileSheet({ onClose, pathname, activeSection }: { onClose: () => void
         className="mt-auto border-t px-5 pt-5 pb-[max(1.25rem,env(safe-area-inset-bottom))] sm:px-8"
         style={{ borderColor: "var(--line)" }}
       >
-        <CtaLink href="/#gdje-kupiti" variant="buy" className="w-full" onClick={onClose}>
+        <CtaLink href={homeHash("#gdje-kupiti", locale)} variant="buy" className="w-full" onClick={onClose}>
           {t(buy.whereToBuy)}
         </CtaLink>
       </div>
@@ -196,13 +204,16 @@ function MobileSheet({ onClose, pathname, activeSection }: { onClose: () => void
 
 export function Navbar() {
   const t = useT();
+  const { locale } = useLocale();
   const pathname = usePathname();
-  const isHome = pathname === "/";
+  const links = navLinks(locale);
+  const home = path("home", locale);
+  const isHome = pathname === home;
   const [open, setOpen] = useState(false);
   const { scrollY } = useScroll();
   const [scrolled, setScrolled] = useState(false);
   const activeSection = useActiveSection(isHome);
-  const closeSheet = useCallback(() => setOpen(false), []);
+  const closeSheet = () => setOpen(false);
 
   useEffect(() => {
     return scrollY.on("change", (v) => setScrolled(v > 24));
@@ -229,13 +240,13 @@ export function Navbar() {
         transition={{ duration: 0.3 }}
       >
         <div className="mx-auto flex w-full max-w-7xl items-center justify-between px-5 sm:px-8">
-          <Link href="/" className="flex items-center">
+          <Link href={home} className="flex items-center">
             <Logo className="h-16 w-auto shrink-0" />
           </Link>
 
           <nav className="hidden items-center gap-1 lg:flex">
             {links.map((link) => {
-              const active = isLinkActive(link, pathname, activeSection);
+              const active = isLinkActive(link, pathname, activeSection, home);
               return (
                 <motion.a
                   key={link.href}
@@ -257,7 +268,7 @@ export function Navbar() {
           <div className="flex items-center gap-3">
             <LanguageSwitcher />
             <div className="hidden sm:block">
-              <CtaLink href="/#gdje-kupiti" variant="buy" size="sm">
+              <CtaLink href={homeHash("#gdje-kupiti", locale)} variant="buy" size="sm">
                 {t(buy.whereToBuy)}
               </CtaLink>
             </div>

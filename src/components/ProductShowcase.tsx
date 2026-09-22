@@ -9,6 +9,7 @@ import { TASTES, type TasteKey } from "@/data/tastes";
 import { home, nav, productPage } from "@/data/content";
 import { ChevronRight } from "lucide-react";
 import { useLocale, useT } from "@/lib/locale";
+import { path } from "@/lib/routes";
 import { productsLabel } from "@/lib/plural";
 import { SectionHeading } from "./SectionHeading";
 import { ProductCard } from "./ProductCard";
@@ -161,8 +162,7 @@ export function ProductShowcase() {
         <nav aria-label={t(productPage.breadcrumbLabel)} className="mb-6">
           <ol className="flex flex-wrap items-center gap-1 text-sm font-medium">
             <li>
-              {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
-              <a href="/" className="hover:underline" style={{ color: "var(--forest)" }}>
+              <a href={path("home", locale)} className="hover:underline" style={{ color: "var(--forest)" }}>
                 {t(nav.home)}
               </a>
             </li>

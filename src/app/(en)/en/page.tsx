@@ -1,4 +1,6 @@
 import type { Metadata } from "next";
+import { siteMeta } from "@/data/content";
+import { pageMetadata } from "@/lib/metadata";
 import { Hero } from "@/components/Hero";
 import { ProductFamilies } from "@/components/ProductFamilies";
 import { FeaturedProducts } from "@/components/FeaturedProducts";
@@ -9,14 +11,15 @@ import { Testimonials } from "@/components/Testimonials";
 import { ContactSection } from "@/components/ContactSection";
 import { BackToTop } from "@/components/BackToTop";
 
-export const metadata: Metadata = {
-  title: "Voćar — Za bolji okus života",
-  description:
-    "Generacije tradicije. Prirodni sastojci. Okus koji traje. Voćar proizvodi grickalice, suho voće, čips, flips i kikiriki iz Gornjeg Rahića, Bosna i Hercegovina.",
-  alternates: { canonical: "/" },
-};
+export const metadata: Metadata = pageMetadata({
+  locale: "en",
+  key: "home",
+  title: siteMeta.title.en,
+  absoluteTitle: true,
+  description: siteMeta.homeDescription.en,
+});
 
-export default function Home() {
+export default function HomeEn() {
   return (
     <>
       <Hero />

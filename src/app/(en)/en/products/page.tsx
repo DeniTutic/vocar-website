@@ -1,19 +1,20 @@
 import type { Metadata } from "next";
 import { Suspense } from "react";
 import { home } from "@/data/content";
+import { pageMetadata } from "@/lib/metadata";
 import { ProductShowcase } from "@/components/ProductShowcase";
 import { ScrollToTopOnArrival } from "@/components/ScrollToTopOnArrival";
 
-export const metadata: Metadata = {
-  title: home.catalogPageTitle.bs,
-  description: home.catalogPageDescription.bs,
-  alternates: { canonical: "/proizvodi" },
-};
+export const metadata: Metadata = pageMetadata({
+  locale: "en",
+  key: "products",
+  title: home.catalogPageTitle.en,
+  description: home.catalogPageDescription.en,
+});
 
-export default function ProductsPage() {
-  // useSearchParams needs a Suspense boundary to keep the page static. The
-  // fallback keeps the document tall and jumps to the top, so the frame
-  // before the catalog streams in isn't the footer.
+export default function ProductsPageEn() {
+  // Same Suspense shape as the Bosnian catalog: useSearchParams needs the
+  // boundary, and the tall fallback keeps the footer from flashing.
   return (
     <Suspense
       fallback={

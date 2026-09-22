@@ -5,7 +5,8 @@ import Image from "next/image";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { products, type Product } from "@/data/products";
 import { home, badges, type Localized } from "@/data/content";
-import { useT } from "@/lib/locale";
+import { useLocale, useT } from "@/lib/locale";
+import { productPath } from "@/lib/routes";
 import { SectionHeading } from "./SectionHeading";
 import { CtaLink } from "./CtaLink";
 import { TasteChips } from "./ProductBadge";
@@ -39,6 +40,7 @@ function FeaturedRow({
   index: number;
 }) {
   const t = useT();
+  const { locale } = useLocale();
   const ref = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "end start"] });
   const y = useTransform(scrollYProgress, [0, 1], [30, -30]);
@@ -70,7 +72,7 @@ function FeaturedRow({
         </p>
         <TasteChips tastes={product.tastes} className="mt-4" />
         <div className="mt-6">
-          <CtaLink href={`/proizvodi/${product.slug}`} variant="secondary" size="sm">
+          <CtaLink href={productPath(product.slug, locale)} variant="secondary" size="sm">
             {t(home.viewProduct)} <span aria-hidden>→</span>
           </CtaLink>
         </div>

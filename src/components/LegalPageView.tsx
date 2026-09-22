@@ -4,7 +4,8 @@ import { ArrowLeft } from "lucide-react";
 import Link from "next/link";
 import type { Localized } from "@/data/content";
 import { nav } from "@/data/content";
-import { useT } from "@/lib/locale";
+import { useLocale, useT } from "@/lib/locale";
+import { path } from "@/lib/routes";
 import { CtaLink } from "./CtaLink";
 import { ScrollReveal } from "./ScrollReveal";
 
@@ -22,11 +23,12 @@ export interface LegalPageContent {
  * structure, different copy. */
 export function LegalPageView({ content }: { content: LegalPageContent }) {
   const t = useT();
+  const { locale } = useLocale();
 
   return (
     <section className="mx-auto max-w-3xl px-5 py-16 sm:px-8 sm:py-20">
       <Link
-        href="/"
+        href={path("home", locale)}
         className="inline-flex items-center gap-2 text-sm font-medium"
         style={{ color: "var(--forest)" }}
       >

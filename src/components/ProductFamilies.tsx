@@ -7,6 +7,7 @@ import { categories } from "@/data/categories";
 import { products } from "@/data/products";
 import { home } from "@/data/content";
 import { useLocale, useT } from "@/lib/locale";
+import { path } from "@/lib/routes";
 import { productsLabel } from "@/lib/plural";
 import { SectionHeading } from "./SectionHeading";
 import { CtaLink } from "./CtaLink";
@@ -41,7 +42,7 @@ export function ProductFamilies() {
                 className="group relative flex flex-col overflow-hidden rounded-2xl border border-line bg-paper"
               >
                 <Link
-                  href={`/proizvodi?kategorija=${category.slug}`}
+                  href={`${path("products", locale)}?kategorija=${category.slug}`}
                   className="absolute inset-0 z-10"
                   aria-label={`${t(category.name)} — ${count} ${productsLabel(count, locale)}`}
                 />
@@ -88,7 +89,7 @@ export function ProductFamilies() {
         </div>
 
         <div className="mt-10 flex justify-center">
-          <CtaLink href="/proizvodi" variant="secondary">
+          <CtaLink href={path("products", locale)} variant="secondary">
             {t(home.familiesAll)} ({products.length})
           </CtaLink>
         </div>

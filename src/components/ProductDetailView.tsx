@@ -7,7 +7,8 @@ import { AnimatePresence, motion } from "framer-motion";
 import { Check, ChevronRight, Share2 } from "lucide-react";
 import type { Product } from "@/data/products";
 import { productPage, buy, nav } from "@/data/content";
-import { useT } from "@/lib/locale";
+import { useLocale, useT } from "@/lib/locale";
+import { path } from "@/lib/routes";
 import { track } from "@/lib/track";
 import { ScrollReveal } from "./ScrollReveal";
 import { ProductCard } from "./ProductCard";
@@ -82,6 +83,7 @@ function ShareButton({ title }: { title: string }) {
 
 export function ProductDetailView({ product, related }: { product: Product; related: Product[] }) {
   const t = useT();
+  const { locale } = useLocale();
   const sizeOptions = product.sizeList.length ? product.sizeList : [t(productPage.sizeOnRequest)];
   const [size, setSize] = useState(sizeOptions[0]);
   const buyRef = useRef<HTMLDivElement>(null);
@@ -97,7 +99,7 @@ export function ProductDetailView({ product, related }: { product: Product; rela
   // All three land on the contact form pre-filled (ContactForm reads the
   // query and the #distributer hash): shoppers in Kupac mode asking where
   // to buy, buyers in trade mode asking for a quote or a sample.
-  const base = `/?proizvod=${encodeURIComponent(t(product.name))}&pakovanje=${encodeURIComponent(size)}&kategorija=${product.category.slug}`;
+  const base = `${path("home", locale)}?proizvod=${encodeURIComponent(t(product.name))}&pakovanje=${encodeURIComponent(size)}&kategorija=${product.category.slug}`;
   const whereHref = `${base}&namjera=kupac#distributer`;
   const quoteHref = `${base}#distributer`;
 
@@ -109,8 +111,7 @@ export function ProductDetailView({ product, related }: { product: Product; rela
         <nav aria-label={t(productPage.breadcrumbLabel)}>
           <ol className="flex flex-wrap items-center gap-1 text-sm font-medium">
             <li>
-              {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
-              <a href="/" className={crumbClass} style={crumbStyle}>
+              <a href={path("home", locale)} className={crumbClass} style={crumbStyle}>
                 {t(nav.home)}
               </a>
             </li>
@@ -118,7 +119,7 @@ export function ProductDetailView({ product, related }: { product: Product; rela
               <ChevronRight size={14} />
             </li>
             <li>
-              <Link href={`/proizvodi?kategorija=${product.category.slug}`} className={crumbClass} style={crumbStyle}>
+              <Link href={`${path("products", locale)}?kategorija=${product.category.slug}`} className={crumbClass} style={crumbStyle}>
                 {t(product.category.name)}
               </Link>
             </li>
