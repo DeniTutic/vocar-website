@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { SITE_URL, siteMeta } from "@/data/content";
+import { exportCountries } from "@/data/whereToBuy";
 import type { Locale } from "./locale";
 import { alternatesFor, path, productPath, type RouteKey } from "./routes";
 
@@ -53,7 +54,7 @@ export function productMetadata(locale: Locale, product: {
 /** Root-layout metadata; the parts that don't change per page. */
 export function rootMetadata(locale: Locale): Metadata {
   const title = siteMeta.title[locale];
-  const description = siteMeta.description[locale];
+  const description = siteMeta.description[locale].replace("{count}", String(exportCountries.length));
   return {
     metadataBase: new URL(SITE_URL),
     title: { default: title, template: "%s — Voćar" },

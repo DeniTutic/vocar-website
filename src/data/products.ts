@@ -158,7 +158,9 @@ function compositionFor(categorySlug: string, name: string): Localized {
   if (categorySlug === "cereals") {
     return n.includes("nutto")
       ? { bs: "Pšenica, kakao-lješnjak krem.", en: "Wheat, cocoa-hazelnut cream." }
-      : { bs: "Kukuruz i pšenica, kakao premaz, vitamini.", en: "Corn and wheat, cocoa coating, vitamins." };
+      // Read off the Happy Cerios pack: cereals 71% (whole wheat flour 37%,
+      // corn semolina, rice semolina), sugar, chocolate 4.9%.
+      : { bs: "Žitarice (pšenica, kukuruz, riža), šećer, čokolada, vitamini.", en: "Cereals (wheat, corn, rice), sugar, chocolate, vitamins." };
   }
   return { bs: "Kukuruzno brašno, biljno ulje, začini.", en: "Corn flour, vegetable oil, seasoning." };
 }
@@ -171,9 +173,12 @@ function allergensFor(categorySlug: string, name: string): Localized | undefined
   if (categorySlug === "wafers" || categorySlug === "biscuits") return { bs: "Gluten (pšenica).", en: "Gluten (wheat)." };
   if (categorySlug === "groceries" && n.includes("pšenični")) return { bs: "Gluten (pšenica).", en: "Gluten (wheat)." };
   if (categorySlug === "cereals") {
+    // Happy Cerios' own label bolds three: whole wheat flour, barley malt
+    // extract and soy lecithin. Nutto's name gives hazelnut; the wafer base
+    // gives wheat.
     return n.includes("nutto")
       ? { bs: "Gluten (pšenica), lješnjak.", en: "Gluten (wheat), hazelnut." }
-      : { bs: "Gluten (pšenica).", en: "Gluten (wheat)." };
+      : { bs: "Gluten (pšenica, ječam), soja.", en: "Gluten (wheat, barley), soy." };
   }
   return undefined;
 }

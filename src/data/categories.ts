@@ -329,7 +329,7 @@ export const categories: Category[] = [
       },
       { name: { bs: "Pop Star kokice, slane", en: "Pop Star Popcorn, Salted" }, sizes: "120g, 250g" },
       {
-        name: { bs: "Pop Star zrno za kokice", en: "Pop Star Popcorn beans" },
+        name: { bs: "Pop Star zrno za kokice", en: "Pop Star Popcorn kernels" },
         image: "/images/products/popcorn-pop-star-zrno-za-kokice.jpg",
         sizes: "350g",
         flavor: { bs: "Sirovo zrno za kokice kod kuće.", en: "Raw kernels for popping at home." },

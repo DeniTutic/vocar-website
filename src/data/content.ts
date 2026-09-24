@@ -16,9 +16,10 @@ export const siteMeta = {
     bs: "Voćar — Za bolji okus života",
     en: "Voćar — For a better taste of life",
   },
+  /** {count} is filled from the export-market list so it can't go stale. */
   description: {
-    bs: "Voćar d.o.o. Brčko proizvodi grickalice, suho voće, čips, flips i kikiriki iz Gornjeg Rahića, Bosna i Hercegovina — generacije tradicije, prirodni sastojci, okus koji traje.",
-    en: "Voćar d.o.o. Brčko makes snacks, dried fruit, chips, flips and peanuts in Gornji Rahić, Bosnia and Herzegovina — HACCP and IFS Food certified, exporting to 17 countries, open to new importers.",
+    bs: "Voćar d.o.o. Brčko proizvodi grickalice, suho voće, čips, flips i kikiriki u Gornjem Rahiću, Bosna i Hercegovina — HACCP i IFS Food certificirana proizvodnja, izvoz u {count} zemalja, otvoreni za nove uvoznike.",
+    en: "Voćar d.o.o. Brčko makes snacks, dried fruit, chips, flips and peanuts in Gornji Rahić, Bosnia and Herzegovina — HACCP and IFS Food certified, exporting to {count} countries, open to new importers.",
   },
   homeDescription: {
     bs: "Generacije tradicije. Prirodni sastojci. Okus koji traje. Voćar proizvodi grickalice, suho voće, čips, flips i kikiriki iz Gornjeg Rahića, Bosna i Hercegovina.",
@@ -106,8 +107,8 @@ export const home = {
   familiesAll: { bs: "Cijeli asortiman", en: "Full range" },
   catalogPageTitle: { bs: "Proizvodi", en: "Products" },
   catalogPageDescription: {
-    bs: "Kompletan Voćar asortiman — kikiriki, suhe šljive, flips, kokice, puter od kikirikija, oblatne, keksi, kroasani, čips i namirnice. Filtrirajte po kategoriji ili ukusu.",
-    en: "The complete Voćar range — peanuts, prunes, flips, popcorn, peanut butter, wafers, biscuits, croissants, chips and pantry staples. Filter by category or taste.",
+    bs: "Kompletan Voćar asortiman — kikiriki, suhe šljive, flips, kokice, puter od kikirikija, oblatne, keksi, kroasani, žitarice, čips i namirnice. Filtrirajte po kategoriji ili ukusu.",
+    en: "The complete Voćar range — peanuts, prunes, flips, popcorn, peanut butter, wafers, biscuits, croissants, cereals, chips and pantry staples. Filter by category or taste.",
   },
   viewProduct: { bs: "Pogledaj proizvod", en: "View product" },
   showcaseAll: { bs: "Sve", en: "All" },
