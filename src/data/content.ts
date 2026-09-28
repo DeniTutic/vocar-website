@@ -178,8 +178,8 @@ export const whereToBuyContent = {
   eyebrow: { bs: "Gdje kupiti", en: "Where to buy" },
   title: { bs: "Na polici blizu vas.", en: "On a shelf near you." },
   body: {
-    bs: "Voćar proizvode potražite u marketima i trafikama širom Bosne i Hercegovine — a preko partnera stižu i na police u {count} zemalja.",
-    en: "Look for Voćar products in supermarkets and kiosks across Bosnia and Herzegovina — and, through our partners, on shelves in {count} countries.",
+    bs: "Voćar proizvode potražite u svim trgovačkim radnjama i na benzinskim pumpama širom Bosne i Hercegovine — a preko partnera stižu i na police u {count} zemalja.",
+    en: "Look for Voćar products at retail shops and gas stations across Bosnia and Herzegovina — and, through our partners, on shelves in {count} countries.",
   },
   bagTitle: { bs: "Tražite vrećicu?", en: "Looking for a bag?" },
   // Split around the link so "Javite nam se" can point at the contact section.

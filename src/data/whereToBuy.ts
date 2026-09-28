@@ -22,5 +22,7 @@ export const bihRegions: Region[] = [
 
 export { EXPORT_MARKETS as exportCountries } from "./markets";
 
-// Retailer names are not public yet; fill this in and WhereToBuy renders them.
+// Voćar doesn't want specific chain names (Bingo, Fis, etc.) named on the
+// site; "Gdje kupiti" describes shops generically instead. Fill this in
+// and WhereToBuy renders it only if that decision changes.
 export const retailers: Retailer[] = [];
