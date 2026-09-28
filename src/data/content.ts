@@ -236,6 +236,10 @@ export const about = {
     bs: "Voćar proizvodi u rukama, ispred proizvodnog pogona u Gornjem Rahiću",
     en: "Voćar products held in front of the production plant in Gornji Rahić",
   },
+  videoSectionTitle: { bs: "Pogon iz zraka", en: "Our facility from above" },
+  videoLabel: { bs: "Snimak proizvodnog pogona u Gornjem Rahiću", en: "Aerial footage of the plant in Gornji Rahić" },
+  unmuteVideo: { bs: "Uključi zvuk", en: "Unmute video" },
+  muteVideo: { bs: "Isključi zvuk", en: "Mute video" },
 } as const;
 
 export const contact = {

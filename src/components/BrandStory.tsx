@@ -1,8 +1,9 @@
 "use client";
 
+import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
-import { Leaf, Hammer, Gauge, HeartHandshake } from "lucide-react";
+import { Leaf, Hammer, Gauge, HeartHandshake, Volume2, VolumeX } from "lucide-react";
 import { home, about } from "@/data/content";
 import { useT } from "@/lib/locale";
 import { ScrollReveal } from "./ScrollReveal";
@@ -17,6 +18,26 @@ const VALUES = [
 
 export function BrandStory() {
   const t = useT();
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const [muted, setMuted] = useState(true);
+
+  useEffect(() => {
+    const videoEl = videoRef.current;
+    if (!videoEl) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          videoEl.play().catch(() => {});
+        } else {
+          videoEl.pause();
+        }
+      },
+      { threshold: 0.4 },
+    );
+    observer.observe(videoEl);
+    return () => observer.disconnect();
+  }, []);
 
   return (
     <section id="o-nama" className="scroll-mt-20 py-20 sm:py-28" style={{ background: "var(--beige)" }}>
@@ -82,6 +103,48 @@ export function BrandStory() {
             </motion.figure>
           </ScrollReveal>
         </div>
+
+        {/* Aerial footage of the plant, its own beat rather than a photo swap.
+            Plays/pauses as it enters or leaves view; muted by default since
+            autoplay-with-sound is blocked by browsers and unwanted anyway. */}
+        <ScrollReveal className="mt-16 border-t pt-12" style={{ borderColor: "var(--line)" }}>
+          <h3 className="text-2xl" style={{ color: "var(--forest-deep)" }}>
+            {t(about.videoSectionTitle)}
+          </h3>
+          <div className="relative mt-8 aspect-video overflow-hidden rounded-2xl" style={{ background: "var(--forest-deep)" }}>
+            <video
+              ref={videoRef}
+              src="/videos/vocar-pogon.mp4"
+              poster="/images/about/vocar-pogon.jpg"
+              aria-label={t(about.videoLabel)}
+              muted={muted}
+              loop
+              playsInline
+              preload="none"
+              className="absolute inset-0 h-full w-full object-cover"
+            />
+            <button
+              type="button"
+              onClick={() => {
+                const next = !muted;
+                setMuted(next);
+                // Some browsers pause an autoplaying-muted video the moment
+                // it's unmuted; resume explicitly inside this click handler
+                // so the user gesture still counts and sound isn't silently lost.
+                if (!next) videoRef.current?.play().catch(() => {});
+              }}
+              aria-label={t(muted ? about.unmuteVideo : about.muteVideo)}
+              className="group absolute right-4 top-4 flex h-11 w-11 items-center justify-center rounded-full backdrop-blur-sm transition-transform duration-300 hover:scale-105"
+              style={{ background: "rgba(20,32,26,0.45)", border: "1px solid rgba(247,243,234,0.4)" }}
+            >
+              {muted ? (
+                <VolumeX size={18} style={{ color: "var(--cream)" }} />
+              ) : (
+                <Volume2 size={18} style={{ color: "var(--cream)" }} />
+              )}
+            </button>
+          </div>
+        </ScrollReveal>
 
         <ScrollReveal className="mt-16 border-t pt-12" style={{ borderColor: "var(--line)" }}>
           <h3 className="text-2xl" style={{ color: "var(--forest-deep)" }}>
