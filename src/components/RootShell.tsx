@@ -34,7 +34,7 @@ const organizationJsonLd = {
     addressLocality: "Gornji Rahić",
     addressCountry: "BA",
   },
-  telephone: ["+387 49 512 415", "+387 61 720 012"],
+  telephone: ["+387 49 512 415", "+387 60 35 62 480"],
   email: "vocar@vocar.ba",
 };
 

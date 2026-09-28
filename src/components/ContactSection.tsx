@@ -63,9 +63,6 @@ export function ContactSection() {
                 <a href="tel:+38749512415" onClick={() => track({ name: "tel_click", number: "+38749512415" })} className="mt-1 block text-base hover:underline" style={{ color: "var(--ink-soft)" }}>
                   +387 49 512 415
                 </a>
-                <a href="tel:+38749513360" onClick={() => track({ name: "tel_click", number: "+38749513360" })} className="block text-base hover:underline" style={{ color: "var(--ink-soft)" }}>
-                  +387 49 513 360
-                </a>
               </div>
             </div>
 
@@ -75,11 +72,11 @@ export function ContactSection() {
                 <div className="text-sm font-semibold uppercase tracking-wide" style={{ color: "var(--forest-deep)" }}>
                   {t(contact.mobileLabel)}
                 </div>
-                <a href="tel:+38761720012" onClick={() => track({ name: "tel_click", number: "+38761720012" })} className="mt-1 block text-base hover:underline" style={{ color: "var(--ink-soft)" }}>
-                  +387 61 720 012
+                <a href="tel:+387603562480" onClick={() => track({ name: "tel_click", number: "+387603562480" })} className="mt-1 block text-base hover:underline" style={{ color: "var(--ink-soft)" }}>
+                  +387 60 35 62 480
                 </a>
                 <a
-                  href="https://wa.me/38761720012"
+                  href="https://wa.me/387603562480"
                   target="_blank"
                   rel="noopener noreferrer"
                   onClick={() => track({ name: "whatsapp_click", where: "kontakt" })}

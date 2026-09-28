@@ -99,14 +99,11 @@ export function Footer() {
           <a href="tel:+38749512415" className="w-fit opacity-80 transition-opacity hover:opacity-100">
             +387 49 512 415
           </a>
-          <a href="tel:+38749513360" className="w-fit opacity-80 transition-opacity hover:opacity-100">
-            +387 49 513 360
-          </a>
-          <a href="tel:+38761720012" className="w-fit opacity-80 transition-opacity hover:opacity-100">
-            +387 61 720 012
+          <a href="tel:+387603562480" className="w-fit opacity-80 transition-opacity hover:opacity-100">
+            +387 60 35 62 480
           </a>
           <a
-            href="https://wa.me/38761720012"
+            href="https://wa.me/387603562480"
             target="_blank"
             rel="noopener noreferrer"
             onClick={() => track({ name: "whatsapp_click", where: "footer" })}
