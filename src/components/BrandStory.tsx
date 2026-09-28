@@ -115,7 +115,7 @@ export function BrandStory() {
             <video
               ref={videoRef}
               src="/videos/vocar-pogon.mp4"
-              poster="/images/about/vocar-pogon.jpg"
+              poster="/images/about/vocar-pogon-video-poster.jpg"
               aria-label={t(about.videoLabel)}
               muted={muted}
               loop
