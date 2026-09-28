@@ -115,11 +115,11 @@ export function Footer() {
             <WhatsAppIcon size={14} />
             WhatsApp
           </a>
-          <a href="mailto:info@vocar.ba" className="w-fit opacity-80 transition-opacity hover:opacity-100">
-            info@vocar.ba
+          <a href="mailto:vocar@vocar.ba" className="w-fit opacity-80 transition-opacity hover:opacity-100">
+            vocar@vocar.ba
           </a>
-          <a href="mailto:sales@vocar.ba" className="w-fit opacity-80 transition-opacity hover:opacity-100">
-            sales@vocar.ba
+          <a href="mailto:prodaja@vocar.ba" className="w-fit opacity-80 transition-opacity hover:opacity-100">
+            prodaja@vocar.ba
           </a>
         </div>
       </ScrollReveal>

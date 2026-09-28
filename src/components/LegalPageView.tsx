@@ -75,8 +75,8 @@ export function LegalPageView({ content }: { content: LegalPageContent }) {
         <span className="text-base" style={{ color: "var(--ink)" }}>
           {t(content.contactCta)}
         </span>
-        <CtaLink href="mailto:sales@vocar.ba" variant="secondary" size="sm">
-          sales@vocar.ba
+        <CtaLink href="mailto:prodaja@vocar.ba" variant="secondary" size="sm">
+          prodaja@vocar.ba
         </CtaLink>
       </div>
     </section>

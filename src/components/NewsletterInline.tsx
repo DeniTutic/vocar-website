@@ -25,7 +25,7 @@ export function NewsletterInline() {
     setError("");
     const subject = encodeURIComponent("Prijava na newsletter");
     const body = encodeURIComponent(`Email za prijavu: ${email}`);
-    window.location.href = `mailto:sales@vocar.ba?subject=${subject}&body=${body}`;
+    window.location.href = `mailto:prodaja@vocar.ba?subject=${subject}&body=${body}`;
     setConfetti(generateConfetti());
     setSent(true);
   }

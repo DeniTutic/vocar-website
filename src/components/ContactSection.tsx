@@ -98,11 +98,11 @@ export function ContactSection() {
                 <div className="text-sm font-semibold uppercase tracking-wide" style={{ color: "var(--forest-deep)" }}>
                   {t(contact.emailLabel)}
                 </div>
-                <a href="mailto:info@vocar.ba" className="mt-1 block text-base hover:underline" style={{ color: "var(--ink-soft)" }}>
-                  info@vocar.ba <span className="text-sm">— {t(contact.emailGeneral)}</span>
+                <a href="mailto:vocar@vocar.ba" className="mt-1 block text-base hover:underline" style={{ color: "var(--ink-soft)" }}>
+                  vocar@vocar.ba <span className="text-sm">— {t(contact.emailGeneral)}</span>
                 </a>
-                <a href="mailto:sales@vocar.ba" className="block text-base hover:underline" style={{ color: "var(--ink-soft)" }}>
-                  sales@vocar.ba <span className="text-sm">— {t(contact.emailSales)}</span>
+                <a href="mailto:prodaja@vocar.ba" className="block text-base hover:underline" style={{ color: "var(--ink-soft)" }}>
+                  prodaja@vocar.ba <span className="text-sm">— {t(contact.emailSales)}</span>
                 </a>
               </div>
             </div>

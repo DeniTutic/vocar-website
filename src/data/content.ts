@@ -290,8 +290,8 @@ export const contact = {
   },
   formSending: { bs: "Šaljem…", en: "Sending…" },
   formError: {
-    bs: "Slanje nije uspjelo. Pokušajte ponovo ili nam pišite direktno na sales@vocar.ba.",
-    en: "Sending failed. Try again or write to us directly at sales@vocar.ba.",
+    bs: "Slanje nije uspjelo. Pokušajte ponovo ili nam pišite direktno na prodaja@vocar.ba.",
+    en: "Sending failed. Try again or write to us directly at prodaja@vocar.ba.",
   },
   formRateLimited: { bs: "Prebrzo — sačekajte pola minute pa pokušajte ponovo.", en: "Too fast — wait half a minute and try again." },
   formErrorRequired: { bs: "Ovo polje je obavezno.", en: "This field is required." },
@@ -386,8 +386,8 @@ export const privacyPage = {
     {
       title: { bs: "Kako formulari zapravo rade", en: "How the forms actually work" },
       body: {
-        bs: "Oba formulara otvaraju vaš vlastiti e-mail program s unaprijed popunjenom porukom upućenom na sales@vocar.ba — poruku šaljete direktno sa svog naloga, baš kao svaki drugi e-mail. Mi ne čuvamo podatke iz formulara na serveru; jedini zapis poruke je onaj koji ostaje u vašem poslatom e-mailu.",
-        en: "Both forms open your own email app with a message pre-filled to sales@vocar.ba — you send it directly from your own account, just like any other email. We don't store form data on a server; the only record of the message is the one in your own sent mail.",
+        bs: "Oba formulara otvaraju vaš vlastiti e-mail program s unaprijed popunjenom porukom upućenom na prodaja@vocar.ba — poruku šaljete direktno sa svog naloga, baš kao svaki drugi e-mail. Mi ne čuvamo podatke iz formulara na serveru; jedini zapis poruke je onaj koji ostaje u vašem poslatom e-mailu.",
+        en: "Both forms open your own email app with a message pre-filled to prodaja@vocar.ba — you send it directly from your own account, just like any other email. We don't store form data on a server; the only record of the message is the one in your own sent mail.",
       },
     },
     {
@@ -407,8 +407,8 @@ export const privacyPage = {
     {
       title: { bs: "Vaša prava", en: "Your rights" },
       body: {
-        bs: "Možete tražiti uvid, ispravku ili brisanje bilo kojih podataka koje ste nam poslali (npr. e-mail iz prijave na newsletter). Pišite nam na sales@vocar.ba.",
-        en: "You can ask to see, correct, or delete any data you've sent us (e.g. an email from a newsletter signup). Write to us at sales@vocar.ba.",
+        bs: "Možete tražiti uvid, ispravku ili brisanje bilo kojih podataka koje ste nam poslali (npr. e-mail iz prijave na newsletter). Pišite nam na prodaja@vocar.ba.",
+        en: "You can ask to see, correct, or delete any data you've sent us (e.g. an email from a newsletter signup). Write to us at prodaja@vocar.ba.",
       },
     },
     {

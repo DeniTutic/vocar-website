@@ -6,7 +6,7 @@ import { categories } from "@/data/categories";
  * fetch). Needs three env vars on the host:
  *   RESEND_API_KEY  — from resend.com
  *   CONTACT_FROM    — a sender on a verified Resend domain, e.g. "Voćar web <web@vocar.ba>"
- *   CONTACT_TO      — where messages land, e.g. "sales@vocar.ba"
+ *   CONTACT_TO      — where messages land, e.g. "prodaja@vocar.ba"
  * Until they exist the route answers 503 and the form falls back to mailto:.
  */
 
