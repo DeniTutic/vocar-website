@@ -13,21 +13,26 @@ import { Timeline } from "./Timeline";
 
 const POINTS = [home.qualityPoint1, home.qualityPoint2, home.qualityPoint3, home.qualityPoint4];
 
-// Sourced from the official vocar.ba site.
-const CERTS: (Certificate & { fullImage: string })[] = [
+// HACCP sourced from the official vocar.ba site; IFS is the August 2026
+// certificate (valid until 6 Aug 2027), rendered from Voćar's PDF.
+const CERTS: (Certificate & { fullImage: string; width: number; height: number })[] = [
   {
     key: "haccp",
     name: "HACCP",
     icon: "/images/certificates/haccp-icon.png",
     iconAlt: "HACCP certified seal",
     fullImage: "/images/certificates/haccp-full.jpg",
+    width: 1000,
+    height: 1414,
   },
   {
     key: "ifs",
     name: "IFS Food",
     icon: "/images/certificates/ifs-icon.png",
     iconAlt: "IFS Food logo",
-    fullImage: "/images/certificates/ifs-full.jpg",
+    fullImage: "/images/certificates/ifs-2026.jpg",
+    width: 1240,
+    height: 1754,
   },
 ];
 
@@ -101,8 +106,8 @@ export function QualitySection() {
                 <Image
                   src={openCert.fullImage}
                   alt={openCert.name}
-                  width={1000}
-                  height={1414}
+                  width={openCert.width}
+                  height={openCert.height}
                   sizes="(min-width: 640px) 448px, 90vw"
                   className="h-auto w-full"
                 />

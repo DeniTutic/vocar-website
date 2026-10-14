@@ -21,7 +21,8 @@ const manrope = Manrope({
   display: "swap",
 });
 
-const organizationJsonLd = {
+// The mobile number is published on the English site only.
+const organizationJsonLd = (locale: Locale) => ({
   "@context": "https://schema.org",
   "@type": "Organization",
   name: "Voćar d.o.o. Brčko",
@@ -34,9 +35,9 @@ const organizationJsonLd = {
     addressLocality: "Gornji Rahić",
     addressCountry: "BA",
   },
-  telephone: ["+387 49 512 415", "+387 60 35 62 480"],
+  telephone: locale === "en" ? ["+387 49 512 415", "+387 60 35 62 480"] : ["+387 49 512 415"],
   email: "vocar@vocar.ba",
-};
+});
 
 /**
  * The document both root layouts render. Each language has its own root
@@ -54,7 +55,7 @@ export function RootShell({ locale, children }: { locale: Locale; children: Reac
       className={`${baloo.variable} ${manrope.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col bg-cream text-ink">
-        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }} />
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd(locale)) }} />
         <SmoothScroll />
         <LocaleProvider locale={locale}>
           <Navbar />

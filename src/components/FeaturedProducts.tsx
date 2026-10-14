@@ -21,7 +21,7 @@ function findFlagship(categorySlug: string, nameIncludes: string): Product | und
 const FLAGSHIP_CANDIDATES: { product: Product | undefined; badge: Localized; color: string }[] = [
   { product: findFlagship("peanut-butter", "kremasti 100"), badge: home.qualityBadge, color: "var(--forest)" },
   { product: findFlagship("prunes", "čoko"), badge: home.favoriteBadge, color: "var(--plum)" },
-  { product: findFlagship("quinoa-flips", "kečap i kikiriki"), badge: badges.novo, color: "var(--amber)" },
+  { product: findFlagship("flips", "q flips kečap i kikiriki"), badge: badges.novo, color: "var(--amber)" },
 ];
 
 const FLAGSHIPS = FLAGSHIP_CANDIDATES.filter(

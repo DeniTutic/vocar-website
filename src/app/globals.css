@@ -84,6 +84,14 @@ textarea:focus-visible {
   border-radius: 2px;
 }
 
+/* Carousels scroll by swipe or arrows; the bar itself is just noise. */
+@utility no-scrollbar {
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
 @keyframes marquee-left {
   from {
     transform: translateX(0);

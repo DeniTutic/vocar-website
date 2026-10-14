@@ -67,16 +67,16 @@ export function BrandStory() {
             </div>
           </ScrollReveal>
 
-          {/* A real photo of the plant and the range, not another packshot.
-              The director's words sit on the photo itself — same treatment
-              the slogan had, so it stays one image, not a second section. */}
+          {/* The plant from the air, not another packshot. The director's
+              words sit on the photo itself — same treatment the slogan had,
+              so it stays one image, not a second section. */}
           <ScrollReveal delay={0.15} className="relative aspect-[4/5] overflow-hidden rounded-2xl sm:aspect-[4/3] lg:aspect-auto lg:min-h-[460px]">
             <Image
-              src="/images/about/vocar-pogon.jpg"
+              src="/images/about/vocar-iz-zraka.jpg"
               alt={t(about.plantImageAlt)}
               fill
               sizes="(min-width: 1024px) 45vw, 100vw"
-              className="object-cover object-[68%_25%]"
+              className="object-cover object-[45%_40%]"
             />
             <div
               className="pointer-events-none absolute inset-x-0 bottom-0 h-3/5 sm:h-1/2"

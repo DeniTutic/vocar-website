@@ -10,6 +10,9 @@ export interface Localized {
 
 export const SITE_URL = "https://vocar.ba";
 
+/** Orders and trade inbox — the Bosnian site shows prodaja@, the English one sales@. */
+export const salesEmail: Localized = { bs: "prodaja@vocar.ba", en: "sales@vocar.ba" };
+
 /** Titles/descriptions for <head>, per locale. Pages read these via lib/metadata. */
 export const siteMeta = {
   title: {
@@ -99,16 +102,20 @@ export const home = {
   showcaseEyebrow: { bs: "Asortiman", en: "The range" },
   showcaseTitle: { bs: "Naši proizvodi", en: "Our products" },
   showcaseBody: {
-    bs: "Dvanaest porodica proizvoda, svaka sa svojim karakterom — od suhog voća do kroasana.",
-    en: "Twelve product families, each with its own character — from dried fruit to croissants.",
+    bs: "Osam porodica proizvoda, svaka sa svojim karakterom — od flipsa do suhog voća.",
+    en: "Eight product families, each with its own character — from puffs to dried fruit.",
   },
-  familiesBody: { bs: "Dvanaest porodica proizvoda — izaberite svoju.", en: "Twelve product families — pick yours." },
-  familiesView: { bs: "Pogledaj", en: "View" },
+  familiesBody: {
+    bs: "Jednostavni sastojci, prepoznatljiv ukus. Izaberite šta vas zanima i pogledajte sve proizvode iz te porodice.",
+    en: "Simple ingredients, a taste you know. Pick what you're after and see every product in that family.",
+  },
+  familiesPrev: { bs: "Prethodne", en: "Previous" },
+  familiesNext: { bs: "Sljedeće", en: "Next" },
   familiesAll: { bs: "Cijeli asortiman", en: "Full range" },
   catalogPageTitle: { bs: "Proizvodi", en: "Products" },
   catalogPageDescription: {
-    bs: "Kompletan Voćar asortiman — kikiriki, suhe šljive, flips, kokice, puter od kikirikija, oblatne, keksi, kroasani, žitarice, čips i namirnice. Filtrirajte po kategoriji ili ukusu.",
-    en: "The complete Voćar range — peanuts, prunes, flips, popcorn, peanut butter, wafers, biscuits, croissants, cereals, chips and pantry staples. Filter by category or taste.",
+    bs: "Kompletan Voćar asortiman — flips, kokice, oblatne, suhe šljive, kikiriki, puter od kikirikija, pelet čips, žitarice i krem bar. Filtrirajte po kategoriji ili ukusu.",
+    en: "The complete Voćar range — puffs, popcorn, wafers, prunes, peanuts, peanut butter, pellet chips, cereals and a cream bar. Filter by category or taste.",
   },
   viewProduct: { bs: "Pogledaj proizvod", en: "View product" },
   showcaseAll: { bs: "Sve", en: "All" },
@@ -198,7 +205,7 @@ export const whereToBuyContent = {
   palletPoint1: { bs: "HACCP i IFS Food certificirana proizvodnja", en: "HACCP and IFS Food certified production" },
   palletPoint2: { bs: "Izvoz u {count} zemalja, otvoreni za nova tržišta", en: "Exporting to {count} countries, open to new markets" },
   palletPoint3: { bs: "Višejezična ambalaža (BS · EN · DE · SL · RU · AR)", en: "Multilingual packaging (BS · EN · DE · SL · RU · AR)" },
-  palletPoint4: { bs: "Uvoznici već u Sloveniji (Voćar Ljubljana) i Austriji (Dulipak)", en: "Importers already in Slovenia (Voćar Ljubljana) and Austria (Dulipak)" },
+  palletPoint4: { bs: "Uvoznik u Sloveniji: Voćar Ljubljana", en: "Importer in Slovenia: Voćar Ljubljana" },
   palletPoint5: { bs: "Kompletan katalog (PDF) · odgovor u roku od 1 radnog dana", en: "Full catalog (PDF) · reply within 1 business day" },
 } as const;
 
@@ -207,8 +214,8 @@ export const about = {
   title: { bs: "Voćar — okus koji traje generacijama.", en: "Voćar — a taste that lasts generations." },
   historyTitle: { bs: "Historija", en: "History" },
   historyBody: {
-    bs: "Voćar d.o.o. je osnovan 1989. godine u Brčkom. Danas posluje sa sjedištem u Gornjem Rahiću, na proizvodno-administrativnom kompleksu od 18.000 m², opremljenom najmodernijom tehnologijom vodećih svjetskih proizvođača. Kroz godine rada, asortiman je narastao na više od 40 proizvoda — od suhog voća i kikirikija, preko kukuruznog flipsa i kokica, do putera od kikirikija, oblatni i osnovnih namirnica.",
-    en: "Voćar d.o.o. was founded in 1989 in Brčko. Today it operates from an 18,000 m² production and administration complex in Gornji Rahić, equipped with the latest technology from the world's leading manufacturers. Over the years, the range has grown to more than 40 products — from dried fruit and peanuts, through corn flips and popcorn, to peanut butter, wafers and pantry staples.",
+    bs: "Voćar d.o.o. je osnovan 1989. godine u Brčkom. Danas posluje sa sjedištem u Gornjem Rahiću, na proizvodno-administrativnom kompleksu od 18.000 m², opremljenom najmodernijom tehnologijom vodećih svjetskih proizvođača. Kroz godine rada, asortiman je narastao na više od 40 proizvoda — od suhog voća i kikirikija, preko kukuruznog flipsa i kokica, do putera od kikirikija i oblatni.",
+    en: "Voćar d.o.o. was founded in 1989 in Brčko. Today it operates from an 18,000 m² production and administration complex in Gornji Rahić, equipped with the latest technology from the world's leading manufacturers. Over the years, the range has grown to more than 40 products — from dried fruit and peanuts, through corn flips and popcorn, to peanut butter and wafers.",
   },
   /** Director's statement shown beside the plant photo — approved wording. */
   quote: {
@@ -220,7 +227,7 @@ export const about = {
   missionTitle: { bs: "Misija", en: "Mission" },
   missionBody: {
     bs: "Praviti grickalice i namirnice po istom standardu, bez obzira da li vrećica ide na policu u Gornjem Rahiću ili preko granice — i zadržati vaše povjerenje kroz naraštaje.",
-    en: "Making snacks and pantry staples to the same standard, whether the bag ends up on a shelf in Gornji Rahić or across the border — and keeping your trust across generations.",
+    en: "Making snacks and food products to the same standard, whether the bag ends up on a shelf in Gornji Rahić or across the border — and keeping your trust across generations.",
   },
   valuesTitle: { bs: "Vrijednosti", en: "Values" },
   value1: { bs: "Prirodni sastojci", en: "Natural ingredients" },
@@ -233,8 +240,8 @@ export const about = {
   value4Desc: { bs: "Jasna deklaracija i transparentan sastav.", en: "Clear labeling and transparent composition." },
   driedFruitImageAlt: { bs: "Sušeno voće Voćar", en: "Voćar dried fruit" },
   plantImageAlt: {
-    bs: "Voćar proizvodi u rukama, ispred proizvodnog pogona u Gornjem Rahiću",
-    en: "Voćar products held in front of the production plant in Gornji Rahić",
+    bs: "Proizvodni pogon Voćar u Gornjem Rahiću, snimljen iz zraka",
+    en: "The Voćar production plant in Gornji Rahić, seen from the air",
   },
   videoSectionTitle: { bs: "Pogon iz zraka", en: "Our facility from above" },
   videoLabel: { bs: "Snimak proizvodnog pogona u Gornjem Rahiću", en: "Aerial footage of the plant in Gornji Rahić" },
@@ -291,7 +298,7 @@ export const contact = {
   formSending: { bs: "Šaljem…", en: "Sending…" },
   formError: {
     bs: "Slanje nije uspjelo. Pokušajte ponovo ili nam pišite direktno na prodaja@vocar.ba.",
-    en: "Sending failed. Try again or write to us directly at prodaja@vocar.ba.",
+    en: "Sending failed. Try again or write to us directly at sales@vocar.ba.",
   },
   formRateLimited: { bs: "Prebrzo — sačekajte pola minute pa pokušajte ponovo.", en: "Too fast — wait half a minute and try again." },
   formErrorRequired: { bs: "Ovo polje je obavezno.", en: "This field is required." },
@@ -302,11 +309,25 @@ export const productPage = {
   categoryLabel: { bs: "Kategorija", en: "Category" },
   sizesLabel: { bs: "Pakovanje", en: "Packaging" },
   compositionLabel: { bs: "Sastav", en: "Composition" },
+  ingredientsLabel: { bs: "Sastojci", en: "Ingredients" },
   allergensLabel: { bs: "Alergeni", en: "Allergens" },
+  allergensContains: { bs: "Sadrži", en: "Contains" },
   nutritionLabel: { bs: "Nutritivne vrijednosti", en: "Nutritional information" },
   nutritionNote: {
     bs: "Detaljne nutritivne vrijednosti nalaze se na deklaraciji svakog pakovanja.",
     en: "Detailed nutritional values are printed on each package's label.",
+  },
+  nutritionPer: { bs: "Prosječna vrijednost na {per}", en: "Average value per {per}" },
+  nutrients: {
+    energy: { bs: "Energetska vrijednost", en: "Energy" },
+    fat: { bs: "Masti", en: "Fat" },
+    saturates: { bs: "od kojih zasićene masti", en: "of which saturates" },
+    carbs: { bs: "Ugljikohidrati", en: "Carbohydrate" },
+    sugars: { bs: "od kojih šećeri", en: "of which sugars" },
+    fibre: { bs: "Dijetalna vlakna", en: "Fibre" },
+    protein: { bs: "Proteini", en: "Protein" },
+    salt: { bs: "Sol", en: "Salt" },
+    sodium: { bs: "Natrij", en: "Sodium" },
   },
   relatedTitle: { bs: "Iz iste kategorije", en: "From the same category" },
   breadcrumbLabel: { bs: "Putanja", en: "Breadcrumb" },
@@ -387,7 +408,7 @@ export const privacyPage = {
       title: { bs: "Kako formulari zapravo rade", en: "How the forms actually work" },
       body: {
         bs: "Oba formulara otvaraju vaš vlastiti e-mail program s unaprijed popunjenom porukom upućenom na prodaja@vocar.ba — poruku šaljete direktno sa svog naloga, baš kao svaki drugi e-mail. Mi ne čuvamo podatke iz formulara na serveru; jedini zapis poruke je onaj koji ostaje u vašem poslatom e-mailu.",
-        en: "Both forms open your own email app with a message pre-filled to prodaja@vocar.ba — you send it directly from your own account, just like any other email. We don't store form data on a server; the only record of the message is the one in your own sent mail.",
+        en: "Both forms open your own email app with a message pre-filled to sales@vocar.ba — you send it directly from your own account, just like any other email. We don't store form data on a server; the only record of the message is the one in your own sent mail.",
       },
     },
     {
@@ -408,7 +429,7 @@ export const privacyPage = {
       title: { bs: "Vaša prava", en: "Your rights" },
       body: {
         bs: "Možete tražiti uvid, ispravku ili brisanje bilo kojih podataka koje ste nam poslali (npr. e-mail iz prijave na newsletter). Pišite nam na prodaja@vocar.ba.",
-        en: "You can ask to see, correct, or delete any data you've sent us (e.g. an email from a newsletter signup). Write to us at prodaja@vocar.ba.",
+        en: "You can ask to see, correct, or delete any data you've sent us (e.g. an email from a newsletter signup). Write to us at sales@vocar.ba.",
       },
     },
     {

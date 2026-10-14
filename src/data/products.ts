@@ -1,5 +1,6 @@
 import { categories, type Category, type EditorialBadge } from "./categories";
 import type { Localized } from "./content";
+import { productInfo, type Nutrition } from "./productInfo";
 import type { TasteKey } from "./tastes";
 
 export type Badge = EditorialBadge | "coko";
@@ -21,17 +22,20 @@ export interface Product {
   description: Localized;
   /**
    * Honest, generic composition grounded in the product's real name/type —
-   * never a fabricated nutrition table. Precise nutrition values live on
-   * the physical packaging, which is what the product page says.
+   * shown only where the old shop had no declared ingredient list.
    */
   composition: Localized;
+  /** The declared ingredient list, copied from the old vocar.ba shop (see productInfo). */
+  ingredients?: Localized;
   /**
-   * Only allergens that are certain from the product's own name/composition
-   * (peanuts in peanut products, wheat where the name says so). Nothing is
-   * guessed — the nutrition note already sends people to the pack for the
-   * full declaration.
+   * Only allergens that are certain from the product's name or its declared
+   * ingredients (peanuts in peanut products, wheat and soy where the list
+   * says so). Rendered as "Sadrži: …".
    */
   allergens?: Localized;
+  /** The old shop's own allergen line, verbatim — mostly may-contain-traces. */
+  allergenNote?: Localized;
+  nutrition?: Nutrition;
 }
 
 function parseSizes(raw: string): string[] {
@@ -64,17 +68,31 @@ function slugify(input: string): string {
 function descriptionFor(categorySlug: string, name: string, categoryDescription: Localized): Localized {
   const n = name.toLowerCase();
 
+  // Three lines share the flips category; each keeps its own story.
+  if (categorySlug === "flips") {
+    if (n.startsWith("q flips")) {
+      return {
+        bs: "Napuhani kukuruz i kinoa u pet ukusa, od slatkog kukuruza do kečapa i kikirikija. Kinoa je porijeklom iz Anda u Južnoj Americi, gdje se gaji već oko 5.000 godina, a jedna je od rijetkih biljnih namirnica koja sadrži svih devet esencijalnih aminokiselina — pravi kompletan protein, uz to i prirodno bez glutena.",
+        en: "Puffed corn and quinoa in five flavors, from sweet corn to ketchup and peanut. Quinoa originally comes from the Andes Mountains in South America, where it's been grown for roughly 5,000 years, and it's one of the few plant foods containing all nine essential amino acids — a genuinely complete protein, and naturally gluten-free too.",
+      };
+    }
+    if (n.startsWith("timi")) {
+      return {
+        bs: "Originalni kukuruzni krugovi i kikiriki flipsevi, ekstrudirani pod pritiskom da bi dobili svoju laganu, hrskavu teksturu. Pakovanja za užinu ili za cijelu porodicu, uvijek isti prepoznatljiv ukus.",
+        en: "The original corn rings and peanut puffs, extruded under pressure to get their light, crunchy texture. Lunchbox or family-size packs, always the same familiar taste.",
+      };
+    }
+    return {
+      bs: "Kukuruzni krugovi punog ukusa, napravljeni ekstruzijom — kukuruzno tijesto se kuha pod pritiskom, a naglo oslobađanje tog pritiska pri izlasku iz mašine čini da se odmah napuše u svoj poznati oblik. Dostupni u ukusu pice, kikirikija i pikantnom.",
+      en: "Full-flavor corn rings made through extrusion — corn dough is cooked under pressure, then the sudden release of that pressure as it exits the machine makes it puff instantly into its familiar shape. Available in pizza, peanut, and piquant flavors.",
+    };
+  }
+
   if (categorySlug === "peanuts") {
     if (n.includes("obloženi") || n.includes("coated")) {
       return {
         bs: "Isti prženi kikiriki, ali sa hrskavom slanom oblogom punom ukusa paprike ili čilija — savršeno uz piće ili kao brza užina. Kikiriki tehnički nije orah nego mahunarka, pa nosi i više proteina od većine pravih oraha.",
         en: "The same roasted peanuts, wrapped in a crunchy savory coating loaded with paprika or chili — great with a drink or as a quick snack. Peanuts aren't technically nuts at all; they're legumes, part of why they carry more protein than most true tree nuts.",
-      };
-    }
-    if (n.includes("vakumirano") || n.includes("vacuum")) {
-      return {
-        bs: "Prženi i slani kikiriki, odmah vakumiran dok je svjež. Vakumiranje izbacuje kisik iz pakovanja i sprječava užeglost prirodnih ulja u kikirikiju, pa zrna ostaju hrskava i puna ukusa mnogo duže.",
-        en: "Roasted and salted peanuts, vacuum-sealed right away while fresh. Removing the oxygen from the pack keeps the peanuts' natural oils from turning rancid, so they stay crunchy and full-flavored much longer.",
       };
     }
     return categoryDescription;
@@ -127,7 +145,7 @@ function descriptionFor(categorySlug: string, name: string, categoryDescription:
 
 function compositionFor(categorySlug: string, name: string): Localized {
   const n = name.toLowerCase();
-  if (categorySlug === "peanut-butter") return { bs: "100% pržen kikiriki.", en: "100% roasted peanuts." };
+  if (categorySlug === "peanut-butter") return { bs: "Pržen kikiriki.", en: "Roasted peanuts." };
   if (categorySlug === "peanuts") {
     return n.includes("obloženi") || n.includes("coated")
       ? { bs: "Kikiriki, začinska obloga.", en: "Peanuts, seasoned coating." }
@@ -138,18 +156,12 @@ function compositionFor(categorySlug: string, name: string): Localized {
       ? { bs: "Suha šljiva, kakao premaz.", en: "Dried plum, cocoa coating." }
       : { bs: "Sušena šljiva, bez dodataka.", en: "Dried plum, no additives." };
   }
-  if (categorySlug === "groceries") {
-    if (n.includes("kokos")) return { bs: "Kokos, mljeveni.", en: "Coconut, milled." };
-    if (n.includes("biber")) return { bs: "Crni biber, mljeveni.", en: "Black pepper, ground." };
-    return { bs: "Kukuruz ili pšenica, mljeveno.", en: "Corn or wheat, milled." };
+  if (categorySlug === "flips" && n.startsWith("q flips")) {
+    return n.includes("bez masti")
+      ? { bs: "Kukuruz, kinoa.", en: "Corn, quinoa." }
+      : { bs: "Kukuruz, kinoa, začini.", en: "Corn, quinoa, seasoning." };
   }
-  if (categorySlug === "biscuits" && n.includes("kroasan")) {
-    return n.includes("čokolad")
-      ? { bs: "Pšenično brašno, čokoladno punjenje.", en: "Wheat flour, chocolate filling." }
-      : { bs: "Pšenično brašno, vanilin krem punjenje.", en: "Wheat flour, vanilla cream filling." };
-  }
-  if (categorySlug === "biscuits") return { bs: "Pšenično brašno, šećer, vanilija, šećer u prahu.", en: "Wheat flour, sugar, vanilla, powdered sugar." };
-  if (categorySlug === "wafers") return { bs: "Vafel listovi, kremasti fil.", en: "Wafer sheets, creamy filling." };
+  if (categorySlug === "wafers") return { bs: "Vafel listovi.", en: "Wafer sheets." };
   if (categorySlug === "popcorn") {
     if (n.includes("čoko") || n.includes("choco")) return { bs: "Kukuruzno zrno, kakao premaz.", en: "Popcorn kernels, cocoa coating." };
     if (n.includes("karamel") || n.includes("caramel")) return { bs: "Kukuruzno zrno, karamel premaz.", en: "Popcorn kernels, caramel coating." };
@@ -168,16 +180,27 @@ function compositionFor(categorySlug: string, name: string): Localized {
 function allergensFor(categorySlug: string, name: string): Localized | undefined {
   const n = name.toLowerCase();
   const peanut = { bs: "Kikiriki.", en: "Peanuts." };
-  if (categorySlug === "peanuts" || categorySlug === "peanut-butter") return peanut;
-  if (["quinoa-flips", "flips-time", "timi-flips"].includes(categorySlug) && n.includes("kikiriki")) return peanut;
-  if (categorySlug === "wafers" || categorySlug === "biscuits") return { bs: "Gluten (pšenica).", en: "Gluten (wheat)." };
-  if (categorySlug === "groceries" && n.includes("pšenični")) return { bs: "Gluten (pšenica).", en: "Gluten (wheat)." };
+  if (categorySlug === "peanuts") {
+    // The coating's declared ingredients start with wheat starch.
+    return n.includes("obloženi")
+      ? { bs: "Kikiriki, gluten (pšenica).", en: "Peanuts, gluten (wheat)." }
+      : peanut;
+  }
+  if (categorySlug === "peanut-butter") return peanut;
+  if (categorySlug === "flips") {
+    // Every Flips Time declares ground peanuts; Timi with peanuts adds soy flour.
+    if (n.startsWith("flips time")) return peanut;
+    if (n.startsWith("timi") && n.includes("kikiriki")) return { bs: "Kikiriki, soja.", en: "Peanuts, soy." };
+    if (n.includes("kikiriki")) return peanut;
+    return undefined;
+  }
+  if (categorySlug === "wafers") return { bs: "Gluten (pšenica), soja.", en: "Gluten (wheat), soy." };
   if (categorySlug === "cereals") {
     // Happy Cerios' own label bolds three: whole wheat flour, barley malt
-    // extract and soy lecithin. Nutto's name gives hazelnut; the wafer base
-    // gives wheat.
+    // extract and soy lecithin. Nutto's name gives hazelnut, the wafer base
+    // gives wheat, and the old shop's list adds whey, skimmed milk and soy.
     return n.includes("nutto")
-      ? { bs: "Gluten (pšenica), lješnjak.", en: "Gluten (wheat), hazelnut." }
+      ? { bs: "Gluten (pšenica), mlijeko, soja, lješnjak.", en: "Gluten (wheat), milk, soy, hazelnut." }
       : { bs: "Gluten (pšenica, ječam), soja.", en: "Gluten (wheat, barley), soy." };
   }
   return undefined;
@@ -205,6 +228,7 @@ function buildProducts(): Product[] {
 
       const slug = `${category.slug}-${slugify(name)}`;
       const sizeList = parseSizes(sku.sizes);
+      const info = productInfo[slug];
       const product: Product = {
         slug,
         name: sku.name,
@@ -218,11 +242,19 @@ function buildProducts(): Product[] {
         badges: [...(sku.badges ?? [])],
         description: descriptionFor(category.slug, name, category.description),
         composition: compositionFor(category.slug, name),
+        ingredients: info?.ingredients,
         allergens: allergensFor(category.slug, name),
+        allergenNote: info?.allergenNote,
+        nutrition: info?.nutrition,
       };
       seen.set(name, product);
       products.push(product);
     }
+  }
+
+  // A renamed product would silently lose its declaration; fail the build instead.
+  for (const slug of Object.keys(productInfo)) {
+    if (!products.some((p) => p.slug === slug)) throw new Error(`productInfo has no product "${slug}"`);
   }
 
   for (const product of products) {

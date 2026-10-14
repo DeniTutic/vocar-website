@@ -6,6 +6,7 @@ import { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { Check, ChevronRight, Share2 } from "lucide-react";
 import type { Product } from "@/data/products";
+import type { Nutrition } from "@/data/productInfo";
 import { productPage, buy, nav } from "@/data/content";
 import { useLocale, useT } from "@/lib/locale";
 import { path } from "@/lib/routes";
@@ -78,6 +79,58 @@ function ShareButton({ title }: { title: string }) {
       {copied ? <Check size={14} /> : <Share2 size={14} />}
       {copied ? t(productPage.copied) : t(productPage.share)}
     </button>
+  );
+}
+
+/**
+ * The label's nutrition table. Values are stored in the label's decimal-comma
+ * form; English readers get a decimal point. Rows the label left blank show "—".
+ */
+function NutritionTable({ nutrition }: { nutrition: Nutrition }) {
+  const t = useT();
+  const { locale } = useLocale();
+  const num = (v: string) => (locale === "en" ? v.replace(",", ".") : v);
+  const grams = (v?: string) => (v ? `${num(v)} g` : "—");
+  const n = productPage.nutrients;
+
+  const energy =
+    nutrition.energyKj || nutrition.energyKcal
+      ? [nutrition.energyKj && `${num(nutrition.energyKj)} kJ`, nutrition.energyKcal && `${num(nutrition.energyKcal)} kcal`]
+          .filter(Boolean)
+          .join(" / ")
+      : "—";
+
+  const rows: { label: string; value: string; sub?: boolean }[] = [
+    { label: t(n.energy), value: energy },
+    { label: t(n.fat), value: grams(nutrition.fat) },
+    { label: t(n.saturates), value: grams(nutrition.saturates), sub: true },
+    { label: t(n.carbs), value: grams(nutrition.carbs) },
+    { label: t(n.sugars), value: grams(nutrition.sugars), sub: true },
+    { label: t(n.fibre), value: grams(nutrition.fibre) },
+    { label: t(n.protein), value: grams(nutrition.protein) },
+    nutrition.sodium ? { label: t(n.sodium), value: grams(nutrition.sodium) } : { label: t(n.salt), value: grams(nutrition.salt) },
+  ];
+
+  return (
+    <div className="overflow-hidden rounded-xl border" style={{ borderColor: "var(--line)", background: "var(--paper)" }}>
+      <table className="w-full text-sm">
+        <caption className="border-b px-4 py-2 text-left text-xs font-semibold" style={{ borderColor: "var(--line)", color: "var(--ink-soft)" }}>
+          {t(productPage.nutritionPer).replace("{per}", nutrition.per)}
+        </caption>
+        <tbody>
+          {rows.map((row) => (
+            <tr key={row.label} className="border-b last:border-b-0" style={{ borderColor: "var(--line)" }}>
+              <th scope="row" className={`py-2 pr-3 text-left font-normal ${row.sub ? "pl-8" : "pl-4"}`} style={{ color: row.sub ? "var(--ink-soft)" : "var(--ink)" }}>
+                {row.label}
+              </th>
+              <td className="py-2 pr-4 text-right tabular-nums" style={{ color: "var(--ink)" }}>
+                {row.value}
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
   );
 }
 
@@ -211,29 +264,42 @@ export function ProductDetailView({ product, related }: { product: Product; rela
             <dl className="mt-8 flex flex-col gap-5 border-t pt-6" style={{ borderColor: "var(--line)" }}>
               <div>
                 <dt className="text-xs font-semibold uppercase tracking-wide" style={{ color: "var(--forest)" }}>
-                  {t(productPage.compositionLabel)}
+                  {t(product.ingredients ? productPage.ingredientsLabel : productPage.compositionLabel)}
                 </dt>
-                <dd className="mt-1 text-base" style={{ color: "var(--ink)" }}>
-                  {t(product.composition)}
+                <dd className="mt-1 text-base leading-relaxed" style={{ color: "var(--ink)" }}>
+                  {t(product.ingredients ?? product.composition)}
                 </dd>
               </div>
-              {product.allergens && (
+              {(product.allergens || product.allergenNote) && (
                 <div>
                   <dt className="text-xs font-semibold uppercase tracking-wide" style={{ color: "var(--forest)" }}>
                     {t(productPage.allergensLabel)}
                   </dt>
-                  <dd className="mt-1 text-base" style={{ color: "var(--ink)" }}>
-                    {t(product.allergens)}
-                  </dd>
+                  {product.allergens && (
+                    <dd className="mt-1 text-base" style={{ color: "var(--ink)" }}>
+                      <span className="font-semibold">{t(productPage.allergensContains)}:</span> {t(product.allergens)}
+                    </dd>
+                  )}
+                  {product.allergenNote && (
+                    <dd className="mt-1 text-sm leading-relaxed" style={{ color: "var(--ink-soft)" }}>
+                      {t(product.allergenNote)}
+                    </dd>
+                  )}
                 </div>
               )}
               <div>
                 <dt className="text-xs font-semibold uppercase tracking-wide" style={{ color: "var(--forest)" }}>
                   {t(productPage.nutritionLabel)}
                 </dt>
-                <dd className="mt-1 text-sm italic" style={{ color: "var(--ink-soft)" }}>
-                  {t(productPage.nutritionNote)}
-                </dd>
+                {product.nutrition ? (
+                  <dd className="mt-2">
+                    <NutritionTable nutrition={product.nutrition} />
+                  </dd>
+                ) : (
+                  <dd className="mt-1 text-sm italic" style={{ color: "var(--ink-soft)" }}>
+                    {t(productPage.nutritionNote)}
+                  </dd>
+                )}
               </div>
             </dl>
 

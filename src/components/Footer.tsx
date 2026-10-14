@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { Logo } from "./Logo";
-import { nav, footerContent } from "@/data/content";
+import { nav, footerContent, salesEmail } from "@/data/content";
 import { useLocale, useT, type Locale } from "@/lib/locale";
 import { homeHash, path } from "@/lib/routes";
 import { ScrollReveal } from "./ScrollReveal";
@@ -99,24 +99,29 @@ export function Footer() {
           <a href="tel:+38749512415" className="w-fit opacity-80 transition-opacity hover:opacity-100">
             +387 49 512 415
           </a>
-          <a href="tel:+387603562480" className="w-fit opacity-80 transition-opacity hover:opacity-100">
-            +387 60 35 62 480
-          </a>
-          <a
-            href="https://wa.me/387603562480"
-            target="_blank"
-            rel="noopener noreferrer"
-            onClick={() => track({ name: "whatsapp_click", where: "footer" })}
-            className="inline-flex w-fit items-center gap-1.5 opacity-80 transition-opacity hover:opacity-100"
-          >
-            <WhatsAppIcon size={14} />
-            WhatsApp
-          </a>
+          {/* Mobile + WhatsApp on the English site only; Bosnian shows the landline. */}
+          {locale === "en" && (
+            <>
+              <a href="tel:+387603562480" className="w-fit opacity-80 transition-opacity hover:opacity-100">
+                +387 60 35 62 480
+              </a>
+              <a
+                href="https://wa.me/387603562480"
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() => track({ name: "whatsapp_click", where: "footer" })}
+                className="inline-flex w-fit items-center gap-1.5 opacity-80 transition-opacity hover:opacity-100"
+              >
+                <WhatsAppIcon size={14} />
+                WhatsApp
+              </a>
+            </>
+          )}
           <a href="mailto:vocar@vocar.ba" className="w-fit opacity-80 transition-opacity hover:opacity-100">
             vocar@vocar.ba
           </a>
-          <a href="mailto:prodaja@vocar.ba" className="w-fit opacity-80 transition-opacity hover:opacity-100">
-            prodaja@vocar.ba
+          <a href={`mailto:${t(salesEmail)}`} className="w-fit opacity-80 transition-opacity hover:opacity-100">
+            {t(salesEmail)}
           </a>
         </div>
       </ScrollReveal>

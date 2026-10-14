@@ -3,8 +3,8 @@
 import { useEffect, useMemo, useRef, useState, type MouseEvent } from "react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { motion } from "framer-motion";
-import { categories } from "@/data/categories";
-import { products, BADGE_ORDER } from "@/data/products";
+import { categories, legacyCategorySlugs } from "@/data/categories";
+import { products } from "@/data/products";
 import { TASTES, type TasteKey } from "@/data/tastes";
 import { home, nav, productPage } from "@/data/content";
 import { ChevronRight } from "lucide-react";
@@ -19,13 +19,6 @@ const ALL = "all";
 
 /** The broad taste axes a shopper actually filters by; the finer tastes stay on the cards. */
 const TASTE_FILTERS: TasteKey[] = ["slano", "slatko", "coko", "pikant"];
-
-// "Sve" leads with badged products so the first screenful is the strongest.
-const badgeRank = (badges: string[]) => {
-  const idx = BADGE_ORDER.findIndex((b) => badges.includes(b));
-  return idx === -1 ? BADGE_ORDER.length : idx;
-};
-const highlightedFirst = [...products].sort((a, b) => badgeRank(a.badges) - badgeRank(b.badges));
 
 const countBySlug = new Map<string, number>();
 for (const p of products) countBySlug.set(p.category.slug, (countBySlug.get(p.category.slug) ?? 0) + 1);
@@ -91,6 +84,7 @@ function ChipRow({ label, children }: { label: string; children: React.ReactNode
 }
 
 const isCategory = (v: string | null): v is string => !!v && categories.some((c) => c.slug === v);
+const resolveCategory = (v: string | null) => (v && legacyCategorySlugs[v]) || v;
 const isTaste = (v: string | null): v is TasteKey => !!v && (TASTE_FILTERS as string[]).includes(v);
 
 /**
@@ -104,7 +98,10 @@ export function ProductShowcase() {
   const router = useRouter();
   const pathname = usePathname();
   const params = useSearchParams();
-  const [active, setActive] = useState<string>(() => (isCategory(params.get("kategorija")) ? params.get("kategorija")! : ALL));
+  const [active, setActive] = useState<string>(() => {
+    const requested = resolveCategory(params.get("kategorija"));
+    return isCategory(requested) ? requested : ALL;
+  });
   const [taste, setTaste] = useState<TasteKey | null>(() => (isTaste(params.get("ukus")) ? (params.get("ukus") as TasteKey) : null));
   const gridRef = useRef<HTMLDivElement>(null);
 
@@ -119,7 +116,8 @@ export function ProductShowcase() {
   }, [active, taste, pathname, params, router]);
 
   const matching = useMemo(() => {
-    const byCategory = active === ALL ? highlightedFirst : products.filter((p) => p.category.slug === active);
+    // "Sve" keeps the catalog order — every flips, then every popcorn, and so on.
+    const byCategory = active === ALL ? products : products.filter((p) => p.category.slug === active);
     return taste ? byCategory.filter((p) => p.tastes.includes(taste)) : byCategory;
   }, [active, taste]);
   const visible = matching;

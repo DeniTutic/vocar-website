@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState, type FormEvent } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Send, CheckCircle2, AlertCircle } from "lucide-react";
-import { contact, buy } from "@/data/content";
+import { contact, buy, salesEmail } from "@/data/content";
 import { categories } from "@/data/categories";
 import { exportCountries } from "@/data/whereToBuy";
 import { useLocale, useT } from "@/lib/locale";
@@ -191,7 +191,7 @@ export function ContactForm() {
       ? `Firma: ${company}\nTržište: ${market || "—"}\nKoličina: ${volume || "—"}\nProizvodi: ${familyNames || "—"}\nUzorak: ${sample ? "da" : "ne"}\n`
       : "";
     const body = encodeURIComponent(`Ime: ${name}\nEmail: ${email}\nTelefon: ${phone || "—"}\n${tradeLines}\n${message}`);
-    window.location.href = `mailto:prodaja@vocar.ba?subject=${subject}&body=${body}`;
+    window.location.href = `mailto:${t(salesEmail)}?subject=${subject}&body=${body}`;
     setStatus("mailto");
   }
 

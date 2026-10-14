@@ -2,8 +2,8 @@
 
 import { MapPin, Phone, Smartphone, Mail } from "lucide-react";
 import { WhatsAppIcon } from "./SocialIcons";
-import { contact } from "@/data/content";
-import { useT } from "@/lib/locale";
+import { contact, salesEmail } from "@/data/content";
+import { useLocale, useT } from "@/lib/locale";
 import { ScrollReveal } from "./ScrollReveal";
 import { ContactForm } from "./ContactForm";
 import { track } from "@/lib/track";
@@ -13,6 +13,8 @@ const MAPS_SRC =
 
 export function ContactSection() {
   const t = useT();
+  const { locale } = useLocale();
+  const sales = t(salesEmail);
 
   return (
     <section
@@ -66,6 +68,9 @@ export function ContactSection() {
               </div>
             </div>
 
+            {/* The mobile (and the WhatsApp that rides on it) is for the
+                English site only; Bosnian visitors get the landline. */}
+            {locale === "en" && (
             <div className="flex gap-4">
               <Smartphone size={22} style={{ color: "var(--forest)" }} className="mt-0.5 shrink-0" />
               <div>
@@ -88,6 +93,7 @@ export function ContactSection() {
                 </a>
               </div>
             </div>
+            )}
 
             <div className="flex gap-4">
               <Mail size={22} style={{ color: "var(--forest)" }} className="mt-0.5 shrink-0" />
@@ -98,8 +104,8 @@ export function ContactSection() {
                 <a href="mailto:vocar@vocar.ba" className="mt-1 block text-base hover:underline" style={{ color: "var(--ink-soft)" }}>
                   vocar@vocar.ba <span className="text-sm">— {t(contact.emailGeneral)}</span>
                 </a>
-                <a href="mailto:prodaja@vocar.ba" className="block text-base hover:underline" style={{ color: "var(--ink-soft)" }}>
-                  prodaja@vocar.ba <span className="text-sm">— {t(contact.emailSales)}</span>
+                <a href={`mailto:${sales}`} className="block text-base hover:underline" style={{ color: "var(--ink-soft)" }}>
+                  {sales} <span className="text-sm">— {t(contact.emailSales)}</span>
                 </a>
               </div>
             </div>

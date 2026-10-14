@@ -3,7 +3,7 @@
 import { ArrowLeft } from "lucide-react";
 import Link from "next/link";
 import type { Localized } from "@/data/content";
-import { nav } from "@/data/content";
+import { nav, salesEmail } from "@/data/content";
 import { useLocale, useT } from "@/lib/locale";
 import { path } from "@/lib/routes";
 import { CtaLink } from "./CtaLink";
@@ -75,8 +75,8 @@ export function LegalPageView({ content }: { content: LegalPageContent }) {
         <span className="text-base" style={{ color: "var(--ink)" }}>
           {t(content.contactCta)}
         </span>
-        <CtaLink href="mailto:prodaja@vocar.ba" variant="secondary" size="sm">
-          prodaja@vocar.ba
+        <CtaLink href={`mailto:${t(salesEmail)}`} variant="secondary" size="sm">
+          {t(salesEmail)}
         </CtaLink>
       </div>
     </section>

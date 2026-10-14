@@ -3,7 +3,7 @@
 import { useState, type FormEvent } from "react";
 import { motion } from "framer-motion";
 import { Mail } from "lucide-react";
-import { newsletter } from "@/data/content";
+import { newsletter, salesEmail } from "@/data/content";
 import { useT } from "@/lib/locale";
 import { ConfettiBurst, generateConfetti, type ConfettiPiece } from "./ConfettiBurst";
 
@@ -25,7 +25,7 @@ export function NewsletterInline() {
     setError("");
     const subject = encodeURIComponent("Prijava na newsletter");
     const body = encodeURIComponent(`Email za prijavu: ${email}`);
-    window.location.href = `mailto:prodaja@vocar.ba?subject=${subject}&body=${body}`;
+    window.location.href = `mailto:${t(salesEmail)}?subject=${subject}&body=${body}`;
     setConfetti(generateConfetti());
     setSent(true);
   }
