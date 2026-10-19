@@ -52,6 +52,7 @@ export const common = {
 export const nav = {
   home: { bs: "Početna", en: "Home" },
   products: { bs: "Proizvodi", en: "Products" },
+  privateLabel: { bs: "Robne marke", en: "Private label" },
   about: { bs: "O nama", en: "About" },
   quality: { bs: "Kvalitet", en: "Quality" },
   catalog: { bs: "Katalog", en: "Catalog" },
@@ -284,6 +285,10 @@ export const contact = {
   formSample: { bs: "Zanima me uzorak", en: "I'd like a sample" },
   prefillWhereToBuy: { bs: "Gdje mogu kupiti: {product}?", en: "Where can I buy: {product}?" },
   prefillQuote: { bs: "Zanima me ponuda za: {product}.", en: "I'd like a quote for: {product}." },
+  prefillPrivateLabel: {
+    bs: "Zanima me proizvodnja pod vlastitom robnom markom.",
+    en: "I'd like to discuss a private label project.",
+  },
   trustCertified: { bs: "HACCP + IFS Food", en: "HACCP + IFS Food" },
   trustExport: { bs: "Izvoz u {count} zemalja", en: "Exporting to {count} countries" },
   trustReply: { bs: "Odgovor u roku od 1 radnog dana", en: "Reply within 1 business day" },
@@ -363,6 +368,170 @@ export const notFoundPage = {
   },
   cta: { bs: "Svi proizvodi", en: "All products" },
   hitsTitle: { bs: "Najtraženije", en: "Most wanted" },
+} as const;
+
+/**
+ * English is the owner's own text (October 2026), only "Vocar" corrected to
+ * "Voćar" and headings put in the site's sentence case. Bosnian is our
+ * translation of it, awaiting his proofread. Every figure here comes from
+ * that text — don't add capacities or formats he didn't name.
+ */
+export const privateLabelPage = {
+  metaTitle: { bs: "Robne marke — proizvodnja pod vašim brendom", en: "Private label manufacturing" },
+  metaDescription: {
+    bs: "Voćar d.o.o. proizvodi grickalice pod vašom robnom markom — od ideje do gotovog proizvoda. Prženje do 48 tona dnevno, ekstruzija, kokice, pakovanje od 25 g do 1.000 g i više od 30 godina iskustva.",
+    en: "Voćar d.o.o. manufactures snacks under your own brand — from concept to finished product. Roasting up to 48 tonnes a day, extrusion, popcorn, packaging from 25 g to 1,000 g and more than 30 years of experience.",
+  },
+  eyebrow: { bs: "Robne marke", en: "Private label manufacturing" },
+  title: { bs: "Od ideje do gotovog proizvoda.", en: "From concept to finished product." },
+  intro: [
+    {
+      bs: "U Voćaru d.o.o. nudimo cjelovita rješenja za proizvodnju pod robnom markom kupca i pomažemo partnerima da svoje ideje pretvore u proizvode spremne za tržište. Sa širokim proizvodnim kapacitetima, modernom opremom za preradu i pakovanje te više od 30 godina iskustva u industriji, nudimo kompletnu uslugu prilagođenu potrebama naših kupaca.",
+      en: "At Voćar d.o.o., we provide comprehensive private label manufacturing solutions, helping our partners transform their ideas into market-ready products. With extensive manufacturing capabilities, modern processing and packaging equipment, and more than 30 years of industry experience, we offer a complete service tailored to our customers' needs.",
+    },
+    {
+      bs: "Naš proizvodni pogon opremljen je mašinama renomiranih evropskih proizvođača, što nam omogućava ujednačen kvalitet proizvoda, pouzdane proizvodne procese i fleksibilna proizvodna rješenja za različite zahtjeve tržišta.",
+      en: "Our production facility is equipped with machinery from renowned European manufacturers, enabling us to ensure consistent product quality, reliable production processes, and flexible manufacturing solutions for different market requirements.",
+    },
+  ],
+  imageAlt: {
+    bs: "Proizvodni pogon Voćar u Gornjem Rahiću iz zraka",
+    en: "The Voćar production plant in Gornji Rahić from the air",
+  },
+  cta: { bs: "Razgovarajmo o projektu", en: "Discuss your project" },
+  capabilitiesLink: { bs: "Proizvodni kapaciteti", en: "Our capabilities" },
+
+  facts: [
+    { value: { bs: "30+", en: "30+" }, label: { bs: "godina iskustva u industriji", en: "years of industry experience" } },
+    { value: { bs: "48 t", en: "48 t" }, label: { bs: "maksimalni dnevni kapacitet prženja", en: "maximum daily roasting capacity" } },
+    { value: { bs: "25–300 g", en: "25–300 g" }, label: { bs: "pakovanja grickalica", en: "snack pack sizes" } },
+    { value: { bs: "250–1.000 g", en: "250–1,000 g" }, label: { bs: "pakovanja kikiriki putera", en: "peanut butter pack sizes" } },
+  ],
+
+  capabilitiesEyebrow: { bs: "Kapaciteti", en: "Capabilities" },
+  capabilitiesTitle: { bs: "Proizvodni kapaciteti.", en: "Comprehensive manufacturing capabilities." },
+  capabilitiesBody: {
+    bs: "Naši proizvodni kapaciteti obuhvataju širok spektar tehnologija prerade hrane.",
+    en: "Our production capabilities cover a wide range of food processing technologies.",
+  },
+  capabilities: [
+    {
+      title: { bs: "Prženje", en: "Roasting" },
+      body: { bs: "Industrijski kapacitet prženja do 48 tona dnevno.", en: "Industrial roasting capacity of up to 48 tonnes per day." },
+    },
+    {
+      title: { bs: "Prženje u ulju", en: "Frying" },
+      body: { bs: "Moderna tehnologija prženja u ulju za različite vrste grickalica.", en: "Modern frying technology for a variety of snack products." },
+    },
+    {
+      title: { bs: "Proizvodnja kokica", en: "Popcorn production" },
+      body: { bs: "Oprema za preradu kukuruza i ekspanziju kokica.", en: "Equipment for popcorn processing and expansion." },
+    },
+    {
+      title: { bs: "Ekstruzija", en: "Extrusion" },
+      body: {
+        bs: "Proizvodnja ekstrudiranih grickalica, uključujući flips i druge proizvode na bazi kukuruza.",
+        en: "Production of extruded snacks, including flips and other corn-based products.",
+      },
+    },
+    {
+      title: { bs: "Fleksibilna ambalaža", en: "Flexible packaging" },
+      body: {
+        bs: "Pakovanje u jastučaste vrećice (pillow) i vrećice s četiri vara (quad seal).",
+        en: "Packaging solutions in pillow bags and quad seal bags.",
+      },
+    },
+    {
+      title: { bs: "Pakovanje u kante", en: "Bucket packaging" },
+      body: {
+        bs: "Punjenje i pakovanje kokica i drugih pogodnih grickalica u plastične kante.",
+        en: "Filling and packaging of popcorn and other suitable snack products in plastic buckets.",
+      },
+    },
+    {
+      title: { bs: "Pakovanje kikiriki putera", en: "Peanut butter packaging" },
+      body: {
+        bs: "Punjenje i pakovanje kikiriki putera u formatima od 250 g do 1.000 g.",
+        en: "Filling and packaging peanut butter in formats ranging from 250 g to 1,000 g.",
+      },
+    },
+    {
+      title: { bs: "Pakovanje grickalica", en: "Snack packaging" },
+      body: {
+        bs: "Fleksibilni formati pakovanja od 25 g do 300 g, prilagođeni različitim kategorijama proizvoda i tržišnim segmentima.",
+        en: "Flexible packaging formats ranging from 25 g to 300 g, suitable for different product categories and market segments.",
+      },
+    },
+  ],
+
+  developmentEyebrow: { bs: "Razvoj", en: "Development" },
+  developmentTitle: { bs: "Cjelovit razvoj proizvoda.", en: "End-to-end product development." },
+  developmentBody: {
+    bs: "Nudimo više od same proizvodnje. Naš tim može pratiti kupce kroz cijeli proces razvoja proizvoda — od početne ideje do gotovog proizvoda.",
+    en: "We offer more than manufacturing. Our team can support customers throughout the entire product development process, from the initial concept to the finished product.",
+  },
+  developmentSteps: [
+    {
+      title: { bs: "Razvoj koncepta", en: "Concept development" },
+      body: {
+        bs: "Pretvaramo početne ideje u komercijalno isplative koncepte proizvoda.",
+        en: "Turning initial ideas into commercially viable product concepts.",
+      },
+    },
+    {
+      title: { bs: "Razvoj proizvoda", en: "Product development" },
+      body: {
+        bs: "Razvijamo recepture, ukuse, teksture i specifikacije proizvoda prema zahtjevima kupca.",
+        en: "Developing recipes, flavours, textures, and product specifications according to customer requirements.",
+      },
+    },
+    {
+      title: { bs: "Dizajn ambalaže", en: "Packaging design" },
+      body: {
+        bs: "Kreiramo koncepte ambalaže usklađene s identitetom vašeg brenda i ciljnim tržištem.",
+        en: "Creating packaging concepts aligned with your brand identity and target market.",
+      },
+    },
+    {
+      title: { bs: "Tehnički razvoj", en: "Technical development" },
+      body: {
+        bs: "Usklađujemo zahtjeve proizvoda s odgovarajućim tehnologijama prerade i pakovanja.",
+        en: "Matching product requirements with appropriate processing and packaging technologies.",
+      },
+    },
+    {
+      title: { bs: "Proizvodnja pod vašom robnom markom", en: "Private label manufacturing" },
+      body: {
+        bs: "Proizvodimo pod vašim brendom, prema vašim specifikacijama.",
+        en: "Producing products under your own brand, tailored to your specifications.",
+      },
+    },
+    {
+      title: { bs: "Pakovanje i prezentacija", en: "Packaging and presentation" },
+      body: {
+        bs: "Razvijamo odgovarajuće formate pakovanja za maloprodaju, veleprodaju i druge kanale distribucije.",
+        en: "Developing suitable packaging formats for retail, wholesale, and other distribution channels.",
+      },
+    },
+  ],
+
+  partnerEyebrow: { bs: "Partnerstvo", en: "Partnership" },
+  partnerTitle: { bs: "Vaš partner za robne marke.", en: "Your partner in private label." },
+  partnerBody: [
+    {
+      bs: "Bilo da ste etablirani trgovac, distributer, prehrambeni brend ili kompanija koja želi uvesti novu liniju proizvoda, Voćar nudi proizvodne kapacitete i tehničku fleksibilnost koji će podržati vaše poslovanje.",
+      en: "Whether you are an established retailer, distributor, food brand, or a company looking to introduce a new product line, Voćar offers the manufacturing capabilities and technical flexibility to support your business.",
+    },
+    {
+      bs: "Spajamo stručnost u preradi, modernu evropsku opremu i znanje u razvoju proizvoda kako bismo partnerima pomogli da izgrade konkurentne proizvode i prošire svoj asortiman.",
+      en: "We combine processing expertise, modern European equipment, and product development capabilities to help our partners build competitive products and expand their portfolios.",
+    },
+  ],
+  tagline: { bs: "Vaša ideja. Vaš brend. Naše znanje.", en: "Your idea. Your brand. Our expertise." },
+  ctaBody: {
+    bs: "Javite nam se da razgovaramo o vašem projektu robne marke i saznajte kako možemo oživjeti vaš koncept proizvoda.",
+    en: "Contact us to discuss your private label project and discover how we can bring your product concept to life.",
+  },
 } as const;
 
 export const footerContent = {

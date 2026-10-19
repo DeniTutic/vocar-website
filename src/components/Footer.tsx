@@ -27,6 +27,7 @@ const exploreLinks = (locale: Locale) => [
 const buyLinks = (locale: Locale) => [
   { href: homeHash("#gdje-kupiti", locale), key: "whereToBuy" as const },
   { href: homeHash("#distributer", locale), key: "forDistributors" as const },
+  { href: path("privateLabel", locale), key: "privateLabel" as const },
   { href: "/files/vocar-katalog.pdf", key: "catalog" as const },
 ];
 

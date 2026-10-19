@@ -32,6 +32,8 @@ interface Payload {
   size?: string;
   families?: string[];
   sample?: boolean;
+  /** Sent from the private label page (/robne-marke). */
+  privateLabel?: boolean;
   /** Honeypot — humans never see it, bots fill it. */
   website?: string;
 }
@@ -88,13 +90,15 @@ export async function POST(req: Request) {
         .filter((n): n is string => Boolean(n))
     : [];
   const sample = raw.sample === true;
+  const privateLabel = mode === "trade" && raw.privateLabel === true;
 
   if (!name || !EMAIL_RE.test(email) || !message || (mode === "trade" && !company)) {
     return NextResponse.json({ ok: false, reason: "invalid" }, { status: 400 });
   }
 
-  const subject =
-    mode === "trade"
+  const subject = privateLabel
+    ? `Robna marka — ${company}`
+    : mode === "trade"
       ? `Upit za ponudu — ${company}${product ? ` — ${product}${size ? ` (${size})` : ""}` : ""}`
       : `Poruka sa sajta — ${name}`;
 
@@ -103,6 +107,7 @@ export async function POST(req: Request) {
     ["Email", email],
     ["Telefon", phone || "—"],
   ];
+  if (privateLabel) rows.push(["Upit", "Robna marka"]);
   if (mode === "trade") {
     rows.push(["Firma", company], ["Tržište", market || "—"], ["Količina", volume || "—"]);
     if (product) rows.push(["Proizvod", `${product}${size ? ` (${size})` : ""}`]);

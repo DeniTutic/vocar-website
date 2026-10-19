@@ -8,7 +8,7 @@ import { track as vercelTrack } from "@vercel/analytics";
  * Vercel Web Analytics is cookieless and aggregate-only; /privatnost says so.
  */
 export type SiteEvent =
-  | { name: "quote_submit"; mode: "customer" | "trade"; sample?: boolean }
+  | { name: "quote_submit"; mode: "customer" | "trade"; sample?: boolean; privateLabel?: boolean }
   | { name: "catalog_download"; where: string }
   | { name: "whatsapp_click"; where: string }
   | { name: "tel_click"; number: string }

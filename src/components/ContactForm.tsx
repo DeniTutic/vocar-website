@@ -20,6 +20,8 @@ interface Errors {
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const TRADE_HASH = "#distributer";
+/** `?namjera=` value the private label page sends. */
+const PRIVATE_LABEL_INTENT = "robna-marka";
 
 const fieldStyle = {
   borderColor: "var(--line)",
@@ -133,6 +135,7 @@ export function ContactForm() {
   const [size, setSize] = useState("");
   const [families, setFamilies] = useState<string[]>([]);
   const [sample, setSample] = useState(false);
+  const [privateLabel, setPrivateLabel] = useState(false);
 
   // "/#distributer" links (footer, where-to-buy card) preselect trade mode.
   // A hash is used instead of a query param so the page stays fully static.
@@ -146,12 +149,31 @@ export function ContactForm() {
   }, []);
 
   // Product pages link to "/?proizvod=…&pakovanje=…[&namjera=kupac]#distributer"
-  // so the form opens pre-filled. The locale provider reads the stored language
-  // a beat after mount, so this runs again on locale change and re-derives the
+  // and the private label page to "/?namjera=robna-marka#distributer", so the
+  // form opens pre-filled. The locale provider reads the stored language a beat
+  // after mount, so this runs again on locale change and re-derives the
   // prefill — but only while the message is still the text we wrote ourselves.
   const prefillRef = useRef("");
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
+    const prefill = (next: string) => {
+      // Capture before overwriting: the updater runs later, at render time.
+      const previous = prefillRef.current;
+      prefillRef.current = next;
+      setMessage((m) => (m === "" || m === previous ? next : m));
+    };
+
+    // Reads an SSR-unavailable external store (the URL) after mount — the
+    // same justification as the locale provider's localStorage read. The
+    // rule reports only the first setState in the effect, hence one directive.
+    if (params.get("namjera") === PRIVATE_LABEL_INTENT) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
+      setPrivateLabel(true);
+      setMode("trade");
+      prefill(t(contact.prefillPrivateLabel));
+      return;
+    }
+
     const p = params.get("proizvod");
     if (!p) return;
     const s = params.get("pakovanje");
@@ -160,9 +182,6 @@ export function ContactForm() {
     const label = `${p}${s ? ` (${s})` : ""}`;
     const next = t(asCustomer ? contact.prefillWhereToBuy : contact.prefillQuote).replace("{product}", label);
 
-    // Reads an SSR-unavailable external store (the URL) after mount — the
-    // same justification as the locale provider's localStorage read.
-    // eslint-disable-next-line react-hooks/set-state-in-effect
     setProduct(p);
     setSize(s ?? "");
     setMode(asCustomer ? "customer" : "trade");
@@ -170,10 +189,7 @@ export function ContactForm() {
       if (k && categories.some((c) => c.slug === k)) setFamilies([k]);
       if (params.get("uzorak") === "1") setSample(true);
     }
-    // Capture before overwriting: the updater runs later, at render time.
-    const previous = prefillRef.current;
-    prefillRef.current = next;
-    setMessage((m) => (m === "" || m === previous ? next : m));
+    prefill(next);
     // `t` changes identity with the locale, which is exactly the trigger we want.
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [locale]);
@@ -183,9 +199,13 @@ export function ContactForm() {
   }
 
   const isTrade = mode === "trade";
+  // Only counts while the visitor stays in trade mode.
+  const isPrivateLabel = isTrade && privateLabel;
 
   function openMailto() {
-    const subject = encodeURIComponent(isTrade ? `Upit za ponudu — ${company}` : `Poruka sa sajta — ${name}`);
+    const subject = encodeURIComponent(
+      isPrivateLabel ? `Robna marka — ${company}` : isTrade ? `Upit za ponudu — ${company}` : `Poruka sa sajta — ${name}`
+    );
     const familyNames = families.map((slug) => categories.find((c) => c.slug === slug)?.name.bs ?? slug).join(", ");
     const tradeLines = isTrade
       ? `Firma: ${company}\nTržište: ${market || "—"}\nKoličina: ${volume || "—"}\nProizvodi: ${familyNames || "—"}\nUzorak: ${sample ? "da" : "ne"}\n`
@@ -207,12 +227,12 @@ export function ContactForm() {
     if (Object.keys(next).length > 0) return;
 
     setStatus("sending");
-    track({ name: "quote_submit", mode, sample: isTrade ? sample : undefined });
+    track({ name: "quote_submit", mode, sample: isTrade ? sample : undefined, privateLabel: isPrivateLabel || undefined });
     try {
       const res = await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ mode, name, email, phone, company, market, volume, message, product, size, families, sample, website }),
+        body: JSON.stringify({ mode, name, email, phone, company, market, volume, message, product, size, families, sample, privateLabel: isPrivateLabel, website }),
       });
       if (res.ok) {
         setStatus("sent");

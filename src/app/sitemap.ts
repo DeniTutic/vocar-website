@@ -1,7 +1,7 @@
 import type { MetadataRoute } from "next";
 import { products } from "@/data/products";
 import { SITE_URL } from "@/data/content";
-import { LOCALES, path, productPath } from "@/lib/routes";
+import { LOCALES, path, productPath, type RouteKey } from "@/lib/routes";
 
 /** Both languages, each entry declaring the other as its alternate (hreflang). */
 export default function sitemap(): MetadataRoute.Sitemap {
@@ -22,7 +22,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       },
     }));
 
-  const pathsFor = (key: "home" | "products" | "privacy" | "terms") =>
+  const pathsFor = (key: RouteKey) =>
     Object.fromEntries(LOCALES.map((l) => [l, path(key, l)])) as Record<(typeof LOCALES)[number], string>;
 
   return [
@@ -35,6 +35,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
         0.6
       )
     ),
+    ...entry(pathsFor("privateLabel"), "monthly", 0.7),
     ...entry(pathsFor("privacy"), "yearly", 0.3),
     ...entry(pathsFor("terms"), "yearly", 0.3),
   ];

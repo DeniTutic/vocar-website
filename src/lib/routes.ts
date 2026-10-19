@@ -6,11 +6,12 @@ import type { Locale } from "./locale";
  * for a route by key instead of hardcoding a path, so a link is correct in
  * whichever locale the visitor is reading.
  */
-export type RouteKey = "home" | "products" | "privacy" | "terms";
+export type RouteKey = "home" | "products" | "privateLabel" | "privacy" | "terms";
 
 const PATHS: Record<RouteKey, Record<Locale, string>> = {
   home: { bs: "/", en: "/en" },
   products: { bs: "/proizvodi", en: "/en/products" },
+  privateLabel: { bs: "/robne-marke", en: "/en/private-label" },
   privacy: { bs: "/privatnost", en: "/en/privacy" },
   terms: { bs: "/uslovi", en: "/en/terms" },
 };

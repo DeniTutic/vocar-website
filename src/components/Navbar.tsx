@@ -19,6 +19,7 @@ function navLinks(locale: Locale) {
   return [
     { href: path("home", locale), key: "home" as const, sectionId: null },
     { href: path("products", locale), key: "products" as const, sectionId: null },
+    { href: path("privateLabel", locale), key: "privateLabel" as const, sectionId: null },
     { href: homeHash("#o-nama", locale), key: "about" as const, sectionId: "o-nama" },
     { href: homeHash("#kvalitet", locale), key: "quality" as const, sectionId: "kvalitet" },
     // Katalog is a download, not a destination — it lives in WhereToBuy, the
