@@ -373,7 +373,7 @@ export const notFoundPage = {
 /**
  * English is the owner's own text (October 2026), only "Vocar" corrected to
  * "Voćar" and headings put in the site's sentence case. Bosnian is our
- * translation of it, awaiting his proofread. Every figure here comes from
+ * translation of it, approved by Voćar. Every figure here comes from
  * that text — don't add capacities or formats he didn't name.
  */
 export const privateLabelPage = {
