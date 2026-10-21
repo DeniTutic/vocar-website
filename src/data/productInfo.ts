@@ -185,7 +185,7 @@ export const productInfo: Record<string, ProductInfo> = {
     },
     allergenNote: FLIPS_TIME_TRACES,
     // Voćar's corrected table. 2300 kJ and 480 kcal don't match (480 kcal is
-    // about 2010 kJ) — kept as given until Voćar confirms.
+    // about 2010 kJ), but Voćar confirmed: copy it exactly as sent.
     nutrition: { per: "100 g", energyKj: "2300", energyKcal: "480", fat: "24", saturates: "9,7", carbs: "52,80", sugars: "1,2", fibre: "3,3", protein: "14", salt: "0,8" },
     source: CORRECTIONS,
   },
@@ -216,8 +216,9 @@ export const productInfo: Record<string, ProductInfo> = {
     nutrition: { per: "100 g", energyKj: "2301", energyKcal: "550", fat: "34,30", saturates: "8,50", carbs: "44,20", sugars: "5,00", fibre: "1,95", protein: "16,00", sodium: "0,48" },
     source: shop("flips-timi-25-g-sa-kikirikijem-pakiranje-50-kom-karton"),
   },
-  // Q Flips ingredients are Voćar's corrections; the shared nutrition table
-  // and traces line are still the old shop's.
+  // Q Flips ingredients are Voćar's corrections. The shared nutrition table
+  // and traces line came from the old shop; Voćar confirmed both stand
+  // (tables are copied off the bags).
   "flips-q-flips-slatki-kukuruz": {
     ingredients: {
       bs: "Kukuruzni griz, kvinoja, suncokretovo ulje, aroma slatkog kukuruza, so.",
@@ -398,14 +399,15 @@ export const productInfo: Record<string, ProductInfo> = {
   },
 
   // ── Pellet chips ─────────────────────────────────────────────────────
-  // All three from Voćar's corrections. Chicken came without an "Alergen"
-  // line; its wheat is read off its own ingredient list.
+  // All three from Voćar's corrections: wheat on every flavour, peanut
+  // traces on every flavour, milk on sour cream from its ingredients.
   "chips-crispy-fun-piletina": {
     ingredients: {
       bs: "Pšenično brašno, suncokretovo ulje, kukuruzni škrob, aroma piletine (so, maltodekstrin, monosodium glutamat, kurkuma u prahu, bijeli luk u prahu, bijeli biber u prahu, paprika u prahu).",
       en: "Wheat flour, sunflower oil, corn starch, chicken flavouring (salt, maltodextrin, monosodium glutamate, turmeric powder, garlic powder, white pepper powder, paprika powder).",
     },
     allergens: { bs: "Gluten (pšenica).", en: "Gluten (wheat)." },
+    allergenNote: CRISPY_FUN_TRACES,
     nutrition: CRISPY_FUN_NUTRITION,
     source: CORRECTIONS,
   },
@@ -431,7 +433,7 @@ export const productInfo: Record<string, ProductInfo> = {
   },
 
   // ── Cereals & cream bar ──────────────────────────────────────────────
-  "cereals-happy-cerios-kuglice-sa-vitaminima": {
+  "cereals-happy-cerios-cokoladne-kuglice": {
     ingredients: {
       bs: "Pšenično brašno, kukuruzni griz, rižin griz, šećer, čokolada 4,9% (nemasni kakao, šećer, kakao puter), glukozni sirup, repičino ulje, odmašćeni kakao, jodirana kuhinjska sol (kalijumova sol, jodat), ekstrakt ječmenog slada, emulgator: sojin lecitin, aroma.",
       en: "Wheat flour, corn grits, rice grits, sugar, chocolate 4.9% (low-fat cocoa, sugar, cocoa butter), glucose syrup, rapeseed oil, defatted cocoa, iodised table salt (potassium salt, iodate), barley malt extract, emulsifier: soy lecithin, flavouring.",

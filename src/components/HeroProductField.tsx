@@ -83,7 +83,7 @@ const PRODUCTS: FloatingProduct[] = [
   },
   {
     src: "/images/categories/cereals.jpg",
-    alt: "Pakovanje Happy Cerios, kuglice sa vitaminima",
+    alt: "Pakovanje Happy Cerios",
     wrapperClass: "left-[27%] top-[32%] sm:left-[28%] sm:top-[30%]",
     sizeClass: "h-16 w-16 sm:h-24 sm:w-24 lg:h-28 lg:w-28",
     rotate: 4,

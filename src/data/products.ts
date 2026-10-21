@@ -132,13 +132,13 @@ function descriptionFor(categorySlug: string, name: string, categoryDescription:
   if (categorySlug === "cereals") {
     if (n.includes("nutto") || n.includes("lješnjak") || n.includes("hazelnut")) {
       return {
-        bs: "Krem bar sa lješnjacima — a lješnjaci najčešće stižu iz Turske, koja sama proizvodi oko 70% svjetske ponude ovog oraha. Hrskav spolja, kremast iznutra.",
-        en: "A cream bar built on hazelnuts — around 70% of the world's hazelnuts come from a single country, Turkey. Crisp on the outside, creamy in the middle.",
+        bs: "Krem bar sa lješnjacima — a lješnjaci najčešće stižu iz Turske, koja sama proizvodi oko 70% svjetske ponude ovog oraha.",
+        en: "A cream bar built on hazelnuts — around 70% of the world's hazelnuts come from a single country, Turkey.",
       };
     }
     return {
-      bs: "Čokoladne žitarice u obliku kuglica, obogaćene vitaminima — brz i ukusan doručak uz mlijeko ili jogurt, za djecu i odrasle.",
-      en: "Chocolate cereal balls fortified with vitamins — a quick, tasty breakfast with milk or yogurt, for kids and adults alike.",
+      bs: "Čokoladne žitarice u obliku kuglica — brz i ukusan doručak uz mlijeko ili jogurt, za djecu i odrasle.",
+      en: "Chocolate cereal balls — a quick, tasty breakfast with milk or yogurt, for kids and adults alike.",
     };
   }
 
@@ -174,7 +174,7 @@ function compositionFor(categorySlug: string, name: string): Localized {
       ? { bs: "Pšenica, kakao-lješnjak krem.", en: "Wheat, cocoa-hazelnut cream." }
       // Read off the Happy Cerios pack: cereals 71% (whole wheat flour 37%,
       // corn semolina, rice semolina), sugar, chocolate 4.9%.
-      : { bs: "Žitarice (pšenica, kukuruz, riža), šećer, čokolada, vitamini.", en: "Cereals (wheat, corn, rice), sugar, chocolate, vitamins." };
+      : { bs: "Žitarice (pšenica, kukuruz, riža), šećer, čokolada.", en: "Cereals (wheat, corn, rice), sugar, chocolate." };
   }
   return { bs: "Kukuruzno brašno, biljno ulje, začini.", en: "Corn flour, vegetable oil, seasoning." };
 }

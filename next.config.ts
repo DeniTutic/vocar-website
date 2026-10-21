@@ -14,6 +14,8 @@ const productRedirects = ["/proizvodi", "/en/products"].flatMap((base) => [
   // plain Q Flips lost the "kikiriki" its name never had on the pack.
   { source: `${base}/flips-timi-pikant-pizza-ukus`, destination: `${base}?kategorija=flips`, permanent: true },
   { source: `${base}/flips-q-flips-kikiriki-bez-masti-i-soli`, destination: `${base}/flips-q-flips-bez-dodatih-masti-i-soli`, permanent: true },
+  // Happy Cerios has no added vitamins, so the name no longer claims them.
+  { source: `${base}/cereals-happy-cerios-kuglice-sa-vitaminima`, destination: `${base}/cereals-happy-cerios-cokoladne-kuglice`, permanent: true },
 ]);
 
 const nextConfig: NextConfig = {

@@ -26,7 +26,6 @@ export const TASTES = {
   suhoVoce: { bs: "suho voće", en: "dried fruit" },
   kukuruz: { bs: "kukuruz", en: "corn" },
   kinoa: { bs: "kinoa", en: "quinoa" },
-  vitamini: { bs: "vitamini", en: "vitamins" },
   dorucak: { bs: "doručak", en: "breakfast" },
   kodKuce: { bs: "kod kuće", en: "pop at home" },
   zaKolace: { bs: "za kolače", en: "for cakes" },
