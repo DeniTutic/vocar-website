@@ -1,7 +1,6 @@
 "use client";
 
-import { MapPin, Phone, Smartphone, Mail } from "lucide-react";
-import { WhatsAppIcon } from "./SocialIcons";
+import { MapPin, Phone, Globe, Mail } from "lucide-react";
 import { contact, salesEmail } from "@/data/content";
 import { useLocale, useT } from "@/lib/locale";
 import { ScrollReveal } from "./ScrollReveal";
@@ -68,28 +67,17 @@ export function ContactSection() {
               </div>
             </div>
 
-            {/* The mobile (and the WhatsApp that rides on it) is for the
-                English site only; Bosnian visitors get the landline. */}
+            {/* English site only: international buyers write to the sales
+                inbox, so it gets its own line instead of a phone number. */}
             {locale === "en" && (
             <div className="flex gap-4">
-              <Smartphone size={22} style={{ color: "var(--forest)" }} className="mt-0.5 shrink-0" />
+              <Globe size={22} style={{ color: "var(--forest)" }} className="mt-0.5 shrink-0" />
               <div>
                 <div className="text-sm font-semibold uppercase tracking-wide" style={{ color: "var(--forest-deep)" }}>
-                  {t(contact.mobileLabel)}
+                  {t(contact.internationalLabel)}
                 </div>
-                <a href="tel:+387603562480" onClick={() => track({ name: "tel_click", number: "+387603562480" })} className="mt-1 block text-base hover:underline" style={{ color: "var(--ink-soft)" }}>
-                  +387 60 35 62 480
-                </a>
-                <a
-                  href="https://wa.me/387603562480"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  onClick={() => track({ name: "whatsapp_click", where: "kontakt" })}
-                  className="mt-2 inline-flex items-center gap-2 rounded-full px-4 py-2 text-sm font-semibold text-cream transition-colors"
-                  style={{ background: "#25D366" }}
-                >
-                  <WhatsAppIcon size={16} />
-                  {t(contact.whatsapp)}
+                <a href={`mailto:${sales}`} className="mt-1 block text-base hover:underline" style={{ color: "var(--ink-soft)" }}>
+                  {sales}
                 </a>
               </div>
             </div>
@@ -104,9 +92,12 @@ export function ContactSection() {
                 <a href="mailto:vocar@vocar.ba" className="mt-1 block text-base hover:underline" style={{ color: "var(--ink-soft)" }}>
                   vocar@vocar.ba <span className="text-sm">— {t(contact.emailGeneral)}</span>
                 </a>
-                <a href={`mailto:${sales}`} className="block text-base hover:underline" style={{ color: "var(--ink-soft)" }}>
-                  {sales} <span className="text-sm">— {t(contact.emailSales)}</span>
-                </a>
+                {/* On the English site the sales inbox already stands above. */}
+                {locale === "bs" && (
+                  <a href={`mailto:${sales}`} className="block text-base hover:underline" style={{ color: "var(--ink-soft)" }}>
+                    {sales} <span className="text-sm">— {t(contact.emailSales)}</span>
+                  </a>
+                )}
               </div>
             </div>
 

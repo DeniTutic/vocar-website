@@ -263,11 +263,11 @@ export const contact = {
     en: "Production site, not a retail shop. Visits by appointment.",
   },
   phoneLabel: { bs: "Telefon", en: "Phone" },
-  mobileLabel: { bs: "Mobitel", en: "Mobile" },
-  whatsapp: { bs: "Pišite nam na WhatsApp", en: "Message us on WhatsApp" },
   emailLabel: { bs: "E-mail", en: "Email" },
   emailGeneral: { bs: "opšta pitanja", en: "general questions" },
   emailSales: { bs: "narudžbe i prodaja", en: "orders and trade" },
+  /** Voćar's wording; shown on the English site in place of the old WhatsApp number. */
+  internationalLabel: { bs: "Međunarodni poslovni upiti", en: "International Business Inquiries" },
   officeSloveniaLabel: { bs: "Predstavništvo Slovenija", en: "Slovenia office" },
   formName: { bs: "Ime", en: "Name" },
   formEmail: { bs: "Email", en: "Email" },
@@ -560,7 +560,7 @@ export const privacyPage = {
   },
   eyebrow: { bs: "Pravne informacije", en: "Legal" },
   title: { bs: "Politika privatnosti", en: "Privacy policy" },
-  updated: { bs: "Zadnje ažurirano: 22. septembar 2026.", en: "Last updated: September 22, 2026." },
+  updated: { bs: "Zadnje ažurirano: 21. oktobar 2026.", en: "Last updated: October 21, 2026." },
   intro: {
     bs: "Ova politika opisuje koje podatke Voćar d.o.o. Brčko (Gornji Rahić 112, 76207 Gornji Rahić, Bosna i Hercegovina) prikuplja preko ove web stranice, zašto, i kome se možete obratiti u vezi s tim. Ne odnosi se na naše profile na društvenim mrežama (Instagram, Facebook), koji imaju vlastita pravila privatnosti.",
     en: "This policy describes what data Voćar d.o.o. Brčko (Gornji Rahić 112, 76207 Gornji Rahić, Bosnia and Herzegovina) collects through this website, why, and who to contact about it. It doesn't cover our social media profiles (Instagram, Facebook), which have their own privacy rules.",
@@ -583,8 +583,8 @@ export const privacyPage = {
     {
       title: { bs: "Kolačići i lokalno skladištenje", en: "Cookies and local storage" },
       body: {
-        bs: "Ova stranica ne koristi kolačiće za praćenje. Jedino što čuvamo u vašem pregledaču je odabir jezika (bosanski/engleski), lokalno na vašem uređaju — taj podatak se nikad ne šalje nama niti trećim stranama. Za mjerenje posjećenosti koristimo Vercel Web Analytics, koji radi bez kolačića i bilježi samo zbirne podatke (koje su stranice posjećene, koliko puta je kliknut katalog ili WhatsApp) — bez ličnih podataka i bez praćenja između stranica.",
-        en: "This site doesn't use tracking cookies. The only thing we store in your browser is your language choice (Bosnian/English), locally on your device — it's never sent to us or anyone else. To measure traffic we use Vercel Web Analytics, which works without cookies and records only aggregate data (which pages were visited, how often the catalog or WhatsApp was clicked) — no personal data and no cross-site tracking.",
+        bs: "Ova stranica ne koristi kolačiće za praćenje. Jedino što čuvamo u vašem pregledaču je odabir jezika (bosanski/engleski), lokalno na vašem uređaju — taj podatak se nikad ne šalje nama niti trećim stranama. Za mjerenje posjećenosti koristimo Vercel Web Analytics, koji radi bez kolačića i bilježi samo zbirne podatke (koje su stranice posjećene, koliko puta je kliknut katalog) — bez ličnih podataka i bez praćenja između stranica.",
+        en: "This site doesn't use tracking cookies. The only thing we store in your browser is your language choice (Bosnian/English), locally on your device — it's never sent to us or anyone else. To measure traffic we use Vercel Web Analytics, which works without cookies and records only aggregate data (which pages were visited, how often the catalog was clicked) — no personal data and no cross-site tracking.",
       },
     },
     {

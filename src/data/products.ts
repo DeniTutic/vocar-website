@@ -25,12 +25,13 @@ export interface Product {
    * shown only where the old shop had no declared ingredient list.
    */
   composition: Localized;
-  /** The declared ingredient list, copied from the old vocar.ba shop (see productInfo). */
+  /** The declared ingredient list (see productInfo for where each came from). */
   ingredients?: Localized;
   /**
-   * Only allergens that are certain from the product's name or its declared
-   * ingredients (peanuts in peanut products, wheat and soy where the list
-   * says so). Rendered as "Sadrži: …".
+   * Voćar's own "Alergen" line where it gave one; otherwise only allergens
+   * that are certain from the product's name or its declared ingredients
+   * (peanuts in peanut products, wheat and soy where the list says so).
+   * Rendered as "Sadrži: …".
    */
   allergens?: Localized;
   /** The old shop's own allergen line, verbatim — mostly may-contain-traces. */
@@ -98,10 +99,11 @@ function descriptionFor(categorySlug: string, name: string, categoryDescription:
     return categoryDescription;
   }
 
+  // Voćar's wording, and only this sentence.
   if (categorySlug === "prunes" && (n.includes("čoko") || n.includes("choco"))) {
     return {
-      bs: "Sušene šljive umočene u tanak sloj kakao premaza — spoj tradicionalnog bosanskog voća i slatkog zadovoljstva. Prave se od šljiva u tradiciji čuvene domaće sorte Požegača, koja stoljećima raste na Balkanu i tradicionalno se koristi za sušenje i pečenje rakije šljivovice.",
-      en: "Sun-dried plums dipped in a thin layer of cocoa coating — a meeting of traditional Bosnian fruit and a bit of sweetness. Made in the tradition of Požegača, the old Balkan plum variety grown for centuries and historically the go-to choice for both drying and distilling šljivovica.",
+      bs: "Sušene šljive umočene u tanak sloj prvoklasne belgijske čokolade.",
+      en: "Dried plums dipped in a thin layer of premium Belgian chocolate.",
     };
   }
 
@@ -157,7 +159,7 @@ function compositionFor(categorySlug: string, name: string): Localized {
       : { bs: "Sušena šljiva, bez dodataka.", en: "Dried plum, no additives." };
   }
   if (categorySlug === "flips" && n.startsWith("q flips")) {
-    return n.includes("bez masti")
+    return n.includes("bez dodatih masti")
       ? { bs: "Kukuruz, kinoa.", en: "Corn, quinoa." }
       : { bs: "Kukuruz, kinoa, začini.", en: "Corn, quinoa, seasoning." };
   }
@@ -195,14 +197,7 @@ function allergensFor(categorySlug: string, name: string): Localized | undefined
     return undefined;
   }
   if (categorySlug === "wafers") return { bs: "Gluten (pšenica), soja.", en: "Gluten (wheat), soy." };
-  if (categorySlug === "cereals") {
-    // Happy Cerios' own label bolds three: whole wheat flour, barley malt
-    // extract and soy lecithin. Nutto's name gives hazelnut, the wafer base
-    // gives wheat, and the old shop's list adds whey, skimmed milk and soy.
-    return n.includes("nutto")
-      ? { bs: "Gluten (pšenica), mlijeko, soja, lješnjak.", en: "Gluten (wheat), milk, soy, hazelnut." }
-      : { bs: "Gluten (pšenica, ječam), soja.", en: "Gluten (wheat, barley), soy." };
-  }
+  // Cereals, chips and the coated popcorn carry Voćar's own "Alergen" line in productInfo.
   return undefined;
 }
 
@@ -243,7 +238,7 @@ function buildProducts(): Product[] {
         description: descriptionFor(category.slug, name, category.description),
         composition: compositionFor(category.slug, name),
         ingredients: info?.ingredients,
-        allergens: allergensFor(category.slug, name),
+        allergens: info?.allergens ?? allergensFor(category.slug, name),
         allergenNote: info?.allergenNote,
         nutrition: info?.nutrition,
       };

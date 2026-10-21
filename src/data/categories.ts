@@ -76,13 +76,6 @@ export const categories: Category[] = [
         tastes: ["pikant", "hrskavo", "kukuruz"],
       },
       {
-        name: { bs: "Timi Pikant pizza ukus", en: "Timi Pikant Pizza flavor" },
-        image: "/images/products/timi-flips-timi-pikant-pizza-ukus.jpg",
-        sizes: "30g",
-        flavor: { bs: "Pikantni flips sa ukusom pice.", en: "Piquant puffs with pizza flavor." },
-        tastes: ["pizza", "pikant", "hrskavo"],
-      },
-      {
         name: { bs: "Timi Pikant", en: "Timi Pikant" },
         image: "/images/products/timi-flips-timi-pikant.jpg",
         sizes: "30g",
@@ -115,11 +108,13 @@ export const categories: Category[] = [
         badges: ["novo"],
       },
       {
-        name: { bs: "Q Flips kikiriki, bez masti i soli", en: "Q Flips Peanuts, no fat or salt" },
+        // The pack reads "Bez dodatih masti i soli" and the declared
+        // ingredients are corn grits and quinoa only — no peanut.
+        name: { bs: "Q Flips bez dodatih masti i soli", en: "Q Flips, no added fat or salt" },
         image: "/images/products/quinoa-flips-q-flips-kikiriki-bez-masti-i-soli.jpg",
         sizes: "60g",
-        flavor: { bs: "Kikiriki ukus, bez masti i bez soli.", en: "Peanut flavor, no fat and no salt." },
-        tastes: ["kikiriki", "bezMasti", "bezSoli"],
+        flavor: { bs: "Samo kukuruz i kinoa, bez dodatih masti i soli.", en: "Just corn and quinoa, no added fat or salt." },
+        tastes: ["kinoa", "bezMasti", "bezSoli"],
         badges: ["novo"],
       },
       {
@@ -225,9 +220,11 @@ export const categories: Category[] = [
     slug: "prunes",
     name: { bs: "Suhe šljive", en: "Dried Prunes" },
     tagline: { bs: "Samo voće i vrijeme.", en: "Just fruit and time." },
+    // Voćar asked for the Požegača sentence to go. "Bez koštice" went with
+    // it: this text also stands on the prunes sold with the stone.
     description: {
-      bs: "Prirodno sušene šljive bez koštice, bez dodanog šećera — samo voće i vrijeme. Bosna i Hercegovina ima dugu tradiciju uzgoja šljiva, prvenstveno domaće sorte Požegača, koja se stoljećima suši baš za ovakve grickalice i za pečenje rakije šljivovice.",
-      en: "Naturally sun-dried plums, pitted, with no added sugar — just fruit and time. Bosnia and Herzegovina has a long plum-growing tradition built around the Požegača variety, dried this same way for generations for snacking and for the region's beloved šljivovica brandy.",
+      bs: "Prirodno sušene šljive, bez dodanog šećera — samo voće i vrijeme.",
+      en: "Naturally sun-dried plums, with no added sugar — just fruit and time.",
     },
     image: "/images/categories/prunes.jpg",
     imageAlt: { bs: "Pakovanje Čoko šljiva", en: "Choco Prunes package" },
@@ -240,7 +237,7 @@ export const categories: Category[] = [
         name: { bs: "Čoko šljive bez koštice", en: "Choco Prunes pitted" },
         image: "/images/products/prunes-coko-sljive-bez-kostice.jpg",
         sizes: "200g",
-        flavor: { bs: "Suha šljiva pod tankim kakao premazom.", en: "Dried plum under a thin cocoa coat." },
+        flavor: { bs: "Suha šljiva u tankom sloju belgijske čokolade.", en: "Dried plum in a thin layer of Belgian chocolate." },
         tastes: ["coko", "suhoVoce", "bezKostice"],
         badges: ["hit"],
       },

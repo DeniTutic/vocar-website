@@ -23,14 +23,21 @@ export interface Nutrition {
 export interface ProductInfo {
   /** The declared ingredient list. Absent where the old shop had none. */
   ingredients?: Localized;
-  /** The old shop's "Alergeni" line, verbatim — mostly a may-contain-traces note. */
+  /**
+   * What the product contains, as Voćar declared it ("Alergen: …"). Overrides
+   * the allergens products.ts derives from the name; shown as "Sadrži: …".
+   */
+  allergens?: Localized;
+  /** The may-contain-traces line — the old shop's, or Voćar's correction of it. */
   allergenNote?: Localized;
   nutrition?: Nutrition;
-  /** The vocar.ba (WooCommerce) product this was copied from, for re-checking. */
+  /** Where this came from, for re-checking: the old vocar.ba product page or Voćar's correction list. */
   source: string;
 }
 
 const shop =(product: string) => `https://www.vocar.ba/?product=${product}`;
+/** Voćar's own corrections, sent as "Korekcije web stranica.docx" (October 2026). */
+const CORRECTIONS = "Korekcije web stranica (Voćar, October 2026)";
 
 const FLIPS_TIME_TRACES: Localized = {
   bs: "Može da sadrži u tragovima: gluten, soju, slačicu, sezam, jaja, mlijeko i mliječne proizvode.",
@@ -60,16 +67,29 @@ const POPCORN_TRACES: Localized = {
   en: "May contain traces of: gluten, peanuts, soy, dairy ingredients.",
 };
 const SALTED_POPCORN_INGREDIENTS: Localized = {
-  bs: "Kukuruz, biljna mast (palmina), jestiva sol 1,5%.",
-  en: "Corn, vegetable fat (palm), edible salt 1.5%.",
+  bs: "Kukuruz kokičar, suncokretovo ulje, so.",
+  en: "Popping corn, sunflower oil, salt.",
 };
-const COATED_POPCORN_INGREDIENTS: Localized = {
-  bs: "Kukuruz, biljno ulje, šećer, glukozni sirup, aroma.",
-  en: "Corn, vegetable oil, sugar, glucose syrup, flavouring.",
+const SALTED_POPCORN_NUTRITION: Nutrition = {
+  per: "100 g",
+  energyKj: "2060",
+  energyKcal: "491",
+  fat: "22,3",
+  saturates: "10,5",
+  carbs: "63,6",
+  sugars: "1,8",
+  fibre: "3,3",
+  protein: "9,06",
+  salt: "3,5",
 };
+const SOY: Localized = { bs: "Soja.", en: "Soy." };
 const PRUNE_INGREDIENTS: Localized = {
   bs: "Šljiva, voda, konzervans E200.",
   en: "Plums, water, preservative E200.",
+};
+const PRUNE_TRACES: Localized = {
+  bs: "Može da sadrži tragove kikirikija.",
+  en: "May contain traces of peanuts.",
 };
 const PRUNE_NUTRITION: Nutrition = {
   per: "100 g",
@@ -108,8 +128,8 @@ const PEANUT_BUTTER_TRACES: Localized = {
   en: "May contain traces of: milk, gluten, soy and nuts.",
 };
 const PEANUT_BUTTER_95: Localized = {
-  bs: "95% pečeni kikiriki, hidrogenizirano sojino ulje, šećer, sol.",
-  en: "95% roasted peanuts, hydrogenated soybean oil, sugar, salt.",
+  bs: "95% pečeni kikiriki, hidrogenizirano palmino/suncokretovo ulje, šećer, sol.",
+  en: "95% roasted peanuts, hydrogenated palm/sunflower oil, sugar, salt.",
 };
 const PEANUT_BUTTER_NUTRITION: Nutrition = {
   per: "100 g",
@@ -123,13 +143,29 @@ const PEANUT_BUTTER_NUTRITION: Nutrition = {
   protein: "26",
   salt: "0,33",
 };
+// Voćar gave one table for all three Crispy Fun flavours.
+const CRISPY_FUN_NUTRITION: Nutrition = {
+  per: "100 g",
+  energyKj: "2232",
+  energyKcal: "534",
+  fat: "32",
+  saturates: "3,5",
+  carbs: "55,6",
+  sugars: "3,1",
+  fibre: "2,1",
+  protein: "2,9",
+  salt: "2,15",
+};
+const CRISPY_FUN_TRACES: Localized = {
+  bs: "Može da sadrži kikiriki u tragovima.",
+  en: "May contain traces of peanuts.",
+};
 
 /**
- * Ingredients, allergen notes and nutrition copied from the product pages of
- * the old vocar.ba shop (October 2026), keyed by product slug. Numbers are
- * copied exactly as published, typos included, until Voćar confirms
- * corrections. Products missing here (Crispy Fun, Happy Cerios) had no
- * declaration on the old shop.
+ * Ingredients, allergen notes and nutrition, keyed by product slug. First
+ * copied from the old vocar.ba shop (October 2026), typos included; entries
+ * Voćar has since corrected follow its correction list instead. Numbers
+ * stay exactly as given — don't "fix" them without Voćar.
  */
 export const productInfo: Record<string, ProductInfo> = {
   // ── Flips ────────────────────────────────────────────────────────────
@@ -148,8 +184,10 @@ export const productInfo: Record<string, ProductInfo> = {
       en: "Corn grits, ground peanuts, vegetable oil (palm), salt.",
     },
     allergenNote: FLIPS_TIME_TRACES,
-    nutrition: { per: "100 g", energyKj: "2300", energyKcal: "480", fat: "26,70", saturates: "10,70", carbs: "52,80", sugars: "1,20", fibre: "3,3", protein: "12,80", salt: "1,40" },
-    source: shop("flips-time-sa-kikirikijem-150-g-pakiranje-16-kom-karton"),
+    // Voćar's corrected table. 2300 kJ and 480 kcal don't match (480 kcal is
+    // about 2010 kJ) — kept as given until Voćar confirms.
+    nutrition: { per: "100 g", energyKj: "2300", energyKcal: "480", fat: "24", saturates: "9,7", carbs: "52,80", sugars: "1,2", fibre: "3,3", protein: "14", salt: "0,8" },
+    source: CORRECTIONS,
   },
   "flips-flips-time-pikant": {
     ingredients: {
@@ -159,15 +197,6 @@ export const productInfo: Record<string, ProductInfo> = {
     allergenNote: FLIPS_TIME_TRACES,
     nutrition: { per: "100 g", energyKj: "2300", energyKcal: "480", fat: "24,00", saturates: "9,70", carbs: "52,80", sugars: "1,20", fibre: "3,3", protein: "14,0", salt: "1,4" },
     source: shop("flips-time-150-g-pikant-150-g-pakiranje-16-kom-karton"),
-  },
-  "flips-timi-pikant-pizza-ukus": {
-    ingredients: {
-      bs: "Kukuruzna krupica, biljna mast (palmina), aroma (dvopek, šećer, ojačivač okusa E 621, so), so max 3,5%.",
-      en: "Corn semolina, vegetable fat (palm), flavouring (rusk, sugar, flavour enhancer E 621, salt), salt max. 3.5%.",
-    },
-    allergenNote: TIMI_TRACES,
-    nutrition: { per: "100 g", energyKj: "1660", energyKcal: "397", fat: "7,15", carbs: "71,00", protein: "12,10" },
-    source: shop("flips-timi-pizza-30g-pakiranje-35-kom-karton"),
   },
   "flips-timi-pikant": {
     ingredients: {
@@ -187,53 +216,81 @@ export const productInfo: Record<string, ProductInfo> = {
     nutrition: { per: "100 g", energyKj: "2301", energyKcal: "550", fat: "34,30", saturates: "8,50", carbs: "44,20", sugars: "5,00", fibre: "1,95", protein: "16,00", sodium: "0,48" },
     source: shop("flips-timi-25-g-sa-kikirikijem-pakiranje-50-kom-karton"),
   },
+  // Q Flips ingredients are Voćar's corrections; the shared nutrition table
+  // and traces line are still the old shop's.
   "flips-q-flips-slatki-kukuruz": {
+    ingredients: {
+      bs: "Kukuruzni griz, kvinoja, suncokretovo ulje, aroma slatkog kukuruza, so.",
+      en: "Corn grits, quinoa, sunflower oil, sweet corn flavouring, salt.",
+    },
     allergenNote: Q_FLIPS_TRACES,
     nutrition: Q_FLIPS_NUTRITION,
     source: shop("quinoa-flips-slatki-kukuruz-80g-pakiranje-20-komada"),
   },
   "flips-q-flips-kikiriki": {
+    ingredients: {
+      bs: "Kukuruzni griz, kikiriki, kvinoja, suncokretovo ulje, so.",
+      en: "Corn grits, peanuts, quinoa, sunflower oil, salt.",
+    },
     allergenNote: Q_FLIPS_TRACES,
     nutrition: Q_FLIPS_NUTRITION,
     source: shop("quinoja-flips-kikiriki-80g-pakiranje-20-komada"),
   },
-  "flips-q-flips-kikiriki-bez-masti-i-soli": {
+  "flips-q-flips-bez-dodatih-masti-i-soli": {
+    ingredients: { bs: "Kukuruzni griz, kvinoja.", en: "Corn grits, quinoa." },
     allergenNote: Q_FLIPS_TRACES,
     nutrition: Q_FLIPS_NUTRITION,
     source: shop("quinoa-flips-bez-dodatnih-masti-i-soli-60g-pakiranje-20-komada"),
   },
   "flips-q-flips-kecap-i-kikiriki": {
+    ingredients: {
+      bs: "Kukuruzni griz, kvinoja, kikiriki, suncokretovo ulje, aroma kečapa, so.",
+      en: "Corn grits, quinoa, peanuts, sunflower oil, ketchup flavouring, salt.",
+    },
     allergenNote: Q_FLIPS_TRACES,
     nutrition: Q_FLIPS_NUTRITION,
     source: shop("quinoa-flips-kikiriki-kecap-80g-pakiranje-20-komada"),
   },
   "flips-q-flips-slani": {
+    ingredients: { bs: "Kukuruzni griz, kvinoja, suncokretovo ulje, so.", en: "Corn grits, quinoa, sunflower oil, salt." },
     allergenNote: Q_FLIPS_TRACES,
     nutrition: Q_FLIPS_NUTRITION,
     source: shop("quinoa-flips-slani-60g-pakiranje-20-komada"),
   },
 
   // ── Popcorn ──────────────────────────────────────────────────────────
+  // Salted (40 g, 120 g and the 250 g tub): ingredients and table from
+  // Voćar's corrections; the traces line is still the old shop's.
   "popcorn-pop-star-kokice-slane": {
     ingredients: SALTED_POPCORN_INGREDIENTS,
     allergenNote: POPCORN_TRACES,
-    nutrition: { per: "100 g", energyKj: "1902", energyKcal: "454", fat: "24", saturates: "11", carbs: "54,00", sugars: "0,6", fibre: "2", protein: "7", salt: "1,5" },
-    source: shop("popcorn-timi-slani-40g-pakiranje-30-kom-karton"),
+    nutrition: SALTED_POPCORN_NUTRITION,
+    source: CORRECTIONS,
   },
   "popcorn-pop-star-kokice-slane-kantica": {
     ingredients: SALTED_POPCORN_INGREDIENTS,
     allergenNote: POPCORN_TRACES,
-    nutrition: { per: "100 g", energyKj: "1902", energyKcal: "454", fat: "24", saturates: "11", carbs: "54,00", sugars: "0,6", fibre: "2", protein: "7", salt: "1,5" },
-    source: shop("popcorn-pet-kantica-250-g-pakiranje-9-kom-karton-pet-kantica"),
+    nutrition: SALTED_POPCORN_NUTRITION,
+    source: CORRECTIONS,
   },
+  // Choco and caramel: ingredients and "Alergen: soja" from Voćar's
+  // corrections; nutrition and traces line still the old shop's.
   "popcorn-pop-star-kokice-coko": {
-    ingredients: COATED_POPCORN_INGREDIENTS,
+    ingredients: {
+      bs: "Kukuruz kokičar, šećer, kakao, glukozni sirup, biljna mast palmina/suncokretova, sojin lecitin.",
+      en: "Popping corn, sugar, cocoa, glucose syrup, vegetable fat (palm/sunflower), soy lecithin.",
+    },
+    allergens: SOY,
     allergenNote: POPCORN_TRACES,
     nutrition: { per: "100 g", energyKj: "1583", energyKcal: "373", fat: "2,40", saturates: "1,10", carbs: "85,00", sugars: "38,00", fibre: "0", protein: "3,1", salt: "0,5" },
     source: shop("popcorn-coko-100-g-pakiranje-20-kom-karton"),
   },
   "popcorn-pop-star-kokice-karamel": {
-    ingredients: COATED_POPCORN_INGREDIENTS,
+    ingredients: {
+      bs: "Kukuruz kokičar, šećer, glukozni sirup, biljna mast palmina/suncokretova, sojin lecitin.",
+      en: "Popping corn, sugar, glucose syrup, vegetable fat (palm/sunflower), soy lecithin.",
+    },
+    allergens: SOY,
     allergenNote: POPCORN_TRACES,
     nutrition: { per: "100 g", energyKj: "1583", energyKcal: "373", fat: "20,00", saturates: "1,00", carbs: "85,00", sugars: "38,00", fibre: "0", protein: "3,0", salt: "0,5" },
     source: shop("popcorn-caramel-100-g-pakiranje-20-kom-karton"),
@@ -261,9 +318,10 @@ export const productInfo: Record<string, ProductInfo> = {
 
   // ── Prunes ───────────────────────────────────────────────────────────
   "prunes-coko-sljive-bez-kostice": {
+    ingredients: { bs: "Suha šljiva, čokoladni preliv.", en: "Dried plum, chocolate coating." },
     allergenNote: {
-      bs: "Može da sadrži u tragovima: mlijeko, gluten i orašaste sastojke.",
-      en: "May contain traces of: milk, gluten and nuts.",
+      bs: "Može da sadrži u tragovima: mlijeko, gluten, soju i orašaste sastojke.",
+      en: "May contain traces of: milk, gluten, soy and nuts.",
     },
     nutrition: { per: "100 g", energyKj: "1506", energyKcal: "377", fat: "11", saturates: "10", carbs: "60,00", sugars: "38,00", fibre: "4,80", protein: "2,4", salt: "0,01" },
     source: shop("suha-sljiva-bez-kostice-sa-cokoladnim-prelivom-200-g-pakiranje-10-kom-karton"),
@@ -272,13 +330,13 @@ export const productInfo: Record<string, ProductInfo> = {
   // beside the same 800 kJ.
   "prunes-suhe-sljive-bez-kostice": {
     ingredients: PRUNE_INGREDIENTS,
-    allergenNote: { bs: "Šljiva.", en: "Plum." },
+    allergenNote: PRUNE_TRACES,
     nutrition: PRUNE_NUTRITION,
     source: shop("suha-sljiva-bez-kostice-200-g-12-1-kutija"),
   },
   "prunes-suhe-sljive": {
     ingredients: PRUNE_INGREDIENTS,
-    allergenNote: { bs: "Šljiva.", en: "Plum." },
+    allergenNote: PRUNE_TRACES,
     nutrition: PRUNE_NUTRITION,
     source: shop("suha-sljiva-sa-kosticom-500-g-pakiranje-15-kom-karton"),
   },
@@ -321,10 +379,7 @@ export const productInfo: Record<string, ProductInfo> = {
 
   // ── Peanut butter ────────────────────────────────────────────────────
   "peanut-butter-puter-od-kikirikija-kremasti-100": {
-    ingredients: {
-      bs: "100% pečeni kikiriki, hidrogenizirano sojino ulje, šećer, sol.",
-      en: "100% roasted peanuts, hydrogenated soybean oil, sugar, salt.",
-    },
+    ingredients: { bs: "100% kikiriki.", en: "100% peanuts." },
     allergenNote: PEANUT_BUTTER_TRACES,
     nutrition: { per: "100 g", energyKj: "2615", energyKcal: "563", fat: "51", saturates: "10", carbs: "14,00", sugars: "10,01", protein: "26", salt: "0,33" },
     source: shop("kikiriki-maslac-100-350g-staklo-12-1"),
@@ -342,14 +397,57 @@ export const productInfo: Record<string, ProductInfo> = {
     source: shop("kikiriki-maslac-crunchy-plavi-350-g-pakiranje-12-kom-karton"),
   },
 
+  // ── Pellet chips ─────────────────────────────────────────────────────
+  // All three from Voćar's corrections. Chicken came without an "Alergen"
+  // line; its wheat is read off its own ingredient list.
+  "chips-crispy-fun-piletina": {
+    ingredients: {
+      bs: "Pšenično brašno, suncokretovo ulje, kukuruzni škrob, aroma piletine (so, maltodekstrin, monosodium glutamat, kurkuma u prahu, bijeli luk u prahu, bijeli biber u prahu, paprika u prahu).",
+      en: "Wheat flour, sunflower oil, corn starch, chicken flavouring (salt, maltodextrin, monosodium glutamate, turmeric powder, garlic powder, white pepper powder, paprika powder).",
+    },
+    allergens: { bs: "Gluten (pšenica).", en: "Gluten (wheat)." },
+    nutrition: CRISPY_FUN_NUTRITION,
+    source: CORRECTIONS,
+  },
+  "chips-crispy-fun-pavlaka": {
+    ingredients: {
+      bs: "Pšenično brašno, suncokretovo ulje, kukuruzni škrob, aroma pavlake i luka (mlijeko u prahu, luk u prahu, so, maltodekstrin, monosodium glutamat, peršun u prahu, kopar u prahu, limunska kiselina).",
+      en: "Wheat flour, sunflower oil, corn starch, sour cream and onion flavouring (milk powder, onion powder, salt, maltodextrin, monosodium glutamate, parsley powder, dill powder, citric acid).",
+    },
+    allergens: { bs: "Gluten (pšenica), mlijeko.", en: "Gluten (wheat), milk." },
+    allergenNote: CRISPY_FUN_TRACES,
+    nutrition: CRISPY_FUN_NUTRITION,
+    source: CORRECTIONS,
+  },
+  "chips-crispy-fun-cili": {
+    ingredients: {
+      bs: "Pšenično brašno, suncokretovo ulje, kukuruzni škrob, aroma ljutog čilija (čili u prahu, so, maltodekstrin, monosodium glutamat, luk u prahu, cimet u prahu, limunska kiselina).",
+      en: "Wheat flour, sunflower oil, corn starch, hot chilli flavouring (chilli powder, salt, maltodextrin, monosodium glutamate, onion powder, cinnamon powder, citric acid).",
+    },
+    allergens: { bs: "Gluten (pšenica).", en: "Gluten (wheat)." },
+    allergenNote: CRISPY_FUN_TRACES,
+    nutrition: CRISPY_FUN_NUTRITION,
+    source: CORRECTIONS,
+  },
+
   // ── Cereals & cream bar ──────────────────────────────────────────────
-  // The old page has its fields swapped: "Sastojci" reads "Sobna
-  // temperatura" and the ingredient list sits under "Alergeni".
+  "cereals-happy-cerios-kuglice-sa-vitaminima": {
+    ingredients: {
+      bs: "Pšenično brašno, kukuruzni griz, rižin griz, šećer, čokolada 4,9% (nemasni kakao, šećer, kakao puter), glukozni sirup, repičino ulje, odmašćeni kakao, jodirana kuhinjska sol (kalijumova sol, jodat), ekstrakt ječmenog slada, emulgator: sojin lecitin, aroma.",
+      en: "Wheat flour, corn grits, rice grits, sugar, chocolate 4.9% (low-fat cocoa, sugar, cocoa butter), glucose syrup, rapeseed oil, defatted cocoa, iodised table salt (potassium salt, iodate), barley malt extract, emulsifier: soy lecithin, flavouring.",
+    },
+    allergens: { bs: "Gluten (pšenica, ječam), soja.", en: "Gluten (wheat, barley), soy." },
+    nutrition: { per: "100 g", energyKj: "1671", energyKcal: "396", fat: "5,7", saturates: "1,1", carbs: "75", sugars: "24", fibre: "6,5", protein: "7,8", salt: "0,53" },
+    source: CORRECTIONS,
+  },
+  // Ingredients and allergens from Voćar's corrections (no wheat, so no
+  // gluten); the nutrition table is still the old shop's.
   "cereals-nutto-krem-bar-ljesnjak": {
     ingredients: {
-      bs: "Biljna mast (palmina), surutka u prahu, kakao prah, biljno ulje (suncokretovo), sojino brašno, obrano mlijeko, lješnjak pasta.",
-      en: "Vegetable fat (palm), whey powder, cocoa powder, vegetable oil (sunflower), soy flour, skimmed milk, hazelnut paste.",
+      bs: "Šećer, biljna mast (palmina), surutka u prahu, kakao prah sa smanjenim sadržajem masti, biljno ulje (suncokretovo), sojino brašno, obrano mlijeko u prahu, lješnjak pasta 5%, sojin lecitin, aroma lješnika.",
+      en: "Sugar, vegetable fat (palm), whey powder, fat-reduced cocoa powder, vegetable oil (sunflower), soy flour, skimmed milk powder, hazelnut paste 5%, soy lecithin, hazelnut flavouring.",
     },
+    allergens: { bs: "Mlijeko, soja, lješnjak.", en: "Milk, soy, hazelnut." },
     nutrition: { per: "100 g", energyKj: "2238", energyKcal: "536", fat: "30,30", saturates: "26,00", carbs: "59,00", sugars: "58,10", fibre: "5,7", protein: "2,00", salt: "0,25" },
     source: shop("krem-tabla-nutto-bar-80-g-pakiranje-40-kom-karton"),
   },

@@ -2,11 +2,11 @@
 
 import Link from "next/link";
 import { Logo } from "./Logo";
-import { nav, footerContent, salesEmail } from "@/data/content";
+import { nav, footerContent, salesEmail, contact } from "@/data/content";
 import { useLocale, useT, type Locale } from "@/lib/locale";
 import { homeHash, path } from "@/lib/routes";
 import { ScrollReveal } from "./ScrollReveal";
-import { InstagramIcon, FacebookIcon, WhatsAppIcon } from "./SocialIcons";
+import { InstagramIcon, FacebookIcon } from "./SocialIcons";
 import { NewsletterInline } from "./NewsletterInline";
 import { track } from "@/lib/track";
 
@@ -100,28 +100,12 @@ export function Footer() {
           <a href="tel:+38749512415" className="w-fit opacity-80 transition-opacity hover:opacity-100">
             +387 49 512 415
           </a>
-          {/* Mobile + WhatsApp on the English site only; Bosnian shows the landline. */}
-          {locale === "en" && (
-            <>
-              <a href="tel:+387603562480" className="w-fit opacity-80 transition-opacity hover:opacity-100">
-                +387 60 35 62 480
-              </a>
-              <a
-                href="https://wa.me/387603562480"
-                target="_blank"
-                rel="noopener noreferrer"
-                onClick={() => track({ name: "whatsapp_click", where: "footer" })}
-                className="inline-flex w-fit items-center gap-1.5 opacity-80 transition-opacity hover:opacity-100"
-              >
-                <WhatsAppIcon size={14} />
-                WhatsApp
-              </a>
-            </>
-          )}
           <a href="mailto:vocar@vocar.ba" className="w-fit opacity-80 transition-opacity hover:opacity-100">
             vocar@vocar.ba
           </a>
+          {/* English visitors get the sales inbox as the international line. */}
           <a href={`mailto:${t(salesEmail)}`} className="w-fit opacity-80 transition-opacity hover:opacity-100">
+            {locale === "en" && `${t(contact.internationalLabel)}: `}
             {t(salesEmail)}
           </a>
         </div>
