@@ -11,7 +11,7 @@ import { ScrollReveal } from "./ScrollReveal";
 import { SectionHeading } from "./SectionHeading";
 
 // Same order as page.manufacturing and page.packaging.
-const MANUFACTURING_ICONS: LucideIcon[] = [Flame, CookingPot, Cylinder, Popcorn, Nut];
+const MANUFACTURING_ICONS: LucideIcon[] = [Flame, CookingPot, Nut, Cylinder, Popcorn];
 const PACKAGING_ICONS: LucideIcon[] = [Package, PaintBucket, Container];
 
 /** Opens the homepage form in trade mode with a private label message filled in. */
@@ -22,32 +22,52 @@ function inquiryHref(locale: Locale) {
 /**
  * One service card. Manufacturing lists are short names (nuts, grains), so
  * they read as chips; packaging lists are whole phrases, so they read as
- * checked lines.
+ * checked lines. Compact cards put the icon beside the title to stay short.
  */
 function ServiceCard({
   service,
   icon: Icon,
   list,
+  compact = false,
   className = "",
 }: {
   service: PrivateLabelService;
   icon: LucideIcon;
   list: "chips" | "lines";
+  compact?: boolean;
   className?: string;
 }) {
   const t = useT();
+  const badge = (
+    <span
+      className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full"
+      style={{ background: "var(--forest)", color: "var(--cream)" }}
+      aria-hidden
+    >
+      <Icon size={20} />
+    </span>
+  );
+  const title = (
+    <h3 className="text-xl" style={{ color: "var(--forest-deep)" }}>
+      {t(service.title)}
+    </h3>
+  );
   return (
-    <li className={`flex flex-col gap-3 rounded-2xl border p-6 ${className}`} style={{ background: "var(--cream)", borderColor: "var(--line)" }}>
-      <span
-        className="flex h-11 w-11 items-center justify-center rounded-full"
-        style={{ background: "var(--forest)", color: "var(--cream)" }}
-        aria-hidden
-      >
-        <Icon size={20} />
-      </span>
-      <h3 className="text-xl" style={{ color: "var(--forest-deep)" }}>
-        {t(service.title)}
-      </h3>
+    <li
+      className={`flex flex-col rounded-2xl border ${compact ? "gap-2.5 p-5" : "gap-3 p-6"} ${className}`}
+      style={{ background: "var(--cream)", borderColor: "var(--line)" }}
+    >
+      {compact ? (
+        <div className="flex items-center gap-3">
+          {badge}
+          {title}
+        </div>
+      ) : (
+        <>
+          {badge}
+          {title}
+        </>
+      )}
       {service.intro && (
         <p className="text-sm leading-relaxed" style={{ color: "var(--ink-soft)" }}>
           {t(service.intro)}
@@ -55,11 +75,13 @@ function ServiceCard({
       )}
       {service.items &&
         (list === "chips" ? (
+          // rounded-2xl rather than -full: one-line chips still read as
+          // pills, and a chip that wraps becomes a rounded box, not a blob.
           <ul className="flex flex-wrap gap-1.5">
             {service.items.map((item) => (
               <li
                 key={item.bs}
-                className="rounded-full border px-3 py-1 text-[13px] leading-snug"
+                className="rounded-2xl border px-3 py-1 text-[13px] leading-snug"
                 style={{ borderColor: "var(--line)", background: "var(--paper)", color: "var(--ink)" }}
               >
                 {t(item)}
@@ -154,8 +176,9 @@ export function PrivateLabelView() {
         <div className="mx-auto max-w-7xl px-5 sm:px-8">
           <SectionHeading eyebrow={t(page.manufacturingEyebrow)} title={t(page.manufacturingTitle)} body={t(page.manufacturingBody)} />
           <ScrollReveal className="mt-12">
-            {/* Roasting and frying carry the long nut lists, so they share the
-                first row; extrusion, popcorn and nut butter split the second. */}
+            {/* Row one: the three nut services (roasting, frying, nut butter),
+                each a third. Row two: extrusion and popcorn, half each and
+                compact. On tablets nut butter takes a full row of its own. */}
             <ul className="grid gap-4 md:grid-cols-2 lg:grid-cols-6">
               {page.manufacturing.map((service, i) => (
                 <ServiceCard
@@ -163,7 +186,8 @@ export function PrivateLabelView() {
                   service={service}
                   icon={MANUFACTURING_ICONS[i]}
                   list="chips"
-                  className={i < 2 ? "lg:col-span-3" : i === page.manufacturing.length - 1 ? "md:col-span-2 lg:col-span-2" : "lg:col-span-2"}
+                  compact={i > 2}
+                  className={i < 2 ? "lg:col-span-2" : i === 2 ? "md:col-span-2 lg:col-span-2" : "lg:col-span-3"}
                 />
               ))}
             </ul>
@@ -180,7 +204,7 @@ export function PrivateLabelView() {
                 <ServiceCard key={service.title.bs} service={service} icon={PACKAGING_ICONS[i]} list="lines" />
               ))}
             </ul>
-            <p className="mt-8 max-w-2xl text-base leading-relaxed" style={{ color: "var(--ink-soft)" }}>
+            <p className="mt-8 text-base leading-relaxed" style={{ color: "var(--ink-soft)" }}>
               {t(page.packagingNote)}
             </p>
           </ScrollReveal>

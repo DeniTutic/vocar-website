@@ -392,6 +392,7 @@ const PRIVATE_LABEL_NUTS: readonly Localized[] = [
   { bs: "Pinjoli", en: "Pine nuts" },
 ];
 
+// Display order: the three nut services first, then extrusion and popcorn.
 const PRIVATE_LABEL_MANUFACTURING: readonly PrivateLabelService[] = [
   {
     title: { bs: "Prženje orašastih plodova i kikirikija", en: "Roasting of nuts and peanuts" },
@@ -404,25 +405,6 @@ const PRIVATE_LABEL_MANUFACTURING: readonly PrivateLabelService[] = [
     note: {
       bs: "Vrsta ulja može se prilagoditi zahtjevima proizvoda, u skladu sa mogućnostima prerade.",
       en: "Oil selection can be adapted to product requirements, subject to processing compatibility.",
-    },
-  },
-  {
-    title: { bs: "Ekstruzija", en: "Extrusion" },
-    intro: { bs: "Nudimo ekstruziju za proizvodnju grickalica na bazi:", en: "We offer extrusion processing for the production of snack products based on:" },
-    items: [
-      { bs: "Kukuruz", en: "Corn" },
-      { bs: "Riža", en: "Rice" },
-    ],
-    note: {
-      bs: "Naše mogućnosti ekstruzije omogućavaju razvoj različitih oblika, tekstura i koncepata grickalica prema specifikacijama kupca.",
-      en: "Our extrusion capabilities support the development of different shapes, textures, and snack concepts according to customer specifications.",
-    },
-  },
-  {
-    title: { bs: "Proizvodnja kokica", en: "Popcorn production" },
-    intro: {
-      bs: "Nudimo preradu i ekspanziju kokica za proizvodnju slanih, slatkih i aromatiziranih kokica.",
-      en: "We provide popcorn processing and expansion for the production of salted, sweet, and flavoured popcorn products.",
     },
   },
   {
@@ -442,6 +424,25 @@ const PRIVATE_LABEL_MANUFACTURING: readonly PrivateLabelService[] = [
     note: {
       bs: "Recepture, tekstura i specifikacije proizvoda mogu se prilagoditi zahtjevima svakog projekta.",
       en: "Recipes, texture, and product specifications can be adapted to individual project requirements.",
+    },
+  },
+  {
+    title: { bs: "Ekstruzija", en: "Extrusion" },
+    intro: { bs: "Nudimo ekstruziju za proizvodnju grickalica na bazi:", en: "We offer extrusion processing for the production of snack products based on:" },
+    items: [
+      { bs: "Kukuruz", en: "Corn" },
+      { bs: "Riža", en: "Rice" },
+    ],
+    note: {
+      bs: "Naše mogućnosti ekstruzije omogućavaju razvoj različitih oblika, tekstura i koncepata grickalica prema specifikacijama kupca.",
+      en: "Our extrusion capabilities support the development of different shapes, textures, and snack concepts according to customer specifications.",
+    },
+  },
+  {
+    title: { bs: "Proizvodnja kokica", en: "Popcorn production" },
+    intro: {
+      bs: "Nudimo preradu i ekspanziju kokica za proizvodnju slanih, slatkih i aromatiziranih kokica.",
+      en: "We provide popcorn processing and expansion for the production of salted, sweet, and flavoured popcorn products.",
     },
   },
 ];
