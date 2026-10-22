@@ -372,9 +372,10 @@ export const categories: Category[] = [
       },
       {
         name: { bs: "Crispy Fun, pavlaka", en: "Crispy Fun, Sour Cream" },
-        image: "/images/products/chips-crispy-fun-pavlaka.jpg",
+        // The Sour Cream & Onion pack Voćar sent (October 2026); the name stays "pavlaka".
+        image: "/images/products/chips-crispy-fun-pavlaka-luk.jpg",
         sizes: "50g, 100g",
-        flavor: { bs: "Hrskavi kornetići sa ukusom pavlake.", en: "Crunchy cones with sour cream flavor." },
+        flavor: { bs: "Hrskavi kornetići sa ukusom pavlake i luka.", en: "Crunchy cones with sour cream and onion flavor." },
         tastes: ["pavlaka", "hrskavo", "slano"],
       },
       {

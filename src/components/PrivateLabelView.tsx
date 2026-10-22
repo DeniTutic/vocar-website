@@ -1,20 +1,88 @@
 "use client";
 
 import Image from "next/image";
-import { Flame, CookingPot, Popcorn, Cylinder, Package, PaintBucket, Container, Boxes } from "lucide-react";
-import { privateLabelPage as page } from "@/data/content";
+import type { LucideIcon } from "lucide-react";
+import { Flame, CookingPot, Cylinder, Popcorn, Nut, Package, PaintBucket, Container, Check } from "lucide-react";
+import { privateLabelPage as page, type PrivateLabelService } from "@/data/content";
 import { useLocale, useT, type Locale } from "@/lib/locale";
 import { homeHash } from "@/lib/routes";
 import { CtaLink } from "./CtaLink";
 import { ScrollReveal } from "./ScrollReveal";
 import { SectionHeading } from "./SectionHeading";
 
-// Same order as page.capabilities.
-const CAPABILITY_ICONS = [Flame, CookingPot, Popcorn, Cylinder, Package, PaintBucket, Container, Boxes];
+// Same order as page.manufacturing and page.packaging.
+const MANUFACTURING_ICONS: LucideIcon[] = [Flame, CookingPot, Cylinder, Popcorn, Nut];
+const PACKAGING_ICONS: LucideIcon[] = [Package, PaintBucket, Container];
 
 /** Opens the homepage form in trade mode with a private label message filled in. */
 function inquiryHref(locale: Locale) {
   return homeHash("?namjera=robna-marka#distributer", locale);
+}
+
+/**
+ * One service card. Manufacturing lists are short names (nuts, grains), so
+ * they read as chips; packaging lists are whole phrases, so they read as
+ * checked lines.
+ */
+function ServiceCard({
+  service,
+  icon: Icon,
+  list,
+  className = "",
+}: {
+  service: PrivateLabelService;
+  icon: LucideIcon;
+  list: "chips" | "lines";
+  className?: string;
+}) {
+  const t = useT();
+  return (
+    <li className={`flex flex-col gap-3 rounded-2xl border p-6 ${className}`} style={{ background: "var(--cream)", borderColor: "var(--line)" }}>
+      <span
+        className="flex h-11 w-11 items-center justify-center rounded-full"
+        style={{ background: "var(--forest)", color: "var(--cream)" }}
+        aria-hidden
+      >
+        <Icon size={20} />
+      </span>
+      <h3 className="text-xl" style={{ color: "var(--forest-deep)" }}>
+        {t(service.title)}
+      </h3>
+      {service.intro && (
+        <p className="text-sm leading-relaxed" style={{ color: "var(--ink-soft)" }}>
+          {t(service.intro)}
+        </p>
+      )}
+      {service.items &&
+        (list === "chips" ? (
+          <ul className="flex flex-wrap gap-1.5">
+            {service.items.map((item) => (
+              <li
+                key={item.bs}
+                className="rounded-full border px-3 py-1 text-[13px] leading-snug"
+                style={{ borderColor: "var(--line)", background: "var(--paper)", color: "var(--ink)" }}
+              >
+                {t(item)}
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <ul className="flex flex-col gap-2">
+            {service.items.map((item) => (
+              <li key={item.bs} className="flex items-start gap-2 text-sm leading-relaxed" style={{ color: "var(--ink)" }}>
+                <Check size={16} className="mt-0.5 shrink-0" style={{ color: "var(--forest)" }} aria-hidden />
+                {t(item)}
+              </li>
+            ))}
+          </ul>
+        ))}
+      {service.note && (
+        <p className="mt-auto border-t pt-3 text-sm leading-relaxed" style={{ borderColor: "var(--line)", color: "var(--ink-soft)" }}>
+          {t(service.note)}
+        </p>
+      )}
+    </li>
+  );
 }
 
 /** /robne-marke and /en/private-label: the owner's private label pitch. */
@@ -34,17 +102,15 @@ export function PrivateLabelView() {
             <h1 className="mt-3 text-4xl leading-[1.05] sm:text-6xl" style={{ color: "var(--forest-deep)" }}>
               {t(page.title)}
             </h1>
-            <div className="mt-6 flex flex-col gap-4 text-base leading-relaxed sm:text-lg" style={{ color: "var(--ink-soft)" }}>
-              {page.intro.map((p) => (
-                <p key={p.bs}>{t(p)}</p>
-              ))}
-            </div>
+            <p className="mt-6 text-base leading-relaxed sm:text-lg" style={{ color: "var(--ink-soft)" }}>
+              {t(page.intro)}
+            </p>
             <div className="mt-8 flex flex-wrap gap-3">
               <CtaLink href={inquiry} variant="buy">
                 {t(page.cta)}
               </CtaLink>
-              <CtaLink href="#kapaciteti" variant="outline">
-                {t(page.capabilitiesLink)}
+              <CtaLink href="#proizvodnja" variant="outline">
+                {t(page.manufacturingLink)}
               </CtaLink>
             </div>
           </ScrollReveal>
@@ -81,39 +147,42 @@ export function PrivateLabelView() {
       </section>
 
       <section
-        id="kapaciteti"
+        id="proizvodnja"
         className="scroll-mt-24 border-t py-20 sm:py-28"
         style={{ background: "var(--paper)", borderColor: "var(--line)" }}
       >
         <div className="mx-auto max-w-7xl px-5 sm:px-8">
-          <SectionHeading eyebrow={t(page.capabilitiesEyebrow)} title={t(page.capabilitiesTitle)} body={t(page.capabilitiesBody)} />
+          <SectionHeading eyebrow={t(page.manufacturingEyebrow)} title={t(page.manufacturingTitle)} body={t(page.manufacturingBody)} />
           <ScrollReveal className="mt-12">
-            <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-              {page.capabilities.map((item, i) => {
-                const Icon = CAPABILITY_ICONS[i];
-                return (
-                  <li
-                    key={item.title.bs}
-                    className="flex flex-col gap-3 rounded-2xl border p-6"
-                    style={{ background: "var(--cream)", borderColor: "var(--line)" }}
-                  >
-                    <span
-                      className="flex h-11 w-11 items-center justify-center rounded-full"
-                      style={{ background: "var(--forest)", color: "var(--cream)" }}
-                      aria-hidden
-                    >
-                      <Icon size={20} />
-                    </span>
-                    <h3 className="text-xl" style={{ color: "var(--forest-deep)" }}>
-                      {t(item.title)}
-                    </h3>
-                    <p className="text-sm leading-relaxed" style={{ color: "var(--ink-soft)" }}>
-                      {t(item.body)}
-                    </p>
-                  </li>
-                );
-              })}
+            {/* Roasting and frying carry the long nut lists, so they share the
+                first row; extrusion, popcorn and nut butter split the second. */}
+            <ul className="grid gap-4 md:grid-cols-2 lg:grid-cols-6">
+              {page.manufacturing.map((service, i) => (
+                <ServiceCard
+                  key={service.title.bs}
+                  service={service}
+                  icon={MANUFACTURING_ICONS[i]}
+                  list="chips"
+                  className={i < 2 ? "lg:col-span-3" : i === page.manufacturing.length - 1 ? "md:col-span-2 lg:col-span-2" : "lg:col-span-2"}
+                />
+              ))}
             </ul>
+          </ScrollReveal>
+        </div>
+      </section>
+
+      <section className="border-t py-20 sm:py-28" style={{ background: "var(--cream)", borderColor: "var(--line)" }}>
+        <div className="mx-auto max-w-7xl px-5 sm:px-8">
+          <SectionHeading eyebrow={t(page.packagingEyebrow)} title={t(page.packagingTitle)} body={t(page.packagingBody)} />
+          <ScrollReveal className="mt-12">
+            <ul className="grid gap-4 md:grid-cols-3">
+              {page.packaging.map((service, i) => (
+                <ServiceCard key={service.title.bs} service={service} icon={PACKAGING_ICONS[i]} list="lines" />
+              ))}
+            </ul>
+            <p className="mt-8 max-w-2xl text-base leading-relaxed" style={{ color: "var(--ink-soft)" }}>
+              {t(page.packagingNote)}
+            </p>
           </ScrollReveal>
         </div>
       </section>
@@ -122,20 +191,15 @@ export function PrivateLabelView() {
         <div className="mx-auto max-w-7xl px-5 sm:px-8">
           <SectionHeading eyebrow={t(page.developmentEyebrow)} title={t(page.developmentTitle)} body={t(page.developmentBody)} dark />
           <ScrollReveal className="mt-12">
-            <ol className="grid gap-x-10 gap-y-8 sm:grid-cols-2 lg:grid-cols-3">
+            <ol className="grid gap-x-10 gap-y-6 sm:grid-cols-2 lg:grid-cols-3">
               {page.developmentSteps.map((step, i) => (
-                <li key={step.title.bs} className="flex gap-4 border-t pt-5" style={{ borderColor: "rgba(247,243,234,0.18)" }}>
+                <li key={step.bs} className="flex items-baseline gap-4 border-t pt-5" style={{ borderColor: "rgba(247,243,234,0.18)" }}>
                   <span className="font-display text-3xl font-semibold tabular-nums" style={{ color: "var(--amber)" }} aria-hidden>
                     {String(i + 1).padStart(2, "0")}
                   </span>
-                  <div>
-                    <h3 className="text-xl" style={{ color: "var(--cream)" }}>
-                      {t(step.title)}
-                    </h3>
-                    <p className="mt-1.5 text-sm leading-relaxed sm:text-base" style={{ color: "rgba(247,243,234,0.75)" }}>
-                      {t(step.body)}
-                    </p>
-                  </div>
+                  <h3 className="text-xl" style={{ color: "var(--cream)" }}>
+                    {t(step)}
+                  </h3>
                 </li>
               ))}
             </ol>
@@ -146,19 +210,14 @@ export function PrivateLabelView() {
       <section className="py-20 sm:py-28" style={{ background: "var(--cream)" }}>
         <div className="mx-auto max-w-3xl px-5 text-center sm:px-8">
           <SectionHeading eyebrow={t(page.partnerEyebrow)} title={t(page.partnerTitle)} align="center" />
-          <ScrollReveal className="mt-6 flex flex-col gap-4 text-base leading-relaxed sm:text-lg" style={{ color: "var(--ink-soft)" }}>
-            {page.partnerBody.map((p) => (
-              <p key={p.bs}>{t(p)}</p>
-            ))}
+          <ScrollReveal className="mt-6 text-base leading-relaxed sm:text-lg" style={{ color: "var(--ink-soft)" }}>
+            <p>{t(page.partnerBody)}</p>
           </ScrollReveal>
           <ScrollReveal delay={0.1}>
             <p className="mt-12 font-display text-3xl font-semibold leading-tight text-balance sm:text-5xl" style={{ color: "var(--pop)" }}>
               {t(page.tagline)}
             </p>
-            <p className="mx-auto mt-6 max-w-xl text-base leading-relaxed" style={{ color: "var(--ink)" }}>
-              {t(page.ctaBody)}
-            </p>
-            <div className="mt-8">
+            <div className="mt-10">
               <CtaLink href={inquiry} variant="buy">
                 {t(page.cta)}
               </CtaLink>
