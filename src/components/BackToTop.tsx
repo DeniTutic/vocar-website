@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, m } from "framer-motion";
 import { ArrowUp } from "lucide-react";
 import { common } from "@/data/content";
 import { useT } from "@/lib/locale";
@@ -34,7 +34,7 @@ export function BackToTop() {
   return (
     <AnimatePresence>
       {visible && (
-        <motion.button
+        <m.button
           type="button"
           onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
           aria-label={t(common.backToTop)}
@@ -48,7 +48,7 @@ export function BackToTop() {
           style={{ background: "var(--forest)", color: "var(--cream)" }}
         >
           <ArrowUp size={20} />
-        </motion.button>
+        </m.button>
       )}
     </AnimatePresence>
   );

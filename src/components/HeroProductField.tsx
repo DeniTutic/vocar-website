@@ -1,8 +1,5 @@
-"use client";
-
+import type { CSSProperties } from "react";
 import Image from "next/image";
-import { motion } from "framer-motion";
-import { useReducedMotion } from "@/lib/useReducedMotion";
 
 interface FloatingProduct {
   src: string;
@@ -106,8 +103,6 @@ const PRODUCTS: FloatingProduct[] = [
 ];
 
 export function HeroProductField() {
-  const reducedMotion = useReducedMotion();
-
   return (
     <div className="pointer-events-none absolute inset-0 z-0" aria-hidden>
       {PRODUCTS.map((p) => (
@@ -116,27 +111,24 @@ export function HeroProductField() {
           className={`absolute ${p.wrapperClass} ${p.hideOnMobile ? "hidden sm:block" : ""}`}
           style={{ transform: `rotate(${p.rotate}deg)` }}
         >
-          <motion.div
-            className={`relative ${p.sizeClass} overflow-hidden rounded-3xl shadow-xl ring-4 ring-white/70`}
-            animate={reducedMotion ? undefined : { y: [-10, 10, -10], rotate: [-2.5, 2.5, -2.5] }}
-            transition={
-              reducedMotion
-                ? undefined
-                : {
-                    y: { duration: p.duration, delay: p.delay, repeat: Infinity, ease: "easeInOut" },
-                    rotate: { duration: p.duration * 1.35, delay: p.delay, repeat: Infinity, ease: "easeInOut" },
-                  }
-            }
+          <div
+            className={`hero-float relative ${p.sizeClass} overflow-hidden rounded-3xl shadow-xl ring-4 ring-white/70`}
+            style={{ "--float-duration": `${p.duration}s`, "--float-delay": `${p.delay}s` } as CSSProperties}
           >
             <Image
               src={p.src}
               alt={p.alt}
               fill
-              sizes="(min-width: 1024px) 288px, (min-width: 640px) 256px, 176px"
+              sizes="(min-width: 1024px) 288px, (min-width: 640px) 256px, 144px"
+              // On a phone one of these packs is the LCP element, so the four
+              // that show there skip lazy loading; the desktop-only ones stay
+              // lazy so phones never fetch them.
+              loading={p.hideOnMobile ? "lazy" : "eager"}
+              fetchPriority={p.hideOnMobile ? undefined : "high"}
               className="object-cover"
               style={{ objectPosition: p.objectPosition }}
             />
-          </motion.div>
+          </div>
         </div>
       ))}
     </div>

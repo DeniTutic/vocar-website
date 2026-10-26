@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 
 export interface Certificate {
   key: string;
@@ -12,7 +12,7 @@ export interface Certificate {
 
 export function CertificateCard({ cert, onClick }: { cert: Certificate; onClick: () => void }) {
   return (
-    <motion.button
+    <m.button
       type="button"
       onClick={onClick}
       whileHover={{ y: -4 }}
@@ -26,6 +26,6 @@ export function CertificateCard({ cert, onClick }: { cert: Certificate; onClick:
       <span className="text-lg font-semibold" style={{ color: "var(--forest-deep)" }}>
         {cert.name}
       </span>
-    </motion.button>
+    </m.button>
   );
 }

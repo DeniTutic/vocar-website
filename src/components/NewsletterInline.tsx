@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, type FormEvent } from "react";
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import { Mail } from "lucide-react";
 import { newsletter, salesEmail } from "@/data/content";
 import { useT } from "@/lib/locale";
@@ -74,7 +74,7 @@ export function NewsletterInline() {
               {error}
             </p>
           )}
-          <motion.button
+          <m.button
             type="submit"
             className="inline-flex items-center justify-center rounded-full bg-forest px-7 py-3.5 text-sm font-semibold uppercase tracking-wide text-cream transition-colors hover:bg-forest-deep"
             whileHover={{ y: -2, scale: 1.03 }}
@@ -82,7 +82,7 @@ export function NewsletterInline() {
             transition={{ type: "spring", stiffness: 400, damping: 15 }}
           >
             {t(newsletter.submit)}
-          </motion.button>
+          </m.button>
           <p className="text-center text-xs" style={{ color: "var(--ink-soft)" }}>
             {t(newsletter.disclaimer)}
           </p>

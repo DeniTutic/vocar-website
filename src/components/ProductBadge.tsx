@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import { badges as badgeCopy } from "@/data/content";
 import type { Badge } from "@/data/products";
 import { TASTES, type TasteKey } from "@/data/tastes";
@@ -23,9 +23,9 @@ export function ProductBadge({ badge, wiggle = false, className = "" }: { badge:
 
   if (wiggle) {
     return (
-      <motion.span className={`cursor-default ${classes}`} {...WIGGLE}>
+      <m.span className={`cursor-default ${classes}`} {...WIGGLE}>
         {t(badgeCopy[badge])}
-      </motion.span>
+      </m.span>
     );
   }
   return <span className={classes}>{t(badgeCopy[badge])}</span>;

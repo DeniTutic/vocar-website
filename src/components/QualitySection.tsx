@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, m } from "framer-motion";
 import { Check, X, ExternalLink } from "lucide-react";
 import { home, common } from "@/data/content";
 import { useT } from "@/lib/locale";
@@ -69,7 +69,7 @@ export function QualitySection() {
 
       <AnimatePresence>
         {openCert && (
-          <motion.div
+          <m.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
@@ -79,7 +79,7 @@ export function QualitySection() {
             aria-modal="true"
             aria-label={openCert.name}
           >
-            <motion.div
+            <m.div
               initial={{ scale: 0.94, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.94, opacity: 0 }}
@@ -123,8 +123,8 @@ export function QualitySection() {
                 {t(home.certificateViewFull)}
                 <ExternalLink size={14} />
               </Link>
-            </motion.div>
-          </motion.div>
+            </m.div>
+          </m.div>
         )}
       </AnimatePresence>
     </section>

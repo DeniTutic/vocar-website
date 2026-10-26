@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import { Leaf, Hammer, Gauge, HeartHandshake, Volume2, VolumeX } from "lucide-react";
 import { home, about } from "@/data/content";
 import { useT } from "@/lib/locale";
@@ -83,7 +83,7 @@ export function BrandStory() {
               style={{ background: "linear-gradient(180deg, rgba(20,32,26,0) 0%, rgba(20,32,26,0.55) 45%, rgba(20,32,26,0.92) 100%)" }}
               aria-hidden
             />
-            <motion.figure
+            <m.figure
               initial={{ opacity: 0, y: 14 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-80px" }}
@@ -100,7 +100,7 @@ export function BrandStory() {
                 {" — "}
                 {t(about.quoteRole)}
               </figcaption>
-            </motion.figure>
+            </m.figure>
           </ScrollReveal>
         </div>
 
@@ -112,10 +112,19 @@ export function BrandStory() {
             {t(about.videoSectionTitle)}
           </h3>
           <div className="relative mt-8 aspect-video overflow-hidden rounded-2xl" style={{ background: "var(--forest-deep)" }}>
+            {/* The poster sits behind the video as a responsive image rather
+                than the poster attribute, which always fetches the full
+                1280px JPEG. The video stays transparent until its first frame. */}
+            <Image
+              src="/images/about/vocar-pogon-video-poster.jpg"
+              alt=""
+              fill
+              sizes="(min-width: 1280px) 1216px, 100vw"
+              className="object-cover"
+            />
             <video
               ref={videoRef}
               src="/videos/vocar-pogon.mp4"
-              poster="/images/about/vocar-pogon-video-poster.jpg"
               aria-label={t(about.videoLabel)}
               muted={muted}
               loop

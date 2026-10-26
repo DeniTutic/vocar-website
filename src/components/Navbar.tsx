@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
-import { AnimatePresence, motion, useScroll, useTransform } from "framer-motion";
+import { AnimatePresence, m, useScroll, useTransform } from "framer-motion";
 import { Menu, X } from "lucide-react";
 import { Logo } from "./Logo";
 import { CtaLink } from "./CtaLink";
@@ -96,7 +96,7 @@ function LanguageSwitcher() {
       {LOCALES.map((l) => {
         const isActive = locale === l;
         return (
-          <motion.a
+          <m.a
             key={l}
             href={swapLocale(pathname, l)}
             hrefLang={l}
@@ -109,7 +109,7 @@ function LanguageSwitcher() {
             className="rounded-full px-2.5 py-1.5"
           >
             {l.toUpperCase()}
-          </motion.a>
+          </m.a>
         );
       })}
     </div>
@@ -144,7 +144,7 @@ function MobileSheet({ onClose, pathname, activeSection }: { onClose: () => void
   }, [onClose]);
 
   return (
-    <motion.div
+    <m.div
       role="dialog"
       aria-modal="true"
       aria-label={t(nav.menuLabel)}
@@ -199,7 +199,7 @@ function MobileSheet({ onClose, pathname, activeSection }: { onClose: () => void
           {t(buy.whereToBuy)}
         </CtaLink>
       </div>
-    </motion.div>
+    </m.div>
   );
 }
 
@@ -230,7 +230,7 @@ export function Navbar() {
 
   return (
     <>
-      <motion.header
+      <m.header
         style={{ height }}
         className="sticky top-0 z-50 flex items-center border-b transition-colors duration-300"
         animate={{
@@ -249,7 +249,7 @@ export function Navbar() {
             {links.map((link) => {
               const active = isLinkActive(link, pathname, activeSection, home);
               return (
-                <motion.a
+                <m.a
                   key={link.href}
                   href={link.href}
                   aria-current={active ? "true" : undefined}
@@ -261,7 +261,7 @@ export function Navbar() {
                   className="rounded-full px-4 py-2 text-sm font-medium"
                 >
                   {t(nav[link.key])}
-                </motion.a>
+                </m.a>
               );
             })}
           </nav>
@@ -285,7 +285,7 @@ export function Navbar() {
             </button>
           </div>
         </div>
-      </motion.header>
+      </m.header>
 
       <AnimatePresence>
         {open && <MobileSheet onClose={closeSheet} pathname={pathname} activeSection={activeSection} />}

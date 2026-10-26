@@ -1,7 +1,7 @@
 "use client";
 
 import { Wheat, Factory, ClipboardCheck, PackageCheck, Truck, ChevronRight } from "lucide-react";
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import { home } from "@/data/content";
 import { useT } from "@/lib/locale";
 import { ScrollReveal } from "./ScrollReveal";
@@ -44,14 +44,14 @@ export function Timeline() {
                 aria-hidden
               >
                 <span className="absolute inset-0" style={{ background: "var(--line)" }} />
-                <motion.div
+                <m.div
                   className="absolute top-1/2"
                   style={{ transform: "translate(-50%, -50%)" }}
                   animate={{ left: ["0%", "100%"], opacity: [0, 1, 1, 0] }}
                   transition={{ duration: 1.6, repeat: Infinity, ease: "linear", delay: i * 0.25 }}
                 >
                   <ChevronRight size={14} style={{ color: "var(--forest)" }} strokeWidth={2} />
-                </motion.div>
+                </m.div>
               </div>
             )}
             <span className="mt-4 text-sm font-semibold uppercase tracking-wide" style={{ color: "var(--forest-deep)" }}>

@@ -1,9 +1,8 @@
 import type { Metadata } from "next";
-import { Suspense } from "react";
 import { home } from "@/data/content";
 import { pageMetadata } from "@/lib/metadata";
 import { ProductShowcase } from "@/components/ProductShowcase";
-import { ScrollToTopOnArrival } from "@/components/ScrollToTopOnArrival";
+import { CatalogPendingStyle } from "@/components/CatalogPendingStyle";
 
 export const metadata: Metadata = pageMetadata({
   locale: "bs",
@@ -13,18 +12,13 @@ export const metadata: Metadata = pageMetadata({
 });
 
 export default function ProductsPage() {
-  // useSearchParams needs a Suspense boundary to keep the page static. The
-  // fallback keeps the document tall and jumps to the top, so the frame
-  // before the catalog streams in isn't the footer.
+  // The catalog prerenders in full (only its query-string reader waits for
+  // the browser); the script hides the results on filtered links until
+  // they're applied, so those never flash the unfiltered list.
   return (
-    <Suspense
-      fallback={
-        <section className="min-h-[80vh] py-12 sm:py-16" style={{ background: "var(--cream)" }} aria-busy>
-          <ScrollToTopOnArrival />
-        </section>
-      }
-    >
+    <>
+      <CatalogPendingStyle />
       <ProductShowcase />
-    </Suspense>
+    </>
   );
 }

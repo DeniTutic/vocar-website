@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, m } from "framer-motion";
 import { useReducedMotion } from "@/lib/useReducedMotion";
 
 const INTERVAL_MS = 2500;
@@ -22,8 +22,8 @@ export function RotatingWord({ words, className = "" }: { words: string[]; class
     <div className={`inline-block ${className}`}>
       {/* mode="wait" fully unmounts the old word before the next mounts, so
           the two never overlap and the wrapper needs no fixed height/width. */}
-      <AnimatePresence mode="wait">
-        <motion.span
+      <AnimatePresence mode="wait" initial={false}>
+        <m.span
           key={words[index]}
           className="block uppercase tracking-[0.12em]"
           initial={reducedMotion ? { opacity: 0 } : { opacity: 0, y: 18 }}
@@ -32,7 +32,7 @@ export function RotatingWord({ words, className = "" }: { words: string[]; class
           transition={{ duration: reducedMotion ? 0.2 : 0.45, ease: [0.22, 1, 0.36, 1] }}
         >
           {words[index]}
-        </motion.span>
+        </m.span>
       </AnimatePresence>
     </div>
   );

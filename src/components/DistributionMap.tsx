@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import { home } from "@/data/content";
 import { MARKETS as NODES } from "@/data/markets";
 import { useT } from "@/lib/locale";
@@ -33,7 +33,7 @@ export function DistributionMap() {
             aria-label={NODES.map((n) => t(n.label)).join(", ")}
           >
             {NODES.slice(1).map((node) => (
-              <motion.line
+              <m.line
                 key={node.label.bs}
                 x1={origin.x}
                 y1={origin.y}
@@ -51,7 +51,7 @@ export function DistributionMap() {
 
             {NODES.map((node) => (
               <g key={node.label.bs}>
-                <motion.circle
+                <m.circle
                   cx={node.x}
                   cy={node.y}
                   r={node.origin ? 7 : 5}
@@ -62,7 +62,7 @@ export function DistributionMap() {
                   transition={{ duration: 0.4, delay: node.origin ? 0 : 0.6 }}
                 />
                 {node.origin && (
-                  <motion.circle
+                  <m.circle
                     cx={node.x}
                     cy={node.y}
                     r={7}

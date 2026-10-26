@@ -1,8 +1,8 @@
 "use client";
 
-import { useEffect, useMemo, useRef, useState, type MouseEvent } from "react";
+import { Suspense, useEffect, useLayoutEffect, useMemo, useRef, useState, type MouseEvent } from "react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import { categories, legacyCategorySlugs } from "@/data/categories";
 import { products } from "@/data/products";
 import { TASTES, type TasteKey } from "@/data/tastes";
@@ -14,6 +14,7 @@ import { productsLabel } from "@/lib/plural";
 import { SectionHeading } from "./SectionHeading";
 import { ProductCard } from "./ProductCard";
 import { ScrollToTopOnArrival } from "./ScrollToTopOnArrival";
+import { CATALOG_PENDING_STYLE_ID } from "./CatalogPendingStyle";
 
 const ALL = "all";
 
@@ -42,7 +43,7 @@ function Chip({
   small?: boolean;
 }) {
   return (
-    <motion.button
+    <m.button
       type="button"
       role="tab"
       aria-selected={active}
@@ -63,7 +64,7 @@ function Chip({
       className={`shrink-0 rounded-full border font-medium ${small ? "px-3 py-1.5 text-xs" : "px-4 py-2 text-sm"}`}
     >
       {children}
-    </motion.button>
+    </m.button>
   );
 }
 
@@ -88,25 +89,46 @@ const resolveCategory = (v: string | null) => (v && legacyCategorySlugs[v]) || v
 const isTaste = (v: string | null): v is TasteKey => !!v && (TASTE_FILTERS as string[]).includes(v);
 
 /**
- * The full catalog: category chips, taste filter, every product. Lives on
- * /proizvodi. Filters are mirrored into ?kategorija= / ?ukus= so homepage
- * tiles and shared links land pre-filtered.
+ * The only part of the catalog that reads the query string. useSearchParams
+ * opts its Suspense boundary out of static rendering, so it sits alone in a
+ * boundary that renders nothing: the chips and the whole grid stay in the
+ * prerendered HTML (the phone's LCP image is in the first card), and the
+ * filters from ?kategorija= / ?ukus= are applied here before the first paint
+ * after hydration.
  */
-export function ProductShowcase() {
-  const t = useT();
-  const { locale } = useLocale();
+function FilterUrlSync({
+  active,
+  taste,
+  onArrive,
+}: {
+  active: string;
+  taste: TasteKey | null;
+  onArrive: (active: string, taste: TasteKey | null) => void;
+}) {
   const router = useRouter();
   const pathname = usePathname();
   const params = useSearchParams();
-  const [active, setActive] = useState<string>(() => {
-    const requested = resolveCategory(params.get("kategorija"));
-    return isCategory(requested) ? requested : ALL;
-  });
-  const [taste, setTaste] = useState<TasteKey | null>(() => (isTaste(params.get("ukus")) ? (params.get("ukus") as TasteKey) : null));
-  const gridRef = useRef<HTMLDivElement>(null);
+  // The filters the URL asked for, until the parent's state has caught up;
+  // syncing the URL from the stale "all" state would wipe the query.
+  const expected = useRef<{ active: string; taste: TasteKey | null } | null>(null);
 
-  // Keep the URL in step with the chips (replace, not push — filters aren't history).
+  useLayoutEffect(() => {
+    const requested = resolveCategory(params.get("kategorija"));
+    const ukus = params.get("ukus");
+    const arrival = { active: isCategory(requested) ? requested : ALL, taste: isTaste(ukus) ? ukus : null };
+    expected.current = arrival;
+    onArrive(arrival.active, arrival.taste);
+    // Arrival only: later query changes come from the chips themselves.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  // Keep the URL in step with the chips (replace, not push: filters aren't history).
   useEffect(() => {
+    const arrival = expected.current;
+    if (arrival) {
+      if (arrival.active !== active || arrival.taste !== taste) return;
+      expected.current = null;
+    }
     const next = new URLSearchParams();
     if (active !== ALL) next.set("kategorija", active);
     if (taste) next.set("ukus", taste);
@@ -114,6 +136,33 @@ export function ProductShowcase() {
     const current = params.toString();
     if (qs !== current) router.replace(qs ? `${pathname}?${qs}` : pathname, { scroll: false });
   }, [active, taste, pathname, params, router]);
+
+  return null;
+}
+
+/**
+ * The full catalog: category chips, taste filter, every product. Lives on
+ * /proizvodi. Filters are mirrored into ?kategorija= / ?ukus= so homepage
+ * tiles and shared links land pre-filtered.
+ */
+export function ProductShowcase() {
+  const t = useT();
+  const { locale } = useLocale();
+  const [active, setActive] = useState<string>(ALL);
+  const [taste, setTaste] = useState<TasteKey | null>(null);
+  // Bumped when a filtered URL is applied on arrival, so the chip rows mount
+  // already showing it instead of animating over from "all".
+  const [arrival, setArrival] = useState(0);
+  const gridRef = useRef<HTMLDivElement>(null);
+
+  function arrive(category: string, tasteKey: TasteKey | null) {
+    if (category !== ALL || tasteKey) {
+      setActive(category);
+      setTaste(tasteKey);
+      setArrival((n) => n + 1);
+    }
+    document.getElementById(CATALOG_PENDING_STYLE_ID)?.remove();
+  }
 
   const matching = useMemo(() => {
     // "Sve" keeps the catalog order — every flips, then every popcorn, and so on.
@@ -156,6 +205,9 @@ export function ProductShowcase() {
   return (
     <section id="proizvodi" className="scroll-mt-20 py-12 sm:py-16" style={{ background: "var(--cream)" }}>
       <ScrollToTopOnArrival />
+      <Suspense fallback={null}>
+        <FilterUrlSync active={active} taste={taste} onArrive={arrive} />
+      </Suspense>
       <div className="mx-auto max-w-7xl px-5 sm:px-8">
         <nav aria-label={t(productPage.breadcrumbLabel)} className="mb-6">
           <ol className="flex flex-wrap items-center gap-1 text-sm font-medium">
@@ -176,6 +228,8 @@ export function ProductShowcase() {
         <SectionHeading eyebrow={t(home.showcaseEyebrow)} title={t(home.catalogPageTitle)} body={t(home.showcaseBody)} />
 
         <div
+          key={arrival}
+          data-catalog-results
           className="sticky top-[76px] z-30 -mx-5 mt-10 flex flex-col gap-3 px-5 py-3 md:static md:mx-0 md:bg-transparent md:px-0 md:py-0"
           style={{ background: "var(--cream)" }}
         >
@@ -203,25 +257,26 @@ export function ProductShowcase() {
           </div>
         </div>
 
-        <p className="mt-4 text-sm tabular-nums" style={{ color: "var(--ink-soft)" }} aria-live="polite">
+        <p data-catalog-results className="mt-4 text-sm tabular-nums" style={{ color: "var(--ink-soft)" }} aria-live="polite">
           {countLine}
         </p>
 
-        <motion.div
+        {/* Keyed so every filter change remounts it and replays the CSS fade
+            (.catalog-grid-in), which also plays from the prerendered HTML. */}
+        <div
           key={`${active}-${taste ?? ""}`}
           ref={gridRef}
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
-          className="mt-6 grid scroll-mt-[140px] grid-cols-2 gap-3 sm:gap-5 md:grid-cols-3"
+          data-catalog-results
+          className="catalog-grid-in mt-6 grid scroll-mt-[140px] grid-cols-2 gap-3 sm:gap-5 md:grid-cols-3"
         >
-          {visible.map((product) => (
-            <ProductCard key={product.slug} product={product} />
+          {visible.map((product, i) => (
+            <ProductCard key={product.slug} product={product} aboveFold={i < 4} />
           ))}
-        </motion.div>
+        </div>
 
         {matching.length === 0 && (
           <div
+            data-catalog-results
             className="mt-2 flex flex-col items-center gap-4 rounded-2xl border border-dashed px-6 py-12 text-center"
             style={{ borderColor: "var(--line)" }}
           >

@@ -2,7 +2,7 @@
 
 import { useRef } from "react";
 import Image from "next/image";
-import { motion, useScroll, useTransform } from "framer-motion";
+import { m, useScroll, useTransform } from "framer-motion";
 import { products, type Product } from "@/data/products";
 import { home, badges, type Localized } from "@/data/content";
 import { useLocale, useT } from "@/lib/locale";
@@ -48,7 +48,7 @@ function FeaturedRow({
 
   return (
     <div ref={ref} className={`grid items-center gap-8 py-10 lg:grid-cols-2 lg:gap-12 ${reversed ? "lg:[&>*:first-child]:order-2" : ""}`}>
-      <motion.div style={{ y }} className="relative aspect-[16/10] max-h-[360px] overflow-hidden rounded-3xl">
+      <m.div style={{ y }} className="relative aspect-[16/10] max-h-[360px] overflow-hidden rounded-3xl">
         <Image
           src={product.image}
           alt={t(product.imageAlt)}
@@ -56,7 +56,7 @@ function FeaturedRow({
           sizes="(min-width: 1024px) 50vw, 100vw"
           className="object-cover"
         />
-      </motion.div>
+      </m.div>
       <div>
         <span
           className="inline-block rounded-full px-3 py-1 text-xs font-semibold uppercase tracking-wide"

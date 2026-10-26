@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { motion, useInView } from "framer-motion";
+import { m, useInView } from "framer-motion";
 import { useReducedMotion } from "@/lib/useReducedMotion";
 
 /** Animates the numeric prefix of a value like "20+" or "80+" up to its target when scrolled into view. */
@@ -41,8 +41,8 @@ export function AnimatedCounter({ value, className = "" }: { value: string; clas
   }, [inView, target, suffix, reducedMotion, value]);
 
   return (
-    <motion.span ref={ref} className={className}>
+    <m.span ref={ref} className={className}>
       {target === null ? value : display}
-    </motion.span>
+    </m.span>
   );
 }

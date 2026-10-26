@@ -1,9 +1,8 @@
 import type { Metadata } from "next";
-import { Suspense } from "react";
 import { home } from "@/data/content";
 import { pageMetadata } from "@/lib/metadata";
 import { ProductShowcase } from "@/components/ProductShowcase";
-import { ScrollToTopOnArrival } from "@/components/ScrollToTopOnArrival";
+import { CatalogPendingStyle } from "@/components/CatalogPendingStyle";
 
 export const metadata: Metadata = pageMetadata({
   locale: "en",
@@ -13,17 +12,13 @@ export const metadata: Metadata = pageMetadata({
 });
 
 export default function ProductsPageEn() {
-  // Same Suspense shape as the Bosnian catalog: useSearchParams needs the
-  // boundary, and the tall fallback keeps the footer from flashing.
+  // The catalog prerenders in full (only its query-string reader waits for
+  // the browser); the script hides the results on filtered links until
+  // they're applied, so those never flash the unfiltered list.
   return (
-    <Suspense
-      fallback={
-        <section className="min-h-[80vh] py-12 sm:py-16" style={{ background: "var(--cream)" }} aria-busy>
-          <ScrollToTopOnArrival />
-        </section>
-      }
-    >
+    <>
+      <CatalogPendingStyle />
       <ProductShowcase />
-    </Suspense>
+    </>
   );
 }

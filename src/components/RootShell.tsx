@@ -3,6 +3,7 @@ import type { ReactNode } from "react";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import { SmoothScroll } from "@/components/SmoothScroll";
+import { MotionProvider } from "@/components/MotionProvider";
 import { Analytics } from "@vercel/analytics/next";
 import { LocaleProvider, type Locale } from "@/lib/locale";
 import { SITE_URL } from "@/data/content";
@@ -58,9 +59,11 @@ export function RootShell({ locale, children }: { locale: Locale; children: Reac
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }} />
         <SmoothScroll />
         <LocaleProvider locale={locale}>
-          <Navbar />
-          <main className="flex-1">{children}</main>
-          <Footer />
+          <MotionProvider>
+            <Navbar />
+            <main className="flex-1">{children}</main>
+            <Footer />
+          </MotionProvider>
         </LocaleProvider>
         <Analytics />
       </body>

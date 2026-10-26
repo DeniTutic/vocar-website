@@ -1,6 +1,6 @@
 "use client";
 
-import { motion, type Variants } from "framer-motion";
+import { m, type Variants } from "framer-motion";
 import type { CSSProperties, ReactNode } from "react";
 
 const EASE_OUT: [number, number, number, number] = [0.22, 1, 0.36, 1];
@@ -26,7 +26,7 @@ export function ScrollReveal({
   style?: CSSProperties;
 }) {
   return (
-    <motion.div
+    <m.div
       className={className}
       style={style}
       custom={delay}
@@ -36,6 +36,6 @@ export function ScrollReveal({
       viewport={{ once: true, margin: "-80px" }}
     >
       {children}
-    </motion.div>
+    </m.div>
   );
 }

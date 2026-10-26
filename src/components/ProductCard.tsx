@@ -2,20 +2,29 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import type { Product } from "@/data/products";
 import { home, productPage } from "@/data/content";
 import { useLocale, useT } from "@/lib/locale";
 import { productPath } from "@/lib/routes";
 import { ProductBadge } from "./ProductBadge";
 
-export function ProductCard({ product, className = "" }: { product: Product; className?: string }) {
+export function ProductCard({
+  product,
+  className = "",
+  aboveFold = false,
+}: {
+  product: Product;
+  className?: string;
+  /** First row of a grid: skip lazy loading, since a phone's LCP image is here. */
+  aboveFold?: boolean;
+}) {
   const t = useT();
   const { locale } = useLocale();
   const sizes = product.sizeList.length ? product.sizeList.join(" · ") : t(productPage.sizeOnRequest);
 
   return (
-    <motion.div
+    <m.div
       whileHover="hover"
       initial="rest"
       animate="rest"
@@ -26,7 +35,7 @@ export function ProductCard({ product, className = "" }: { product: Product; cla
       <Link href={productPath(product.slug, locale)} className="absolute inset-0 z-10" aria-label={t(product.name)} />
 
       <div className="relative aspect-[4/3] overflow-hidden" style={{ background: "var(--beige)" }}>
-        <motion.div
+        <m.div
           variants={{ rest: { scale: 1 }, hover: { scale: 1.06 } }}
           transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
           className="absolute inset-0"
@@ -36,9 +45,11 @@ export function ProductCard({ product, className = "" }: { product: Product; cla
             alt={t(product.imageAlt)}
             fill
             sizes="(min-width: 768px) 33vw, 50vw"
+            loading={aboveFold ? "eager" : "lazy"}
+            fetchPriority={aboveFold ? "high" : undefined}
             className="object-cover"
           />
-        </motion.div>
+        </m.div>
         {product.badges.length > 0 && (
           <div className="absolute right-2 top-2 flex flex-col items-end gap-1">
             {product.badges.slice(0, 2).map((badge) => (
@@ -69,6 +80,6 @@ export function ProductCard({ product, className = "" }: { product: Product; cla
           </span>
         </div>
       </div>
-    </motion.div>
+    </m.div>
   );
 }

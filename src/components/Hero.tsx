@@ -1,6 +1,6 @@
 "use client";
 
-import { motion, type Variants } from "framer-motion";
+import type { CSSProperties } from "react";
 import { ChevronDown } from "lucide-react";
 import { home, buy } from "@/data/content";
 import { useLocale, useT } from "@/lib/locale";
@@ -11,17 +11,8 @@ import { NAVBAR_HEIGHT_EXPANDED } from "./Navbar";
 import { CtaLink } from "./CtaLink";
 import { RotatingWord } from "./RotatingWord";
 
-const EASE_OUT: [number, number, number, number] = [0.22, 1, 0.36, 1];
-
-const container: Variants = {
-  hidden: {},
-  show: { transition: { staggerChildren: 0.12, delayChildren: 0.1 } },
-};
-
-const item: Variants = {
-  hidden: { opacity: 0, y: 28 },
-  show: { opacity: 1, y: 0, transition: { duration: 0.7, ease: EASE_OUT } },
-};
+// Staggered entrance: 0.1s in, then 0.12s between items (see .hero-rise).
+const rise = (step: number) => ({ "--hero-delay": `${0.1 + step * 0.12}s` }) as CSSProperties;
 
 export function Hero() {
   const t = useT();
@@ -51,56 +42,45 @@ export function Hero() {
         aria-hidden
       />
 
-      <motion.div
-        variants={container}
-        initial="hidden"
-        animate="show"
-        className="relative z-10 mx-auto w-full max-w-5xl px-5 py-16 text-center sm:px-8 sm:py-20"
+      <div className="relative z-10 mx-auto w-full max-w-5xl px-5 py-16 text-center sm:px-8 sm:py-20"
       >
         <div className="relative z-10 flex flex-col items-center">
           {/* Brand first: the real logo and the company motto are what should
               catch the eye before anything product-specific. */}
-          <motion.div variants={item}>
+          <div className="hero-rise" style={rise(0)}>
             <Logo className="h-12 w-auto sm:h-14" />
-          </motion.div>
+          </div>
 
-          <motion.h1
-            variants={item}
-            className="mt-4 max-w-2xl text-4xl leading-[1.1] sm:text-5xl lg:text-6xl"
-            style={{ color: "var(--forest-deep)" }}
+          <h1
+            className="hero-rise mt-4 max-w-2xl text-4xl leading-[1.1] sm:text-5xl lg:text-6xl"
+            style={{ color: "var(--forest-deep)", ...rise(1) }}
           >
             {t(home.heroMotto)}
-          </motion.h1>
+          </h1>
 
-          <motion.div variants={item} className="mt-6">
+          <div className="hero-rise mt-6" style={rise(2)}>
             <RotatingWord words={words} className="text-2xl font-semibold text-forest sm:text-3xl" />
-          </motion.div>
+          </div>
 
-          <motion.div variants={item} className="mt-8 flex flex-wrap items-center justify-center gap-4">
+          <div className="hero-rise mt-8 flex flex-wrap items-center justify-center gap-4" style={rise(3)}>
             <CtaLink href={homeHash("#gdje-kupiti", locale)} variant="buy">
               {t(buy.whereToBuy)}
             </CtaLink>
             <CtaLink href={path("products", locale)} variant="secondary">
               {t(buy.seeSnacks)}
             </CtaLink>
-          </motion.div>
+          </div>
         </div>
-      </motion.div>
+      </div>
 
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 1.1, duration: 0.6 }}
-        className="absolute bottom-8 left-1/2 z-10 -translate-x-1/2"
+      <div
+        className="absolute bottom-8 left-1/2 z-10 -translate-x-1/2 animate-[hero-fade-in_0.6s_1.1s_both]"
         aria-hidden
       >
-        <motion.div
-          animate={{ y: [0, 8, 0] }}
-          transition={{ duration: 1.8, repeat: Infinity, ease: "easeInOut" }}
-        >
+        <div className="animate-[hero-bob_1.8s_ease-in-out_infinite]">
           <ChevronDown size={22} style={{ color: "var(--forest)" }} />
-        </motion.div>
-      </motion.div>
+        </div>
+      </div>
     </section>
   );
 }

@@ -3,7 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, m } from "framer-motion";
 import { Check, ChevronRight, Share2 } from "lucide-react";
 import type { Product } from "@/data/products";
 import type { Nutrition } from "@/data/productInfo";
@@ -231,7 +231,7 @@ export function ProductDetailView({ product, related }: { product: Product; rela
                 {sizeOptions.map((option) => {
                   const isActive = size === option;
                   return (
-                    <motion.button
+                    <m.button
                       key={option}
                       type="button"
                       role="radio"
@@ -247,7 +247,7 @@ export function ProductDetailView({ product, related }: { product: Product; rela
                       className="rounded-full border px-4 py-1.5 text-sm font-medium tabular-nums"
                     >
                       {option}
-                    </motion.button>
+                    </m.button>
                   );
                 })}
               </div>
@@ -327,7 +327,7 @@ export function ProductDetailView({ product, related }: { product: Product; rela
 
       <AnimatePresence>
         {showStickyBar && (
-          <motion.div
+          <m.div
             initial={{ y: 80, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             exit={{ y: 80, opacity: 0 }}
@@ -341,7 +341,7 @@ export function ProductDetailView({ product, related }: { product: Product; rela
             <CtaLink href={quoteHref} variant="outline" className="flex-1">
               {t(buy.quoteShort)}
             </CtaLink>
-          </motion.div>
+          </m.div>
         )}
       </AnimatePresence>
     </>

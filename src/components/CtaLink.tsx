@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import type { ReactNode } from "react";
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 
 type Variant = "buy" | "secondary" | "outline" | "outlineDark";
 type Size = "md" | "sm";
@@ -21,7 +21,7 @@ const SIZE: Record<Size, string> = {
 
 const SPRING = { type: "spring", stiffness: 400, damping: 15 } as const;
 
-const MotionLink = motion.create(Link);
+const MotionLink = m.create(Link);
 
 interface CtaLinkProps {
   href: string;
@@ -57,8 +57,8 @@ export function CtaLink({ href, variant = "secondary", size = "md", download, cl
   }
 
   return (
-    <motion.a href={href} download={download} className={classes} onClick={onClick} {...motionProps}>
+    <m.a href={href} download={download} className={classes} onClick={onClick} {...motionProps}>
       {children}
-    </motion.a>
+    </m.a>
   );
 }

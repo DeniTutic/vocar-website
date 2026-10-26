@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import { Check } from "lucide-react";
 
 const CONFETTI_COLORS = ["var(--pop)", "var(--amber)", "var(--plum)", "var(--forest)"];
@@ -37,7 +37,7 @@ export function ConfettiBurst({ pieces }: { pieces: ConfettiPiece[] }) {
   return (
     <div className="relative flex h-16 w-16 items-center justify-center">
       {pieces.map((p) => (
-        <motion.span
+        <m.span
           key={p.id}
           className="absolute left-1/2 top-1/2 rounded-full"
           style={{ background: p.color, width: p.size, height: p.size }}
@@ -47,7 +47,7 @@ export function ConfettiBurst({ pieces }: { pieces: ConfettiPiece[] }) {
           aria-hidden
         />
       ))}
-      <motion.div
+      <m.div
         initial={{ scale: 0 }}
         animate={{ scale: 1 }}
         transition={{ type: "spring", stiffness: 300, damping: 12, delay: 0.1 }}
@@ -55,7 +55,7 @@ export function ConfettiBurst({ pieces }: { pieces: ConfettiPiece[] }) {
         style={{ background: "var(--forest)" }}
       >
         <Check size={28} style={{ color: "var(--cream)" }} strokeWidth={3} />
-      </motion.div>
+      </m.div>
     </div>
   );
 }

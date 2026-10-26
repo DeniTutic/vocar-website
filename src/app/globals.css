@@ -101,7 +101,82 @@ textarea:focus-visible {
   }
 }
 
+/* Hero motion is plain CSS so it starts with the server HTML instead of
+   waiting for JS to hydrate: the headline is the page's LCP element, and a
+   JS-driven fade held it invisible for seconds on a throttled phone.
+   0.01, not 0: Chrome never counts a first paint at opacity 0 toward LCP,
+   so a true zero would hand LCP to a hero photo instead. */
+@keyframes hero-rise {
+  from {
+    opacity: 0.01;
+    translate: 0 28px;
+  }
+}
+
+.hero-rise {
+  animation: hero-rise 0.7s cubic-bezier(0.22, 1, 0.36, 1) var(--hero-delay, 0s) both;
+}
+
+@keyframes hero-fade-in {
+  from {
+    opacity: 0;
+  }
+}
+
+@keyframes hero-bob {
+  50% {
+    translate: 0 8px;
+  }
+}
+
+/* translate and rotate are separate properties, so the bob and the sway can
+   run on their own durations, the way the product cards always have. */
+@keyframes hero-float-y {
+  0%,
+  100% {
+    translate: 0 -10px;
+  }
+  50% {
+    translate: 0 10px;
+  }
+}
+
+@keyframes hero-float-r {
+  0%,
+  100% {
+    rotate: -2.5deg;
+  }
+  50% {
+    rotate: 2.5deg;
+  }
+}
+
+.hero-float {
+  animation:
+    hero-float-y var(--float-duration) ease-in-out var(--float-delay) infinite both,
+    hero-float-r calc(var(--float-duration) * 1.35) ease-in-out var(--float-delay) infinite both;
+}
+
+/* The catalog grid's fade-in on load and on every filter change. CSS for the
+   same reason as the hero: it plays from the prerendered HTML. */
+@keyframes catalog-grid-in {
+  from {
+    opacity: 0.01;
+    translate: 0 10px;
+  }
+}
+
+.catalog-grid-in {
+  animation: catalog-grid-in 0.35s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
 @media (prefers-reduced-motion: reduce) {
+  .hero-rise {
+    animation-delay: 0s;
+  }
+  .hero-float {
+    animation: none;
+  }
   html {
     scroll-behavior: auto;
   }

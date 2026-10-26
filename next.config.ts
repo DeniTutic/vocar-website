@@ -21,8 +21,14 @@ const productRedirects = ["/proizvodi", "/en/products"].flatMap((base) => [
 const nextConfig: NextConfig = {
   experimental: {
     // Each language has its own root layout, so there is no single layout to
-    // compose a 404 from — Next's documented answer is global-not-found.
+    // compose a 404 from: Next's documented answer is global-not-found.
     globalNotFound: true,
+    // Tailwind keeps the stylesheet ~10 KB, so shipping it inside the HTML
+    // costs little and removes the render-blocking CSS request on mobile.
+    inlineCss: true,
+  },
+  images: {
+    formats: ["image/avif", "image/webp"],
   },
   async redirects() {
     return productRedirects;

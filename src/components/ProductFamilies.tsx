@@ -166,7 +166,7 @@ export function ProductFamilies() {
                         src={category.ingredientImage}
                         alt={t(category.ingredientAlt)}
                         fill
-                        sizes="(min-width: 1024px) 20vw, (min-width: 640px) 36vw, 56vw"
+                        sizes="(min-width: 1024px) 20vw, (min-width: 640px) 36vw, 48vw"
                         className="object-cover"
                       />
                     </div>

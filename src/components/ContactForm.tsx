@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState, type FormEvent } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { m, AnimatePresence } from "framer-motion";
 import { Send, CheckCircle2, AlertCircle } from "lucide-react";
 import { contact, buy, salesEmail } from "@/data/content";
 import { categories } from "@/data/categories";
@@ -95,7 +95,7 @@ function ModeSwitch({ mode, onChange }: { mode: Mode; onChange: (m: Mode) => voi
         {options.map((option) => {
           const isActive = mode === option.value;
           return (
-            <motion.button
+            <m.button
               key={option.value}
               type="button"
               role="radio"
@@ -109,7 +109,7 @@ function ModeSwitch({ mode, onChange }: { mode: Mode; onChange: (m: Mode) => voi
               className="rounded-full px-4 py-2"
             >
               {option.label}
-            </motion.button>
+            </m.button>
           );
         })}
       </div>
@@ -282,7 +282,7 @@ export function ContactForm() {
 
       <AnimatePresence initial={false}>
         {isTrade && (
-          <motion.div
+          <m.div
             key="trade-fields"
             initial={{ height: 0, opacity: 0 }}
             animate={{ height: "auto", opacity: 1 }}
@@ -340,7 +340,7 @@ export function ContactForm() {
                 {t(contact.formSample)}
               </label>
             </div>
-          </motion.div>
+          </m.div>
         )}
       </AnimatePresence>
 
@@ -370,7 +370,7 @@ export function ContactForm() {
         <input type="text" name="website" tabIndex={-1} autoComplete="off" value={website} onChange={(e) => setWebsite(e.target.value)} />
       </div>
 
-      <motion.button
+      <m.button
         type="submit"
         disabled={status === "sending" || status === "sent"}
         className={`inline-flex w-fit items-center gap-2 rounded-full px-7 py-3.5 text-sm font-semibold uppercase tracking-wide text-cream transition-colors disabled:opacity-60 ${
@@ -382,11 +382,11 @@ export function ContactForm() {
       >
         <Send size={16} />
         {status === "sending" ? t(contact.formSending) : isTrade ? t(buy.requestQuote) : t(contact.formSubmit)}
-      </motion.button>
+      </m.button>
 
       <AnimatePresence>
         {feedback && (
-          <motion.p
+          <m.p
             key={status}
             initial={{ opacity: 0, y: -6 }}
             animate={{ opacity: 1, y: 0 }}
@@ -397,7 +397,7 @@ export function ContactForm() {
           >
             {feedback.ok ? <CheckCircle2 size={16} /> : <AlertCircle size={16} />}
             {feedback.text}
-          </motion.p>
+          </m.p>
         )}
       </AnimatePresence>
     </form>
