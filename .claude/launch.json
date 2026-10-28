@@ -22,6 +22,18 @@
         "3007"
       ],
       "port": 3007
+    },
+    {
+      "name": "vocar-prod-3011",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": [
+        "run",
+        "start",
+        "--",
+        "-p",
+        "3011"
+      ],
+      "port": 3011
     }
   ]
 }
