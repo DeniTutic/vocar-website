@@ -235,6 +235,19 @@ export function ContactForm() {
         body: JSON.stringify({ mode, locale, name, email, phone, company, market, volume, message, product, size, families, sample, privateLabel: isPrivateLabel, website }),
       });
       if (res.ok) {
+        // Empty the fields so the form reads as done; the "sent" note stays
+        // until the next submit. Mode and the private label flag are kept.
+        setName("");
+        setEmail("");
+        setPhone("");
+        setCompany("");
+        setMarket("");
+        setVolume("");
+        setMessage("");
+        setProduct("");
+        setSize("");
+        setFamilies([]);
+        setSample(false);
         setStatus("sent");
         return;
       }
@@ -373,7 +386,7 @@ export function ContactForm() {
 
       <m.button
         type="submit"
-        disabled={status === "sending" || status === "sent"}
+        disabled={status === "sending"}
         className={`inline-flex w-fit items-center gap-2 rounded-full px-7 py-3.5 text-sm font-semibold uppercase tracking-wide text-cream transition-colors disabled:opacity-60 ${
           isTrade ? "bg-pop shadow-sm hover:bg-pop-deep" : "bg-forest hover:bg-forest-deep"
         }`}
