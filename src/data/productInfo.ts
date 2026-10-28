@@ -335,6 +335,20 @@ export const productInfo: Record<string, ProductInfo> = {
     nutrition: PRUNE_NUTRITION,
     source: shop("suha-sljiva-bez-kostice-200-g-12-1-kutija"),
   },
+  // The box and the 10 kg carton hold the same pitted prunes, so they carry
+  // the bag's declaration unchanged.
+  "prunes-suhe-sljive-bez-kostice-kutija": {
+    ingredients: PRUNE_INGREDIENTS,
+    allergenNote: PRUNE_TRACES,
+    nutrition: PRUNE_NUTRITION,
+    source: shop("suha-sljiva-bez-kostice-200-g-12-1-kutija"),
+  },
+  "prunes-suhe-sljive-bez-kostice-karton": {
+    ingredients: PRUNE_INGREDIENTS,
+    allergenNote: PRUNE_TRACES,
+    nutrition: PRUNE_NUTRITION,
+    source: shop("suha-sljiva-bez-kostice-200-g-12-1-kutija"),
+  },
   "prunes-suhe-sljive": {
     ingredients: PRUNE_INGREDIENTS,
     allergenNote: PRUNE_TRACES,
