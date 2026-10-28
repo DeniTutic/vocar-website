@@ -1,13 +1,17 @@
 import { NextResponse } from "next/server";
+import nodemailer from "nodemailer";
 import { categories } from "@/data/categories";
+import { salesEmail } from "@/data/content";
 
 /**
- * Contact + quote endpoint. Sends through Resend's REST API (no SDK, one
- * fetch). Needs three env vars on the host:
- *   RESEND_API_KEY  — from resend.com
- *   CONTACT_FROM    — a sender on a verified Resend domain, e.g. "Voćar web <web@vocar.ba>"
- *   CONTACT_TO      — where messages land, e.g. "prodaja@vocar.ba"
- * Until they exist the route answers 503 and the form falls back to mailto:.
+ * Contact + quote endpoint. Sends over SMTP through Voćar's own mail server,
+ * the same way the old WordPress form did. Needs these env vars on the host:
+ *   SMTP_HOST  the mail server, e.g. "mail.vocar.ba"
+ *   SMTP_USER  the mailbox it sends from, e.g. "info@vocar.ba"
+ *   SMTP_PASS  that mailbox's password
+ *   SMTP_PORT  optional, defaults to 465 (TLS from the start)
+ * Bosnian-site messages go to salesEmail.bs, English-site ones to salesEmail.en.
+ * Until the vars exist the route answers 503 and the form falls back to mailto:.
  */
 
 export const runtime = "nodejs";
@@ -46,6 +50,8 @@ function isSameOrigin(req: Request): boolean {
 
 interface Payload {
   mode: "customer" | "trade";
+  /** Site language the form was sent from; picks the inbox. */
+  locale?: "bs" | "en";
   name: string;
   email: string;
   phone?: string;
@@ -85,10 +91,10 @@ export async function POST(req: Request) {
     return NextResponse.json({ ok: false, reason: "bad_json" }, { status: 415 });
   }
 
-  const apiKey = process.env.RESEND_API_KEY;
-  const from = process.env.CONTACT_FROM;
-  const to = process.env.CONTACT_TO;
-  if (!apiKey || !from || !to) {
+  const host = process.env.SMTP_HOST;
+  const user = process.env.SMTP_USER;
+  const pass = process.env.SMTP_PASS;
+  if (!host || !user || !pass) {
     return NextResponse.json({ ok: false, reason: "not_configured" }, { status: 503 });
   }
 
@@ -174,20 +180,25 @@ export async function POST(req: Request) {
     .map(([k, v]) => `<tr><td style="padding:2px 12px 2px 0;color:#625a4d">${k}</td><td>${escapeHtml(v)}</td></tr>`)
     .join("")}</table><p style="font:14px/1.6 -apple-system,Segoe UI,sans-serif;white-space:pre-wrap">${escapeHtml(message)}</p>`;
 
-  sentThisHour++;
-  let res: Response;
-  try {
-    res = await fetch("https://api.resend.com/emails", {
-      method: "POST",
-      headers: { Authorization: `Bearer ${apiKey}`, "Content-Type": "application/json" },
-      body: JSON.stringify({ from, to: [to], reply_to: email, subject, text, html }),
-      signal: AbortSignal.timeout(10_000),
-    });
-  } catch {
-    return NextResponse.json({ ok: false, reason: "send_failed" }, { status: 502 });
-  }
+  const to = raw.locale === "en" ? salesEmail.en : salesEmail.bs;
+  const port = Number(process.env.SMTP_PORT) || 465;
+  // One message per request on a serverless function, so no pooling. Short
+  // timeouts keep a stuck mail server from holding the visitor's request.
+  const transport = nodemailer.createTransport({
+    host,
+    port,
+    secure: port === 465,
+    auth: { user, pass },
+    connectionTimeout: 10_000,
+    greetingTimeout: 10_000,
+    socketTimeout: 15_000,
+  });
 
-  if (!res.ok) {
+  sentThisHour++;
+  try {
+    await transport.sendMail({ from: { name: "Voćar web", address: user }, to, replyTo: email, subject, text, html });
+  } catch (err) {
+    console.error("contact: SMTP send failed:", err instanceof Error ? err.message : err);
     return NextResponse.json({ ok: false, reason: "send_failed" }, { status: 502 });
   }
   return NextResponse.json({ ok: true });

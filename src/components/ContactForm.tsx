@@ -232,20 +232,21 @@ export function ContactForm() {
       const res = await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ mode, name, email, phone, company, market, volume, message, product, size, families, sample, privateLabel: isPrivateLabel, website }),
+        body: JSON.stringify({ mode, locale, name, email, phone, company, market, volume, message, product, size, families, sample, privateLabel: isPrivateLabel, website }),
       });
       if (res.ok) {
         setStatus("sent");
         return;
       }
-      // No sending backend configured yet — hand off to the mail client.
-      if (res.status === 503) {
+      // Not configured (503) or the mail server didn't take it (502): hand
+      // off to the visitor's mail client so the message isn't lost.
+      if (res.status === 503 || res.status === 502) {
         openMailto();
         return;
       }
       setStatus(res.status === 429 ? "rate_limited" : "error");
     } catch {
-      setStatus("error");
+      openMailto();
     }
   }
 

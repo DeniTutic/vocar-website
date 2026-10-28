@@ -567,8 +567,8 @@ export const footerContent = {
 
 /**
  * Written from scratch, grounded in what this codebase actually does —
- * localStorage "vocar_locale" is the only client storage, forms submit via
- * mailto with no server-side storage, and the Google Maps embed is the only
+ * localStorage "vocar_locale" is the only client storage, the contact form
+ * mails Voćar over SMTP (mailto fallback), the newsletter uses mailto, and the Google Maps embed is the only
  * third-party resource. Not a substitute for legal review, and says so.
  */
 export const privacyPage = {
@@ -579,7 +579,7 @@ export const privacyPage = {
   },
   eyebrow: { bs: "Pravne informacije", en: "Legal" },
   title: { bs: "Politika privatnosti", en: "Privacy policy" },
-  updated: { bs: "Zadnje ažurirano: 21. oktobar 2026.", en: "Last updated: October 21, 2026." },
+  updated: { bs: "Zadnje ažurirano: 28. oktobar 2026.", en: "Last updated: October 28, 2026." },
   intro: {
     bs: "Ova politika opisuje koje podatke Voćar d.o.o. Brčko (Gornji Rahić 112, 76207 Gornji Rahić, Bosna i Hercegovina) prikuplja preko ove web stranice, zašto, i kome se možete obratiti u vezi s tim. Ne odnosi se na naše profile na društvenim mrežama (Instagram, Facebook), koji imaju vlastita pravila privatnosti.",
     en: "This policy describes what data Voćar d.o.o. Brčko (Gornji Rahić 112, 76207 Gornji Rahić, Bosnia and Herzegovina) collects through this website, why, and who to contact about it. It doesn't cover our social media profiles (Instagram, Facebook), which have their own privacy rules.",
@@ -595,8 +595,8 @@ export const privacyPage = {
     {
       title: { bs: "Kako formulari zapravo rade", en: "How the forms actually work" },
       body: {
-        bs: "Oba formulara otvaraju vaš vlastiti e-mail program s unaprijed popunjenom porukom upućenom na prodaja@vocar.ba — poruku šaljete direktno sa svog naloga, baš kao svaki drugi e-mail. Mi ne čuvamo podatke iz formulara na serveru; jedini zapis poruke je onaj koji ostaje u vašem poslatom e-mailu.",
-        en: "Both forms open your own email app with a message pre-filled to sales@vocar.ba — you send it directly from your own account, just like any other email. We don't store form data on a server; the only record of the message is the one in your own sent mail.",
+        bs: "Formular za kontakt šalje vašu poruku preko našeg mail servera direktno na prodaja@vocar.ba, s vašom e-mail adresom za odgovor. Poruka se čuva samo kao e-mail u našem sandučetu; stranica je ne sprema nigdje drugo. Ako slanje ne uspije, formular umjesto toga otvara vaš vlastiti e-mail program s unaprijed popunjenom porukom. Prijava na newsletter na isti način otvara vaš e-mail program, pa je šaljete sa svog naloga.",
+        en: "The contact form sends your message through our mail server straight to sales@vocar.ba, with your email address set for our reply. The message is kept only as an email in our inbox; the site doesn't store it anywhere else. If sending fails, the form opens your own email app with the message pre-filled instead. The newsletter signup opens your email app the same way, so you send it from your own account.",
       },
     },
     {
