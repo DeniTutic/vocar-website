@@ -395,9 +395,9 @@ const PRIVATE_LABEL_NUTS: readonly Localized[] = [
 // Display order: the three nut services first, then extrusion and popcorn.
 const PRIVATE_LABEL_MANUFACTURING: readonly PrivateLabelService[] = [
   {
-    title: { bs: "Prženje orašastih plodova i kikirikija", en: "Roasting of nuts and peanuts" },
+    title: { bs: "Pečenje orašastih plodova i kikirikija", en: "Roasting of nuts and peanuts" },
     items: PRIVATE_LABEL_NUTS,
-    note: { bs: "Kapacitet prženja: do 48 tona dnevno.", en: "Roasting capacity: up to 48 tonnes per day." },
+    note: { bs: "Kapacitet pečenja: do 48 tona dnevno.", en: "Roasting capacity: up to 48 tonnes per day." },
   },
   {
     title: { bs: "Prženje u ulju", en: "Oil frying" },
@@ -486,7 +486,7 @@ const PRIVATE_LABEL_PACKAGING: readonly PrivateLabelService[] = [
 export const privateLabelPage = {
   metaTitle: { bs: "Robne marke — proizvodnja i pakovanje", en: "Private label solutions" },
   metaDescription: {
-    bs: "Voćar d.o.o. nudi rješenja za robne marke: prženje orašastih plodova do 48 tona dnevno, prženje u ulju, ekstruziju, kokice, maslace od orašastih plodova i pakovanje od 25 g do 1.000 g. Više od 30 godina iskustva.",
+    bs: "Voćar d.o.o. nudi rješenja za robne marke: pečenje orašastih plodova do 48 tona dnevno, prženje u ulju, ekstruziju, kokice, maslace od orašastih plodova i pakovanje od 25 g do 1.000 g. Više od 30 godina iskustva.",
     en: "Voćar d.o.o. offers private label solutions: nut roasting up to 48 tonnes a day, oil frying, extrusion, popcorn, nut butters and packaging from 25 g to 1,000 g. More than 30 years of experience.",
   },
   eyebrow: { bs: "Robne marke", en: "Private label" },
@@ -504,7 +504,7 @@ export const privateLabelPage = {
 
   facts: [
     { value: { bs: "30+", en: "30+" }, label: { bs: "godina iskustva u industriji", en: "years of industry experience" } },
-    { value: { bs: "48 t", en: "48 t" }, label: { bs: "maksimalni dnevni kapacitet prženja", en: "maximum daily roasting capacity" } },
+    { value: { bs: "48 t", en: "48 t" }, label: { bs: "maksimalni dnevni kapacitet pečenja", en: "maximum daily roasting capacity" } },
     { value: { bs: "25–300 g", en: "25–300 g" }, label: { bs: "pakovanja grickalica", en: "snack pack sizes" } },
     { value: { bs: "250–1.000 g", en: "250–1,000 g" }, label: { bs: "pakovanja maslaca od orašastih plodova", en: "nut butter pack sizes" } },
   ],
