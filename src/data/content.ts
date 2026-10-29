@@ -16,8 +16,8 @@ export const salesEmail: Localized = { bs: "prodaja@vocar.ba", en: "sales@vocar.
 /** Titles/descriptions for <head>, per locale. Pages read these via lib/metadata. */
 export const siteMeta = {
   title: {
-    bs: "Voćar — Za bolji okus života",
-    en: "Voćar — For a better taste of life",
+    bs: "Voćar - Za bolji okus života",
+    en: "Voćar - For a better taste of life",
   },
   /** {count} is filled from the export-market list so it can't go stale. */
   description: {
@@ -28,7 +28,7 @@ export const siteMeta = {
     bs: "Generacije tradicije. Prirodni sastojci. Okus koji traje. Voćar proizvodi grickalice, suho voće, čips, flips i kikiriki iz Gornjeg Rahića, Bosna i Hercegovina.",
     en: "Generations of tradition. Natural ingredients. A taste that lasts. Voćar makes snacks, dried fruit, chips, flips and peanuts in Gornji Rahić, Bosnia and Herzegovina.",
   },
-  ogAlt: { bs: "Voćar — Za bolji okus života", en: "Voćar — For a better taste of life" },
+  ogAlt: { bs: "Voćar - Za bolji okus života", en: "Voćar - For a better taste of life" },
   keywords: {
     bs: ["Voćar", "Voćar d.o.o.", "grickalice Bosna", "suho voće BiH", "čips proizvođač", "Gornji Rahić", "Brčko"],
     en: [

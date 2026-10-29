@@ -4,7 +4,7 @@ import { RootShell } from "@/components/RootShell";
 import { NotFoundView } from "@/components/NotFoundView";
 
 export const metadata: Metadata = {
-  title: "Stranica nije pronađena — Voćar",
+  title: "Stranica nije pronađena - Voćar",
   robots: { index: false, follow: true },
 };
 

@@ -22,7 +22,7 @@ const manrope = Manrope({
   display: "swap",
 });
 
-// The landline only — the mobile/WhatsApp number came off the site in October 2026.
+// The landline only: the mobile/WhatsApp number came off the site in October 2026.
 const organizationJsonLd = {
   "@context": "https://schema.org",
   "@type": "Organization",
@@ -38,6 +38,15 @@ const organizationJsonLd = {
   },
   telephone: "+387 49 512 415",
   email: "vocar@vocar.ba",
+};
+
+// Google takes the site name shown above search results from this block.
+const websiteJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  name: "Voćar Brčko",
+  alternateName: ["Voćar", "Voćar d.o.o. Brčko"],
+  url: `${SITE_URL}/`,
 };
 
 /**
@@ -57,6 +66,7 @@ export function RootShell({ locale, children }: { locale: Locale; children: Reac
     >
       <body className="min-h-full flex flex-col bg-cream text-ink">
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }} />
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteJsonLd) }} />
         <SmoothScroll />
         <LocaleProvider locale={locale}>
           <MotionProvider>

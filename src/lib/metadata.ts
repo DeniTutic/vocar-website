@@ -11,7 +11,7 @@ export function pageMetadata(opts: {
   bsPath?: string;
   enPath?: string;
   title?: string;
-  /** Home pages already end in the brand name — skip the "%s — Voćar" template. */
+  /** Home pages already start with the brand name, so skip the "%s - Voćar" template. */
   absoluteTitle?: boolean;
   description?: string;
   images?: string[];
@@ -46,7 +46,7 @@ export function productMetadata(locale: Locale, product: {
     bsPath: productPath(product.slug, "bs"),
     enPath: productPath(product.slug, "en"),
     title: product.name[locale],
-    description: `${product.name[locale]} (${product.sizes}) — ${product.description[locale]}`,
+    description: `${product.name[locale]} (${product.sizes}): ${product.description[locale]}`,
     images: [product.image],
   });
 }
@@ -57,14 +57,14 @@ export function rootMetadata(locale: Locale): Metadata {
   const description = siteMeta.description[locale].replace("{count}", String(exportCountries.length));
   return {
     metadataBase: new URL(SITE_URL),
-    title: { default: title, template: "%s — Voćar" },
+    title: { default: title, template: "%s - Voćar" },
     description,
     keywords: [...siteMeta.keywords[locale]],
     authors: [{ name: "Voćar d.o.o. Brčko" }],
     openGraph: {
       type: "website",
       locale: locale === "en" ? "en_US" : "bs_BA",
-      siteName: "Voćar",
+      siteName: "Voćar Brčko",
       title,
       description,
       url: locale === "en" ? `${SITE_URL}/en` : SITE_URL,
