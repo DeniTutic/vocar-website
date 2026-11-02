@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import nodemailer from "nodemailer";
 import { categories } from "@/data/categories";
-import { salesEmail } from "@/data/content";
+import { contactCopyEmail, salesEmail } from "@/data/content";
 
 /**
  * Contact + quote endpoint. Sends over SMTP through Voćar's own mail server,
@@ -10,7 +10,8 @@ import { salesEmail } from "@/data/content";
  *   SMTP_USER  the mailbox it sends from, e.g. "info@vocar.ba"
  *   SMTP_PASS  that mailbox's password
  *   SMTP_PORT  optional, defaults to 465 (TLS from the start)
- * Bosnian-site messages go to salesEmail.bs, English-site ones to salesEmail.en.
+ * Bosnian-site messages go to salesEmail.bs, English-site ones to salesEmail.en,
+ * and every message also to contactCopyEmail.
  * Until the vars exist the route answers 503 and the form falls back to mailto:.
  */
 
@@ -180,7 +181,7 @@ export async function POST(req: Request) {
     .map(([k, v]) => `<tr><td style="padding:2px 12px 2px 0;color:#625a4d">${k}</td><td>${escapeHtml(v)}</td></tr>`)
     .join("")}</table><p style="font:14px/1.6 -apple-system,Segoe UI,sans-serif;white-space:pre-wrap">${escapeHtml(message)}</p>`;
 
-  const to = raw.locale === "en" ? salesEmail.en : salesEmail.bs;
+  const to = [raw.locale === "en" ? salesEmail.en : salesEmail.bs, contactCopyEmail];
   const port = Number(process.env.SMTP_PORT) || 465;
   // One message per request on a serverless function, so no pooling. Short
   // timeouts keep a stuck mail server from holding the visitor's request.
