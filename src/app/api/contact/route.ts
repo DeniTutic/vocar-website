@@ -29,6 +29,12 @@ const MAX_BODY_BYTES = 16_000;
 // the hourly cap bounds what one instance can send if IPs rotate. A Vercel
 // Firewall rate-limit rule on /api/contact is the cross-instance backstop.
 const WINDOW_MS = 30_000;
+// Two quick sends can land on different instances, so a successful send also
+// leaves a short-lived cookie that every instance checks. A real browser gets
+// the 30 s wait wherever the request runs; a script can drop it, which the
+// per-IP and hourly limits above still cover.
+const SENT_COOKIE = "vocar_contact_sent";
+const SENT_COOKIE_RE = new RegExp(`(?:^|;\\s*)${SENT_COOKIE}=`);
 const lastHit = new Map<string, number>();
 const HOUR_MS = 3_600_000;
 const MAX_PER_HOUR = 30;
@@ -90,6 +96,9 @@ export async function POST(req: Request) {
   // A JSON content type can't be sent cross-site without a CORS preflight.
   if (!req.headers.get("content-type")?.toLowerCase().startsWith("application/json")) {
     return NextResponse.json({ ok: false, reason: "bad_json" }, { status: 415 });
+  }
+  if (SENT_COOKIE_RE.test(req.headers.get("cookie") ?? "")) {
+    return NextResponse.json({ ok: false, reason: "rate_limited" }, { status: 429 });
   }
 
   const host = process.env.SMTP_HOST;
@@ -202,5 +211,13 @@ export async function POST(req: Request) {
     console.error("contact: SMTP send failed:", err instanceof Error ? err.message : err);
     return NextResponse.json({ ok: false, reason: "send_failed" }, { status: 502 });
   }
-  return NextResponse.json({ ok: true });
+  const res = NextResponse.json({ ok: true });
+  res.cookies.set(SENT_COOKIE, "1", {
+    maxAge: WINDOW_MS / 1000,
+    path: "/api/contact",
+    httpOnly: true,
+    secure: process.env.NODE_ENV === "production",
+    sameSite: "strict",
+  });
+  return res;
 }
