@@ -11,7 +11,8 @@ import { contactCopyEmail, salesEmail } from "@/data/content";
  *   SMTP_PASS  that mailbox's password
  *   SMTP_PORT  optional, defaults to 465 (TLS from the start)
  * Bosnian-site messages go to salesEmail.bs, English-site ones to salesEmail.en,
- * and every message also to contactCopyEmail.
+ * and every message also to contactCopyEmail as a blind copy, so the inbox
+ * doesn't show it.
  * Until the vars exist the route answers 503 and the form falls back to mailto:.
  */
 
@@ -190,7 +191,7 @@ export async function POST(req: Request) {
     .map(([k, v]) => `<tr><td style="padding:2px 12px 2px 0;color:#625a4d">${k}</td><td>${escapeHtml(v)}</td></tr>`)
     .join("")}</table><p style="font:14px/1.6 -apple-system,Segoe UI,sans-serif;white-space:pre-wrap">${escapeHtml(message)}</p>`;
 
-  const to = [raw.locale === "en" ? salesEmail.en : salesEmail.bs, contactCopyEmail];
+  const to = raw.locale === "en" ? salesEmail.en : salesEmail.bs;
   const port = Number(process.env.SMTP_PORT) || 465;
   // One message per request on a serverless function, so no pooling. Short
   // timeouts keep a stuck mail server from holding the visitor's request.
@@ -206,7 +207,7 @@ export async function POST(req: Request) {
 
   sentThisHour++;
   try {
-    await transport.sendMail({ from: { name: "Voćar web", address: user }, to, replyTo: email, subject, text, html });
+    await transport.sendMail({ from: { name: "Voćar web", address: user }, to, bcc: contactCopyEmail, replyTo: email, subject, text, html });
   } catch (err) {
     console.error("contact: SMTP send failed:", err instanceof Error ? err.message : err);
     return NextResponse.json({ ok: false, reason: "send_failed" }, { status: 502 });

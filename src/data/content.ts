@@ -13,7 +13,7 @@ export const SITE_URL = "https://vocar.ba";
 /** Orders and trade inbox — the Bosnian site shows prodaja@, the English one sales@. */
 export const salesEmail: Localized = { bs: "prodaja@vocar.ba", en: "sales@vocar.ba" };
 
-/** Gets every contact-form message too, from either language (owner's request, November 2026). */
+/** Gets a blind copy of every contact-form message, from either language (owner's request, November 2026). */
 export const contactCopyEmail = "esed@vocar.ba";
 
 /** Titles/descriptions for <head>, per locale. Pages read these via lib/metadata. */

@@ -211,7 +211,7 @@ export function ContactForm() {
       ? `Firma: ${company}\nTržište: ${market || "—"}\nKoličina: ${volume || "—"}\nProizvodi: ${familyNames || "—"}\nUzorak: ${sample ? "da" : "ne"}\n`
       : "";
     const body = encodeURIComponent(`Ime: ${name}\nEmail: ${email}\nTelefon: ${phone || "—"}\n${tradeLines}\n${message}`);
-    window.location.href = `mailto:${t(salesEmail)}?cc=${contactCopyEmail}&subject=${subject}&body=${body}`;
+    window.location.href = `mailto:${t(salesEmail)}?bcc=${contactCopyEmail}&subject=${subject}&body=${body}`;
     setStatus("mailto");
   }
 
